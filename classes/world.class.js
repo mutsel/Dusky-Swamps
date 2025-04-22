@@ -1,6 +1,13 @@
 class World {
     character = new Character();
     healthBar = new HealthBar();
+    attackBar = new AttackBar();
+    gemsBar = new GemsBar();
+    // icon = {
+    //     x:100, y:100, width:100, height:100, img:'img/GUI/Gems.png'
+    // }
+    // gemsIcon = new Image(this.x= 100, this.y=100, this.width= 100, this.height=100, this.img = 'img/GUI/Gems.png');
+    // this.gemsIcon.src = 'img/GUI/Gems.png';
     level = level1;
     canvas;
     ctx;
@@ -14,6 +21,9 @@ class World {
         this.setWorld();
         this.draw();
         this.checkCollisions();
+        // console.log(this.gemsBar);
+        // console.log(this.icon);
+        // console.log(this.ctx); 
     }
 
     setWorld() {
@@ -28,11 +38,15 @@ class World {
         this.addObjectsToMap(this.level.sky);
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.gems);
         this.addToMap(this.character);
 
         this.ctx.translate(-this.cameraX, 0);
         // Space for fixed objects
         this.addToMap(this.healthBar);
+        this.addToMap(this.attackBar);
+        this.addToMap(this.gemsBar);
+
         this.ctx.translate(this.cameraX, 0);
 
         this.addObjectsToMap(this.level.foregroundObjects);
@@ -80,10 +94,16 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach((e) => {
                 if (this.character.isColliding(e)) {
-                    this.character.hit()
-                    this.healthBar.setPercentage(this.character.energy)
+                    this.character.hit();
+                    this.healthBar.setPercentage(this.character.energy);
+                }
+            });
+            this.level.gems.forEach((g) => {
+                if (this.character.isColliding(g)) {
+                    this.level.gems.splice(this.level.gems.indexOf(g), 1);
+                    this.gemsBar.setPercentage((this.level.gems.length)/4*100);
                 }
             })
-        }, 200);
+        }, 100);
     }
 }

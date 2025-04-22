@@ -101,18 +101,14 @@ class Character extends MovableObject {
             this.world.cameraX = -this.x + 100;
         }, 1000 / 60);
 
-        //animations (fall, run, idle)
+        // animations(fall, run, idle)
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-                this.break;
             }
-
-            // else if (this.isColliding(this.world)) {
-            //     console.log("hit")
-            //     this.playAnimation(this.IMAGES_HIT);
-            // } 
-
+            else if (this.isHit()) {
+                this.playAnimation(this.IMAGES_HIT);
+            }
             else if (this.isAboveGround()) {
                 if (this.speedY > 0) {
                     this.playAnimation(this.IMAGES_JUMP);
@@ -128,5 +124,17 @@ class Character extends MovableObject {
                 this.playAnimation(this.IMAGES_IDLE);
             }
         }, 1000 / 10);
+
+        // let oneTimeAnimation = setInterval(() => {
+        //     if (this.isDead()) {
+        //         this.playAnimation(this.IMAGES_DEAD);
+        //     } else if (this.isHit()) {
+        //         this.playAnimation(this.IMAGES_HIT);
+        //     }
+        // }, 1000 / 10);
+
+        // setTimeout(() => {
+        //     clearInterval(oneTimeAnimation);
+        // }, 2000);
     }
 }
