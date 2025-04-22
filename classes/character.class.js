@@ -96,7 +96,7 @@ class Character extends MovableObject {
                 this.otherDirection = false;
             }
             if (this.world.keyboard.UP && !this.isAboveGround()) {
-                this.speedY = 12;
+                this.speedY = 10;
             }
             this.world.cameraX = -this.x + 100;
         }, 1000 / 60);
@@ -106,7 +106,7 @@ class Character extends MovableObject {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
             }
-            else if (this.isHit()) {
+            else if (this.isHurt) {
                 this.playAnimation(this.IMAGES_HIT);
             }
             else if (this.isAboveGround()) {

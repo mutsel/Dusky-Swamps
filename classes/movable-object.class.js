@@ -7,6 +7,7 @@ class MovableObject extends DrawableObject {
         left: 0 
     };
     otherDirection = false;
+    isHurt = false;
     speedY = 0;
     acceleration = 0.5;
     energy = 100;
@@ -51,14 +52,16 @@ class MovableObject extends DrawableObject {
     }
 
     hit() {
-        this.energy -= 25;
+        if (this.isHurt == false) {
+                    this.energy -= 25;
         if (this.energy <= 0) {
             this.energy = 0;
         }
-    }
-
-    isHit() {
-        return this.energy < 100;
+        this.isHurt = true;
+        setTimeout(() => {
+            this.isHurt = false;
+        }, 1500);
+        }
     }
 
     isDead() {

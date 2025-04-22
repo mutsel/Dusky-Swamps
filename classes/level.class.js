@@ -5,7 +5,6 @@ class Level {
     gems = [];
     foregroundObjects = [];
     levelEndX = 710 * 2 + 100;
-    world;
 
     constructor(enemies, sky, backgroundObjects, gems, foregroundObjects) {
         this.enemies = enemies;
@@ -18,14 +17,13 @@ class Level {
     }
 
     animate(objects) {
-        console.log(this.world)
         setInterval(() => {
             objects.forEach((o) => {
                 if (o.category !== "ground") {
-                    if (this.world.keyboard.LEFT && this.world.character.x > 0) {
+                    if (keyboard.LEFT && this.world.character.x > 0) {
                         o.moveRight();
                     }
-                    if (this.world.keyboard.RIGHT && this.world.character.x < this.levelEndX) {
+                    if (keyboard.RIGHT && this.world.character.x < this.levelEndX) {
                         o.moveLeft();
                     }
                 }

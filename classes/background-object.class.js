@@ -20,7 +20,7 @@ class BackgroundObject extends MovableObject {
             case "water":
                 this.width = 720;
                 this.height = 480;
-                this.speed = 0.8;
+                this.speed = 1;
                 return this.water;
             case "trees":
                 this.width = 720;

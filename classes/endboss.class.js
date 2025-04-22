@@ -4,17 +4,17 @@ class Endboss extends MovableObject {
     y = 385-this.height;
     
     IMAGES_IDLE = [
-        'img/enemies/canonball/Idle/Idle_01.png',
-        'img/enemies/canonball/Idle/Idle_02.png',
-        'img/enemies/canonball/Idle/Idle_03.png',
-        'img/enemies/canonball/Idle/Idle_04.png',
-        'img/enemies/canonball/Idle/Idle_05.png',
-        'img/enemies/canonball/Idle/Idle_06.png',
-        'img/enemies/canonball/Idle/Idle_07.png',
-        'img/enemies/canonball/Idle/Idle_08.png',
-        'img/enemies/canonball/Idle/Idle_09.png',
-        'img/enemies/canonball/Idle/Idle_10.png',
-        'img/enemies/canonball/Idle/Idle_11.png',
+        'img/enemies/endboss/Idle/Idle_01.png',
+        'img/enemies/endboss/Idle/Idle_02.png',
+        'img/enemies/endboss/Idle/Idle_03.png',
+        'img/enemies/endboss/Idle/Idle_04.png',
+        'img/enemies/endboss/Idle/Idle_05.png',
+        'img/enemies/endboss/Idle/Idle_06.png',
+        'img/enemies/endboss/Idle/Idle_07.png',
+        'img/enemies/endboss/Idle/Idle_08.png',
+        'img/enemies/endboss/Idle/Idle_09.png',
+        'img/enemies/endboss/Idle/Idle_10.png',
+        'img/enemies/endboss/Idle/Idle_11.png',
     ];
 
     constructor() {
