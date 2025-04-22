@@ -4,7 +4,7 @@ class MovableObject extends DrawableObject {
         top: 0,
         right: 0,
         bottom: 0,
-        left: 0
+        left: 0 
     };
     otherDirection = false;
     speedY = 0;

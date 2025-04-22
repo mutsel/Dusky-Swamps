@@ -2,7 +2,7 @@ class Character extends MovableObject {
     y = 200;
     width = 30;
     height = 40;
-    speed = 8;
+    speed = 5;
 
     IMAGES_FALL = [
         'img/character/Fall.png'
