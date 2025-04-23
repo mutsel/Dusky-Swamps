@@ -18,12 +18,12 @@ class BackgroundObject extends MovableObject {
     adjustToCategory(category) {
         switch (category) {
             case "water":
-                this.width = 720;
+                this.width = 721;
                 this.height = 480;
                 this.speed = 1;
                 return this.water;
             case "trees":
-                this.width = 720;
+                this.width = 721;
                 this.height = 480;
                 this.speed = 0.4;
                 return this.trees;

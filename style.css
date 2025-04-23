@@ -1,9 +1,40 @@
+@font-face {
+    font-family: 'tiny5';
+    src: url('/fonts/Tiny5-Regular.ttf') format('truetype');
+} 
+
 body {
+    height: 100vh;
+    margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-image: url('img/1.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: tiny5;
+    font-size: 32px;
+    letter-spacing: 6px;
 }
 
 canvas {
     background-color: black;
+    display: block;
+}
+
+@media only screen and (max-width: 720px) {
+    canvas {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+    canvas {
+        height: 100vh;
+    }    
+    
+    h1 {
+        display: none;
+    }
 }

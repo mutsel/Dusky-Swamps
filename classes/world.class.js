@@ -10,7 +10,10 @@ class World {
         new PassiveEntity(250),
         new PassiveEntity(1100),
         new PassiveEntity(1100),
-        new PassiveEntity(1100)
+        new PassiveEntity(1100),
+        new PassiveEntity(2000),
+        new PassiveEntity(2000),
+        new PassiveEntity(2000)
     ];
     level = level1;
     canvas;
@@ -130,7 +133,7 @@ class World {
             this.passiveEntities.push(new PassiveEntity(2000));
             this.passiveEntities.push(new PassiveEntity(2000));
             this.passiveEntities.push(new PassiveEntity(2000))
-        }, 15000);
+        }, 20000);
         setInterval(() => {
             this.level.sky.push(new Sky(2160));
         }, 230000);
