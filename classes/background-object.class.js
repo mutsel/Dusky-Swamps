@@ -3,8 +3,8 @@ class BackgroundObject extends MovableObject {
     height;
     speed;
     category;
-    water = 'img/scenery/swamp_water.png';
-    trees = 'img/scenery/swamp_trees_1.png';
+    water = 'img/scenery/Swamp_Water.png';
+    trees = 'img/scenery/Swamp_Trees.png';
     ground = 'img/scenery/Ground.png';
 
     constructor(category, x, y) {

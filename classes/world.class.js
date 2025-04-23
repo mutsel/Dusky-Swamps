@@ -3,11 +3,15 @@ class World {
     healthBar = new HealthBar();
     attackBar = new AttackBar();
     gemsBar = new GemsBar();
-    // icon = {
-    //     x:100, y:100, width:100, height:100, img:'img/GUI/Gems.png'
-    // }
-    // gemsIcon = new Image(this.x= 100, this.y=100, this.width= 100, this.height=100, this.img = 'img/GUI/Gems.png');
-    // this.gemsIcon.src = 'img/GUI/Gems.png';
+    magicAttacks = [];
+    passiveEntities = [
+        new PassiveEntity(250),
+        new PassiveEntity(250),
+        new PassiveEntity(250),
+        new PassiveEntity(1100),
+        new PassiveEntity(1100),
+        new PassiveEntity(1100)
+    ];
     level = level1;
     canvas;
     ctx;
@@ -20,10 +24,7 @@ class World {
         this.keyboard = keyboard;
         this.setWorld();
         this.draw();
-        this.checkCollisions();
-        // console.log(this.gemsBar);
-        // console.log(this.icon);
-        // console.log(this.ctx); 
+        this.run();
     }
 
     setWorld() {
@@ -38,9 +39,12 @@ class World {
 
         this.addObjectsToMap(this.level.sky);
         this.addObjectsToMap(this.level.backgroundObjects);
+        this.addObjectsToMap(this.passiveEntities);
+        this.addObjectsToMap(this.level.decoration);
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.gems);
+        this.addObjectsToMap(this.level.collectableObjects);
         this.addToMap(this.character);
+        this.addObjectsToMap(this.magicAttacks);
 
         this.ctx.translate(-this.cameraX, 0);
         // Space for fixed objects
@@ -91,20 +95,44 @@ class World {
         this.ctx.restore();
     }
 
-    checkCollisions() {
+    run() {
         setInterval(() => {
-            this.level.enemies.forEach((e) => {
-                if (this.character.isColliding(e)) {
-                    this.character.hit();
-                    this.healthBar.setPercentage(this.character.energy);
-                }
-            });
-            this.level.gems.forEach((g) => {
-                if (this.character.isColliding(g)) {
-                    this.level.gems.splice(this.level.gems.indexOf(g), 1);
-                    this.gemsBar.setPercentage((this.level.gems.length)/4*100);
-                }
-            })
+            this.checkCollisions();
+            this.checkMagicAttack();
         }, 100);
+        this.respawnScenery();
+    }
+
+    //for enemies and gems
+    checkCollisions() {
+        this.level.enemies.forEach((e) => {
+            if (this.character.isColliding(e)) {
+                this.character.hit();
+                this.healthBar.setPercentage(this.character.energy);
+            }
+        });
+        this.level.collectableObjects.forEach((g) => {
+            if (this.character.isColliding(g)) {
+                this.level.collectableObjects.splice(this.level.collectableObjects.indexOf(g), 1);
+                this.gemsBar.setPercentage((this.level.collectableObjects.length) / 4 * 100);
+            }
+        })
+    }
+
+    checkMagicAttack() {
+        if (this.keyboard.SPACE) {
+            this.magicAttacks.push(new shootableObject(this.character.x, this.character.y));
+        }
+    }
+
+    respawnScenery() {
+        setInterval(() => {
+            this.passiveEntities.push(new PassiveEntity(2000));
+            this.passiveEntities.push(new PassiveEntity(2000));
+            this.passiveEntities.push(new PassiveEntity(2000))
+        }, 15000);
+        setInterval(() => {
+            this.level.sky.push(new Sky(2160));
+        }, 230000);
     }
 }

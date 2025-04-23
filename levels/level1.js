@@ -71,10 +71,28 @@ const level1 = new Level(
         new BackgroundObject("ground", 2176, 380),
     ],
     [
-        new Gem(280, 350),
-        new Gem(420, 230),
-        new Gem(800, 350),
-        new Gem(1000, 350)
+        new Decoration("img/scenery/decoration/Dead_Tree_03.png", 250, 300, -80),
+        new Decoration("img/scenery/decoration/Bush_01.png", 100, 50, -60),
+        new Decoration("img/scenery/decoration/Sign.png", 40, 40, 120),
+        new Decoration("img/scenery/decoration/Grass_02.png", 25, 25, 200),
+        new Decoration("img/scenery/decoration/Stump_01.png", 120, 60, 500),
+        new Decoration("img/scenery/decoration/Tree_01.png", 250, 300, 560),
+        new Decoration("img/scenery/decoration/Bush_02.png", 90, 40, 600),
+        new Decoration("img/scenery/decoration/Grass_04.png", 25, 25, 900),
+        new Decoration("img/scenery/decoration/Dead_Tree_01.png", 150, 200, 900),
+        new Decoration("img/scenery/decoration/Tree_02.png", 280, 320, 1050),
+        new Decoration("img/scenery/decoration/Stump_02.png", 80, 50, 1200),
+        new Decoration("img/scenery/decoration/Grass_01.png", 25, 25, 1300),
+        new Decoration("img/scenery/decoration/Tree_03.png", 320, 380, 1400),
+        new Decoration("img/scenery/decoration/Bush_03.png", 100, 50, 1700),
+        new Decoration("img/scenery/decoration/Dead_Tree_02.png", 200, 250, 1800),
+        new Decoration("img/scenery/decoration/Grass_03.png", 25, 25, 1950),
+    ],
+    [
+        new CollactableObject(280, 350),
+        new CollactableObject(420, 230),
+        new CollactableObject(800, 350),
+        new CollactableObject(1000, 350)
     ],
     [
         new ForegroundObject(-720),

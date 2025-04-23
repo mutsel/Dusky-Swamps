@@ -4,7 +4,7 @@ class MovableObject extends DrawableObject {
         top: 0,
         right: 0,
         bottom: 0,
-        left: 0 
+        left: 0
     };
     otherDirection = false;
     isHurt = false;
@@ -12,11 +12,11 @@ class MovableObject extends DrawableObject {
     acceleration = 0.5;
     energy = 100;
 
-    constructor () {
+    constructor() {
         super();
     }
 
-    applyGravity() { 
+    applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
@@ -53,14 +53,14 @@ class MovableObject extends DrawableObject {
 
     hit() {
         if (this.isHurt == false) {
-                    this.energy -= 25;
-        if (this.energy <= 0) {
-            this.energy = 0;
-        }
-        this.isHurt = true;
-        setTimeout(() => {
-            this.isHurt = false;
-        }, 1500);
+            this.energy -= 25;
+            if (this.energy <= 0) {
+                this.energy = 0;
+            }
+            this.isHurt = true;
+            setTimeout(() => {
+                this.isHurt = false;
+            }, 1000);
         }
     }
 

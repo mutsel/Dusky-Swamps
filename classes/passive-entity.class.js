@@ -1,0 +1,34 @@
+class PassiveEntity extends MovableObject {
+    width = 40;
+    height = 20;
+
+    IMAGES_CROW = [
+        'img/scenery/passive-entities/Crow_01.png',
+        'img/scenery/passive-entities/Crow_02.png',
+        'img/scenery/passive-entities/Crow_03.png',
+        'img/scenery/passive-entities/Crow_04.png',
+        'img/scenery/passive-entities/Crow_05.png',
+        'img/scenery/passive-entities/Crow_06.png',
+    ];
+
+    constructor(x) {
+        super().loadImage(this.IMAGES_CROW[0]);
+        this.loadImages(this.IMAGES_CROW);
+
+        this.x = x + Math.random() * 300;
+        this.y = 50 + Math.random() * 200;
+        this.speed = 0.8;
+
+        this.animate();
+    }
+
+    animate() {
+        setInterval(() => {
+            this.moveLeft();
+            this.otherDirection = true;
+        }, 1000 / 30)
+        setInterval(() => {
+            this.playAnimation(this.IMAGES_CROW);
+        }, 1000 / 8)
+    }
+}
