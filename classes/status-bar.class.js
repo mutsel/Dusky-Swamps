@@ -3,12 +3,6 @@ class StatusBar extends DrawableObject {
     height = 20;
     percentage = 100;
 
-    // ICONS = [
-    //     'img/GUI/Health.png',
-    //     'img/GUI/Attack.png',
-    //     'img/GUI/Gems.png',
-    // ]
-
     constructor() {
         super();
         // this.loadImages(this.ICONS);
@@ -18,7 +12,7 @@ class StatusBar extends DrawableObject {
         this.percentage = percentage;
         let path = this.IMAGES[this.resolveImageCache()]
         this.img = this.imageCache[path];
-    }
+    } 
 
     resolveImageCache() {
         if (this.percentage == 100) {

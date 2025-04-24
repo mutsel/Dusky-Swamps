@@ -61,13 +61,13 @@ class Character extends MovableObject {
         'img/character/Dead/Disappearing_05.png',
         'img/character/Dead/Disappearing_06.png',
         'img/character/Dead/Disappearing_07.png',
-        'img/character/Dead/Appearing_01.png',
-        'img/character/Dead/Appearing_02.png',
-        'img/character/Dead/Appearing_03.png',
-        'img/character/Dead/Appearing_04.png',
-        'img/character/Dead/Appearing_05.png',
-        'img/character/Dead/Appearing_06.png',
-        'img/character/Dead/Appearing_07.png',
+        // 'img/character/Dead/Appearing_01.png',
+        // 'img/character/Dead/Appearing_02.png',
+        // 'img/character/Dead/Appearing_03.png',
+        // 'img/character/Dead/Appearing_04.png',
+        // 'img/character/Dead/Appearing_05.png',
+        // 'img/character/Dead/Appearing_06.png',
+        // 'img/character/Dead/Appearing_07.png',
     ];
     world;
 
@@ -106,11 +106,14 @@ class Character extends MovableObject {
         }, 1000 / 60);
 
         // animations(dead, hurt, jump, fall, run, attack, idle)
+        let i = 0;
         setInterval(() => {
-            if (this.isDead()) {
+            if (this.isDead() && i < 6) {
                 this.playAnimation(this.IMAGES_DEAD);
-            }
-            else if (this.isHurt) {
+                i++
+            } else if (this.isDead()) {
+                i++
+            } else if (this.isHurt && this.energy > 0) {
                 this.playAnimation(this.IMAGES_HIT);
             }
             else if (this.isAboveGround()) {

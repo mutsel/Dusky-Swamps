@@ -8,7 +8,7 @@ class Cactus extends MovableObject {
         'img/enemies/cactus/Run/Run_02.png',
         'img/enemies/cactus/Run/Run_03.png',
         'img/enemies/cactus/Run/Run_04.png',
-        'img/enemies/cactus/Run/Run_05.png',
+        'img/enemies/cactus/Run/Run_05.png', 
         'img/enemies/cactus/Run/Run_06.png',
         'img/enemies/cactus/Run/Run_07.png',
         'img/enemies/cactus/Run/Run_08.png',

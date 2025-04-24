@@ -3,7 +3,7 @@ class World {
     healthBar = new HealthBar();
     attackBar = new AttackBar();
     gemsBar = new GemsBar();
-    magicAttacks = [];
+    availableMagicAttacks = [];
     canonballAttacks = [];
     passiveEntities = [
         new PassiveEntity(250),
@@ -38,7 +38,7 @@ class World {
     setWorld() {
         this.character.world = this;
         this.level.world = this;
-        this.level.enemies[this.level.enemies.length -1].world = this;
+        this.level.enemies[this.level.enemies.length - 1].world = this;
     }
 
     draw() {
@@ -51,9 +51,10 @@ class World {
         this.addObjectsToMap(this.passiveEntities);
         this.addObjectsToMap(this.level.decoration);
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.collectableObjects);
+        this.addObjectsToMap(this.level.gems);
+        this.addObjectsToMap(this.level.magicStones);
         this.addToMap(this.character);
-        this.addObjectsToMap(this.magicAttacks);
+        this.addObjectsToMap(this.availableMagicAttacks);
         this.addObjectsToMap(this.canonballAttacks);
 
         this.ctx.translate(-this.cameraX, 0);
@@ -108,7 +109,7 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisions();
-            this.checkMagicAttack();
+            this.checkShootableObjects();
         }, 100);
         this.respawnScenery();
     }
@@ -121,17 +122,30 @@ class World {
                 this.healthBar.setPercentage(this.character.energy);
             }
         });
-        this.level.collectableObjects.forEach((g) => {
+
+        this.level.gems.forEach((g) => {
             if (this.character.isColliding(g)) {
-                this.level.collectableObjects.splice(this.level.collectableObjects.indexOf(g), 1);
-                this.gemsBar.setPercentage((this.level.collectableObjects.length) / 4 * 100);
+                let i = this.level.gems.indexOf(g);
+                this.level.gems.splice(i, 1);
+                this.gemsBar.setPercentage(this.level.gems.length * 25);
+            }
+        })
+
+        this.level.magicStones.forEach((m) => {
+            if (this.character.isColliding(m) && this.availableMagicAttacks.length !== 0) {
+                let i = this.level.magicStones.indexOf(m);
+                this.level.magicStones.splice(i, 1);
+                this.availableMagicAttacks.splice(0, 1);
+                this.attackBar.setPercentage(this.availableMagicAttacks.length / 4 * 100);
+
             }
         })
     }
 
-    checkMagicAttack() {
-        if (this.keyboard.ATTACK) {
-            this.magicAttacks.push(new MagicAttack(this.character.x, this.character.y));
+    checkShootableObjects() {
+        if (this.keyboard.ATTACK && this.availableMagicAttacks.length < 4) {
+            this.availableMagicAttacks.push(new MagicAttack(this.character.x, this.character.y));
+            this.attackBar.setPercentage(this.availableMagicAttacks.length / 4 * 100);
         }
     }
 

@@ -1,14 +1,16 @@
 class ShootableObject extends MovableObject {
-    constructor(x, y) {
+    x;
+    y;
+    speed;
+
+    constructor(x, y, speed) {
         super();
-        this.x = x;
+        this.x = x; 
         this.y = y;
+        this.speed = speed;
     }
 
-    shoot(x, y) {
-        this.x = x;
-        this.y = y;
-        this.speed = 12; 
+    shoot() {
         setInterval(() => {
             this.x += 10;
         }, 1000 / 60);

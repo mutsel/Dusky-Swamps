@@ -1,4 +1,4 @@
-class CollactableObject extends MovableObject {
+class Gem extends MovableObject {
     width = 20;
     height = 25;
 
@@ -10,9 +10,9 @@ class CollactableObject extends MovableObject {
         'img/collectable-objects/gems/Gem_05.png',
         'img/collectable-objects/gems/Gem_06.png',
         'img/collectable-objects/gems/Gem_07.png',
-    ]
+    ];
 
-    constructor (x, y) {
+    constructor(x, y) {
         super().loadImage(this.IMAGES_GEMS[0]);
         this.loadImages(this.IMAGES_GEMS);
         this.x = x;

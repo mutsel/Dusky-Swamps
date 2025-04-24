@@ -10,12 +10,12 @@ class GemsBar extends StatusBar {
         'img/GUI/Gems_100.png',
     ];
 
-    icon = 'img/GUI/Gems.png';
+    // icon = 'img/GUI/Gems.png';
 
     constructor() {
         super();
         this.loadImages(this.IMAGES);
-        this.loadImage(this.icon);
+        // this.loadImage(this.icon);
         this.setPercentage(100);
     }
 }
