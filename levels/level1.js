@@ -13,7 +13,8 @@ let level1 = new Level(
             new Sky(0),
             new Sky(720),
             new Sky(1440),
-            new Sky(2160)
+            new Sky(2160),
+            new Sky(2880)
         ],
         [
             new BackgroundObject("trees", -720, -20),
@@ -30,6 +31,9 @@ let level1 = new Level(
 
             new BackgroundObject("trees", 2160, -20),
             new BackgroundObject("water", 2160, -20),
+
+            new BackgroundObject("trees", 2880, -20),
+            new BackgroundObject("water", 2880, -20),
 
             new BackgroundObject("ground", -448, 380),
             new BackgroundObject("ground", -384, 380),
@@ -73,6 +77,16 @@ let level1 = new Level(
             new BackgroundObject("ground", 2048, 380),
             new BackgroundObject("ground", 2112, 380),
             new BackgroundObject("ground", 2176, 380),
+            new BackgroundObject("ground", 2240, 380),
+            new BackgroundObject("ground", 2304, 380),
+            new BackgroundObject("ground", 2368, 380),
+            new BackgroundObject("ground", 2432, 380),
+            new BackgroundObject("ground", 2496, 380),
+            new BackgroundObject("ground", 2560, 380),
+            new BackgroundObject("ground", 2624, 380),
+            new BackgroundObject("ground", 2688, 380),
+            new BackgroundObject("ground", 2752, 380),
+            new BackgroundObject("ground", 2816, 380),
         ],
         [
             new Decoration("img/scenery/decoration/Dead_Tree_03.png", 250, 300, -80),
@@ -91,6 +105,8 @@ let level1 = new Level(
             new Decoration("img/scenery/decoration/Bush_03.png", 100, 50, 1700),
             new Decoration("img/scenery/decoration/Dead_Tree_02.png", 200, 250, 1800),
             new Decoration("img/scenery/decoration/Grass_03.png", 25, 25, 1950),
+            new Decoration("img/scenery/decoration/Stump_03.png", 220, 80, 2150),
+            new Decoration("img/scenery/decoration/Grass_05.png", 30, 30, 2250),
         ],
         [
             new CollactableObject(280, 350),
@@ -104,6 +120,7 @@ let level1 = new Level(
             new ForegroundObject(720),
             new ForegroundObject(1440),
             new ForegroundObject(2160),
-            new ForegroundObject(2880)
+            new ForegroundObject(2880),
+            new ForegroundObject(3600)
         ]);
  

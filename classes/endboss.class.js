@@ -2,6 +2,7 @@ class Endboss extends MovableObject {
     width = 80;
     height = 80;
     y = 0 - this.height;
+    speed = 6;
     IMAGES_IDLE = [
         'img/enemies/endboss/Idle/Idle_01.png',
         'img/enemies/endboss/Idle/Idle_02.png',
@@ -45,7 +46,7 @@ class Endboss extends MovableObject {
         'img/enemies/endboss/Hit/Hit_04.png',
         'img/enemies/endboss/Hit/Hit_05.png',
     ];
-    hadFirstContact = false;
+    world;
 
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);
@@ -53,14 +54,28 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_RUN);
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_HIT);
-        this.x = 400;
+        this.x = 2350;
         this.animate();
         this.applyGravity();
     }
 
     animate() {
+        let i = 0;
         setInterval(() => {
-            this.playAnimation(this.IMAGES_IDLE);
-        }, 1000 / 10);
+            if (i < 24) {
+                this.moveLeft();
+                this.playAnimation(this.IMAGES_RUN);
+            } else if (i < 31) {
+                this.playAnimation(this.IMAGES_ATTACK);
+            } else {
+                this.playAnimation(this.IMAGES_IDLE);
+            }
+            i++
+
+            if (this.world.character.x > 1620 && !this.world.firstBossContact) {
+                i = 0;
+                this.world.firstBossContact = true;
+            }
+        }, 1000 / 12);
     }
 }

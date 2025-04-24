@@ -87,17 +87,22 @@ class Character extends MovableObject {
     animate() {
         //decrease/increase x-coordinate
         setInterval(() => {
-            if (this.world.keyboard.LEFT && this.x > 0) {
-                this.moveLeft();
-                this.otherDirection = true;
-            } else if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEndX) {
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEndX) {
                 this.moveRight();
                 this.otherDirection = false;
+            } else if (this.world.keyboard.LEFT && ((!this.world.firstBossContact && this.x > 0) || (this.world.firstBossContact && this.x > 1540))) {
+                this.moveLeft();
+                this.otherDirection = true;
             }
+
             if (this.world.keyboard.UP && !this.isAboveGround()) {
                 this.speedY = 10;
             }
-            this.world.cameraX = -this.x + 100;   
+
+            if (!this.world.firstBossContact) {
+                this.world.cameraX = -this.x + 100;
+            }
+
         }, 1000 / 60);
 
         // animations(dead, hurt, jump, fall, run, attack, idle)
@@ -116,10 +121,10 @@ class Character extends MovableObject {
                 }
             } else if (this.world.keyboard.LEFT || this.world.keyboard.RIGHT) {
                 this.playAnimation(this.IMAGES_RUN);
-            } else if (this.world.keyboard.SPACE) {
+            } else if (this.world.keyboard.ATTACK) {
                 this.playAnimation(this.IMAGES_ATTACK);
             }
-            else if (!(this.world.keyboard.LEFT && this.world.keyboard.RIGHT && this.world.keyboard.UP && this.world.keyboard.DOWN && this.world.keyboard.SPACE)) {
+            else if (!(this.world.keyboard.LEFT && this.world.keyboard.RIGHT && this.world.keyboard.UP && this.world.keyboard.ATTACK)) {
                 this.playAnimation(this.IMAGES_IDLE);
             }
         }, 1000 / 10);

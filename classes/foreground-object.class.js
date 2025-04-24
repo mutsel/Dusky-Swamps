@@ -1,7 +1,7 @@
 class ForegroundObject extends MovableObject {
     width = 721;
-    height = 480;
-    y = 20;
+    height = 450;
+    y = 60;
     speed = 4;
 
     constructor(x) {

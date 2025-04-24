@@ -4,6 +4,7 @@ class World {
     attackBar = new AttackBar();
     gemsBar = new GemsBar();
     magicAttacks = [];
+    canonballAttacks = [];
     passiveEntities = [
         new PassiveEntity(250),
         new PassiveEntity(250),
@@ -13,13 +14,17 @@ class World {
         new PassiveEntity(1100),
         new PassiveEntity(2000),
         new PassiveEntity(2000),
-        new PassiveEntity(2000)
+        new PassiveEntity(2000),
+        new PassiveEntity(2800),
+        new PassiveEntity(2800),
+        new PassiveEntity(2800)
     ];
     level = level1;
     canvas;
     ctx;
     keyboard;
     cameraX = 0;
+    firstBossContact = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
@@ -33,6 +38,7 @@ class World {
     setWorld() {
         this.character.world = this;
         this.level.world = this;
+        this.level.enemies[this.level.enemies.length -1].world = this;
     }
 
     draw() {
@@ -48,6 +54,7 @@ class World {
         this.addObjectsToMap(this.level.collectableObjects);
         this.addToMap(this.character);
         this.addObjectsToMap(this.magicAttacks);
+        this.addObjectsToMap(this.canonballAttacks);
 
         this.ctx.translate(-this.cameraX, 0);
         // Space for fixed objects
@@ -123,19 +130,19 @@ class World {
     }
 
     checkMagicAttack() {
-        if (this.keyboard.SPACE) {
-            this.magicAttacks.push(new shootableObject(this.character.x, this.character.y));
+        if (this.keyboard.ATTACK) {
+            this.magicAttacks.push(new MagicAttack(this.character.x, this.character.y));
         }
     }
 
     respawnScenery() {
         setInterval(() => {
-            this.passiveEntities.push(new PassiveEntity(2000));
-            this.passiveEntities.push(new PassiveEntity(2000));
-            this.passiveEntities.push(new PassiveEntity(2000))
+            this.passiveEntities.push(new PassiveEntity(2800));
+            this.passiveEntities.push(new PassiveEntity(2800));
+            this.passiveEntities.push(new PassiveEntity(2800))
         }, 20000);
         setInterval(() => {
-            this.level.sky.push(new Sky(2160));
+            this.level.sky.push(new Sky(2880));
         }, 230000);
     }
 }

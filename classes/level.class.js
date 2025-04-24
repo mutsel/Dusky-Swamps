@@ -5,7 +5,7 @@ class Level {
     decoration = [];
     collectableObjects = [];
     foregroundObjects = [];
-    levelEndX = 710 * 2 + 100;
+    levelEndX = 710 * 3 + 100;
 
     constructor(enemies, sky, backgroundObjects, decoration, collectableObjects, foregroundObjects) {
         this.enemies = enemies;
@@ -22,10 +22,10 @@ class Level {
         setInterval(() => {
             objects.forEach((o) => {
                 if (o.category !== "ground") {
-                    if (keyboard.LEFT && this.world.character.x > 0) {
+                    if (keyboard.LEFT && this.world.character.x > 0  && !this.world.firstBossContact) {
                         o.moveRight();
                     }
-                    if (keyboard.RIGHT && this.world.character.x < this.levelEndX) {
+                    if (keyboard.RIGHT && !this.world.firstBossContact) {
                         o.moveLeft();
                     }
                 }

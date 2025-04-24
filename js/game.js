@@ -8,6 +8,7 @@ function init() {
 }
 
 window.addEventListener('keydown', (e) => {
+    // console.log(e.keyCode)
     switch (e.keyCode) {
         case 37:
         case 65: keyboard.LEFT = true;
@@ -18,7 +19,8 @@ window.addEventListener('keydown', (e) => {
         case 38:
         case 87: keyboard.UP = true;
             break;
-        case 32: keyboard.SPACE = true;
+        case 40:
+        case 32: keyboard.ATTACK = true;
             break;
     }
 });
@@ -34,7 +36,8 @@ window.addEventListener('keyup', (e) => {
         case 38:
         case 87: keyboard.UP = false;
             break;
-        case 32: keyboard.SPACE = false;
+        case 40:
+        case 32: keyboard.ATTACK = false;
             break;
     }
 }); 
