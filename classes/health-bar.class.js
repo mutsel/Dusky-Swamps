@@ -3,19 +3,19 @@ class HealthBar extends StatusBar {
     y = 20;
 
     IMAGES = [
-        'img/GUI/Health_100.png',
-        'img/GUI/Health_75.png',
-        'img/GUI/Health_50.png',
-        'img/GUI/Health_25.png',
-        'img/GUI/Health_0.png',
+        'img/GUI/statusbars/Health_100.png',
+        'img/GUI/statusbars/Health_75.png',
+        'img/GUI/statusbars/Health_50.png',
+        'img/GUI/statusbars/Health_25.png',
+        'img/GUI/statusbars/Health_0.png',
     ]
 
-    icon = 'img/GUI/Health.png';
+    // icon = 'img/GUI/Health.png';
 
     constructor() {
         super();
         this.loadImages(this.IMAGES);
-        this.loadImage(this.icon);
+        // this.loadImage(this.icon);
         this.setPercentage(100);
     }
 }

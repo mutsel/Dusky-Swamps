@@ -108,21 +108,31 @@ class World {
 
     run() {
         setInterval(() => {
-            this.checkCollisions();
+            this.checkCollisionsEnemies();
+            this.checkCollisionsCollectables();
             this.checkShootableObjects();
         }, 100);
         this.respawnScenery();
     }
 
-    //for enemies and gems
-    checkCollisions() {
+    checkCollisionsEnemies() {
         this.level.enemies.forEach((e) => {
-            if (this.character.isColliding(e)) {
+            if (this.character.isColliding(e)) { 
                 this.character.hit();
                 this.healthBar.setPercentage(this.character.energy);
             }
-        });
 
+            this.availableMagicAttacks.forEach((a) => {
+                if (e.isColliding(a)) {
+                    console.log(a)
+                    this.availableMagicAttacks.splice(this.availableMagicAttacks.indexOf(a), 1); 
+                    this.level.enemies.splice(this.level.enemies.indexOf(e), 1);  
+                } 
+            });
+        });
+    }
+
+    checkCollisionsCollectables() {
         this.level.gems.forEach((g) => {
             if (this.character.isColliding(g)) {
                 let i = this.level.gems.indexOf(g);
@@ -132,7 +142,7 @@ class World {
         })
 
         this.level.magicStones.forEach((m) => {
-            if (this.character.isColliding(m) && this.availableMagicAttacks.length !== 0) {
+            if (this.character.isColliding(m)) {
                 let i = this.level.magicStones.indexOf(m);
                 this.level.magicStones.splice(i, 1);
                 this.availableMagicAttacks.splice(0, 1);
@@ -146,6 +156,15 @@ class World {
         if (this.keyboard.ATTACK && this.availableMagicAttacks.length < 4) {
             this.availableMagicAttacks.push(new MagicAttack(this.character.x, this.character.y));
             this.attackBar.setPercentage(this.availableMagicAttacks.length / 4 * 100);
+            
+            // this.availableMagicAttacks.splice(0, -1)
+
+            // setTimeout(() => {
+            //     this.availableMagicAttacks.forEach((a) => {
+            //         let i = this.availableMagicAttacks.indexOf(a);
+            //         this.availableMagicAttacks.splice(i, -1)
+            //     })
+            // }, 1000);
         }
     }
 

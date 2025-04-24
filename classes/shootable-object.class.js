@@ -12,7 +12,7 @@ class ShootableObject extends MovableObject {
 
     shoot() {
         setInterval(() => {
-            this.x += 10;
+            this.x += this.speed;
         }, 1000 / 60);
         if (this instanceof MagicAttack) {
             this.animate();

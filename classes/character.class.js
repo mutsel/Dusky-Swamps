@@ -1,7 +1,7 @@
 class Character extends MovableObject {
     y = 200;
-    width = 30;
-    height = 40;
+    width = 35;
+    height = 50;
     speed = 5;
 
     IMAGES_FALL = [
