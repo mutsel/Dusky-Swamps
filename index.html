@@ -49,7 +49,7 @@
                 About the Game
             </button>
 
-            <button onclick="openSettings()" class="wooden-button">
+            <button onclick="openStartscreenSettings()" class="wooden-button">
                 Settings
             </button>
         </section>
@@ -116,8 +116,14 @@
     <canvas id="canvas" height="480px" width="720px" class="d-none"></canvas>
 
     <section id="gameOverlay" class="game-overlay d-none">
-        <button onclick="muteAudio()" id="muteBtn" class="mute low-opacity"></button>
-        <button class="settings"></button>
+        <div class="game-buttons">
+            <button onclick="muteAudio()" id="muteBtn" class="mute-btn low-opacity"></button>
+            <button onclick="openGameSettings()" class="settings-btn"></button>
+        </div>
+
+        <div id="gameSettings" class="game-settings d-none">
+
+        </div>
     </section>
 
     <section class="controls">

@@ -28,7 +28,7 @@ function openAbout() {
     document.getElementById("startscreenAbout").classList.toggle("d-none");
 }
 
-function openSettings() {
+function openStartscreenSettings() {
     document.getElementById("startscreenOverview").classList.toggle("d-none");
     document.getElementById("startscreenSettings").classList.toggle("d-none");
 }
@@ -76,4 +76,9 @@ function keyboardEventListener() {
 
 function muteAudio() {
     document.getElementById("muteBtn").classList.toggle("low-opacity");
+}
+
+function openGameSettings() {
+    document.getElementById("gameSettings").classList.toggle("d-none");
+    document.getElementById("gameOverlay").classList.toggle("dark-bg");
 }

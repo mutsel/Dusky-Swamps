@@ -152,29 +152,38 @@ canvas {
     height: 480px;
     padding: 16px;
     display: flex;
-    justify-content: end;
+    flex-direction: column;
     position: fixed;
     top: 140px;
     gap: 8px;
 
-    .mute {
-        width: 35px;
-        height: 35px;
-        background-image: url("./img/GUI/button_audio_mute.png");
-        background-size: cover;
-        background-repeat: no-repeat;
+    .game-buttons {
+        display: flex;
+        justify-content: end;
+        .mute-btn {
+            width: 35px;
+            height: 35px;
+            background-image: url("./img/GUI/button_audio_mute.png");
+        }
+
+        .settings-btn {
+            width: 35px;
+            height: 35px;
+            background-image: url("./img/GUI/button_settings.png");
+        }
+
+        button:hover {
+            transform: scale(1.2);
+        }
     }
 
-    .settings {
-        width: 35px;
-        height: 35px;
-        background-image: url("./img/GUI/button_settings.png");
+    .game-settings {
+        width: 407.5px;
+        height: 370px;
+        background-image: url("./img/GUI/menu.png");
         background-size: cover;
         background-repeat: no-repeat;
-    }
-
-    button:hover {
-        transform: scale(1.2);
+        align-self: center;
     }
 }
 
@@ -217,6 +226,10 @@ canvas {
 
 .low-opacity {
     filter: opacity(0.5);
+}
+
+.dark-bg {
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
 @media only screen and (max-width: 720px) {
