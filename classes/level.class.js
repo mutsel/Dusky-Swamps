@@ -3,16 +3,19 @@ class Level {
     sky = [];
     backgroundObjects = [];
     decoration = [];
+    plattforms = [];
     gems = [];
     magicStones = [];
     foregroundObjects = [];
     levelEndX = 710 * 3 + 100;
+    
 
-    constructor(enemies, sky, backgroundObjects, decoration, gems, magicStones, foregroundObjects) {
+    constructor(enemies, sky, backgroundObjects, decoration, plattforms, gems, magicStones, foregroundObjects) {
         this.enemies = enemies;
         this.sky = sky;
         this.backgroundObjects = backgroundObjects;
         this.decoration = decoration;
+        this.plattforms = plattforms;
         this.gems = gems;
         this.magicStones = magicStones;
         this.foregroundObjects = foregroundObjects;

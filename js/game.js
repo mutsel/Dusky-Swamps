@@ -1,10 +1,25 @@
 let canvas;
 let world;
-let keyboard = new Keyboard();
+let audioScenery = new Audio('audio/scenery.mp3');
+audioScenery.loop = true;
+let audioSteps = new Audio('audio/steps.mp3');
+audioSteps.volume = 0.4;
 
-function init() {
+function init() { }
+
+function startGame() {
+    initLevel();
+    keyboard = new Keyboard();
+    document.getElementById("startscreen").classList.toggle("d-none");
+    document.getElementById("canvas").classList.toggle("d-none");
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
+    audioScenery.play();
+}
+
+function openSettings() {
+    document.getElementById("startscreenOverview").classList.toggle("d-none");
+    document.getElementById("startscreenSettings").classList.toggle("d-none");
 }
 
 window.addEventListener('keydown', (e) => {
@@ -12,9 +27,11 @@ window.addEventListener('keydown', (e) => {
     switch (e.keyCode) {
         case 37:
         case 65: keyboard.LEFT = true;
+            audioSteps.play();
             break;
         case 39:
         case 68: keyboard.RIGHT = true;
+            audioSteps.play();
             break;
         case 38:
         case 87: keyboard.UP = true;
@@ -29,9 +46,11 @@ window.addEventListener('keyup', (e) => {
     switch (e.keyCode) {
         case 37:
         case 65: keyboard.LEFT = false;
+            audioSteps.pause();
             break;
         case 39:
         case 68: keyboard.RIGHT = false;
+            audioSteps.pause();
             break;
         case 38:
         case 87: keyboard.UP = false;
@@ -40,4 +59,5 @@ window.addEventListener('keyup', (e) => {
         case 32: keyboard.ATTACK = false;
             break;
     }
-}); 
+});
+

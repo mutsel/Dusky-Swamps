@@ -33,7 +33,7 @@ class DrawableObject {
     }
 
     drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Cactus || this instanceof Endboss) {
+        if (this instanceof Character || this instanceof Cactus || this instanceof Frog|| this instanceof Endboss) {
             ctx.beginPath();
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.lineWidth = '3';

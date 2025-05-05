@@ -1,6 +1,6 @@
 class Cactus extends MovableObject {
-    width = 30;
-    height = 35;
+    width = 35;
+    height = 40;
     y = 385-this.height;
 
     IMAGES_RUN = [

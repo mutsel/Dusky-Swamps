@@ -1,7 +1,7 @@
 @font-face {
     font-family: 'tiny5';
     src: url('/fonts/Tiny5-Regular.ttf') format('truetype');
-} 
+}
 
 body {
     height: 100vh;
@@ -14,26 +14,118 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     font-family: tiny5;
-    font-size: 32px;
+    cursor: default;
+}
+
+h1 {
+    font-size: 48px;
     letter-spacing: 6px;
+}
+
+button {
+    width: 120px;
+    height: 40px;
+    border: none;
+    background-color: transparent;
+    background-image: url("./img/GUI/button.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: tiny5;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+#startscreen {
+    width: 720px;
+    height: 480px;
+    position: relative;
+    top: 0;
+    background-image: url(./img/startscreen.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#startscreenOverview {
+    width: 100%;
+    height: 100%;
+    gap: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#startscreenSettings {}
+
+#characterIcon {
+    width: 35px;
+    height: 50px;
+    position: relative;
+    bottom: 20%;
+    left: -35%;
 }
 
 canvas {
     background-color: black;
     display: block;
+    position: relative;
+    top: 0;
+}
+
+.controls {
+    width: 100%;
+    max-width: 720px;
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 30px;
+
+    .controls-section {
+        display: flex;
+        align-items: center;
+
+        div {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        img {
+            width: fit-content;
+            height: 34px;
+        }
+
+        span {
+            padding-left: 12px;
+        }
+    }
+
+
+}
+
+.d-none {
+    display: none !important;
 }
 
 @media only screen and (max-width: 720px) {
+
+    #startscreen,
     canvas {
         width: 100%;
     }
 }
 
 @media only screen and (max-height: 480px) {
+
+    #startscreen,
     canvas {
         height: 100vh;
-    }    
-    
+    }
+
     h1 {
         display: none;
     }

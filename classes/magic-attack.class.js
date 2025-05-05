@@ -3,7 +3,7 @@ class MagicAttack extends ShootableObject {
     y;
     width = 50;
     height = 40;
-    speed = 12;
+    speed;
 
     IMAGES = [
         'img/shootable-objects/magic-attack/MagicAttack_01.png',
@@ -18,11 +18,15 @@ class MagicAttack extends ShootableObject {
         'img/shootable-objects/magic-attack/MagicAttack_10.png'
     ]
 
-    constructor(x, y) {
+    audio = new Audio('audio/magic_attack.mp3');
+
+    constructor(x, y, speed) {
         super().loadImage(this.IMAGES[0])
         this.loadImages(this.IMAGES);
+        this.audio.volume = 0.4;
         this.x = x;
         this.y = y + 10;
+        this.speed = speed;
         this.shoot();
     }
 }

@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" translate="no">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dusky Swamps</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/x-icon" href="img/favicon.png">
-    
+
     <script src="classes/world.class.js"></script>
     <script src="classes/keyboard.class.js"></script>
     <script src="classes/drawable-object.class.js"></script>
     <script src="classes/movable-object.class.js"></script>
     <script src="classes/background-object.class.js"></script>
-    <script src="classes/foreground-object.class.js"></script> 
+    <script src="classes/plattform.class.js"></script>
+    <script src="classes/foreground-object.class.js"></script>
     <script src="classes/passive-entity.class.js"></script>
     <script src="classes/status-bar.class.js"></script>
     <script src="classes/health-bar.class.js"></script>
@@ -27,16 +29,68 @@
     <script src="classes/decoration.class.js"></script>
     <script src="classes/character.class.js"></script>
     <script src="classes/cactus.class.js"></script>
+    <script src="classes/frog.class.js"></script>
     <script src="classes/endboss.class.js"></script>
     <script src="classes/level.class.js"></script>
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
 </head>
+
 <body onload="init()">
     <h1>Dusky Swamps</h1>
 
-    <canvas id="canvas" height="480px" width="720px">
+    <main id="startscreen">
+        <section id="startscreenOverview">
+            <button onclick="startGame()">
+                Start
+            </button>
 
-    </canvas>
+            <button onclick="openSettings()">
+                Settings
+            </button>
+        </section>
+
+        <section id="startscreenSettings" class="d-none">
+            <div>
+                audio
+            </div>
+        </section>
+
+        <img id="characterIcon" src="./img/startscreen_character.gif">
+    </main>
+
+    <canvas id="canvas" height="480px" width="720px" class="d-none"></canvas>
+
+    <section class="controls">
+        <div class="controls-section">
+            <div>
+                <img src="./img/GUI/button_left.png">
+                <img src="./img/GUI/button_d.png">
+            </div>
+            <span>Move Left</span>
+        </div>
+
+        <div class="controls-section">
+            <div>
+                <img src="./img/GUI/button_right.png">
+                <img src="./img/GUI/button_a.png">
+            </div>
+            <span>Move Right</span>
+        </div>
+
+        <div class="controls-section">
+            <div>
+                <img src="./img/GUI/button_up.png">
+                <img src="./img/GUI/button_w.png">
+            </div>
+            <span>Jump</span>
+        </div>
+
+        <div class="controls-section">
+            <img src="./img/GUI/button_space.png">
+            <span>Attack</span>
+        </div>
+    </section>
 </body>
+
 </html>

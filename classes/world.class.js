@@ -18,13 +18,17 @@ class World {
         new PassiveEntity(2800),
         new PassiveEntity(2800),
         new PassiveEntity(2800)
-    ];
+    ]; 
+
     level = level1;
     canvas;
     ctx;
     keyboard;
     cameraX = 0;
     firstBossContact = false;
+
+    gemAudio = new Audio('audio/gem.mp3');
+    magicStoneAudio = new Audio('audio/magic_stone.mp3');
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
@@ -50,6 +54,7 @@ class World {
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.passiveEntities);
         this.addObjectsToMap(this.level.decoration);
+        this.addObjectsToMap(this.level.plattforms);
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.gems);
         this.addObjectsToMap(this.level.magicStones);
@@ -117,27 +122,30 @@ class World {
 
     checkCollisionsEnemies() {
         this.level.enemies.forEach((e) => {
-            if (this.character.isColliding(e)) { 
+            if (this.character.isColliding(e)) {
                 this.character.hit();
                 this.healthBar.setPercentage(this.character.energy);
             }
 
+
             this.availableMagicAttacks.forEach((a) => {
                 if (e.isColliding(a)) {
                     console.log(a)
-                    this.availableMagicAttacks.splice(this.availableMagicAttacks.indexOf(a), 1); 
-                    this.level.enemies.splice(this.level.enemies.indexOf(e), 1);  
-                } 
+                    this.availableMagicAttacks.splice(this.availableMagicAttacks.indexOf(a), 1);
+                    this.level.enemies.splice(this.level.enemies.indexOf(e), 1);
+                }
             });
         });
     }
-
+ 
     checkCollisionsCollectables() {
         this.level.gems.forEach((g) => {
             if (this.character.isColliding(g)) {
                 let i = this.level.gems.indexOf(g);
                 this.level.gems.splice(i, 1);
                 this.gemsBar.setPercentage(this.level.gems.length * 25);
+                this.gemAudio.play();
+                this.gemAudio.volume = 0.5;
             }
         })
 
@@ -147,16 +155,20 @@ class World {
                 this.level.magicStones.splice(i, 1);
                 this.availableMagicAttacks.splice(0, 1);
                 this.attackBar.setPercentage(this.availableMagicAttacks.length / 4 * 100);
-
+                this.magicStoneAudio.play();
             }
         })
     }
 
     checkShootableObjects() {
         if (this.keyboard.ATTACK && this.availableMagicAttacks.length < 4) {
-            this.availableMagicAttacks.push(new MagicAttack(this.character.x, this.character.y));
+            if (this.character.otherDirection) {
+                this.availableMagicAttacks.push(new MagicAttack(this.character.x, this.character.y, 12));
+            } else {
+                this.availableMagicAttacks.push(new MagicAttack(this.character.x, this.character.y, -12));
+            }
             this.attackBar.setPercentage(this.availableMagicAttacks.length / 4 * 100);
-            
+
             // this.availableMagicAttacks.splice(0, -1)
 
             // setTimeout(() => {

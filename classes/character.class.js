@@ -2,7 +2,7 @@ class Character extends MovableObject {
     y = 200;
     width = 35;
     height = 50;
-    speed = 5;
+    speed = 4;
 
     IMAGES_FALL = [
         'img/character/Fall.png'
@@ -70,6 +70,7 @@ class Character extends MovableObject {
         // 'img/character/Dead/Appearing_07.png',
     ];
     world;
+    
 
     constructor() {
         super().loadImage("img/character/Fall.png");
@@ -96,7 +97,7 @@ class Character extends MovableObject {
             }
 
             if (this.world.keyboard.UP && !this.isAboveGround()) {
-                this.speedY = 10;
+                this.speedY = 12;
             }
 
             if (!this.world.firstBossContact) {
