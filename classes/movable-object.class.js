@@ -29,12 +29,12 @@ class MovableObject extends DrawableObject {
 
     isAboveGround() {
         //large plattform
-        if (this.x >= 460 - (this.width/2) && this.x <= 716 - (this.width/2) && this.y < 266 - this.height) {
+        if (this.x >= 460 - (this.width/1.5) && this.x <= 716 - (this.width/1.5) && this.y < 266 - this.height) {
             return this.y < 256 - this.height;
         } 
 
         //medium plattform
-        if (this.x >= 860 - (this.width/2) && this.x <= 1048 - (this.width/2) && this.y < 202 - this.height) {
+        if (this.x >= 860 - (this.width/1.5) && this.x <= 1048 - (this.width/1.5) && this.y <202 - this.height) {
             return this.y < 192 - this.height;
         }
 

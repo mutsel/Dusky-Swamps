@@ -39,27 +39,86 @@
 <body onload="init()">
     <h1>Dusky Swamps</h1>
 
-    <main id="startscreen">
-        <section id="startscreenOverview">
-            <button onclick="startGame()">
+    <main id="startscreen" class="startscreen">
+        <section id="startscreenOverview" class="startscreen-overview">
+            <button onclick="startGame()" class="wooden-button">
                 Start
             </button>
 
-            <button onclick="openSettings()">
+            <button onclick="openAbout()" class="wooden-button big-button">
+                About the Game
+            </button>
+
+            <button onclick="openSettings()" class="wooden-button">
                 Settings
             </button>
         </section>
 
-        <section id="startscreenSettings" class="d-none">
-            <div>
-                audio
+        <section id="startscreenAbout" class="startscreen-about d-none">
+            <div class="startscreen-header">
+                <button onclick="init()" class="back"></button>
+                <h2>About the Game</h2>
+            </div>
+
+            <p>Welcome to my first game!
+                It is a small 2D plattformer, where you play as a lost alien on it's way back home.
+                Your goal is to find enough gems to be able to repair your spaceship.
+                But watch out! Dangerous creatures are coming for your and your precious gems.
+                Fortunately you are able to defend yourself with your magic attack!
+            </p>
+
+            <div class="credits">
+                <h3>Credits for the used Art</h3>
+                <table>
+                    <tr>
+                        <td class="artist">Craftpix.net ("Free Simple Platformer Game Kit Pixel Art")</td>
+                        <td>Character, Enemies, Collectables, UI</td>
+                    </tr>
+
+                    <tr>
+                        <td class="artist">Craftpix.net ("Free Swamp Game Tileset Pixel Art")</td>
+                        <td>Tileset, Decoration, Background</td>
+                    </tr>
+
+                    <tr>
+                        <td class="artist">Craftpix.net ("Free Sky with Clouds Background Pixel Art Set")</td>
+                        <td>Background</td>
+                    </tr>
+
+                    <tr>
+                        <td class="artist">Craftpix.net ("Free Street Animal Pixel Art Asset Pack")</td>
+                        <td>Passive Entities</td>
+                    </tr>
+
+                    <tr>
+                        <td class="artist">Yandex Games</td>
+                        <td>Magic Attack</td>
+                    </tr>
+
+                    <tr>
+                        <td class="artist">BDragon1727</td>
+                        <td>Statusbars</td>
+                    </tr>
+                </table>
             </div>
         </section>
 
-        <img id="characterIcon" src="./img/startscreen_character.gif">
+        <section id="startscreenSettings" class="startscreen-settings d-none">
+            <div class="startscreen-header">
+                <button onclick="init()" class="back"></button>
+                <h2>Settings</h2>
+            </div>
+        </section>
+
+        <img class="character-icon" src="./img/startscreen_character.gif">
     </main>
 
     <canvas id="canvas" height="480px" width="720px" class="d-none"></canvas>
+
+    <section id="gameOverlay" class="game-overlay d-none">
+        <button onclick="muteAudio()" id="muteBtn" class="mute low-opacity"></button>
+        <button class="settings"></button>
+    </section>
 
     <section class="controls">
         <div class="controls-section">

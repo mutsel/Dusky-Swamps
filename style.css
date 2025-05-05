@@ -3,9 +3,15 @@
     src: url('/fonts/Tiny5-Regular.ttf') format('truetype');
 }
 
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: tiny5;
+    font-size: 18px;
+}
+
 body {
     height: 100vh;
-    margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -13,7 +19,6 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    font-family: tiny5;
     cursor: default;
 }
 
@@ -22,58 +27,155 @@ h1 {
     letter-spacing: 6px;
 }
 
+h2 {
+    font-size: 34px;
+    letter-spacing: 2px;
+}
+
+h3 {
+    font-size: 20px;
+    letter-spacing: 1px;
+}
+
 button {
-    width: 120px;
-    height: 40px;
     border: none;
     background-color: transparent;
-    background-image: url("./img/GUI/button.png");
     background-size: cover;
     background-repeat: no-repeat;
-    font-family: tiny5;
-    font-size: 24px;
+}
+
+.back {
+    width: 35px;
+    height: 35px;
+    background-image: url("./img/GUI/button_back.png");
+}
+
+button:hover {
+    transform: scale(1.1);
     cursor: pointer;
 }
 
-#startscreen {
+.startscreen {
     width: 720px;
     height: 480px;
-    position: relative;
-    top: 0;
-    background-image: url(./img/startscreen.png);
+    position: fixed;
+    top: 140px;
+    background-image: url("./img/startscreen.png");
     background-size: cover;
     background-repeat: no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
 
-#startscreenOverview {
-    width: 100%;
-    height: 100%;
-    gap: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
+    .wooden-button {
+        width: 132px;
+        height: 44px;
+        background-image: url("./img/GUI/wooden_button_small.png");
+        font-family: tiny5;
+        font-size: 24px;
+    }
 
-#startscreenSettings {}
+    .big-button {
+        height: 88px;
+        background-image: url("./img/GUI/wooden_button_big.png");
+    }
 
-#characterIcon {
-    width: 35px;
-    height: 50px;
-    position: relative;
-    bottom: 20%;
-    left: -35%;
+    .startscreen-overview {
+        gap: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .startscreen-about {
+        height: 100%;
+        padding: 32px;
+        gap: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgb(255, 255, 255, 0.2);
+        line-height: 1.2;
+
+        .credits {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: rgb(0, 0, 0, 0.65);
+            line-height: 1;
+
+            table {
+                padding-top: 4px;
+
+                td {
+                    border-bottom: 1px solid;
+                    padding: 2px 16px;
+                }
+
+                .artist {
+                    width: 60%;
+                }
+            }
+        }
+
+    }
+
+    /*.startscreen-settings {} */
+
+    .startscreen-header {
+        gap: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .character-icon {
+        width: 35px;
+        height: 50px;
+        position: absolute;
+        bottom: 20%;
+        left: 12%;
+    }
 }
 
 canvas {
     background-color: black;
     display: block;
-    position: relative;
-    top: 0;
+    position: fixed;
+    top: 140px;
+}
+
+.game-overlay {
+    width: 720px;
+    height: 480px;
+    padding: 16px;
+    display: flex;
+    justify-content: end;
+    position: fixed;
+    top: 140px;
+    gap: 8px;
+
+    .mute {
+        width: 35px;
+        height: 35px;
+        background-image: url("./img/GUI/button_audio_mute.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    .settings {
+        width: 35px;
+        height: 35px;
+        background-image: url("./img/GUI/button_settings.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+    button:hover {
+        transform: scale(1.2);
+    }
 }
 
 .controls {
@@ -83,6 +185,8 @@ canvas {
     display: flex;
     justify-content: space-between;
     font-size: 30px;
+    position: fixed;
+    top: 620px;
 
     .controls-section {
         display: flex;
@@ -109,6 +213,10 @@ canvas {
 
 .d-none {
     display: none !important;
+}
+
+.low-opacity {
+    filter: opacity(0.5);
 }
 
 @media only screen and (max-width: 720px) {
