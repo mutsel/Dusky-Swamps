@@ -20,10 +20,14 @@ function startGame() {
     addEventListeners();
     keyboard = new Keyboard();
     document.getElementById("startscreen").classList.add("d-none");
+    document.getElementById("gameOver").classList.add("d-none");
     document.getElementById("canvas").classList.remove("d-none");
     document.getElementById("gameOverlay").classList.remove("d-none");
+    document.getElementById("gameOverlay").classList.remove("dark-bg");
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
+    world.gameOver = false;
+    checkGameOver();
 }
 
 function openAbout() {
@@ -116,4 +120,14 @@ function unmuteAudio() {
 function openGameSettings() {
     document.getElementById("gameSettings").classList.toggle("d-none");
     document.getElementById("gameOverlay").classList.toggle("dark-bg");
+}
+
+function checkGameOver() {
+    setInterval(() => {
+        if (world.gameOver === true) {
+            document.getElementById("gameOver").classList.remove("d-none");
+            document.getElementById("gameOverlay").classList.add("dark-bg");
+            removeEventListeners();
+        }
+    }, 100);
 }

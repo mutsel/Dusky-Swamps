@@ -61,6 +61,7 @@ class Character extends MovableObject {
         'img/character/Dead/Disappearing_05.png',
         'img/character/Dead/Disappearing_06.png',
         'img/character/Dead/Disappearing_07.png',
+        'img/character/Dead/dead.png',
         // 'img/character/Dead/Appearing_01.png',
         // 'img/character/Dead/Appearing_02.png',
         // 'img/character/Dead/Appearing_03.png',
@@ -114,6 +115,8 @@ class Character extends MovableObject {
                 i++
             } else if (this.isDead()) {
                 i++
+                this.world.gameOver = true;
+                this.loadImage(this.IMAGES_DEAD[7])
             } else if (this.isHurt && this.energy > 0) {
                 this.playAnimation(this.IMAGES_HIT);
             }

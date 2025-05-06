@@ -20,21 +20,21 @@ class World {
         new PassiveEntity(2800)
     ];
 
-    level = level1;
-    canvas;
-    ctx;
-    keyboard;
-    cameraX = 0;
-    firstBossContact = false;
-
     audios = {
         scenery: new Audio('audio/scenery.mp3'),
         steps: new Audio('audio/steps.mp3'),
         gem: new Audio('audio/gem.mp3'),
         magicStone: new Audio('audio/magic_stone.mp3'),
         magicAttack: new Audio('audio/magic_attack.mp3'),
-    }
+    };
 
+    level = level1;
+    canvas;
+    ctx;
+    keyboard;
+    cameraX = 0;
+    firstBossContact = false;
+    gameOver = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
