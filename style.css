@@ -175,6 +175,10 @@ canvas {
             background-image: url("./img/GUI/button_settings.png");
         }
 
+        .close-btn {
+            background-image: url("./img/GUI/button_close.png") !important;
+        }
+
         .mute-btn:hover,
         .settings-btn:hover {
             transform: scale(1.2);
@@ -190,7 +194,7 @@ canvas {
     }
 
     .game-settings {
-        background-image: url("./img/GUI/menu.png");
+        background-image: url("./img/GUI/menus/menu.png");
     }
 
     .game-over {

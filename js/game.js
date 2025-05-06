@@ -1,6 +1,6 @@
 let canvas;
 let world;
-audioOn = true;
+let fullMute;
 
 window.addEventListener('keydown', (e) => {
     if (document.activeElement.tagName == 'BUTTON') {
@@ -12,6 +12,9 @@ function init() {
     document.getElementById("startscreen").classList.remove("d-none");
     document.getElementById("gameOverlay").classList.add("d-none");
     document.getElementById("canvas").classList.add("d-none");
+    document.getElementById("startscreenOverview").classList.remove("d-none");
+    document.getElementById("startscreenSettings").classList.add("d-none");
+    document.getElementById("startscreenAbout").classList.add("d-none");
     removeEventListeners();
 }
 
@@ -24,10 +27,18 @@ function startGame() {
     document.getElementById("canvas").classList.remove("d-none");
     document.getElementById("gameOverlay").classList.remove("d-none");
     document.getElementById("gameOverlay").classList.remove("dark-bg");
+    document.getElementById("settingsBtn").classList.remove("close-btn");
+    document.getElementById("settingsBtn").hidden = false;
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
+    checkLocalStorageAudioSettings();
     world.gameOver = false;
     checkGameOver();
+}
+
+function checkLocalStorageAudioSettings() {
+    fullMute = JSON.parse(localStorage.getItem('fullMute'));
+    toggleAudio()
 }
 
 function openAbout() {
@@ -57,13 +68,13 @@ function keyDownEvents() {
             break;
         case 37:
         case 65: keyboard.LEFT = true;
-            if (!world.character.isAboveGround() && audioOn) {
+            if (!world.character.isAboveGround()) {
                 world.audios.steps.play();
             }
             break;
         case 39:
         case 68: keyboard.RIGHT = true;
-            if (!world.character.isAboveGround() && audioOn) {
+            if (!world.character.isAboveGround()) {
                 world.audios.steps.play();
             }
             break;
@@ -93,20 +104,12 @@ function keyUpEvents() {
 }
 
 function toggleAudio() {
-    console.log(event.keyCode)
-    if (audioOn) {
+    if (fullMute) {
         muteAudio();
-        return audioOn = false;
+        return fullMute = false;
     } else {
         unmuteAudio();
-        return audioOn = true;
-    }
-}
-
-function muteAudio() {
-    document.getElementById("muteBtn").classList.remove("low-opacity");
-    for (let key in world.audios) {
-        world.audios[key].muted = true;
+        return fullMute = true;
     }
 }
 
@@ -115,18 +118,40 @@ function unmuteAudio() {
     for (let key in world.audios) {
         world.audios[key].muted = false;
     }
+    localStorage.setItem('fullMute', JSON.stringify(fullMute));
+}
+
+function muteAudio() {
+    document.getElementById("muteBtn").classList.remove("low-opacity");
+    for (let key in world.audios) {
+        world.audios[key].muted = true;
+    }
+    localStorage.setItem('fullMute', JSON.stringify(fullMute));
 }
 
 function openGameSettings() {
     document.getElementById("gameSettings").classList.toggle("d-none");
     document.getElementById("gameOverlay").classList.toggle("dark-bg");
+    document.getElementById("settingsBtn").classList.toggle("close-btn");
+    if (document.getElementById("gameSettings").classList.contains("d-none")) {
+        addEventListeners();
+    } else {
+        world.audios.steps.pause();
+        keyboard.UP = false;
+        keyboard.LEFT = false;
+        keyboard.RIGHT = false;
+        keyboard.ATTACK = false;
+        removeEventListeners();
+    }
 }
 
 function checkGameOver() {
     setInterval(() => {
         if (world.gameOver === true) {
+            document.getElementById("gameSettings").classList.add("d-none");
             document.getElementById("gameOver").classList.remove("d-none");
             document.getElementById("gameOverlay").classList.add("dark-bg");
+            document.getElementById("settingsBtn").hidden = true;
             removeEventListeners();
         }
     }, 100);
