@@ -51,8 +51,11 @@ button {
 }
 
 button:hover {
-    transform: scale(1.1);
     cursor: pointer;
+}
+
+button:focus-visible {
+    outline: unset;
 }
 
 .startscreen {
@@ -172,18 +175,53 @@ canvas {
             background-image: url("./img/GUI/button_settings.png");
         }
 
-        button:hover {
+        .mute-btn:hover,
+        .settings-btn:hover {
             transform: scale(1.2);
         }
     }
 
-    .game-settings {
+    .game-menu {
         width: 407.5px;
         height: 370px;
-        background-image: url("./img/GUI/menu.png");
         background-size: cover;
         background-repeat: no-repeat;
         align-self: center;
+    }
+
+    .game-settings {
+        background-image: url("./img/GUI/menu.png");
+    }
+
+    .game-over {
+        background-image: url("./img/GUI/menus/gameover.png");
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-top: 72px;
+        padding-left: 64px;
+        gap: 32px;
+
+        button {
+            height: 52.5px;
+            width: 52.5px;
+        }
+
+        .retry-btn {
+            background-image: url("./img/GUI/menus/button_retry.png");
+        }
+
+        .retry-btn:hover {
+            background-image: url("./img/GUI/menus/button_retry_pressed.png");
+        }
+
+        .main-menu-btn {
+            background-image: url("./img/GUI/menus/button_main_menu.png");
+        }
+
+        .main-menu-btn:hover {
+            background-image: url("./img/GUI/menus/button_main_menu_pressed.png");
+        }
     }
 }
 

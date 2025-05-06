@@ -81,9 +81,13 @@ class Frog extends MovableObject {
                 this.otherDirection = true;
             }
         }, 1000 / 60)
+
         setInterval(() => {
-            this.playAnimation(this.IMAGES_RUN);
-            // console.log(this.x)
-        }, 1000 / 5)
+            if (this.isHurt) {
+                this.playAnimation(this.IMAGES_HIT);
+            } else {
+                this.playAnimation(this.IMAGES_RUN);
+            }
+        }, 1000 / 20)
     }
 }

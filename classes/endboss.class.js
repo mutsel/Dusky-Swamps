@@ -3,6 +3,8 @@ class Endboss extends MovableObject {
     height = 80;
     y = 0 - this.height;
     speed = 6;
+    energy = 250;
+
     IMAGES_IDLE = [
         'img/enemies/endboss/Idle/Idle_01.png',
         'img/enemies/endboss/Idle/Idle_02.png',
@@ -68,8 +70,12 @@ class Endboss extends MovableObject {
             } else if (i < 31) {
                 this.playAnimation(this.IMAGES_ATTACK);
             } else {
-                this.playAnimation(this.IMAGES_IDLE);
-            }  
+                if (this.isHurt) {
+                    this.playAnimation(this.IMAGES_HIT);
+                } else {
+                    this.playAnimation(this.IMAGES_IDLE);
+                }
+            }
             i++
 
             if (this.world.character.x > 1620 && !this.world.firstBossContact) {

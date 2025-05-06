@@ -117,12 +117,17 @@
 
     <section id="gameOverlay" class="game-overlay d-none">
         <div class="game-buttons">
-            <button onclick="muteAudio()" id="muteBtn" class="mute-btn low-opacity"></button>
+            <button onclick="toggleAudio()" id="muteBtn" class="mute-btn low-opacity"></button>
             <button onclick="openGameSettings()" class="settings-btn"></button>
         </div>
 
-        <div id="gameSettings" class="game-settings d-none">
+        <div id="gameSettings" class="game-settings game-menu d-none">
 
+        </div>
+
+        <div id="gameOver" class="game-over game-menu d-none">
+            <button onclick="startGame()" class="retry-btn"></button>
+            <button onclick="init()" class="main-menu-btn"></button>
         </div>
     </section>
 

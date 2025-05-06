@@ -29,12 +29,12 @@ class MovableObject extends DrawableObject {
 
     isAboveGround() {
         //large plattform
-        if (this.x >= 460 - (this.width/1.5) && this.x <= 716 - (this.width/1.5) && this.y < 266 - this.height) {
+        if (this.x >= 460 - (this.width / 1.5) && this.x <= 716 - (this.width / 1.5) && this.y < 266 - this.height) {
             return this.y < 256 - this.height;
-        } 
+        }
 
         //medium plattform
-        if (this.x >= 860 - (this.width/1.5) && this.x <= 1048 - (this.width/1.5) && this.y <202 - this.height) {
+        if (this.x >= 860 - (this.width / 1.5) && this.x <= 1048 - (this.width / 1.5) && this.y < 202 - this.height) {
             return this.y < 192 - this.height;
         }
 
@@ -57,23 +57,51 @@ class MovableObject extends DrawableObject {
         this.x += this.speed;
     }
 
+    // isColliding(mo) {
+    //     return ((this.x + this.offset.left) + (this.width - this.offset.right) > (mo.x + mo.offset.left))
+    //         && ((this.y + this.offset.top) + (this.height - this.offset.bottom) > (mo.y + mo.offset.top))
+    //         && ((this.x + this.offset.left) < (mo.x + mo.offset.left) + (mo.width - mo.offset.right))
+    //         && ((this.y + this.offset.top) < (mo.y + mo.offset.top) + (mo.height - mo.offset.bottom))
+    // }
+
     isColliding(mo) {
-        return ((this.x + this.offset.left) + (this.width - this.offset.right) > (mo.x + mo.offset.left))
-            && ((this.y + this.offset.top) + (this.height - this.offset.bottom) > (mo.y + mo.offset.top))
-            && ((this.x + this.offset.left) < (mo.x + mo.offset.left) + (mo.width - mo.offset.right))
-            && ((this.y + this.offset.top) < (mo.y + mo.offset.top) + (mo.height - mo.offset.bottom))
+        return (this.x + this.width > mo.x)    //R
+            && (this.y + this.height > mo.y)   //B
+            && (this.x < mo.x + mo.width)      //L
+            && (this.y < mo.y + mo.height)     //T
     }
 
-    hit() {
+    isJumpingOnTop(mo) {
+        return (this.y + this.height > mo.y)                //B-T
+            && (this.y + this.height < mo.y + mo.height)    //B-B
+            && (this.y < mo.y)                              //T-T
+            && (this.x + this.width > mo.x)                 //R
+            && (this.x < mo.x + mo.width)                   //L
+            && this.speedY <= 0;
+
+
+        // return (this.x + this.width > mo.x)    //R
+        //     && (this.y + this.height > mo.y)   //B!
+        //     && (this.x < mo.x + mo.width)      //L
+        //     && (this.y < mo.y + mo.height)     //T
+    }
+
+    hit(damage) {
         if (this.isHurt == false) {
-            this.energy -= 25;
+            this.energy -= damage;
             if (this.energy <= 0) {
                 this.energy = 0;
             }
             this.isHurt = true;
-            setTimeout(() => {
-                this.isHurt = false;
-            }, 1000);
+            if (this instanceof Character) {
+                setTimeout(() => {
+                    this.isHurt = false;
+                }, 1000);
+            } else {
+                setTimeout(() => {
+                    this.isHurt = false;
+                }, 500);
+            }
         }
     }
 

@@ -18,7 +18,7 @@ class World {
         new PassiveEntity(2800),
         new PassiveEntity(2800),
         new PassiveEntity(2800)
-    ]; 
+    ];
 
     level = level1;
     canvas;
@@ -27,8 +27,14 @@ class World {
     cameraX = 0;
     firstBossContact = false;
 
-    gemAudio = new Audio('audio/gem.mp3');
-    magicStoneAudio = new Audio('audio/magic_stone.mp3');
+    audios = {
+        scenery: new Audio('audio/scenery.mp3'),
+        steps: new Audio('audio/steps.mp3'),
+        gem: new Audio('audio/gem.mp3'),
+        magicStone: new Audio('audio/magic_stone.mp3'),
+        magicAttack: new Audio('audio/magic_attack.mp3'),
+    }
+
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
@@ -115,37 +121,63 @@ class World {
         setInterval(() => {
             this.checkCollisionsEnemies();
             this.checkCollisionsCollectables();
+            this.removeDeadEnemies();
+        }, 1000 / 60);
+        setInterval(() => {
             this.checkShootableObjects();
-        }, 100);
+        }, 1000 / 10);
         this.respawnScenery();
+        this.audios.scenery.play();
+        this.audios.scenery.loop = true;
     }
 
     checkCollisionsEnemies() {
         this.level.enemies.forEach((e) => {
-            if (this.character.isColliding(e)) {
-                this.character.hit();
+            if (this.character.isJumpingOnTop(e)) {
+                e.hit(55);
+                // if (e instanceof Endboss) {
+                this.character.speedY = 12;
+                // this.keyboard.LEFT = true;
+                // this.keyboard.RIGHT = false;
+                // setTimeout(() => {
+                //     this.keyboard.LEFT = false;
+                // }, 500);
+                // } else {
+                //     this.character.speedY = 8;
+                // }
+            } else if (this.character.isColliding(e)) {
+                this.character.hit(25);
+                this.character.speedY = -1;
                 this.healthBar.setPercentage(this.character.energy);
             }
 
-
             this.availableMagicAttacks.forEach((a) => {
                 if (e.isColliding(a)) {
-                    console.log(a)
+                    // console.log(a)
                     this.availableMagicAttacks.splice(this.availableMagicAttacks.indexOf(a), 1);
-                    this.level.enemies.splice(this.level.enemies.indexOf(e), 1);
+                    // this.level.enemies.splice(this.level.enemies.indexOf(e), 1);
+                    e.hit(55);
                 }
             });
         });
     }
- 
+
+    removeDeadEnemies() {
+        this.level.enemies.forEach((e) => {
+            if (e.energy == 0) {
+                this.level.enemies.splice(this.level.enemies.indexOf(e), 1);
+            }
+        });
+    }
+
     checkCollisionsCollectables() {
         this.level.gems.forEach((g) => {
             if (this.character.isColliding(g)) {
                 let i = this.level.gems.indexOf(g);
                 this.level.gems.splice(i, 1);
                 this.gemsBar.setPercentage(this.level.gems.length * 25);
-                this.gemAudio.play();
-                this.gemAudio.volume = 0.5;
+                this.audios.gem.play();
+                this.audios.gem.volume = 0.5;
             }
         })
 
@@ -155,7 +187,7 @@ class World {
                 this.level.magicStones.splice(i, 1);
                 this.availableMagicAttacks.splice(0, 1);
                 this.attackBar.setPercentage(this.availableMagicAttacks.length / 4 * 100);
-                this.magicStoneAudio.play();
+                this.audios.magicStone.play();
             }
         })
     }
@@ -168,6 +200,8 @@ class World {
                 this.availableMagicAttacks.push(new MagicAttack(this.character.x, this.character.y, -12));
             }
             this.attackBar.setPercentage(this.availableMagicAttacks.length / 4 * 100);
+            this.audios.magicAttack.play();
+            this.audios.magicAttack.volume = 0.4;
 
             // this.availableMagicAttacks.splice(0, -1)
 
