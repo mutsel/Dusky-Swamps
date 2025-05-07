@@ -36,6 +36,7 @@ class World {
     firstBossContact = false;
     gameOver = false;
     victory = false;
+    magicAttackAvailable = true;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
@@ -122,7 +123,7 @@ class World {
         setInterval(() => {
             this.checkCollisionsEnemies();
             this.checkCollisionsCollectables();
-            // this.checkCollisionMagicAttacks();
+            this.checkCollisionMagicAttacks();
         }, 1000 / 60);
 
         this.respawnScenery();
@@ -131,7 +132,8 @@ class World {
     }
 
     shootMagicAttack() {
-        if (this.attackBar.percentage > 0) {
+        if (this.attackBar.percentage > 0 && this.magicAttackAvailable) {
+            this.magicAttackAvailable = false;
             this.attackBar.setPercentage(this.attackBar.percentage - 25)
 
             if (this.character.otherDirection) {
@@ -143,15 +145,10 @@ class World {
             this.audios.magicAttack.play();
             this.audios.magicAttack.volume = 0.4;
 
-            // setInterval(() => {
-            //     this.checkCollisionMagicAttacks();
-            // }, 1000 / 60);
-
-            // this.availableMagicAttacks.forEach((a) => {
-            //     setTimeout(() => {
-            //         this.availableMagicAttacks.splice(this.availableMagicAttacks.indexOf(a), 1);
-            //     }, 500);
-            // });
+            setTimeout(() => {
+                this.availableMagicAttacks.shift();
+                this.magicAttackAvailable = true;
+            }, 800);
         }
     }
 
@@ -184,15 +181,10 @@ class World {
                     console.log(a)
                     this.availableMagicAttacks.splice(this.availableMagicAttacks.indexOf(a), 1);
                     e.hit(55);
-                } 
-                // else {
-                //     setTimeout(() => {
-                //         this.availableMagicAttacks.splice(0, 1);
-                //     }, 500);
-                // }
+                    return;
+                }
             });
         });
-
 
     }
 
