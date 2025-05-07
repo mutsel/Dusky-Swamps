@@ -14,4 +14,4 @@ class CanonballAttack extends ShootableObject {
         this.shoot();
         this.applyGravity();
     } 
-}
+} 

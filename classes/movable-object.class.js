@@ -91,17 +91,21 @@ class MovableObject extends DrawableObject {
             this.energy -= damage;
             if (this.energy <= 0) {
                 this.energy = 0;
-            }
-            this.isHurt = true;
-            if (this instanceof Character) {
-                setTimeout(() => {
-                    this.isHurt = false;
-                }, 1000);
             } else {
+                this.isHurt = true;
                 setTimeout(() => {
                     this.isHurt = false;
                 }, 500);
             }
+            // if (this instanceof Character) {
+            //     setTimeout(() => {
+            //         this.isHurt = false;
+            //     }, 1000);
+            // } else {
+            //     setTimeout(() => {
+            //         this.isHurt = false;
+            //     }, 500);
+            // }
         }
     }
 

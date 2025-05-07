@@ -3,6 +3,20 @@ class Cactus extends MovableObject {
     height = 40;
     y = 385 - this.height;
 
+    IMAGES_DEAD = [
+        'img/enemies/cactus/Hit/Hit_05.png',
+        'img/enemies/cactus/Hit/Hit_04.png',
+        'img/enemies/cactus/Hit/Hit_03.png',
+        'img/enemies/cactus/Hit/Hit_02.png',
+        'img/enemies/cactus/Hit/Hit_01.png',
+        'img/dead-animation-universal/disappearing_01.png',
+        'img/dead-animation-universal/disappearing_02.png',
+        'img/dead-animation-universal/disappearing_03.png',
+        'img/dead-animation-universal/disappearing_04.png',
+        'img/dead-animation-universal/disappearing_05.png',
+        'img/dead-animation-universal/dead.png',
+    ];
+
     IMAGES_HIT = [
         'img/enemies/cactus/Hit/Hit_01.png',
         'img/enemies/cactus/Hit/Hit_02.png',
@@ -28,6 +42,7 @@ class Cactus extends MovableObject {
 
     constructor() {
         super().loadImage("img/enemies/cactus/Run/Run_01.png");
+        this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HIT);
         this.loadImages(this.IMAGES_RUN);
 
@@ -41,9 +56,17 @@ class Cactus extends MovableObject {
         setInterval(() => {
             this.moveLeft();
         }, 1000 / 60)
-        
+
+        let i = 0;
         setInterval(() => {
-            if (this.isHurt) {
+            if (this.isDead() && i < 10) {
+                this.playAnimation(this.IMAGES_DEAD);
+                i++
+            } else if (this.isDead()) {
+                this.loadImage('img/dead-animation-universal/dead.png');
+                world.removeDeadEnemies();
+                i = 0;
+            } else if (this.isHurt) {
                 this.playAnimation(this.IMAGES_HIT);
             } else {
                 this.playAnimation(this.IMAGES_RUN);

@@ -7,7 +7,7 @@ class ShootableObject extends MovableObject {
         super();
         this.x = x; 
         this.y = y;
-        this.speed = speed;
+        this.speed = speed; 
     }
 
     shoot() {

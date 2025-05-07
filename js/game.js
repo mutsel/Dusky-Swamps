@@ -11,6 +11,7 @@ window.addEventListener('keydown', (e) => {
 function init() {
     document.getElementById("startscreen").classList.remove("d-none");
     document.getElementById("gameOverlay").classList.add("d-none");
+    document.getElementById("victory").classList.add("d-none");
     document.getElementById("canvas").classList.add("d-none");
     document.getElementById("startscreenOverview").classList.remove("d-none");
     document.getElementById("startscreenSettings").classList.add("d-none");
@@ -24,6 +25,7 @@ function startGame() {
     keyboard = new Keyboard();
     document.getElementById("startscreen").classList.add("d-none");
     document.getElementById("gameOver").classList.add("d-none");
+    document.getElementById("victory").classList.add("d-none");
     document.getElementById("canvas").classList.remove("d-none");
     document.getElementById("gameOverlay").classList.remove("d-none");
     document.getElementById("gameOverlay").classList.remove("dark-bg");
@@ -33,7 +35,7 @@ function startGame() {
     world = new World(canvas, keyboard);
     checkLocalStorageAudioSettings();
     world.gameOver = false;
-    checkGameOver();
+    checkVictory();
 }
 
 function checkLocalStorageAudioSettings() {
@@ -57,8 +59,20 @@ function addEventListeners() {
 }
 
 function removeEventListeners() {
-    window.removeEventListener('keydown', keyDownEvents)
-    window.removeEventListener('keyup', keyUpEvents)
+    window.removeEventListener('keydown', keyDownEvents);
+    window.removeEventListener('keyup', keyUpEvents);
+    cancelEvents()
+}
+
+function cancelEvents() {
+    if (world) {
+        world.audios.steps.pause();
+        world.audios.scenery.pause();
+        keyboard.UP = false;
+        keyboard.LEFT = false;
+        keyboard.RIGHT = false;
+        keyboard.ATTACK = false;
+    }
 }
 
 function keyDownEvents() {
@@ -129,30 +143,61 @@ function muteAudio() {
     localStorage.setItem('fullMute', JSON.stringify(fullMute));
 }
 
-function openGameSettings() {
+function toggleGameSettings() {
     document.getElementById("gameSettings").classList.toggle("d-none");
     document.getElementById("gameOverlay").classList.toggle("dark-bg");
     document.getElementById("settingsBtn").classList.toggle("close-btn");
     if (document.getElementById("gameSettings").classList.contains("d-none")) {
         addEventListeners();
+        world.audios.scenery.play();
     } else {
-        world.audios.steps.pause();
-        keyboard.UP = false;
-        keyboard.LEFT = false;
-        keyboard.RIGHT = false;
-        keyboard.ATTACK = false;
         removeEventListeners();
     }
 }
 
-function checkGameOver() {
+function gameOver() {
+    if (world.gameOver === true) {
+        document.getElementById("gameSettings").classList.add("d-none");
+        document.getElementById("gameOver").classList.remove("d-none");
+        document.getElementById("gameOverlay").classList.add("dark-bg");
+        document.getElementById("settingsBtn").hidden = true;
+        removeEventListeners();
+    }
+}
+
+function checkVictory() {
     setInterval(() => {
-        if (world.gameOver === true) {
+        if (world.victory === true) {
             document.getElementById("gameSettings").classList.add("d-none");
-            document.getElementById("gameOver").classList.remove("d-none");
+            document.getElementById("gameOver").classList.add("d-none");
+            document.getElementById("victory").classList.remove("d-none");
             document.getElementById("gameOverlay").classList.add("dark-bg");
             document.getElementById("settingsBtn").hidden = true;
             removeEventListeners();
+            countGems();
         }
     }, 100);
+}
+
+function countGems() {
+    let gemCounter = document.getElementById("gemCounter");
+    let missingGemsInPercent = world.gemsBar.percentage;
+    switch (missingGemsInPercent) {
+        default:
+        case 100:
+            gemCounter.style.backgroundImage = "url('./img/GUI/menus/win_gems_00.png')";
+            break;
+        case 75:
+            gemCounter.style.backgroundImage = "url('./img/GUI/menus/win_gems_01.png')";
+            break;
+        case 50:
+            gemCounter.style.backgroundImage = "url('./img/GUI/menus/win_gems_02.png')";
+            break;
+        case 25:
+            gemCounter.style.backgroundImage = "url('./img/GUI/menus/win_gems_03.png')";
+            break;
+        case 0:
+            gemCounter.style.backgroundImage = "url('./img/GUI/menus/win_gems_04.png')";
+            break;
+    }
 }

@@ -35,6 +35,7 @@ class World {
     cameraX = 0;
     firstBossContact = false;
     gameOver = false;
+    victory = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
@@ -121,11 +122,12 @@ class World {
         setInterval(() => {
             this.checkCollisionsEnemies();
             this.checkCollisionsCollectables();
-            this.removeDeadEnemies();
+            // this.removeDeadEnemies();
         }, 1000 / 60);
-        setInterval(() => {
-            this.checkShootableObjects();
-        }, 1000 / 10);
+        // setInterval(() => {
+        //     this.checkShootableObjects();
+        //     // console.log(this.gemsBar.percentage)
+        // }, 1000 / 10);
         this.respawnScenery();
         this.audios.scenery.play();
         this.audios.scenery.loop = true;
@@ -192,6 +194,7 @@ class World {
         })
     }
 
+    //IMPROVEMENT NEEDED
     checkShootableObjects() {
         if (this.keyboard.ATTACK && this.availableMagicAttacks.length < 4) {
             if (this.character.otherDirection) {

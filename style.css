@@ -153,7 +153,6 @@ canvas {
 .game-overlay {
     width: 720px;
     height: 480px;
-    padding: 16px;
     display: flex;
     flex-direction: column;
     position: fixed;
@@ -163,6 +162,9 @@ canvas {
     .game-buttons {
         display: flex;
         justify-content: end;
+        padding: 16px 16px 0 0;
+        z-index: 2;
+
         .mute-btn {
             width: 35px;
             height: 35px;
@@ -187,24 +189,9 @@ canvas {
 
     .game-menu {
         width: 407.5px;
-        height: 370px;
         background-size: cover;
         background-repeat: no-repeat;
         align-self: center;
-    }
-
-    .game-settings {
-        background-image: url("./img/GUI/menus/menu.png");
-    }
-
-    .game-over {
-        background-image: url("./img/GUI/menus/gameover.png");
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding-top: 72px;
-        padding-left: 64px;
-        gap: 32px;
 
         button {
             height: 52.5px;
@@ -225,6 +212,47 @@ canvas {
 
         .main-menu-btn:hover {
             background-image: url("./img/GUI/menus/button_main_menu_pressed.png");
+        }
+    }
+
+    .game-settings {
+        height: 370px;
+        background-image: url("./img/GUI/menus/menu.png");
+    }
+
+    .game-over {
+        height: 370px;
+        background-image: url("./img/GUI/menus/gameover.png");
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-top: 72px;
+        padding-left: 64px;
+        gap: 32px;
+    }
+
+    .victory {
+        height: 472px;
+        margin-top: -55px;
+        padding-top: 222px;
+        padding-left: 64px;
+        background-image: url("./img/GUI/menus/victory.png");
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 32px;
+
+        .gem-counter {
+            width: 407.5px;
+            height: 472px;
+            margin-top: -222px;
+            margin-left: -64px;
+            position: fixed;
+            background-image: url("./img/GUI/menus/win_gems_00.png");
+            background-color: transparent;
+            background-size: cover;
+            background-repeat: no-repeat;
+            pointer-events: none;
         }
     }
 }

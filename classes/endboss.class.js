@@ -4,6 +4,39 @@ class Endboss extends MovableObject {
     y = 0 - this.height;
     speed = 6;
     energy = 250;
+    world;
+
+    IMAGES_ATTACK = [
+        'img/enemies/endboss/Attack/Attack_01.png',
+        'img/enemies/endboss/Attack/Attack_02.png',
+        'img/enemies/endboss/Attack/Attack_03.png',
+        'img/enemies/endboss/Attack/Attack_04.png',
+        'img/enemies/endboss/Attack/Attack_05.png',
+        'img/enemies/endboss/Attack/Attack_06.png',
+        'img/enemies/endboss/Attack/Attack_07.png',
+    ];
+
+    IMAGES_DEAD = [
+        'img/enemies/endboss/Hit/Hit_05.png',
+        'img/enemies/endboss/Hit/Hit_04.png',
+        'img/enemies/endboss/Hit/Hit_03.png',
+        'img/enemies/endboss/Hit/Hit_02.png',
+        'img/enemies/endboss/Hit/Hit_01.png',
+        'img/dead-animation-universal/disappearing_01.png',
+        'img/dead-animation-universal/disappearing_02.png',
+        'img/dead-animation-universal/disappearing_03.png',
+        'img/dead-animation-universal/disappearing_04.png',
+        'img/dead-animation-universal/disappearing_05.png',
+        'img/dead-animation-universal/dead.png',
+    ];
+
+    IMAGES_HIT = [
+        'img/enemies/endboss/Hit/Hit_01.png',
+        'img/enemies/endboss/Hit/Hit_02.png',
+        'img/enemies/endboss/Hit/Hit_03.png',
+        'img/enemies/endboss/Hit/Hit_04.png',
+        'img/enemies/endboss/Hit/Hit_05.png',
+    ];
 
     IMAGES_IDLE = [
         'img/enemies/endboss/Idle/Idle_01.png',
@@ -18,6 +51,7 @@ class Endboss extends MovableObject {
         'img/enemies/endboss/Idle/Idle_10.png',
         'img/enemies/endboss/Idle/Idle_11.png',
     ];
+
     IMAGES_RUN = [
         'img/enemies/endboss/Run/Walk_01.png',
         'img/enemies/endboss/Run/Walk_02.png',
@@ -32,30 +66,14 @@ class Endboss extends MovableObject {
         'img/enemies/endboss/Run/Walk_11.png',
         'img/enemies/endboss/Run/Walk_12.png',
     ];
-    IMAGES_ATTACK = [
-        'img/enemies/endboss/Attack/Attack_01.png',
-        'img/enemies/endboss/Attack/Attack_02.png',
-        'img/enemies/endboss/Attack/Attack_03.png',
-        'img/enemies/endboss/Attack/Attack_04.png',
-        'img/enemies/endboss/Attack/Attack_05.png',
-        'img/enemies/endboss/Attack/Attack_06.png',
-        'img/enemies/endboss/Attack/Attack_07.png',
-    ];
-    IMAGES_HIT = [
-        'img/enemies/endboss/Hit/Hit_01.png',
-        'img/enemies/endboss/Hit/Hit_02.png',
-        'img/enemies/endboss/Hit/Hit_03.png',
-        'img/enemies/endboss/Hit/Hit_04.png',
-        'img/enemies/endboss/Hit/Hit_05.png',
-    ];
-    world;
 
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);
+        this.loadImages(this.IMAGES_ATTACK);
+        this.loadImages(this.IMAGES_DEAD);
+        this.loadImages(this.IMAGES_HIT);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_RUN);
-        this.loadImages(this.IMAGES_ATTACK);
-        this.loadImages(this.IMAGES_HIT);
         this.x = 2350;
         this.animate();
         this.applyGravity();
@@ -63,6 +81,7 @@ class Endboss extends MovableObject {
 
     animate() {
         let i = 0;
+        let j = 0;
         setInterval(() => {
             if (i < 24) {
                 this.moveLeft();
@@ -70,7 +89,14 @@ class Endboss extends MovableObject {
             } else if (i < 31) {
                 this.playAnimation(this.IMAGES_ATTACK);
             } else {
-                if (this.isHurt) {
+                if (this.isDead() && j < 10) {
+                    this.playAnimation(this.IMAGES_DEAD);
+                    j++
+                } else if (this.isDead()) {
+                    this.loadImage('img/dead-animation-universal/dead.png');
+                    this.world.removeDeadEnemies();
+                    this.world.victory = true;
+                } else if (this.isHurt) {
                     this.playAnimation(this.IMAGES_HIT);
                 } else {
                     this.playAnimation(this.IMAGES_IDLE);

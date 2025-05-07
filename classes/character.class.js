@@ -54,24 +54,22 @@ class Character extends MovableObject {
         'img/character/Hit/Hit_07.png',
     ];
     IMAGES_DEAD = [
-        'img/character/Dead/Disappearing_01.png',
-        'img/character/Dead/Disappearing_02.png',
-        'img/character/Dead/Disappearing_03.png',
-        'img/character/Dead/Disappearing_04.png',
-        'img/character/Dead/Disappearing_05.png',
-        'img/character/Dead/Disappearing_06.png',
-        'img/character/Dead/Disappearing_07.png',
-        'img/character/Dead/dead.png',
-        // 'img/character/Dead/Appearing_01.png',
-        // 'img/character/Dead/Appearing_02.png',
-        // 'img/character/Dead/Appearing_03.png',
-        // 'img/character/Dead/Appearing_04.png',
-        // 'img/character/Dead/Appearing_05.png',
-        // 'img/character/Dead/Appearing_06.png',
-        // 'img/character/Dead/Appearing_07.png',
+        'img/character/Hit/Hit_07.png',
+        'img/character/Hit/Hit_06.png',
+        'img/character/Hit/Hit_05.png',
+        'img/character/Hit/Hit_04.png',
+        'img/character/Hit/Hit_03.png',
+        'img/character/Hit/Hit_02.png',
+        'img/character/Hit/Hit_01.png',
+        'img/dead-animation-universal/disappearing_01.png',
+        'img/dead-animation-universal/disappearing_02.png',
+        'img/dead-animation-universal/disappearing_03.png',
+        'img/dead-animation-universal/disappearing_04.png',
+        'img/dead-animation-universal/disappearing_05.png',
+        'img/dead-animation-universal/dead.png',
     ];
     world;
-    
+
 
     constructor() {
         super().loadImage("img/character/Fall.png");
@@ -84,7 +82,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.applyGravity();
         this.animate();
-    }
+    } 
 
     animate() {
         //decrease/increase x-coordinate
@@ -110,17 +108,16 @@ class Character extends MovableObject {
         // animations(dead, hurt, jump, fall, run, attack, idle)
         let i = 0;
         setInterval(() => {
-            if (this.isDead() && i < 6) {
+            if (this.isDead() && i < 12) {
                 this.playAnimation(this.IMAGES_DEAD);
                 i++
             } else if (this.isDead()) {
-                i++
+                this.loadImage('img/dead-animation-universal/dead.png');
                 this.world.gameOver = true;
-                this.loadImage(this.IMAGES_DEAD[7])
-            } else if (this.isHurt && this.energy > 0) {
+                gameOver();
+            } else if (this.isHurt) {
                 this.playAnimation(this.IMAGES_HIT);
-            }
-            else if (this.isAboveGround()) {
+            } else if (this.isAboveGround()) {
                 if (this.speedY > 0) {
                     this.playAnimation(this.IMAGES_JUMP);
                 } else {

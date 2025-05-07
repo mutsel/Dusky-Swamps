@@ -15,6 +15,20 @@ class Frog extends MovableObject {
         'img/enemies/frog/attack/Attack_08.png',
     ];
 
+    IMAGES_DEAD = [
+        'img/enemies/frog/hit/Hit_05.png',
+        'img/enemies/frog/hit/Hit_04.png',
+        'img/enemies/frog/hit/Hit_03.png',
+        'img/enemies/frog/hit/Hit_02.png',
+        'img/enemies/frog/hit/Hit_01.png',
+        'img/dead-animation-universal/disappearing_01.png',
+        'img/dead-animation-universal/disappearing_02.png',
+        'img/dead-animation-universal/disappearing_03.png',
+        'img/dead-animation-universal/disappearing_04.png',
+        'img/dead-animation-universal/disappearing_05.png',
+        'img/dead-animation-universal/dead.png',
+    ];
+
     IMAGES_HIT = [
         'img/enemies/frog/hit/Hit_01.png',
         'img/enemies/frog/hit/Hit_02.png',
@@ -55,6 +69,7 @@ class Frog extends MovableObject {
     constructor() {
         super().loadImage("img/enemies/frog/run/Run_01.png");
         this.loadImages(this.IMAGES_ATTACK);
+        this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HIT);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_RUN);
@@ -82,8 +97,16 @@ class Frog extends MovableObject {
             }
         }, 1000 / 60)
 
+        let i = 0;
         setInterval(() => {
-            if (this.isHurt) {
+            if (this.isDead() && i < 10) {
+                this.playAnimation(this.IMAGES_DEAD);
+                i++
+            } else if (this.isDead()) {
+                this.loadImage('img/dead-animation-universal/dead.png');
+                world.removeDeadEnemies();
+                i = 0;
+            } else if (this.isHurt) {
                 this.playAnimation(this.IMAGES_HIT);
             } else {
                 this.playAnimation(this.IMAGES_RUN);

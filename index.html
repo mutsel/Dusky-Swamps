@@ -118,7 +118,7 @@
     <section id="gameOverlay" class="game-overlay d-none">
         <div class="game-buttons">
             <button onclick="toggleAudio()" id="muteBtn" class="mute-btn"></button>
-            <button onclick="openGameSettings()" id="settingsBtn" class="settings-btn"></button>
+            <button onclick="toggleGameSettings()" id="settingsBtn" class="settings-btn"></button>
         </div>
 
         <div id="gameSettings" class="game-settings game-menu d-none">
@@ -126,6 +126,12 @@
         </div>
 
         <div id="gameOver" class="game-over game-menu d-none">
+            <button onclick="startGame()" class="retry-btn"></button>
+            <button onclick="init()" class="main-menu-btn"></button>
+        </div>
+
+        <div id="victory" class="victory game-menu d-none">
+            <div id="gemCounter" class="gem-counter"></div>
             <button onclick="startGame()" class="retry-btn"></button>
             <button onclick="init()" class="main-menu-btn"></button>
         </div>
