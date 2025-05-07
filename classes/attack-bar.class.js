@@ -1,6 +1,6 @@
 class AttackBar extends StatusBar {
     x = 20;
-    y = 40;
+    y = 45;
 
     IMAGES = [
         'img/GUI/statusbars/Attack_100.png',

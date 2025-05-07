@@ -1,29 +1,11 @@
 class Character extends MovableObject {
+    x = 164;
     y = 200;
     width = 35;
     height = 50;
     speed = 4;
+    world;
 
-    IMAGES_FALL = [
-        'img/character/Fall.png'
-    ]
-    IMAGES_JUMP = [
-        'img/character/Jump.png'
-    ]
-    IMAGES_RUN = [
-        'img/character/Run/Run_01.png',
-        'img/character/Run/Run_02.png',
-        'img/character/Run/Run_03.png',
-        'img/character/Run/Run_04.png',
-        'img/character/Run/Run_05.png',
-        'img/character/Run/Run_06.png',
-        'img/character/Run/Run_07.png',
-        'img/character/Run/Run_08.png',
-        'img/character/Run/Run_09.png',
-        'img/character/Run/Run_10.png',
-        'img/character/Run/Run_11.png',
-        'img/character/Run/Run_12.png',
-    ];
     IMAGES_ATTACK = [
         'img/character/Hit/Hit_03.png',
         'img/character/Hit/Hit_04.png',
@@ -31,28 +13,7 @@ class Character extends MovableObject {
         'img/character/Hit/Hit_06.png',
         'img/character/Hit/Hit_07.png',
     ];
-    IMAGES_IDLE = [
-        'img/character/Idle/Idle_01.png',
-        'img/character/Idle/Idle_02.png',
-        'img/character/Idle/Idle_03.png',
-        'img/character/Idle/Idle_04.png',
-        'img/character/Idle/Idle_05.png',
-        'img/character/Idle/Idle_06.png',
-        'img/character/Idle/Idle_07.png',
-        'img/character/Idle/Idle_08.png',
-        'img/character/Idle/Idle_09.png',
-        'img/character/Idle/Idle_10.png',
-        'img/character/Idle/Idle_11.png',
-    ];
-    IMAGES_HIT = [
-        'img/character/Hit/Hit_01.png',
-        'img/character/Hit/Hit_02.png',
-        'img/character/Hit/Hit_03.png',
-        'img/character/Hit/Hit_04.png',
-        'img/character/Hit/Hit_05.png',
-        'img/character/Hit/Hit_06.png',
-        'img/character/Hit/Hit_07.png',
-    ];
+
     IMAGES_DEAD = [
         'img/character/Hit/Hit_07.png',
         'img/character/Hit/Hit_06.png',
@@ -68,21 +29,67 @@ class Character extends MovableObject {
         'img/dead-animation-universal/disappearing_05.png',
         'img/dead-animation-universal/dead.png',
     ];
-    world;
 
+    IMAGES_FALL = [
+        'img/character/Fall.png'
+    ];
+
+    IMAGES_HIT = [
+        'img/character/Hit/Hit_01.png',
+        'img/character/Hit/Hit_02.png',
+        'img/character/Hit/Hit_03.png',
+        'img/character/Hit/Hit_04.png',
+        'img/character/Hit/Hit_05.png',
+        'img/character/Hit/Hit_06.png',
+        'img/character/Hit/Hit_07.png',
+    ];
+
+    IMAGES_IDLE = [
+        'img/character/Idle/Idle_01.png',
+        'img/character/Idle/Idle_02.png',
+        'img/character/Idle/Idle_03.png',
+        'img/character/Idle/Idle_04.png',
+        'img/character/Idle/Idle_05.png',
+        'img/character/Idle/Idle_06.png',
+        'img/character/Idle/Idle_07.png',
+        'img/character/Idle/Idle_08.png',
+        'img/character/Idle/Idle_09.png',
+        'img/character/Idle/Idle_10.png',
+        'img/character/Idle/Idle_11.png',
+    ];
+
+    IMAGES_JUMP = [
+        'img/character/Jump.png'
+    ];
+
+    IMAGES_RUN = [
+        'img/character/Run/Run_01.png',
+        'img/character/Run/Run_02.png',
+        'img/character/Run/Run_03.png',
+        'img/character/Run/Run_04.png',
+        'img/character/Run/Run_05.png',
+        'img/character/Run/Run_06.png',
+        'img/character/Run/Run_07.png',
+        'img/character/Run/Run_08.png',
+        'img/character/Run/Run_09.png',
+        'img/character/Run/Run_10.png',
+        'img/character/Run/Run_11.png',
+        'img/character/Run/Run_12.png',
+    ];
 
     constructor() {
         super().loadImage("img/character/Fall.png");
+        this.loadImages(this.IMAGES_ATTACK);
+        this.loadImages(this.IMAGES_DEAD); 
         this.loadImages(this.IMAGES_FALL);
+        this.loadImages(this.IMAGES_HIT);
+        this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_JUMP);
         this.loadImages(this.IMAGES_RUN);
-        this.loadImages(this.IMAGES_ATTACK);
-        this.loadImages(this.IMAGES_IDLE);
-        this.loadImages(this.IMAGES_HIT);
-        this.loadImages(this.IMAGES_DEAD);
+        
         this.applyGravity();
         this.animate();
-    } 
+    }
 
     animate() {
         //decrease/increase x-coordinate

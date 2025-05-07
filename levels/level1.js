@@ -111,15 +111,15 @@ function initLevel() {
             new Plattform('img/scenery/plattform_medium.png', 860, 188, 192, 64),
         ],
         [
-            new Gem(280, 350),
-            new Gem(420, 240),
-            new Gem(800, 350),
-            new Gem(1000, 350),
+            new Gem(10, 350),
+            new Gem(564, 140),
+            new Gem(1000, 160),
+            new Gem(1500, 350),
         ],
         [
-            new MagicStone(100, 350),
-            new MagicStone(900, 350),
-            new MagicStone(1200, 350),
+            new MagicStone(564, 350),
+            new MagicStone(890, 160),
+            new MagicStone(945, 350),
             new MagicStone(2180, 350),
         ],
         [

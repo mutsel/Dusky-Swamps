@@ -1,6 +1,6 @@
 class GemsBar extends StatusBar {
-    x = 20;
-    y = 60;
+    x = 18;
+    y = 70;
 
     IMAGES = [
         'img/GUI/statusbars/Gems_0.png',
