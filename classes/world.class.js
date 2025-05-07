@@ -122,15 +122,37 @@ class World {
         setInterval(() => {
             this.checkCollisionsEnemies();
             this.checkCollisionsCollectables();
-            // this.removeDeadEnemies();
+            // this.checkCollisionMagicAttacks();
         }, 1000 / 60);
-        // setInterval(() => {
-        //     this.checkShootableObjects();
-        //     // console.log(this.gemsBar.percentage)
-        // }, 1000 / 10);
+
         this.respawnScenery();
         this.audios.scenery.play();
         this.audios.scenery.loop = true;
+    }
+
+    shootMagicAttack() {
+        if (this.attackBar.percentage > 0) {
+            this.attackBar.setPercentage(this.attackBar.percentage - 25)
+
+            if (this.character.otherDirection) {
+                this.availableMagicAttacks.push(new MagicAttack(this.character.x, this.character.y, 12));
+            } else {
+                this.availableMagicAttacks.push(new MagicAttack(this.character.x, this.character.y, -12));
+            }
+
+            this.audios.magicAttack.play();
+            this.audios.magicAttack.volume = 0.4;
+
+            // setInterval(() => {
+            //     this.checkCollisionMagicAttacks();
+            // }, 1000 / 60);
+
+            // this.availableMagicAttacks.forEach((a) => {
+            //     setTimeout(() => {
+            //         this.availableMagicAttacks.splice(this.availableMagicAttacks.indexOf(a), 1);
+            //     }, 500);
+            // });
+        }
     }
 
     checkCollisionsEnemies() {
@@ -152,16 +174,26 @@ class World {
                 this.character.speedY = -1;
                 this.healthBar.setPercentage(this.character.energy);
             }
+        });
+    }
 
-            this.availableMagicAttacks.forEach((a) => {
-                if (e.isColliding(a)) {
-                    // console.log(a)
+    checkCollisionMagicAttacks() {
+        this.availableMagicAttacks.forEach((a) => {
+            this.level.enemies.forEach((e) => {
+                if (a.isColliding(e)) {
+                    console.log(a)
                     this.availableMagicAttacks.splice(this.availableMagicAttacks.indexOf(a), 1);
-                    // this.level.enemies.splice(this.level.enemies.indexOf(e), 1);
                     e.hit(55);
-                }
+                } 
+                // else {
+                //     setTimeout(() => {
+                //         this.availableMagicAttacks.splice(0, 1);
+                //     }, 500);
+                // }
             });
         });
+
+
     }
 
     removeDeadEnemies() {
@@ -175,8 +207,7 @@ class World {
     checkCollisionsCollectables() {
         this.level.gems.forEach((g) => {
             if (this.character.isColliding(g)) {
-                let i = this.level.gems.indexOf(g);
-                this.level.gems.splice(i, 1);
+                this.level.gems.splice(this.level.gems.indexOf(g), 1);
                 this.gemsBar.setPercentage(this.level.gems.length * 25);
                 this.audios.gem.play();
                 this.audios.gem.volume = 0.5;
@@ -184,37 +215,12 @@ class World {
         })
 
         this.level.magicStones.forEach((m) => {
-            if (this.character.isColliding(m)) {
-                let i = this.level.magicStones.indexOf(m);
-                this.level.magicStones.splice(i, 1);
-                this.availableMagicAttacks.splice(0, 1);
-                this.attackBar.setPercentage(this.availableMagicAttacks.length / 4 * 100);
+            if (this.character.isColliding(m) && this.attackBar.percentage < 100) {
+                this.level.magicStones.splice(this.level.magicStones.indexOf(m), 1);
+                this.attackBar.setPercentage(this.attackBar.percentage + 25)
                 this.audios.magicStone.play();
             }
         })
-    }
-
-    //IMPROVEMENT NEEDED
-    checkShootableObjects() {
-        if (this.keyboard.ATTACK && this.availableMagicAttacks.length < 4) {
-            if (this.character.otherDirection) {
-                this.availableMagicAttacks.push(new MagicAttack(this.character.x, this.character.y, 12));
-            } else {
-                this.availableMagicAttacks.push(new MagicAttack(this.character.x, this.character.y, -12));
-            }
-            this.attackBar.setPercentage(this.availableMagicAttacks.length / 4 * 100);
-            this.audios.magicAttack.play();
-            this.audios.magicAttack.volume = 0.4;
-
-            // this.availableMagicAttacks.splice(0, -1)
-
-            // setTimeout(() => {
-            //     this.availableMagicAttacks.forEach((a) => {
-            //         let i = this.availableMagicAttacks.indexOf(a);
-            //         this.availableMagicAttacks.splice(i, -1)
-            //     })
-            // }, 1000);
-        }
     }
 
     respawnScenery() {

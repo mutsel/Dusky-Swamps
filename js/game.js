@@ -34,7 +34,9 @@ function startGame() {
     canvas = document.getElementById("canvas");
     world = new World(canvas, keyboard);
     checkLocalStorageAudioSettings();
+    world.firstBossContact = false;
     world.gameOver = false;
+    world.victory = false;
     checkVictory();
 }
 
@@ -113,6 +115,7 @@ function keyUpEvents() {
             break;
         case 40:
         case 32: keyboard.ATTACK = false;
+            world.shootMagicAttack();
             break;
     }
 }

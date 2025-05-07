@@ -3,19 +3,16 @@ class AttackBar extends StatusBar {
     y = 40;
 
     IMAGES = [
-        'img/GUI/statusbars/Attack_0.png',
-        'img/GUI/statusbars/Attack_25.png',
-        'img/GUI/statusbars/Attack_50.png', 
-        'img/GUI/statusbars/Attack_75.png',
         'img/GUI/statusbars/Attack_100.png',
+        'img/GUI/statusbars/Attack_75.png',
+        'img/GUI/statusbars/Attack_50.png', 
+        'img/GUI/statusbars/Attack_25.png',
+        'img/GUI/statusbars/Attack_0.png',
     ];
-
-    // icon = 'img/GUI/Attack.png';
 
     constructor() {
         super();
         this.loadImages(this.IMAGES);
-        // this.loadImage(this.icon);
-        this.setPercentage(0);
+        this.setPercentage(100);
     }
 }

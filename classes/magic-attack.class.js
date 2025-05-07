@@ -26,4 +26,4 @@ class MagicAttack extends ShootableObject {
         this.speed = speed;
         this.shoot();
     }
-}
+} 
