@@ -21,16 +21,13 @@ window.addEventListener('keydown', (e) => {
 });
 
 /**
-* This function is the init function for the game. All sections and menues are closed, only the startscreen is visible.
+* This function is the init function for the game. All sections/menu are closed, only the startscreen is visible.
 */
 function init() {
+    closeAllStartscreenMenu();
+    closeAllGameMenu();
     document.getElementById("startscreen").classList.remove("d-none");
-    document.getElementById("gameOverlay").classList.add("d-none");
-    document.getElementById("victory").classList.add("d-none");
-    document.getElementById("canvas").classList.add("d-none");
     document.getElementById("startscreenOverview").classList.remove("d-none");
-    document.getElementById("startscreenSettings").classList.add("d-none");
-    document.getElementById("startscreenAbout").classList.add("d-none");
     removeEventListeners();
 }
 
@@ -42,9 +39,8 @@ function startGame() {
     initLevel();
     addEventListeners();
     keyboard = new Keyboard();
-    document.getElementById("startscreen").classList.add("d-none");
-    document.getElementById("gameOver").classList.add("d-none");
-    document.getElementById("victory").classList.add("d-none");
+    closeAllStartscreenMenu();
+    closeAllGameMenu();
     document.getElementById("canvas").classList.remove("d-none");
     document.getElementById("gameOverlay").classList.remove("d-none");
     document.getElementById("gameOverlay").classList.remove("dark-bg");
@@ -57,6 +53,29 @@ function startGame() {
     world.gameOver = false;
     world.victory = false;
     gameEndCalled = false;
+}
+
+/**
+* This function closes all sections of the startscreen and the startscreen itself.
+*/
+function closeAllStartscreenMenu() {
+    document.getElementById("startscreen").classList.add("d-none");
+    let startscreenMenu = document.querySelectorAll(".startscreen-menu");
+    for (let i = 0; i < startscreenMenu.length; i++) {
+        startscreenMenu[i].classList.add("d-none")
+    }  
+}
+
+/**
+* This function closes all menu of the game and the canvas (incl. gameOverlay) itself.
+*/
+function closeAllGameMenu() {
+    document.getElementById("canvas").classList.add("d-none");
+    document.getElementById("gameOverlay").classList.add("d-none");
+    let gameMenu = document.querySelectorAll(".game-menu");
+    for (let i = 0; i < gameMenu.length; i++) {
+        gameMenu[i].classList.add("d-none")
+    }  
 }
 
 /**
@@ -225,27 +244,33 @@ function toggleGameSettings() {
 * This function shows the gameOver-screen if gameOver in the world is set to true.
 */
 function gameOver() {
-
-    console.log(world.gameOver)
-    document.getElementById("gameSettings").classList.add("d-none");
+    gameEnd()
     document.getElementById("gameOver").classList.remove("d-none");
-    document.getElementById("gameOverlay").classList.add("dark-bg");
-    document.getElementById("settingsBtn").hidden = true;
-    removeEventListeners();
-
+    world.audios.gameOver.play();
 }
 
 /**
 * This function shows the victory-screen if victory in the world is set to true.
 */
 function victory() {
-    document.getElementById("gameSettings").classList.add("d-none");
-    document.getElementById("gameOver").classList.add("d-none");
+    gameEnd()
     document.getElementById("victory").classList.remove("d-none");
+    world.audios.victory.play();
+    setTimeout(() => {
+        countGems();
+    }, 1000);
+}
+
+/**
+* This function adjusts the visibility and functionality of the game if the game ended (gameOver or victory)
+*/
+function gameEnd() {
+    document.getElementById("gameOver").classList.add("d-none");
+    document.getElementById("victory").classList.add("d-none");
+    document.getElementById("gameSettings").classList.add("d-none");
     document.getElementById("gameOverlay").classList.add("dark-bg");
     document.getElementById("settingsBtn").hidden = true;
     removeEventListeners();
-    countGems();
 }
 
 /**
@@ -255,7 +280,6 @@ function victory() {
 async function countGems() {
     let gemCounter = document.getElementById("gemCounter");
     let collectedGems = 4 - (world.gemsBar.percentage / 100 * 4);
-    console.log(collectedGems)
     for (let i = 0; i <= collectedGems; i++) {
         gemCounter.style.backgroundImage = collectedGemsImgs[i];
         if (i > 0) {
@@ -267,6 +291,8 @@ async function countGems() {
 
 /**
 * This function is a support function and is executed when a delay is needed.
+* 
+* @param {number} ms - the delay-time in milliseconds
 */
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));

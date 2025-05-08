@@ -27,6 +27,8 @@ class World {
         gem: new Audio('audio/gem.mp3'),
         magicStone: new Audio('audio/magic_stone.mp3'),
         magicAttack: new Audio('audio/magic_attack.mp3'),
+        gameOver: new Audio('audio/game_over.mp3'),
+        victory: new Audio('audio/victory.mp3'),
     };
 
     level = level1;
