@@ -124,7 +124,6 @@ class Character extends MovableObject {
             } else if (this.isDead()) {
                 this.loadImage('img/dead-animation-universal/dead.png');
                 this.world.gameOver = true;
-                gameOver();
             } else if (this.isHurt) {
                 this.playAnimation(this.IMAGES_HIT);
             } else if (this.isAboveGround()) {

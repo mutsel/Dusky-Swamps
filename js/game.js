@@ -2,6 +2,14 @@ let canvas;
 let world;
 let fullMute;
 
+collectedGemsImgs = [
+    "url('./img/GUI/menus/win_gems_00.png')",
+    "url('./img/GUI/menus/win_gems_01.png')",
+    "url('./img/GUI/menus/win_gems_02.png')",
+    "url('./img/GUI/menus/win_gems_03.png')",
+    "url('./img/GUI/menus/win_gems_04.png')"
+]
+
 /**
 * This eventListener called on keydown prevents default behavior for buttons.
 * Like this, accidentaly clicked buttons by pressing a key are not happening.
@@ -48,7 +56,7 @@ function startGame() {
     world.firstBossContact = false;
     world.gameOver = false;
     world.victory = false;
-    checkVictory();
+    gameEndCalled = false;
 }
 
 /**
@@ -217,55 +225,49 @@ function toggleGameSettings() {
 * This function shows the gameOver-screen if gameOver in the world is set to true.
 */
 function gameOver() {
-    if (world.gameOver === true) {
-        document.getElementById("gameSettings").classList.add("d-none");
-        document.getElementById("gameOver").classList.remove("d-none");
-        document.getElementById("gameOverlay").classList.add("dark-bg");
-        document.getElementById("settingsBtn").hidden = true;
-        removeEventListeners();
-    }
+
+    console.log(world.gameOver)
+    document.getElementById("gameSettings").classList.add("d-none");
+    document.getElementById("gameOver").classList.remove("d-none");
+    document.getElementById("gameOverlay").classList.add("dark-bg");
+    document.getElementById("settingsBtn").hidden = true;
+    removeEventListeners();
+
 }
 
 /**
 * This function shows the victory-screen if victory in the world is set to true.
 */
-function checkVictory() {
-    setInterval(() => {
-        if (world.victory === true) {
-            document.getElementById("gameSettings").classList.add("d-none");
-            document.getElementById("gameOver").classList.add("d-none");
-            document.getElementById("victory").classList.remove("d-none");
-            document.getElementById("gameOverlay").classList.add("dark-bg");
-            document.getElementById("settingsBtn").hidden = true;
-            removeEventListeners();
-            countGems();
-        }
-    }, 100);
+function victory() {
+    document.getElementById("gameSettings").classList.add("d-none");
+    document.getElementById("gameOver").classList.add("d-none");
+    document.getElementById("victory").classList.remove("d-none");
+    document.getElementById("gameOverlay").classList.add("dark-bg");
+    document.getElementById("settingsBtn").hidden = true;
+    removeEventListeners();
+    countGems();
 }
 
 /**
 * This function is part of the checkVictory()-function an adjusts the image of the gemCounter.
 * This way, the  number of gems collected is shown.
 */
-function countGems() {
+async function countGems() {
     let gemCounter = document.getElementById("gemCounter");
-    let missingGemsInPercent = world.gemsBar.percentage;
-    switch (missingGemsInPercent) {
-        default:
-        case 100:
-            gemCounter.style.backgroundImage = "url('./img/GUI/menus/win_gems_00.png')";
-            break;
-        case 75:
-            gemCounter.style.backgroundImage = "url('./img/GUI/menus/win_gems_01.png')";
-            break;
-        case 50:
-            gemCounter.style.backgroundImage = "url('./img/GUI/menus/win_gems_02.png')";
-            break;
-        case 25:
-            gemCounter.style.backgroundImage = "url('./img/GUI/menus/win_gems_03.png')";
-            break;
-        case 0:
-            gemCounter.style.backgroundImage = "url('./img/GUI/menus/win_gems_04.png')";
-            break;
+    let collectedGems = 4 - (world.gemsBar.percentage / 100 * 4);
+    console.log(collectedGems)
+    for (let i = 0; i <= collectedGems; i++) {
+        gemCounter.style.backgroundImage = collectedGemsImgs[i];
+        if (i > 0) {
+            world.audios.gem.play();
+        }
+        await delay(600);
     }
+}
+
+/**
+* This function is a support function and is executed when a delay is needed.
+*/
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }

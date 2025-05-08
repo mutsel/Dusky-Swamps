@@ -4,6 +4,7 @@ class World {
     attackBar = new AttackBar();
     gemsBar = new GemsBar();
     availableMagicAttacks = [];
+    magicAttackAvailable = true;
     canonballAttacks = [];
     passiveEntities = [
         new PassiveEntity(250),
@@ -36,7 +37,7 @@ class World {
     firstBossContact = false;
     gameOver = false;
     victory = false;
-    magicAttackAvailable = true;
+    gameEndCalled = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
@@ -153,13 +154,20 @@ class World {
     }
 
     /**
-     * This function runs the game. It executes the checkCollision-functions and is used for the scenery.
+     * This function runs the game. It executes the checkCollision-functions, checks if the game ends and is used for the scenery.
      */
     run() {
         setInterval(() => {
             this.checkCollisionsEnemies();
             this.checkCollisionMagicAttacks();
             this.checkCollisionsCollectables();
+            if (this.gameOver && !this.gameEndCalled) {
+                gameOver();
+                this.gameEndCalled = true;
+            } else if (this.victory && !this.gameEndCalled) {
+                victory();
+                this.gameEndCalled = true;
+            }
         }, 1000 / 60);
 
         this.respawnScenery();
