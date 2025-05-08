@@ -248,7 +248,7 @@ class World {
             this.level.sky.push(new Sky(2880));
         }, 230000);
     }
-
+ 
     /**
      * This function is used for dead enemies (enemies with an energylevel of zero) to be removed from the map.
      */
