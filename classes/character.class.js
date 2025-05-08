@@ -105,14 +105,14 @@ class Character extends MovableObject {
                 this.otherDirection = true;
             }
 
-            if (this.world.keyboard.UP && !this.isAboveGround()) {
+            if (this.world.keyboard.UP && !this.isAboveGround() && !this.isJumping) {
                 this.speedY = 12;
+                this.isJumping = true;
             }
 
             if (!this.world.firstBossContact) {
                 this.world.cameraX = -this.x + 100;
             }
-
         }, 1000 / 60);
 
         // animations(dead, hurt, jump, fall, run, attack, idle)

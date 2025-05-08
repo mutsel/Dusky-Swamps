@@ -10,6 +10,7 @@ class MovableObject extends DrawableObject {
     // };
     otherDirection = false;
     isHurt = false;
+    isJumping = false;
     speedY = 0;
     acceleration = 0.5;
     energy = 100;
@@ -29,6 +30,7 @@ class MovableObject extends DrawableObject {
                 this.speedY -= this.acceleration;
             } else if (!this.isAboveGround()) {
                 this.speedY = 0;
+                this.isJumping = false;
             }
         }, 1000 / 60)
     }

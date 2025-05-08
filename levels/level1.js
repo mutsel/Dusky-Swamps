@@ -116,13 +116,13 @@ function initLevel() {
         ],
         [
             new Gem(10, 350),
-            new Gem(564, 140),
-            new Gem(1000, 160),
+            new Gem(564, 150),
+            new Gem(1000, 150),
             new Gem(1500, 350),
         ],
         [
             new MagicStone(564, 350),
-            new MagicStone(890, 160),
+            new MagicStone(890, 150),
             new MagicStone(945, 350),
             new MagicStone(2180, 350),
         ],

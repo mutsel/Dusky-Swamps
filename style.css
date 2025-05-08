@@ -254,6 +254,16 @@ canvas {
             background-repeat: no-repeat;
             pointer-events: none;
         }
+
+        .disabled-btn {
+            pointer-events: none;
+            filter: opacity(0.6);
+        }
+
+        .disabled-btn:hover {
+            background-image: initial !important;
+            cursor: default !important;
+        }
     }
 }
 

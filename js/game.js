@@ -35,20 +35,29 @@ function init() {
 * This function is executed when the player starts a game. All sections and menues are closed, only the canvas and the gameOverlay are visible.
 * the world, the canvas and the keyboard and its eventListeners are created/activated and all variables are set to false (default).
 */
-function startGame() {
+function startGame() {;
     initLevel();
+    createWorld();
     addEventListeners();
-    keyboard = new Keyboard();
     closeAllStartscreenMenu();
     closeAllGameMenu();
+    toggleVictoryButtons();
     document.getElementById("canvas").classList.remove("d-none");
     document.getElementById("gameOverlay").classList.remove("d-none");
     document.getElementById("gameOverlay").classList.remove("dark-bg");
     document.getElementById("settingsBtn").classList.remove("close-btn");
     document.getElementById("settingsBtn").hidden = false;
-    canvas = document.getElementById("canvas");
-    world = new World(canvas, keyboard);
+    gemCounter.style.backgroundImage = collectedGemsImgs[0];
     checkLocalStorageAudioSettings();
+}
+
+/**
+* This function is part of the startGame()-function. It creates the necessary Objects and sets the worlds variables to false.
+*/
+function createWorld() {
+    canvas = document.getElementById("canvas");
+    keyboard = new Keyboard();
+    world = new World(canvas, keyboard);
     world.firstBossContact = false;
     world.gameOver = false;
     world.victory = false;
@@ -76,6 +85,14 @@ function closeAllGameMenu() {
     for (let i = 0; i < gameMenu.length; i++) {
         gameMenu[i].classList.add("d-none")
     }  
+}
+
+/**
+* This function toggles the disabled-btn-class for the victory-btns
+*/
+function toggleVictoryButtons() {
+    document.getElementById("victory-retry-btn").classList.toggle("disabled-btn");
+    document.getElementById("victory-main-menu-btn").classList.toggle("disabled-btn");
 }
 
 /**
@@ -143,7 +160,8 @@ function cancelEvents() {
 function keyDownEvents() {
     switch (event.keyCode) {
         case 38:
-        case 87: keyboard.UP = true;
+        case 87: 
+        keyboard.UP = true;
             break;
         case 37:
         case 65: keyboard.LEFT = true;
@@ -287,6 +305,7 @@ async function countGems() {
         }
         await delay(600);
     }
+    toggleVictoryButtons();
 }
 
 /**

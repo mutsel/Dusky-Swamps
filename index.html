@@ -113,9 +113,9 @@
         <img class="character-icon" src="./img/startscreen_character.gif">
     </main>
 
-    <canvas id="canvas" height="480px" width="720px" class=""></canvas>
+    <canvas id="canvas" height="480px" width="720px" class="d-none"></canvas>
 
-    <section id="gameOverlay" class="game-overlay">
+    <section id="gameOverlay" class="game-overlay d-none">
         <div class="game-buttons">
             <button onclick="toggleAudio()" id="muteBtn" class="mute-btn"></button>
             <button onclick="toggleGameSettings()" id="settingsBtn" class="settings-btn"></button>
@@ -132,8 +132,8 @@
 
         <div id="victory" class="victory game-menu">
             <div id="gemCounter" class="gem-counter"></div>
-            <button onclick="startGame()" class="retry-btn"></button>
-            <button onclick="init()" class="main-menu-btn"></button>
+            <button onclick="startGame()" id="victory-retry-btn" class="retry-btn"></button>
+            <button onclick="init()" id="victory-main-menu-btn" class="main-menu-btn"></button>
         </div>
     </section>
 
