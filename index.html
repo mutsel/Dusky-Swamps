@@ -56,7 +56,7 @@
 
         <section id="startscreenAbout" class="startscreen-about startscreen-menu d-none">
             <div class="startscreen-header">
-                <button onclick="init()" class="back"></button>
+                <button onclick="init()" class="back-btn round-btn"></button>
                 <h2>About the Game</h2>
             </div>
 
@@ -105,8 +105,19 @@
 
         <section id="startscreenSettings" class="startscreen-settings startscreen-menu d-none">
             <div class="startscreen-header">
-                <button onclick="init()" class="back"></button>
+                <button onclick="init()" class="back-btn round-btn"></button>
                 <h2>Settings</h2>
+            </div>
+
+            <div class="settings-audio">
+                <h3>Audio</h3>
+                <div>
+                    <div class="audio-volume">
+                        <button class="volume-decrease-btn round-btn"></button>
+                        <button class="volume-increase-btn round-btn"></button>
+                    </div>
+                    <button id="muteBtnStartscreen" class="mute-btn round-btn"></button>
+                </div>
             </div>
         </section>
 
@@ -117,8 +128,8 @@
 
     <section id="gameOverlay" class="game-overlay d-none">
         <div class="game-buttons">
-            <button onclick="toggleAudio()" id="muteBtn" class="mute-btn"></button>
-            <button onclick="toggleGameSettings()" id="settingsBtn" class="settings-btn"></button>
+            <button onclick="toggleAudio()" id="muteBtn" class="mute-btn round-btn"></button>
+            <button onclick="toggleGameSettings()" id="settingsBtn" class="settings-btn round-btn"></button>
         </div>
 
         <div id="gameSettings" class="game-settings game-menu">
@@ -137,7 +148,7 @@
         </div>
     </section>
 
-    <section class="controls">
+    <section id="controls" class="controls">
         <div class="controls-section">
             <div>
                 <img src="./img/GUI/button_left.png">

@@ -41,7 +41,6 @@ function startGame() {;
     addEventListeners();
     closeAllStartscreenMenu();
     closeAllGameMenu();
-    toggleVictoryButtons();
     document.getElementById("canvas").classList.remove("d-none");
     document.getElementById("gameOverlay").classList.remove("d-none");
     document.getElementById("gameOverlay").classList.remove("dark-bg");
@@ -85,14 +84,8 @@ function closeAllGameMenu() {
     for (let i = 0; i < gameMenu.length; i++) {
         gameMenu[i].classList.add("d-none")
     }  
-}
-
-/**
-* This function toggles the disabled-btn-class for the victory-btns
-*/
-function toggleVictoryButtons() {
-    document.getElementById("victory-retry-btn").classList.toggle("disabled-btn");
-    document.getElementById("victory-main-menu-btn").classList.toggle("disabled-btn");
+    document.getElementById("victory-retry-btn").classList.add("disabled-btn");
+    document.getElementById("victory-main-menu-btn").classList.add("disabled-btn");
 }
 
 /**
@@ -225,6 +218,7 @@ function toggleAudio() {
 */
 function unmuteAudio() {
     document.getElementById("muteBtn").classList.add("low-opacity");
+    document.getElementById("muteBtn").classList.add("low-opacity");
     for (let key in world.audios) {
         world.audios[key].muted = false;
     }
@@ -236,6 +230,7 @@ function unmuteAudio() {
 * The fullMute-audiosetting in the local storage is updated.
 */
 function muteAudio() {
+    document.getElementById("muteBtn").classList.remove("low-opacity");
     document.getElementById("muteBtn").classList.remove("low-opacity");
     for (let key in world.audios) {
         world.audios[key].muted = true;
@@ -305,7 +300,15 @@ async function countGems() {
         }
         await delay(600);
     }
-    toggleVictoryButtons();
+    enableVictoryButtons();
+}
+
+/**
+* This function removes the disabled-btn-class for the victory-buttons
+*/
+function enableVictoryButtons() {
+    document.getElementById("victory-retry-btn").classList.remove("disabled-btn");
+    document.getElementById("victory-main-menu-btn").classList.remove("disabled-btn");
 }
 
 /**

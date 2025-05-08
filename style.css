@@ -44,18 +44,45 @@ button {
     background-repeat: no-repeat;
 }
 
-.back {
-    width: 35px;
-    height: 35px;
-    background-image: url("./img/GUI/button_back.png");
-}
-
 button:hover {
     cursor: pointer;
 }
 
 button:focus-visible {
     outline: unset;
+}
+
+.round-btn {
+    width: 35px;
+    height: 35px;
+}
+
+.round-btn:hover {
+    transform: scale(1.2);
+}
+
+.back-btn {
+    background-image: url("./img/GUI/button_back.png");
+}
+
+.mute-btn {
+    background-image: url("./img/GUI/button_audio_mute.png");
+}
+
+.settings-btn {
+    background-image: url("./img/GUI/button_settings.png");
+}
+
+.close-btn {
+    background-image: url("./img/GUI/button_close.png") !important;
+}
+
+.volume-decrease-btn {
+    background-image: url("./img/GUI/button_audio_decrease.png");
+}
+
+.volume-increase-btn {
+    background-image: url("./img/GUI/button_audio_increase.png");
 }
 
 .startscreen {
@@ -125,7 +152,22 @@ button:focus-visible {
 
     }
 
-    /*.startscreen-settings {} */
+    .startscreen-settings {
+        .settings-audio {
+            display: flex;
+            flex-direction: column;
+
+            div {
+                display: flex;
+
+                .audio-volume {
+                    display: flex;
+                    flex: 1;
+                }
+
+            }
+        }
+    }
 
     .startscreen-header {
         gap: 20px;
@@ -164,27 +206,7 @@ canvas {
         justify-content: end;
         padding: 16px 16px 0 0;
         z-index: 2;
-
-        .mute-btn {
-            width: 35px;
-            height: 35px;
-            background-image: url("./img/GUI/button_audio_mute.png");
-        }
-
-        .settings-btn {
-            width: 35px;
-            height: 35px;
-            background-image: url("./img/GUI/button_settings.png");
-        }
-
-        .close-btn {
-            background-image: url("./img/GUI/button_close.png") !important;
-        }
-
-        .mute-btn:hover,
-        .settings-btn:hover {
-            transform: scale(1.2);
-        }
+        gap: 6px;
     }
 
     .game-menu {
