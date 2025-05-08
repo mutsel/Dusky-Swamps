@@ -10,12 +10,9 @@ class HealthBar extends StatusBar {
         'img/GUI/statusbars/Health_0.png',
     ]
 
-    // icon = 'img/GUI/Health.png';
-
     constructor() {
         super();
         this.loadImages(this.IMAGES);
-        // this.loadImage(this.icon);
         this.setPercentage(100);
     }
 }

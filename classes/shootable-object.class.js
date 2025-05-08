@@ -10,6 +10,10 @@ class ShootableObject extends MovableObject {
         this.speed = speed; 
     }
 
+    /**
+     * This function is used for a shootable object to move left by substracting its speed from its x-position.
+     * The result is its new x-position.
+     */
     shoot() {
         setInterval(() => {
             this.x -= this.speed;
@@ -20,6 +24,9 @@ class ShootableObject extends MovableObject {
         }
     }
 
+    /**
+    * This function is used to animate the shootable Object
+    */
     animate() {
         setInterval(() => {
             this.playAnimation(this.IMAGES);

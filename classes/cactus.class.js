@@ -52,6 +52,9 @@ class Cactus extends MovableObject {
         this.animate();
     }
 
+    /**
+    * This function is used to animate the movable Object (movement and animation)
+    */
     animate() {
         setInterval(() => {
             this.moveLeft();

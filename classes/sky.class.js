@@ -10,6 +10,9 @@ class Sky extends MovableObject {
         this.animate();
     }
 
+    /**
+    * This function is used to animate the movable Object (movement)
+    */
     animate() {
         setInterval(() => {
             this.moveLeft();

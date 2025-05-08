@@ -80,17 +80,20 @@ class Character extends MovableObject {
     constructor() {
         super().loadImage("img/character/Fall.png");
         this.loadImages(this.IMAGES_ATTACK);
-        this.loadImages(this.IMAGES_DEAD); 
+        this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_FALL);
         this.loadImages(this.IMAGES_HIT);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_JUMP);
         this.loadImages(this.IMAGES_RUN);
-        
+
         this.applyGravity();
         this.animate();
     }
 
+    /**
+    * This function is used to animate the movable Object (movement and animation)
+    */
     animate() {
         //decrease/increase x-coordinate
         setInterval(() => {

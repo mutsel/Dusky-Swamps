@@ -23,6 +23,12 @@ class Level {
         this.animate(this.backgroundObjects);
     }
 
+    /**
+     * This function is used to animate fore- and background-objects to give the illusion of depth (parallaxe).
+     * When the player reaches the endboss-area, the objects stop moving.
+     * 
+     * @param {Object} objects - the fore- and background-objects to be animated
+     */
     animate(objects) {
         setInterval(() => {
             objects.forEach((o) => {

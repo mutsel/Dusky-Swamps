@@ -15,6 +15,11 @@ class BackgroundObject extends MovableObject {
         this.x = x;
     }
 
+    /**
+     * This function adjusts width, height and the image-path to each background-object according to its category
+     * 
+     * @param {string} category - the type of the background-object (water, trees, ground)
+     */
     adjustToCategory(category) {
         switch (category) {
             case "water":

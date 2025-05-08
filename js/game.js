@@ -2,12 +2,19 @@ let canvas;
 let world;
 let fullMute;
 
+/**
+* This eventListener called on keydown prevents default behavior for buttons.
+* Like this, accidentaly clicked buttons by pressing a key are not happening.
+*/
 window.addEventListener('keydown', (e) => {
     if (document.activeElement.tagName == 'BUTTON') {
         e.preventDefault();
     }
 });
 
+/**
+* This function is the init function for the game. All sections and menues are closed, only the startscreen is visible.
+*/
 function init() {
     document.getElementById("startscreen").classList.remove("d-none");
     document.getElementById("gameOverlay").classList.add("d-none");
@@ -19,6 +26,10 @@ function init() {
     removeEventListeners();
 }
 
+/**
+* This function is executed when the player starts a game. All sections and menues are closed, only the canvas and the gameOverlay are visible.
+* the world, the canvas and the keyboard and its eventListeners are created/activated and all variables are set to false (default).
+*/
 function startGame() {
     initLevel();
     addEventListeners();
@@ -40,32 +51,53 @@ function startGame() {
     checkVictory();
 }
 
+/**
+* This function checks if fullMute-audiosettings are deposited in the local storage (true or false).
+* This way, previous audio-settings are saved, so the player does not need to adjust it everytime playing.
+*/
 function checkLocalStorageAudioSettings() {
     fullMute = JSON.parse(localStorage.getItem('fullMute'));
-    toggleAudio()
+    toggleAudio();
 }
 
+/**
+* This function opens the about-section in the main-menu.
+*/
 function openAbout() {
     document.getElementById("startscreenOverview").classList.toggle("d-none");
     document.getElementById("startscreenAbout").classList.toggle("d-none");
 }
 
+/**
+* This function opens the settings-section in the main-menu.
+*/
 function openStartscreenSettings() {
     document.getElementById("startscreenOverview").classList.toggle("d-none");
     document.getElementById("startscreenSettings").classList.toggle("d-none");
 }
 
+/**
+* This function adds the keydown- and keyup-eventListeners for the game.
+*/
 function addEventListeners() {
     window.addEventListener('keydown', keyDownEvents);
     window.addEventListener('keyup', keyUpEvents);
 }
 
+/**
+* This function removes the keydown- and keyup-eventListeners for the game.
+* This way, the player is not able to move the character while being in the startscreen or a menu.
+*/
 function removeEventListeners() {
     window.removeEventListener('keydown', keyDownEvents);
     window.removeEventListener('keyup', keyUpEvents);
     cancelEvents()
 }
 
+/**
+* This function stops the music and sets all keyboard-constants to false.
+* This way, the character and the music stops, when a menu opens.
+*/
 function cancelEvents() {
     if (world) {
         world.audios.steps.pause();
@@ -77,6 +109,10 @@ function cancelEvents() {
     }
 }
 
+/**
+* This function sets the accoring constant for a pressed key to true (keydown).
+* If the character touches ground and walks, a sound is played.
+*/
 function keyDownEvents() {
     switch (event.keyCode) {
         case 38:
@@ -100,6 +136,11 @@ function keyDownEvents() {
     }
 }
 
+/**
+* This function sets the accoring constant for a pressed key to false (keyup).
+* The walking-sounds if the character was previously walking. 
+* A magicAttack is shot, after the spacebar is set to false.
+*/
 function keyUpEvents() {
     switch (event.keyCode) {
         case 38:
@@ -120,6 +161,9 @@ function keyUpEvents() {
     }
 }
 
+/**
+* This function toggles the fullMute-state of the game.
+*/
 function toggleAudio() {
     if (fullMute) {
         muteAudio();
@@ -130,6 +174,10 @@ function toggleAudio() {
     }
 }
 
+/**
+* This function adjusts the muteBtn and unmutes all audios.
+* The fullMute-audiosetting in the local storage is updated.
+*/
 function unmuteAudio() {
     document.getElementById("muteBtn").classList.add("low-opacity");
     for (let key in world.audios) {
@@ -138,6 +186,10 @@ function unmuteAudio() {
     localStorage.setItem('fullMute', JSON.stringify(fullMute));
 }
 
+/**
+* This function adjusts the muteBtn and mutes all audios.
+* The fullMute-audiosetting in the local storage is updated.
+*/
 function muteAudio() {
     document.getElementById("muteBtn").classList.remove("low-opacity");
     for (let key in world.audios) {
@@ -146,6 +198,9 @@ function muteAudio() {
     localStorage.setItem('fullMute', JSON.stringify(fullMute));
 }
 
+/**
+* This function toggles the visibility and functionality of the game-settings.
+*/
 function toggleGameSettings() {
     document.getElementById("gameSettings").classList.toggle("d-none");
     document.getElementById("gameOverlay").classList.toggle("dark-bg");
@@ -158,6 +213,9 @@ function toggleGameSettings() {
     }
 }
 
+/**
+* This function shows the gameOver-screen if gameOver in the world is set to true.
+*/
 function gameOver() {
     if (world.gameOver === true) {
         document.getElementById("gameSettings").classList.add("d-none");
@@ -168,6 +226,9 @@ function gameOver() {
     }
 }
 
+/**
+* This function shows the victory-screen if victory in the world is set to true.
+*/
 function checkVictory() {
     setInterval(() => {
         if (world.victory === true) {
@@ -182,6 +243,10 @@ function checkVictory() {
     }, 100);
 }
 
+/**
+* This function is part of the checkVictory()-function an adjusts the image of the gemCounter.
+* This way, the  number of gems collected is shown.
+*/
 function countGems() {
     let gemCounter = document.getElementById("gemCounter");
     let missingGemsInPercent = world.gemsBar.percentage;

@@ -79,6 +79,9 @@ class Endboss extends MovableObject {
         this.applyGravity();
     }
 
+    /**
+    * This function is used to animate the movable Object (intro, movement and animation)
+    */
     animate() {
         let i = 0;
         let j = 0;

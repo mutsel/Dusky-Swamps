@@ -20,6 +20,9 @@ class Gem extends MovableObject {
         this.animate();
     }
 
+    /**
+    * This function is used to animate the movable Object
+    */
     animate() {
         setInterval(() => {
             this.playAnimation(this.IMAGES_GEMS);

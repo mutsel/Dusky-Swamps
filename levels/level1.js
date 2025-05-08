@@ -1,5 +1,9 @@
 let level1;
 
+/**
+ * This function is executed, when level one starts.
+ * A new level is created and contains arrays with all of the necessary objects (enemies, sky, backgroundObjects, decoration, plattforms, gems, magicStones, foregroundObjects)
+ */
 function initLevel() {
     level1 = new Level(
         [

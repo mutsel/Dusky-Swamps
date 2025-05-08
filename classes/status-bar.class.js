@@ -5,15 +5,22 @@ class StatusBar extends DrawableObject {
 
     constructor() {
         super();
-        // this.loadImages(this.ICONS);
     }
 
+    /**
+     * This function sets the percentage of a statusbar and loads the according image of this statusbar.
+     * 
+     * @param {number} percentage - the fillstate of a statusbar in percent
+     */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES[this.resolveImageCache()]
         this.img = this.imageCache[path];
     } 
 
+    /**
+     * This function returns the index of that image from statusbars images-array, that shows the correct percentage.
+     */
     resolveImageCache() {
         if (this.percentage == 100) {
             return 0;
