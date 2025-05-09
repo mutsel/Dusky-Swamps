@@ -1,4 +1,3 @@
-let fullMute;
 let indexAudioVolume;
 
 const volumeRegulatorImgs = [
@@ -10,10 +9,10 @@ const volumeRegulatorImgs = [
 ];
 
 /**
-* This function checks if fullMute-audiosettings are deposited in the local storage (true or false).
+* This function checks if fullMute-audiosettings (true or false) and indexAudioVolume (0-4) are deposited in the local storage .
 * This way, previous audio-settings are saved, so the player does not need to adjust it everytime playing.
 */
-function checkLocalStorageAudioSettings() {
+function checkAudioSettings() {
     try {
         indexAudioVolume = JSON.parse(localStorage.getItem('indexAudioVolume'));
     }
@@ -21,71 +20,68 @@ function checkLocalStorageAudioSettings() {
         indexAudioVolume = 2;
         localStorage.setItem('indexAudioVolume', JSON.stringify(indexAudioVolume));
     }
+    if (indexAudioVolume == null) { indexAudioVolume = 2 }
     setAudioVolume();
-    fullMute = JSON.parse(localStorage.getItem('fullMute'));
-    setMuteState()
 }
 
 /**
 * This function toggles the fullMute-state of the game.
 */
 function toggleAudio() {
-    fullMute = !fullMute;
-    setMuteState();
+    if (indexAudioVolume !== 0) {
+        indexAudioVolume = 0;
+    } else {
+        indexAudioVolume = 2;
+    }
+    setAudioVolume();
+    toggleAudioSettingsLowOpacity();
 }
 
 /**
-* This function adjusts the muteBtn and the worlds audio settings to the current fullMute-state (true/false)
-* The fullMute-audiosetting in the local storage is updated.
+* This function adjusts the volumeRegulator to the current indexAudioVolume.
+* 
+* @param {string} method - if the indexAudioVolume should decrease or increse. If it's empty, it should not change.
 */
-function setMuteState() {
-    if (fullMute == false || fullMute == null) {
-        fullMute = false;
-        document.getElementById("muteBtn").classList.add("low-opacity");
-        if (indexAudioVolume == 0) {
-            indexAudioVolume = 2;
-        }
-    } else {
-        indexAudioVolume = 0;
-        document.getElementById("muteBtn").classList.remove("low-opacity");
-    }
-
-    localStorage.setItem('indexAudioVolume', JSON.stringify(indexAudioVolume));
-    localStorage.setItem('fullMute', JSON.stringify(fullMute));
-
-    if (inGame) {
-        for (let key in world.audios) {
-            world.audios[key].muted = fullMute;
-        }
-    }
-}
-
 function setAudioVolume(method) {
     let audioVolumeContentRef = document.getElementById("volumeRegulator");
-    if (indexAudioVolume == null) { indexAudioVolume = 2 }
     switch (method) {
-        case 'decrease': audioVolumeContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume - 1];
-            indexAudioVolume--;
+        case 'decrease': if (indexAudioVolume > 0) {indexAudioVolume--};
+            audioVolumeContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
             break;
-        case 'increase': audioVolumeContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume + 1];
-            indexAudioVolume++;
+        case 'increase':if (indexAudioVolume < 4) {indexAudioVolume++};
+            audioVolumeContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
             break;
         default: audioVolumeContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
     }
     localStorage.setItem('indexAudioVolume', JSON.stringify(indexAudioVolume));
     adjustAudioVolume()
+    toggleAudioSettingsLowOpacity()
 }
 
+/**
+* This function adjusts adjusts the current audio volume according to the indexAudioVolume.
+* If the audio volume is equal to zero, the game goes fullMute.
+*/
 function adjustAudioVolume() {
-    if (indexAudioVolume == 0) {
-        fullMute = true;
-    } else {
-        fullMute = false;
-    }
-    setMuteState();
     if (inGame) {
         for (let key in world.audios) {
             world.audios[key].volume = (indexAudioVolume * 25 / 100);
         }
+    }
+}
+
+/**
+* This function toggles the userFeedback for the volumeRegulator and mute-btns.
+* This way, the player can easily see, if the audio settings are turned on or off.
+*/
+function toggleAudioSettingsLowOpacity() {
+    if (indexAudioVolume == 0) {
+        document.getElementById("volumeRegulator").classList.add("low-opacity");
+        document.getElementById("muteBtnStartscreen").classList.remove("low-opacity");
+        document.getElementById("muteBtn").classList.remove("low-opacity");
+    } else {
+        document.getElementById("volumeRegulator").classList.remove("low-opacity");
+        document.getElementById("muteBtnStartscreen").classList.add("low-opacity");
+        document.getElementById("muteBtn").classList.add("low-opacity");
     }
 }

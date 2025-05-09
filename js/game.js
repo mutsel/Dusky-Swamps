@@ -31,7 +31,7 @@ function init() {
     document.getElementById("startscreen").classList.remove("d-none");
     document.getElementById("startscreenOverview").classList.remove("d-none");
     removeEventListeners();
-    checkLocalStorageAudioSettings();
+    checkAudioSettings();
 }
 
 /**
@@ -51,7 +51,7 @@ function startGame() {
     document.getElementById("settingsBtn").classList.remove("close-btn");
     document.getElementById("settingsBtn").hidden = false;
     gemCounter.style.backgroundImage = collectedGemsImgs[0];
-    checkLocalStorageAudioSettings();
+    checkAudioSettings();
 }
 
 /**
