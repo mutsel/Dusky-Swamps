@@ -166,16 +166,20 @@ class World {
             if (this.gameOver && !this.gameEndCalled) {
                 gameOver();
                 this.gameEndCalled = true;
+                this.audios.scenery.pause();
             } else if (this.victory && !this.gameEndCalled) {
                 victory();
                 this.gameEndCalled = true;
+                this.audios.scenery.pause();
             }
         }, 1000 / 60);
 
         this.respawnScenery();
-        this.audios.scenery.play();
-        this.audios.scenery.volume = audioVolume;
-        this.audios.scenery.loop = true;
+        if (audioVolume > 0) {
+            this.audios.scenery.play();
+            this.audios.scenery.volume = audioVolume;
+            this.audios.scenery.loop = true;
+        }
     }
 
     /**
@@ -259,7 +263,7 @@ class World {
             this.level.sky.push(new Sky(2880));
         }, 230000);
     }
- 
+
     /**
      * This function is used for dead enemies (enemies with an energylevel of zero) to be removed from the map.
      */

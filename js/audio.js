@@ -59,7 +59,25 @@ function setAudioVolume(method) {
     }
     localStorage.setItem('indexAudioVolume', JSON.stringify(indexAudioVolume));
     toggleAudioSettingsLowOpacity();
+    adjustAudioVolume();
+}
+
+/**
+* This function adjusts adjusts the current audio volume according to the indexAudioVolume.
+* If the audio volume is equal to zero, the game goes fullMute.
+*/
+function adjustAudioVolume() {
     audioVolume = indexAudioVolume * 25 / 100;
+    if (inGame) {
+        for (let i = 0; i < world.audios.length; i++) {
+            world.audios[i].volume = (indexAudioVolume * 25 / 100);
+        }
+        if (audioVolume == 0 || world.gameEndCalled) {
+            world.audios.scenery.pause();
+        } else {
+            world.audios.scenery.play();
+        }
+    }
 }
 
 /**

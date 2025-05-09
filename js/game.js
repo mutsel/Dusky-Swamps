@@ -221,7 +221,7 @@ function gameOver() {
     gameEnd()
     document.getElementById("gameOver").classList.remove("d-none");
     world.audios.gameOver.play();
-    world.audios.ganeOver.volume = audioVolume;
+    world.audios.gameOver.volume = audioVolume;
 }
 
 /**
