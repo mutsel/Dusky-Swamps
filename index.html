@@ -117,13 +117,15 @@
                         <button onclick="setAudioVolume('decrease')" class="volume-decrease-btn round-btn"></button>
                         <button onclick="setAudioVolume('increase')" class="volume-increase-btn round-btn"></button>
                     </div>
-                    <button onclick="toggleAudio()" id="muteBtnStartscreen" class="mute-btn round-btn low-opacity"></button>
+                    <button onclick="toggleAudio()" id="muteBtnStartscreen"
+                        class="mute-btn round-btn low-opacity"></button>
                 </div>
             </div>
 
             <div class="settings-controls">
                 <h3>Show Controls</h3>
-                <button onclick="toggleControlsVisibility()" id="showControlsBtn" class="show-controls-btn round-btn"></button>
+                <button onclick="toggleControlsVisibility()" id="showControlsBtn"
+                    class="show-controls-btn round-btn"></button>
             </div>
 
             <div class="settings-fullscreen">
@@ -159,11 +161,22 @@
         </div>
     </section>
 
+    <section id="mobileControls" class="mobile-controls">
+        <div class="mobile-btns">
+            <button onmousedown="mobileControlsMousedown('up')" onmouseup="mobileControlsMouseup('up')" class="up-btn"></button>
+            <div>
+                <button onmousedown="mobileControlsMousedown('left')" onmouseup="mobileControlsMouseup('left')" class="left-btn"></button>
+                <button onmousedown="mobileControlsMousedown('right')" onmouseup="mobileControlsMouseup('right')" class="right-btn"></button>
+            </div>
+            <button onmousedown="mobileControlsMousedown('attack')" onmouseup="mobileControlsMouseup('attack')" class="attack-btn"></button>
+        </div>
+    </section>
+
     <section id="controls" class="controls">
         <div class="controls-section">
             <div>
                 <img src="./img/GUI/button_left.png">
-                <img src="./img/GUI/button_d.png">
+                <img src="./img/GUI/button_a.png">
             </div>
             <span>Move Left</span>
         </div>
@@ -171,7 +184,7 @@
         <div class="controls-section">
             <div>
                 <img src="./img/GUI/button_right.png">
-                <img src="./img/GUI/button_a.png">
+                <img src="./img/GUI/button_d.png">
             </div>
             <span>Move Right</span>
         </div>

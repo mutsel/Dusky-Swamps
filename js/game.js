@@ -198,6 +198,43 @@ function keyUpEvents() {
     }
 }
 
+function mobileControlsMousedown(key) {
+    switch (key) {
+        case 'up': keyboard.UP = true;
+            break;
+        case 'left': keyboard.LEFT = true;
+            if (!world.character.isAboveGround()) {
+                world.audios.steps.play();
+                world.audios.steps.volume = audioVolume;
+            }
+            break;
+        case 'right': keyboard.RIGHT = true;
+            if (!world.character.isAboveGround()) {
+                world.audios.steps.play();
+                world.audios.steps.volume = audioVolume;
+            }
+            break;
+        case 'attack': keyboard.ATTACK = true;
+            break;
+    }
+}
+
+function mobileControlsMouseup(key) {
+    switch (key) {
+        case 'up': keyboard.UP = false;
+            break;
+        case 'left': keyboard.LEFT = false;
+            world.audios.steps.pause();
+            break;
+        case 'right': keyboard.RIGHT = false;
+            world.audios.steps.pause();
+            break;
+        case 'attack': keyboard.ATTACK = false;
+            world.shootMagicAttack();
+            break;
+    }
+}
+
 /**
 * This function toggles the visibility and functionality of the game-settings.
 */

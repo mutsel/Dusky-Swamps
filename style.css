@@ -162,6 +162,7 @@ button:focus-visible {
 
     .startscreen-settings {
         background-color: antiquewhite;
+
         .startscreen-header {
             padding-bottom: 32px;
         }
@@ -317,6 +318,56 @@ canvas {
         .disabled-btn:hover {
             background-image: initial !important;
             cursor: default !important;
+        }
+    }
+}
+
+.mobile-controls {
+    width: 160px;
+    height: 110px;
+    padding: 0 12px 12px 0;
+    margin-left: 560px;
+    position: fixed;
+    top: 500px;
+    z-index: 2;
+
+    .mobile-btns {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        button {
+            width: 40px;
+            height: 40px;
+            background-color: transparent;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .up-btn {
+            background-image: url("./img/GUI/button_up.png");
+        }
+
+        div {
+            width: 100%;
+            height: 20px;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+
+            .left-btn {
+                background-image: url("./img/GUI/button_left.png");
+            }
+
+            .right-btn {
+                background-image: url("./img/GUI/button_right.png");
+            }
+        }
+
+        .attack-btn {
+            background-image: url("./img/GUI/button_w.png");
         }
     }
 }
