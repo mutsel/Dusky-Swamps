@@ -174,6 +174,7 @@ class World {
 
         this.respawnScenery();
         this.audios.scenery.play();
+        this.audios.scenery.volume = audioVolume;
         this.audios.scenery.loop = true;
     }
 
@@ -211,7 +212,6 @@ class World {
         this.availableMagicAttacks.forEach((a) => {
             this.level.enemies.forEach((e) => {
                 if (a.isColliding(e)) {
-                    console.log(a)
                     this.availableMagicAttacks.splice(this.availableMagicAttacks.indexOf(a), 1);
                     e.hit(55);
                     return;
@@ -231,7 +231,7 @@ class World {
                 this.level.gems.splice(this.level.gems.indexOf(g), 1);
                 this.gemsBar.setPercentage(this.level.gems.length * 25);
                 this.audios.gem.play();
-                this.audios.gem.volume = 0.5;
+                this.audios.gem.volume = 0.5 * audioVolume;
             }
         })
 
@@ -240,6 +240,7 @@ class World {
                 this.level.magicStones.splice(this.level.magicStones.indexOf(m), 1);
                 this.attackBar.setPercentage(this.attackBar.percentage + 25)
                 this.audios.magicStone.play();
+                this.audios.magicStone.volume = audioVolume;
             }
         })
     }
@@ -288,7 +289,7 @@ class World {
             }
 
             this.audios.magicAttack.play();
-            this.audios.magicAttack.volume = 0.4;
+            this.audios.magicAttack.volume = 0.4 * audioVolume;
 
             setTimeout(() => {
                 this.availableMagicAttacks.shift();

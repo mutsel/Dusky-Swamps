@@ -1,6 +1,7 @@
 let canvas;
 let world;
 let inGame;
+let controlsVisibility;
 
 const collectedGemsImgs = [
     "url('./img/GUI/menus/win_gems_00.png')",
@@ -32,6 +33,7 @@ function init() {
     document.getElementById("startscreenOverview").classList.remove("d-none");
     removeEventListeners();
     checkAudioSettings();
+    adjustControlsVisibility();
 }
 
 /**
@@ -88,8 +90,8 @@ function closeAllGameMenu() {
     for (let i = 0; i < gameMenu.length; i++) {
         gameMenu[i].classList.add("d-none")
     }
-    document.getElementById("victory-retry-btn").classList.add("disabled-btn");
-    document.getElementById("victory-main-menu-btn").classList.add("disabled-btn");
+    document.getElementById("victoryRetryBtn").classList.add("disabled-btn");
+    document.getElementById("victoryMainMenuBtn").classList.add("disabled-btn");
 }
 
 /**
@@ -155,12 +157,14 @@ function keyDownEvents() {
         case 65: keyboard.LEFT = true;
             if (!world.character.isAboveGround()) {
                 world.audios.steps.play();
+                world.audios.steps.volume = audioVolume;
             }
             break;
         case 39:
         case 68: keyboard.RIGHT = true;
             if (!world.character.isAboveGround()) {
                 world.audios.steps.play();
+                world.audios.steps.volume = audioVolume;
             }
             break;
         case 40:
@@ -204,6 +208,7 @@ function toggleGameSettings() {
     if (document.getElementById("gameSettings").classList.contains("d-none")) {
         addEventListeners();
         world.audios.scenery.play();
+        world.audios.scenery.volume = audioVolume;
     } else {
         removeEventListeners();
     }
@@ -216,6 +221,7 @@ function gameOver() {
     gameEnd()
     document.getElementById("gameOver").classList.remove("d-none");
     world.audios.gameOver.play();
+    world.audios.ganeOver.volume = audioVolume;
 }
 
 /**
@@ -225,6 +231,7 @@ function victory() {
     gameEnd()
     document.getElementById("victory").classList.remove("d-none");
     world.audios.victory.play();
+    world.audios.victory.volume = audioVolume;
     setTimeout(() => {
         countGems();
     }, 1000);
@@ -253,6 +260,7 @@ async function countGems() {
         gemCounter.style.backgroundImage = collectedGemsImgs[i];
         if (i > 0) {
             world.audios.gem.play();
+            world.audios.gem.volume = audioVolume;
         }
         await delay(600);
     }
@@ -263,8 +271,8 @@ async function countGems() {
 * This function removes the disabled-btn-class for the victory-buttons
 */
 function enableVictoryButtons() {
-    document.getElementById("victory-retry-btn").classList.remove("disabled-btn");
-    document.getElementById("victory-main-menu-btn").classList.remove("disabled-btn");
+    document.getElementById("victoryRetryBtn").classList.remove("disabled-btn");
+    document.getElementById("victoryMainMenuBtn").classList.remove("disabled-btn");
 }
 
 /**
@@ -274,4 +282,35 @@ function enableVictoryButtons() {
 */
 function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
+* This function toggles the visibility of the controls under the canvas.
+*/
+function toggleControlsVisibility() {
+    controlsVisibility = !controlsVisibility;
+    localStorage.setItem('controlsVisibility', JSON.stringify(controlsVisibility));
+    adjustControlsVisibility();
+}
+
+/**
+* This function adjusts the controls visibility to th current controlsVisibility-state.
+* The state is saved in the local storage.
+*/
+function adjustControlsVisibility() {
+    try {
+        controlsVisibility = JSON.parse(localStorage.getItem('controlsVisibility'));
+    }
+    catch (error) {
+        controlsVisibility = true;
+    }
+    if (controlsVisibility || controlsVisibility == null) {
+        controlsVisibility = true;
+        document.getElementById("showControlsBtn").classList.remove("low-opacity");
+        document.getElementById("controls").classList.remove("d-none");
+    } else {
+        document.getElementById("showControlsBtn").classList.add("low-opacity");
+        document.getElementById("controls").classList.add("d-none");
+    }
+    localStorage.setItem('controlsVisibility', JSON.stringify(controlsVisibility));
 }

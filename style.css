@@ -89,6 +89,10 @@ button:focus-visible {
     background-image: url("./img/GUI/button_fullscreen.png");
 }
 
+.show-controls-btn {
+    background-image: url("./img/GUI/button_show_controls.png");
+}
+
 .startscreen {
     width: 720px;
     height: 480px;

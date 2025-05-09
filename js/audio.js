@@ -1,4 +1,5 @@
 let indexAudioVolume;
+let audioVolume;
 
 const volumeRegulatorImgs = [
     "url('./img/GUI/volume_regulator_0.png')",
@@ -18,6 +19,7 @@ function checkAudioSettings() {
     }
     catch (error) {
         indexAudioVolume = 2;
+        audioVolume = 0.5;
         localStorage.setItem('indexAudioVolume', JSON.stringify(indexAudioVolume));
     }
     if (indexAudioVolume == null) { indexAudioVolume = 2 }
@@ -30,8 +32,10 @@ function checkAudioSettings() {
 function toggleAudio() {
     if (indexAudioVolume !== 0) {
         indexAudioVolume = 0;
+        audioVolume = 0;
     } else {
         indexAudioVolume = 2;
+        audioVolume = 0.5;
     }
     setAudioVolume();
     toggleAudioSettingsLowOpacity();
@@ -45,29 +49,17 @@ function toggleAudio() {
 function setAudioVolume(method) {
     let audioVolumeContentRef = document.getElementById("volumeRegulator");
     switch (method) {
-        case 'decrease': if (indexAudioVolume > 0) {indexAudioVolume--};
+        case 'decrease': if (indexAudioVolume > 0) { indexAudioVolume-- };
             audioVolumeContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
             break;
-        case 'increase':if (indexAudioVolume < 4) {indexAudioVolume++};
+        case 'increase': if (indexAudioVolume < 4) { indexAudioVolume++ };
             audioVolumeContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
             break;
         default: audioVolumeContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
     }
     localStorage.setItem('indexAudioVolume', JSON.stringify(indexAudioVolume));
-    adjustAudioVolume()
-    toggleAudioSettingsLowOpacity()
-}
-
-/**
-* This function adjusts adjusts the current audio volume according to the indexAudioVolume.
-* If the audio volume is equal to zero, the game goes fullMute.
-*/
-function adjustAudioVolume() {
-    if (inGame) {
-        for (let key in world.audios) {
-            world.audios[key].volume = (indexAudioVolume * 25 / 100);
-        }
-    }
+    toggleAudioSettingsLowOpacity();
+    audioVolume = indexAudioVolume * 25 / 100;
 }
 
 /**
