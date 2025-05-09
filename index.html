@@ -34,6 +34,7 @@
     <script src="classes/level.class.js"></script>
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
+    <script src="js/audio.js"></script>
 </head>
 
 <body onload="init()">
@@ -112,12 +113,21 @@
             <div class="settings-audio">
                 <h3>Audio</h3>
                 <div>
-                    <div class="audio-volume">
-                        <button class="volume-decrease-btn round-btn"></button>
-                        <button class="volume-increase-btn round-btn"></button>
+                    <div id="volumeRegulator" class="volume-regulator">
+                        <button onclick="setAudioVolume('decrease')" class="volume-decrease-btn round-btn"></button>
+                        <button onclick="setAudioVolume('increase')" class="volume-increase-btn round-btn"></button>
                     </div>
                     <button id="muteBtnStartscreen" class="mute-btn round-btn"></button>
                 </div>
+            </div>
+
+            <div class="settings-controls">
+                <h3>Show Controls</h3>
+            </div>
+
+            <div class="settings-fullscreen">
+                <h3>Fullscreen</h3>
+                <button class="fullscreen-btn round-btn"></button>
             </div>
         </section>
 

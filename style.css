@@ -85,6 +85,10 @@ button:focus-visible {
     background-image: url("./img/GUI/button_audio_increase.png");
 }
 
+.fullscreen-btn {
+    background-image: url("./img/GUI/button_fullscreen.png");
+}
+
 .startscreen {
     width: 720px;
     height: 480px;
@@ -153,6 +157,11 @@ button:focus-visible {
     }
 
     .startscreen-settings {
+        background-color: antiquewhite;
+        .startscreen-header {
+            padding-bottom: 32px;
+        }
+
         .settings-audio {
             display: flex;
             flex-direction: column;
@@ -160,12 +169,31 @@ button:focus-visible {
             div {
                 display: flex;
 
-                .audio-volume {
+                .volume-regulator {
+                    width: 214px;
+                    height: 34px;
+                    overflow: visible;
                     display: flex;
-                    flex: 1;
+                    justify-content: space-between;
+                    /* background-image: url("./img/GUI/volume_regulator_0.png"); */
+                    background-size: cover;
+                    background-repeat: no-repeat;
                 }
 
+                .mute-btn {
+                    margin-left: 24px;
+                }
             }
+        }
+
+        .settings-controls {
+            display: flex;
+            align-items: center;
+        }
+
+        .settings-fullscreen {
+            display: flex;
+            align-items: center;
         }
     }
 

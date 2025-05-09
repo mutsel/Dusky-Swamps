@@ -1,14 +1,15 @@
 let canvas;
 let world;
-let fullMute;
+let inGame;
 
-collectedGemsImgs = [
+const collectedGemsImgs = [
     "url('./img/GUI/menus/win_gems_00.png')",
     "url('./img/GUI/menus/win_gems_01.png')",
     "url('./img/GUI/menus/win_gems_02.png')",
     "url('./img/GUI/menus/win_gems_03.png')",
     "url('./img/GUI/menus/win_gems_04.png')"
-]
+];
+
 
 /**
 * This eventListener called on keydown prevents default behavior for buttons.
@@ -24,18 +25,21 @@ window.addEventListener('keydown', (e) => {
 * This function is the init function for the game. All sections/menu are closed, only the startscreen is visible.
 */
 function init() {
+    inGame = false;
     closeAllStartscreenMenu();
     closeAllGameMenu();
     document.getElementById("startscreen").classList.remove("d-none");
     document.getElementById("startscreenOverview").classList.remove("d-none");
     removeEventListeners();
+    checkLocalStorageAudioSettings();
 }
 
 /**
 * This function is executed when the player starts a game. All sections and menues are closed, only the canvas and the gameOverlay are visible.
 * the world, the canvas and the keyboard and its eventListeners are created/activated and all variables are set to false (default).
 */
-function startGame() {;
+function startGame() {
+    inGame = true;
     initLevel();
     createWorld();
     addEventListeners();
@@ -71,7 +75,7 @@ function closeAllStartscreenMenu() {
     let startscreenMenu = document.querySelectorAll(".startscreen-menu");
     for (let i = 0; i < startscreenMenu.length; i++) {
         startscreenMenu[i].classList.add("d-none")
-    }  
+    }
 }
 
 /**
@@ -83,18 +87,9 @@ function closeAllGameMenu() {
     let gameMenu = document.querySelectorAll(".game-menu");
     for (let i = 0; i < gameMenu.length; i++) {
         gameMenu[i].classList.add("d-none")
-    }  
+    }
     document.getElementById("victory-retry-btn").classList.add("disabled-btn");
     document.getElementById("victory-main-menu-btn").classList.add("disabled-btn");
-}
-
-/**
-* This function checks if fullMute-audiosettings are deposited in the local storage (true or false).
-* This way, previous audio-settings are saved, so the player does not need to adjust it everytime playing.
-*/
-function checkLocalStorageAudioSettings() {
-    fullMute = JSON.parse(localStorage.getItem('fullMute'));
-    toggleAudio();
 }
 
 /**
@@ -136,7 +131,7 @@ function removeEventListeners() {
 * This way, the character and the music stops, when a menu opens.
 */
 function cancelEvents() {
-    if (world) {
+    if (inGame) {
         world.audios.steps.pause();
         world.audios.scenery.pause();
         keyboard.UP = false;
@@ -153,8 +148,8 @@ function cancelEvents() {
 function keyDownEvents() {
     switch (event.keyCode) {
         case 38:
-        case 87: 
-        keyboard.UP = true;
+        case 87:
+            keyboard.UP = true;
             break;
         case 37:
         case 65: keyboard.LEFT = true;
@@ -197,45 +192,6 @@ function keyUpEvents() {
             world.shootMagicAttack();
             break;
     }
-}
-
-/**
-* This function toggles the fullMute-state of the game.
-*/
-function toggleAudio() {
-    if (fullMute) {
-        muteAudio();
-        return fullMute = false;
-    } else {
-        unmuteAudio();
-        return fullMute = true;
-    }
-}
-
-/**
-* This function adjusts the muteBtn and unmutes all audios.
-* The fullMute-audiosetting in the local storage is updated.
-*/
-function unmuteAudio() {
-    document.getElementById("muteBtn").classList.add("low-opacity");
-    document.getElementById("muteBtn").classList.add("low-opacity");
-    for (let key in world.audios) {
-        world.audios[key].muted = false;
-    }
-    localStorage.setItem('fullMute', JSON.stringify(fullMute));
-}
-
-/**
-* This function adjusts the muteBtn and mutes all audios.
-* The fullMute-audiosetting in the local storage is updated.
-*/
-function muteAudio() {
-    document.getElementById("muteBtn").classList.remove("low-opacity");
-    document.getElementById("muteBtn").classList.remove("low-opacity");
-    for (let key in world.audios) {
-        world.audios[key].muted = true;
-    }
-    localStorage.setItem('fullMute', JSON.stringify(fullMute));
 }
 
 /**
