@@ -13,8 +13,7 @@
 body {
     height: 100vh;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
     background-image: url('img/1.png');
     background-size: cover;
     background-position: center;
@@ -22,9 +21,19 @@ body {
     cursor: default;
 }
 
+main {
+    width: 720px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: aliceblue;
+}
+
 h1 {
     font-size: 48px;
     letter-spacing: 6px;
+    padding-top: 40px;
 }
 
 h2 {
@@ -96,8 +105,6 @@ button:focus-visible {
 .startscreen {
     width: 720px;
     height: 480px;
-    position: fixed;
-    top: 140px;
     background-image: url("./img/startscreen.png");
     background-size: cover;
     background-repeat: no-repeat;
@@ -105,6 +112,7 @@ button:focus-visible {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-top: 40px;
 
     .wooden-button {
         width: 132px;
@@ -180,7 +188,6 @@ button:focus-visible {
                     overflow: visible;
                     display: flex;
                     justify-content: space-between;
-                    /* background-image: url("./img/GUI/volume_regulator_0.png"); */
                     background-size: cover;
                     background-repeat: no-repeat;
                 }
@@ -221,117 +228,123 @@ button:focus-visible {
 canvas {
     background-color: black;
     display: block;
-    position: fixed;
-    top: 140px;
+    margin-top: 40px;
 }
 
 .game-overlay {
-    width: 720px;
-    height: 480px;
+    width: 100%;
+    height: 0;
+    gap: 8px;
     display: flex;
     flex-direction: column;
-    position: fixed;
-    top: 140px;
-    gap: 8px;
+    position: relative;
 
-    .game-buttons {
-        display: flex;
-        justify-content: end;
-        padding: 16px 16px 0 0;
-        z-index: 2;
-        gap: 6px;
-    }
-
-    .game-menu {
-        width: 407.5px;
-        background-size: cover;
-        background-repeat: no-repeat;
-        align-self: center;
-
-        button {
-            height: 52.5px;
-            width: 52.5px;
-        }
-
-        .retry-btn {
-            background-image: url("./img/GUI/menus/button_retry.png");
-        }
-
-        .retry-btn:hover {
-            background-image: url("./img/GUI/menus/button_retry_pressed.png");
-        }
-
-        .main-menu-btn {
-            background-image: url("./img/GUI/menus/button_main_menu.png");
-        }
-
-        .main-menu-btn:hover {
-            background-image: url("./img/GUI/menus/button_main_menu_pressed.png");
-        }
-    }
-
-    .game-settings {
-        height: 370px;
-        background-image: url("./img/GUI/menus/menu.png");
-    }
-
-    .game-over {
-        height: 370px;
-        background-image: url("./img/GUI/menus/gameover.png");
+    .game-overlay-sections {
+        width: 720px;
+        height: 480px;
+        transform: translateY(-100%);
         display: flex;
         flex-direction: column;
+        align-items: center;
         justify-content: center;
-        padding-top: 72px;
-        padding-left: 64px;
-        gap: 32px;
-    }
+        position: fixed;
 
-    .victory {
-        height: 472px;
-        margin-top: -55px;
-        padding-top: 222px;
-        padding-left: 64px;
-        background-image: url("./img/GUI/menus/victory.png");
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        gap: 32px;
-
-        .gem-counter {
-            width: 407.5px;
-            height: 472px;
-            margin-top: -222px;
-            margin-left: -64px;
+        .game-buttons {
+            width: 100%;
+            display: flex;
+            justify-content: end;
+            padding: 16px 16px 0 0;
+            z-index: 2;
+            gap: 6px;
             position: fixed;
-            background-image: url("./img/GUI/menus/win_gems_00.png");
-            background-color: transparent;
+            top: 0;
+        }
+
+        .game-menu {
+            width: 407.5px;
             background-size: cover;
             background-repeat: no-repeat;
-            pointer-events: none;
+
+            button {
+                height: 52.5px;
+                width: 52.5px;
+            }
+
+            .retry-btn {
+                background-image: url("./img/GUI/menus/button_retry.png");
+            }
+
+            .retry-btn:hover {
+                background-image: url("./img/GUI/menus/button_retry_pressed.png");
+            }
+
+            .main-menu-btn {
+                background-image: url("./img/GUI/menus/button_main_menu.png");
+            }
+
+            .main-menu-btn:hover {
+                background-image: url("./img/GUI/menus/button_main_menu_pressed.png");
+            }
         }
 
-        .disabled-btn {
-            pointer-events: none;
-            filter: opacity(0.6);
+        .game-settings {
+            height: 370px;
+            background-image: url("./img/GUI/menus/menu.png");
         }
 
-        .disabled-btn:hover {
-            background-image: initial !important;
-            cursor: default !important;
+        .game-over {
+            height: 370px;
+            background-image: url("./img/GUI/menus/gameover.png");
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 72px;
+            padding-left: 64px;
+            gap: 32px;
+        }
+
+        .victory {
+            height: 472px;
+            background-image: url("./img/GUI/menus/victory.png");
+            display: flex;
+            flex-direction: column;
+
+            .gem-counter {
+                height: 250px;
+                background-image: url("./img/GUI/menus/win_gems_00.png");
+                background-color: transparent;
+                background-size: cover;
+                background-repeat: no-repeat;
+                pointer-events: none;
+            }
+
+            button {
+                margin: 24px 0 12px 52px;
+            }
+
+            .disabled-btn {
+                pointer-events: none;
+                filter: opacity(0.6);
+            }
+
+            .disabled-btn:hover {
+                background-image: initial !important;
+                cursor: default !important;
+            }
         }
     }
 }
 
 .mobile-controls {
     width: 100%;
-    position: fixed;
-    top: 480px;
     justify-items: end;
     z-index: 2;
+    position: relative;
+    height: 0;
 
     .mobile-btns {
-        width: 160px;
-        margin: 24px 16px 0 0;
+        padding: 0 16px 16px 0;
+        transform: translateY(-100%);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -372,13 +385,11 @@ canvas {
 
 .controls {
     width: 100%;
-    max-width: 720px;
-    padding-top: 24px;
+    max-width: 1440px;
+    padding: 40px 80px;
     display: flex;
     justify-content: space-between;
     font-size: 30px;
-    position: fixed;
-    top: 620px;
 
     .controls-section {
         display: flex;

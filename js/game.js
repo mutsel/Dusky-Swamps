@@ -23,7 +23,7 @@ function init() {
     closeAllGameMenu();
     document.getElementById("startscreen").classList.remove("d-none");
     document.getElementById("startscreenOverview").classList.remove("d-none");
-    // document.getElementById("mobileControls").classList.add("d-none");
+    document.getElementById("mobileControls").classList.add("d-none");
     removeEventListeners();
     checkAudioSettings();
     adjustControlsVisibility();
@@ -49,6 +49,7 @@ function startGame() {
     document.getElementById("settingsBtn").hidden = false;
     gemCounter.style.backgroundImage = collectedGemsImgs[0];
     checkAudioSettings();
+    checkScreenDimensionsSettings();
 }
 
 /**
@@ -256,38 +257,83 @@ function toggleFullscreen() {
 */
 function adjustScreenDimensions() {
     getScreenDimensions()
+    document.getElementById("content").style.width = screenWidth + "px";
     let fullscreenElements = [
         document.getElementById("canvas"),
         document.getElementById("startscreen"),
-        document.getElementById("gameOverlay")
+        document.getElementById("gameOverlaySections")
     ];
     fullscreenElements.forEach(element => {
         element.style.width = screenWidth + "px";
         element.style.height = screenHeight + "px";
     });
-    document.getElementById("controls").style.top = (screenHeight + 140) + "px";
-    document.getElementById("mobileControls").style.width = screenWidth + "px";
-    document.getElementById("mobileControls").style.top = screenHeight + "px";
+    scaleElements();
+    adjustDimensionsElements();
+}
+
+/**
+* This function scales some elements, so that they fit to the screen-dimensions.
+*/
+function scaleElements() {
+    let scale = screenWidth / 720;
+    let scaleableElements = [
+        document.getElementById("startscreenOverview"),
+        document.getElementById("startscreenAbout"),
+        document.getElementById("startscreenSettings"),
+        document.getElementById("gameSettings"),
+        document.getElementById("gameOver"),
+        document.getElementById("victory"),
+    ]
+    scaleableElements.forEach(element => { element.style.scale = scale; });
+    document.querySelectorAll(".controls-section").forEach(element => { element.style.scale = scale; });
+}
+
+/**
+* This function adjusts the height and width of some elements, so that they fit to the screen-dimensions.
+*/
+function adjustDimensionsElements() {
+    let scale = screenWidth / 720;
+    document.getElementById("muteBtn").style.width = (35 * scale) + "px";
+    document.getElementById("muteBtn").style.height = (35 * scale) + "px";
+    document.getElementById("settingsBtn").style.width = (35 * scale) + "px";
+    document.getElementById("settingsBtn").style.height = (35 * scale) + "px";
+    document.getElementById("mobileControlsBtns").style.width = (160 * scale) + "px";
+    document.querySelectorAll(".mobile-control-btn").forEach(element => {
+        element.style.width = (40 * scale) + "px";
+        element.style.height = (40 * scale) + "px";
+    });
 }
 
 /**
 * This function sets the global screenWidth and screenHeight variables.
 * If fullscreen is turned off, the screenwidth and screenHeight are set to their default values.
 * If fullscreen is turned on, the screenwidth is the windows innerWidth and the screenHeight is 2/3 of the screenWidth.
-* In case of the screenHeight is above the windows innerHeight, the screenHeight is set equal to the windows innerHeight and the screenWidth is 1.5 times the screenHeight.
 */
 function getScreenDimensions() {
     if (fullscreen) {
         document.getElementById("fullscreenBtn").classList.remove("low-opacity");
         screenWidth = window.innerWidth;
         screenHeight = (window.innerWidth * 0.66);
-        if (window.innerHeight < window.innerWidth * 0.66) {
-            screenWidth = (window.innerHeight * 1.5);
-            screenHeight = window.innerHeight;
-        }
+        getScreenDimensionsEdgeCases();
     } else {
         document.getElementById("fullscreenBtn").classList.add("low-opacity");
         screenWidth = 720;
         screenHeight = 480;
+    }
+}
+
+/**
+* This function sets the global screenWidth and screenHeight variables for edge cases (i.e. extraordinary window-dimensions).
+* In case of the screenHeight is above the windows innerHeight - 240, the screenHeight is set equal to the windows innerHeight and the screenWidth is 1.5 times the screenHeight.
+*/
+function getScreenDimensionsEdgeCases() {
+    if (window.innerHeight - 240 < window.innerWidth * 0.66) {
+        console.log(1)
+        screenHeight = window.innerHeight - 240;
+        screenWidth = ((window.innerHeight - 240) * 1.5);
+    }
+    if (screenWidth > 1440) {
+        screenWidth = 1440;
+        screenHeight = 950.4;
     }
 }

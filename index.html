@@ -39,170 +39,176 @@
 </head>
 
 <body onload="init()">
-    <h1 onclick="countGems()">Dusky Swamps</h1>
+    <main id="content">
+        <h1>Dusky Swamps</h1>
+        <section id="startscreen" class="startscreen">
+            <div id="startscreenOverview" class="startscreen-overview startscreen-menu">
+                <button onclick="startGame()" class="wooden-button">
+                    Start
+                </button>
 
-    <main id="startscreen" class="startscreen">
-        <section id="startscreenOverview" class="startscreen-overview startscreen-menu">
-            <button onclick="startGame()" class="wooden-button">
-                Start
-            </button>
+                <button onclick="openAbout()" class="wooden-button big-button">
+                    About the Game
+                </button>
 
-            <button onclick="openAbout()" class="wooden-button big-button">
-                About the Game
-            </button>
-
-            <button onclick="openStartscreenSettings()" class="wooden-button">
-                Settings
-            </button>
-        </section>
-
-        <section id="startscreenAbout" class="startscreen-about startscreen-menu d-none">
-            <div class="startscreen-header">
-                <button onclick="init()" class="back-btn round-btn"></button>
-                <h2>About the Game</h2>
+                <button onclick="openStartscreenSettings()" class="wooden-button">
+                    Settings
+                </button>
             </div>
 
-            <p>Welcome to my first game!
-                It is a small 2D plattformer, where you play as a lost alien on it's way back home.
-                Your goal is to find enough gems to be able to repair your spaceship.
-                But watch out! Dangerous creatures are coming for your and your precious gems.
-                Fortunately you are able to defend yourself with your magic attack!
-            </p>
+            <div id="startscreenAbout" class="startscreen-about startscreen-menu d-none">
+                <div class="startscreen-header">
+                    <button onclick="init()" class="back-btn round-btn"></button>
+                    <h2>About the Game</h2>
+                </div>
 
-            <div class="credits">
-                <h3>Credits for the used Art</h3>
-                <table>
-                    <tr>
-                        <td class="artist">Craftpix.net ("Free Simple Platformer Game Kit Pixel Art")</td>
-                        <td>Character, Enemies, Collectables, UI</td>
-                    </tr>
+                <p>Welcome to my first game!
+                    It is a small 2D plattformer, where you play as a lost alien on it's way back home.
+                    Your goal is to find enough gems to be able to repair your spaceship.
+                    But watch out! Dangerous creatures are coming for your and your precious gems.
+                    Fortunately you are able to defend yourself with your magic attack!
+                </p>
 
-                    <tr>
-                        <td class="artist">Craftpix.net ("Free Swamp Game Tileset Pixel Art")</td>
-                        <td>Tileset, Decoration, Background</td>
-                    </tr>
+                <div class="credits">
+                    <h3>Credits for the used Art</h3>
+                    <table>
+                        <tr>
+                            <td class="artist">Craftpix.net ("Free Simple Platformer Game Kit Pixel Art")</td>
+                            <td>Character, Enemies, Collectables, UI</td>
+                        </tr>
 
-                    <tr>
-                        <td class="artist">Craftpix.net ("Free Sky with Clouds Background Pixel Art Set")</td>
-                        <td>Background</td>
-                    </tr>
+                        <tr>
+                            <td class="artist">Craftpix.net ("Free Swamp Game Tileset Pixel Art")</td>
+                            <td>Tileset, Decoration, Background</td>
+                        </tr>
 
-                    <tr>
-                        <td class="artist">Craftpix.net ("Free Street Animal Pixel Art Asset Pack")</td>
-                        <td>Passive Entities</td>
-                    </tr>
+                        <tr>
+                            <td class="artist">Craftpix.net ("Free Sky with Clouds Background Pixel Art Set")</td>
+                            <td>Background</td>
+                        </tr>
 
-                    <tr>
-                        <td class="artist">Yandex Games</td>
-                        <td>Magic Attack</td>
-                    </tr>
+                        <tr>
+                            <td class="artist">Craftpix.net ("Free Street Animal Pixel Art Asset Pack")</td>
+                            <td>Passive Entities</td>
+                        </tr>
 
-                    <tr>
-                        <td class="artist">BDragon1727</td>
-                        <td>Statusbars</td>
-                    </tr>
-                </table>
-            </div>
-        </section>
+                        <tr>
+                            <td class="artist">Yandex Games</td>
+                            <td>Magic Attack</td>
+                        </tr>
 
-        <section id="startscreenSettings" class="startscreen-settings startscreen-menu d-none">
-            <div class="startscreen-header">
-                <button onclick="init()" class="back-btn round-btn"></button>
-                <h2>Settings</h2>
-            </div>
-
-            <div class="settings-audio">
-                <h3>Audio</h3>
-                <div>
-                    <div id="volumeRegulator" class="volume-regulator">
-                        <button onclick="setAudioVolume('decrease')" class="volume-decrease-btn round-btn"></button>
-                        <button onclick="setAudioVolume('increase')" class="volume-increase-btn round-btn"></button>
-                    </div>
-                    <button onclick="toggleAudio()" id="muteBtnStartscreen"
-                        class="mute-btn round-btn low-opacity"></button>
+                        <tr>
+                            <td class="artist">BDragon1727</td>
+                            <td>Statusbars</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
 
-            <div class="settings-controls">
-                <h3>Show Controls</h3>
-                <button onclick="toggleControlsVisibility()" id="showControlsBtn"
-                    class="show-controls-btn round-btn"></button>
+            <div id="startscreenSettings" class="startscreen-settings startscreen-menu d-none">
+                <div class="startscreen-header">
+                    <button onclick="init()" class="back-btn round-btn"></button>
+                    <h2>Settings</h2>
+                </div>
+
+                <div class="settings-audio">
+                    <h3>Audio</h3>
+                    <div>
+                        <div id="volumeRegulator" class="volume-regulator">
+                            <button onclick="setAudioVolume('decrease')" class="volume-decrease-btn round-btn"></button>
+                            <button onclick="setAudioVolume('increase')" class="volume-increase-btn round-btn"></button>
+                        </div>
+                        <button onclick="toggleAudio()" id="muteBtnStartscreen"
+                            class="mute-btn round-btn low-opacity"></button>
+                    </div>
+                </div>
+
+                <div class="settings-controls">
+                    <h3>Show Controls</h3>
+                    <button onclick="toggleControlsVisibility()" id="showControlsBtn"
+                        class="show-controls-btn round-btn"></button>
+                </div>
+
+                <div class="settings-fullscreen">
+                    <h3>Fullscreen</h3>
+                    <button onclick="toggleFullscreen()" id="fullscreenBtn" class="fullscreen-btn round-btn"></button>
+                </div>
             </div>
 
-            <div class="settings-fullscreen">
-                <h3>Fullscreen</h3>
-                <button onclick="toggleFullscreen()" id="fullscreenBtn" class="fullscreen-btn round-btn"></button>
+            <!-- <img class="character-icon" src="./img/startscreen_character.gif"> -->
+        </section>
+
+        <canvas id="canvas" height="480px" width="720px" class="d-none"></canvas>
+
+        <section id="gameOverlay" class="game-overlay d-none">
+            <div id="gameOverlaySections" class="game-overlay-sections">
+                <div class="game-buttons">
+                    <button onclick="toggleAudio()" id="muteBtn" class="mute-btn round-btn"></button>
+                    <button onclick="toggleGameSettings()" id="settingsBtn" class="settings-btn round-btn"></button>
+                </div>
+
+                <div id="gameSettings" class="game-settings game-menu"></div>
+
+                <div id="gameOver" class="game-over game-menu">
+                    <button onclick="startGame()" class="retry-btn"></button>
+                    <button onclick="init()" class="main-menu-btn"></button>
+                </div>
+
+                <div id="victory" class="victory game-menu">
+                    <div id="gemCounter" class="gem-counter"></div>
+                    <button onclick="startGame()" id="victoryRetryBtn" class="retry-btn"></button>
+                    <button onclick="init()" id="victoryMainMenuBtn" class="main-menu-btn"></button>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="mobileControls" class="mobile-controls d-none">
+            <div id="mobileControlsBtns" class="mobile-btns">
+                <button onmousedown="mobileControlsMousedown('up')" onmouseup="mobileControlsMouseup('up')"
+                    class="up-btn mobile-control-btn"></button>
+                <div>
+                    <button onmousedown="mobileControlsMousedown('left')" onmouseup="mobileControlsMouseup('left')"
+                        class="left-btn mobile-control-btn"></button>
+                    <button onmousedown="mobileControlsMousedown('right')" onmouseup="mobileControlsMouseup('right')"
+                        class="right-btn mobile-control-btn"></button>
+                </div>
+                <button onmousedown="mobileControlsMousedown('attack')" onmouseup="mobileControlsMouseup('attack')"
+                    class="attack-btn mobile-control-btn"></button>
             </div>
         </section>
 
-        <img class="character-icon" src="./img/startscreen_character.gif">
+        <section id="controls" class="controls">
+            <div class="controls-section">
+                <div>
+                    <img src="./img/GUI/button_left.png">
+                    <img src="./img/GUI/button_a.png">
+                </div>
+                <span>Move Left</span>
+            </div>
+
+            <div class="controls-section">
+                <div>
+                    <img src="./img/GUI/button_right.png">
+                    <img src="./img/GUI/button_d.png">
+                </div>
+                <span>Move Right</span>
+            </div>
+
+            <div class="controls-section">
+                <div>
+                    <img src="./img/GUI/button_up.png">
+                    <img src="./img/GUI/button_w.png">
+                </div>
+                <span>Jump</span>
+            </div>
+
+            <div class="controls-section">
+                <img src="./img/GUI/button_space.png">
+                <span>Attack</span>
+            </div>
+        </section>
     </main>
-
-    <canvas id="canvas" height="480px" width="720px" class="d-none"></canvas>
-
-    <section id="gameOverlay" class="game-overlay d-none">
-        <div class="game-buttons">
-            <button onclick="toggleAudio()" id="muteBtn" class="mute-btn round-btn"></button>
-            <button onclick="toggleGameSettings()" id="settingsBtn" class="settings-btn round-btn"></button>
-        </div>
-
-        <div id="gameSettings" class="game-settings game-menu">
-
-        </div>
-
-        <div id="gameOver" class="game-over game-menu">
-            <button onclick="startGame()" class="retry-btn"></button>
-            <button onclick="init()" class="main-menu-btn"></button>
-        </div>
-
-        <div id="victory" class="victory game-menu">
-            <div id="gemCounter" class="gem-counter"></div>
-            <button onclick="startGame()" id="victoryRetryBtn" class="retry-btn"></button>
-            <button onclick="init()" id="victoryMainMenuBtn" class="main-menu-btn"></button>
-        </div>
-    </section>
-
-    <section id="mobileControls" class="mobile-controls">
-        <div class="mobile-btns">
-            <button onmousedown="mobileControlsMousedown('up')" onmouseup="mobileControlsMouseup('up')" class="up-btn"></button>
-            <div>
-                <button onmousedown="mobileControlsMousedown('left')" onmouseup="mobileControlsMouseup('left')" class="left-btn"></button>
-                <button onmousedown="mobileControlsMousedown('right')" onmouseup="mobileControlsMouseup('right')" class="right-btn"></button>
-            </div>
-            <button onmousedown="mobileControlsMousedown('attack')" onmouseup="mobileControlsMouseup('attack')" class="attack-btn"></button>
-        </div>
-    </section>
-
-    <section id="controls" class="controls">
-        <div class="controls-section">
-            <div>
-                <img src="./img/GUI/button_left.png">
-                <img src="./img/GUI/button_a.png">
-            </div>
-            <span>Move Left</span>
-        </div>
-
-        <div class="controls-section">
-            <div>
-                <img src="./img/GUI/button_right.png">
-                <img src="./img/GUI/button_d.png">
-            </div>
-            <span>Move Right</span>
-        </div>
-
-        <div class="controls-section">
-            <div>
-                <img src="./img/GUI/button_up.png">
-                <img src="./img/GUI/button_w.png">
-            </div>
-            <span>Jump</span>
-        </div>
-
-        <div class="controls-section">
-            <img src="./img/GUI/button_space.png">
-            <span>Attack</span>
-        </div>
-    </section>
 </body>
 
 </html>
