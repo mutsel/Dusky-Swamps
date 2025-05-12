@@ -38,7 +38,7 @@
     <script src="js/controls-events.js"></script>
 </head>
 
-<body onload="init()">
+<body onload="init()" onresize="adjustScreenDimensions()">
     <main id="content">
         <h1>Dusky Swamps</h1>
         <section id="startscreen" class="startscreen">
@@ -150,14 +150,17 @@
                 <div id="gameSettings" class="game-settings game-menu"></div>
 
                 <div id="gameOver" class="game-over game-menu">
-                    <button onclick="startGame()" class="retry-btn"></button>
-                    <button onclick="init()" class="main-menu-btn"></button>
+                    <button onclick="startGame()" id="gameOverRetryBtn" class="retry-btn"></button>
+                    <button onclick="init()" id="gameOverMainMenuBtn" class="main-menu-btn"></button>
                 </div>
 
                 <div id="victory" class="victory game-menu">
                     <div id="gemCounter" class="gem-counter"></div>
-                    <button onclick="startGame()" id="victoryRetryBtn" class="retry-btn"></button>
-                    <button onclick="init()" id="victoryMainMenuBtn" class="main-menu-btn"></button>
+                    <div class="victory-btns">
+                        <button onclick="startGame()" id="victoryRetryBtn" class="retry-btn"></button>
+                        <button onclick="init()" id="victoryMainMenuBtn" class="main-menu-btn"></button>
+                    </div>
+
                 </div>
             </div>
 

@@ -7,10 +7,11 @@
     margin: 0;
     box-sizing: border-box;
     font-family: tiny5;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 body {
+    width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -19,10 +20,10 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     cursor: default;
+    overflow-x: hidden;
 }
 
 main {
-    width: 720px;
     height: auto;
     display: flex;
     flex-direction: column;
@@ -31,7 +32,7 @@ main {
 }
 
 h1 {
-    font-size: 48px;
+    font-size: calc(5rem - clamp(2rem, 3.5333rem + -2.6667vw, 3rem));
     letter-spacing: 6px;
     padding-top: 40px;
 }
@@ -253,17 +254,26 @@ canvas {
             width: 100%;
             display: flex;
             justify-content: end;
-            padding: 16px 16px 0 0;
+            padding: calc(1.25rem - clamp(0.25rem, 1.2143rem + -1.0714vw, 1rem)) calc(1.25rem - clamp(0.25rem, 1.2143rem + -1.0714vw, 1rem)) 0 0;
             z-index: 2;
-            gap: 6px;
+            gap: calc(0.75rem - clamp(0.125rem, 0.5714rem + -0.3571vw, 0.5rem));
             position: fixed;
             top: 0;
+
+            button {
+                width: calc(5.5rem - clamp(1rem, 5.5000rem + -5.0000vw, 4.5rem));
+                height: calc(5.5rem - clamp(1rem, 5.5000rem + -5.0000vw, 4.5rem));
+            }
         }
 
         .game-menu {
-            width: 407.5px;
-            background-size: cover;
+            width: calc(62.144000000000005rem - clamp(11.206rem, 62.2900rem + -56.7600vw, 50.938rem));
+            height: 100%;
+            background-size: contain;
             background-repeat: no-repeat;
+            background-position: center;
+            display: flex;
+            justify-content: center;
 
             button {
                 height: 52.5px;
@@ -288,29 +298,32 @@ canvas {
         }
 
         .game-settings {
-            height: 370px;
             background-image: url("./img/GUI/menus/menu.png");
         }
 
         .game-over {
-            height: 370px;
-            background-image: url("./img/GUI/menus/gameover.png");
+            background-image: url(./img/GUI/menus/gameover.png);
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding-top: 72px;
-            padding-left: 64px;
-            gap: 32px;
+            padding-top: calc(10.5rem - clamp(1.75rem, 10.7500rem + -10.0000vw, 8.75rem));
+            padding-left: calc(10.5rem - clamp(1.75rem, 10.7500rem + -10.0000vw, 8.75rem));
+            gap: calc(5.375rem - clamp(1rem, 5.3393rem + -4.8214vw, 4.375rem));
+
+            button {
+                width: calc(8.25rem - clamp(1.5rem, 8.2500rem + -7.5000vw, 6.75rem));
+                height: calc(8.25rem - clamp(1.5rem, 8.2500rem + -7.5000vw, 6.75rem));
+            }
         }
 
         .victory {
-            height: 472px;
             background-image: url("./img/GUI/menus/victory.png");
             display: flex;
             flex-direction: column;
+            justify-content: flex-start;
 
             .gem-counter {
-                height: 250px;
+                height: calc(37.5rem - clamp(6.25rem, 38.3929rem + -35.7143vw, 31.25rem));
                 background-image: url("./img/GUI/menus/win_gems_00.png");
                 background-color: transparent;
                 background-size: cover;
@@ -318,18 +331,27 @@ canvas {
                 pointer-events: none;
             }
 
-            button {
-                margin: 24px 0 12px 52px;
-            }
+            .victory-btns {
+                display: flex;
+                flex-direction: column;
+                padding-top: calc(3.75rem - clamp(1.25rem, 2.8571rem + -1.7857vw, 2.5rem));
+                padding-left: calc(9.25rem - clamp(1.75rem, 9.1429rem + -8.2143vw, 7.5rem));
+                gap: calc(6rem - clamp(1rem, 6.1429rem + -5.7143vw, 5rem));
 
-            .disabled-btn {
-                pointer-events: none;
-                filter: opacity(0.6);
-            }
+                button {
+                    width: calc(8.25rem - clamp(1.5rem, 8.2500rem + -7.5000vw, 6.75rem));
+                    height: calc(8.25rem - clamp(1.5rem, 8.2500rem + -7.5000vw, 6.75rem));
+                }
 
-            .disabled-btn:hover {
-                background-image: initial !important;
-                cursor: default !important;
+                .disabled-btn {
+                    pointer-events: none;
+                    filter: opacity(0.6);
+                }
+
+                .disabled-btn:hover {
+                    background-image: initial !important;
+                    cursor: default !important;
+                }
             }
         }
     }
@@ -343,15 +365,17 @@ canvas {
     height: 0;
 
     .mobile-btns {
-        padding: 0 16px 16px 0;
+        width: calc(24.375rem - clamp(5.625rem, 22.5000rem + -18.7500vw, 18.75rem));
+        padding-right: calc(3rem - clamp(0.5rem, 3.0714rem + -2.8571vw, 2.5rem));
+        margin-top: calc(1.75rem - clamp(0.75rem, 1.0714rem + -0.3571vw, 1rem));
         transform: translateY(-100%);
         display: flex;
         flex-direction: column;
         align-items: center;
 
         button {
-            width: 40px;
-            height: 40px;
+            width: calc(6.5rem - clamp(1rem, 6.0000rem + -5.0000vw, 5rem));
+            height: calc(6.5rem - clamp(1rem, 6.0000rem + -5.0000vw, 5rem));
             background-color: transparent;
             background-size: cover;
             background-repeat: no-repeat;
@@ -363,10 +387,9 @@ canvas {
 
         div {
             width: 100%;
-            height: 20px;
             display: flex;
             justify-content: space-between;
-            transform: translateY(-50%);
+            transform: translateY(-25%);
 
             .left-btn {
                 background-image: url("./img/GUI/button_left.png");
@@ -378,6 +401,7 @@ canvas {
         }
 
         .attack-btn {
+            transform: translateY(-75%);
             background-image: url("./img/GUI/button_attack.png");
         }
     }
@@ -385,8 +409,7 @@ canvas {
 
 .controls {
     width: 100%;
-    max-width: 1440px;
-    padding: 40px 80px;
+    padding: calc(2.5rem - clamp(0rem, 4.5000rem + -10.0000vw, 2.5rem)) calc(5rem - clamp(0rem, 9.0000rem + -20.0000vw, 5rem));
     display: flex;
     justify-content: space-between;
     font-size: 30px;
@@ -408,6 +431,14 @@ canvas {
 
         span {
             padding-left: 12px;
+        }
+
+
+    }
+
+    @media (max-width: 400px) {
+        .controls-section {
+            margin: 0 -16px;
         }
     }
 }

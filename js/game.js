@@ -5,6 +5,7 @@ let controlsVisibility;
 let fullscreen;
 let screenWidth;
 let screenHeight;
+let scale;
 
 const collectedGemsImgs = [
     "url('./img/GUI/menus/win_gems_00.png')",
@@ -275,14 +276,11 @@ function adjustScreenDimensions() {
 * This function scales some elements, so that they fit to the screen-dimensions.
 */
 function scaleElements() {
-    let scale = screenWidth / 720;
+    scale = screenWidth / 720;
     let scaleableElements = [
         document.getElementById("startscreenOverview"),
         document.getElementById("startscreenAbout"),
         document.getElementById("startscreenSettings"),
-        document.getElementById("gameSettings"),
-        document.getElementById("gameOver"),
-        document.getElementById("victory"),
     ]
     scaleableElements.forEach(element => { element.style.scale = scale; });
     document.querySelectorAll(".controls-section").forEach(element => { element.style.scale = scale; });
@@ -292,16 +290,11 @@ function scaleElements() {
 * This function adjusts the height and width of some elements, so that they fit to the screen-dimensions.
 */
 function adjustDimensionsElements() {
-    let scale = screenWidth / 720;
-    document.getElementById("muteBtn").style.width = (35 * scale) + "px";
-    document.getElementById("muteBtn").style.height = (35 * scale) + "px";
-    document.getElementById("settingsBtn").style.width = (35 * scale) + "px";
-    document.getElementById("settingsBtn").style.height = (35 * scale) + "px";
-    document.getElementById("mobileControlsBtns").style.width = (160 * scale) + "px";
-    document.querySelectorAll(".mobile-control-btn").forEach(element => {
-        element.style.width = (40 * scale) + "px";
-        element.style.height = (40 * scale) + "px";
-    });
+    // document.getElementById("mobileControlsBtns").style.width = (160 * scale) + "px";
+    // document.querySelectorAll(".mobile-control-btn").forEach(element => {
+    //     element.style.width = (40 * scale) + "px";
+    //     element.style.height = (40 * scale) + "px";
+    // });
 }
 
 /**
@@ -317,8 +310,14 @@ function getScreenDimensions() {
         getScreenDimensionsEdgeCases();
     } else {
         document.getElementById("fullscreenBtn").classList.add("low-opacity");
-        screenWidth = 720;
-        screenHeight = 480;
+        if (window.innerWidth >= 720) {
+            screenWidth = 720;
+            screenHeight = 480;
+        } else {
+            screenWidth = window.innerWidth;
+            screenHeight = (window.innerWidth * 0.66);
+            console.log(screenWidth, window.innerWidth)
+        }
     }
 }
 
@@ -328,7 +327,6 @@ function getScreenDimensions() {
 */
 function getScreenDimensionsEdgeCases() {
     if (window.innerHeight - 240 < window.innerWidth * 0.66) {
-        console.log(1)
         screenHeight = window.innerHeight - 240;
         screenWidth = ((window.innerHeight - 240) * 1.5);
     }
