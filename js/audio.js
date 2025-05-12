@@ -10,7 +10,7 @@ const volumeRegulatorImgs = [
 ];
 
 /**
-* This function checks if fullMute-audiosettings (true or false) and indexAudioVolume (0-4) are deposited in the local storage .
+* This function checks if an indexAudioVolume (0-4) is deposited in the local storage .
 * This way, previous audio-settings are saved, so the player does not need to adjust it everytime playing.
 */
 function checkAudioSettings() {

@@ -2,6 +2,9 @@ let canvas;
 let world;
 let inGame;
 let controlsVisibility;
+let fullscreen;
+let screenWidth;
+let screenHeight;
 
 const collectedGemsImgs = [
     "url('./img/GUI/menus/win_gems_00.png')",
@@ -10,17 +13,6 @@ const collectedGemsImgs = [
     "url('./img/GUI/menus/win_gems_03.png')",
     "url('./img/GUI/menus/win_gems_04.png')"
 ];
-
-
-/**
-* This eventListener called on keydown prevents default behavior for buttons.
-* Like this, accidentaly clicked buttons by pressing a key are not happening.
-*/
-window.addEventListener('keydown', (e) => {
-    if (document.activeElement.tagName == 'BUTTON') {
-        e.preventDefault();
-    }
-});
 
 /**
 * This function is the init function for the game. All sections/menu are closed, only the startscreen is visible.
@@ -31,9 +23,11 @@ function init() {
     closeAllGameMenu();
     document.getElementById("startscreen").classList.remove("d-none");
     document.getElementById("startscreenOverview").classList.remove("d-none");
+    // document.getElementById("mobileControls").classList.add("d-none");
     removeEventListeners();
     checkAudioSettings();
     adjustControlsVisibility();
+    checkScreenDimensionsSettings();
 }
 
 /**
@@ -48,6 +42,7 @@ function startGame() {
     closeAllStartscreenMenu();
     closeAllGameMenu();
     document.getElementById("canvas").classList.remove("d-none");
+    document.getElementById("mobileControls").classList.remove("d-none");
     document.getElementById("gameOverlay").classList.remove("d-none");
     document.getElementById("gameOverlay").classList.remove("dark-bg");
     document.getElementById("settingsBtn").classList.remove("close-btn");
@@ -92,6 +87,7 @@ function closeAllGameMenu() {
     }
     document.getElementById("victoryRetryBtn").classList.add("disabled-btn");
     document.getElementById("victoryMainMenuBtn").classList.add("disabled-btn");
+    document.getElementById("mobileControls").classList.remove("d-none");
 }
 
 /**
@@ -111,137 +107,13 @@ function openStartscreenSettings() {
 }
 
 /**
-* This function adds the keydown- and keyup-eventListeners for the game.
-*/
-function addEventListeners() {
-    window.addEventListener('keydown', keyDownEvents);
-    window.addEventListener('keyup', keyUpEvents);
-}
-
-/**
-* This function removes the keydown- and keyup-eventListeners for the game.
-* This way, the player is not able to move the character while being in the startscreen or a menu.
-*/
-function removeEventListeners() {
-    window.removeEventListener('keydown', keyDownEvents);
-    window.removeEventListener('keyup', keyUpEvents);
-    cancelEvents()
-}
-
-/**
-* This function stops the music and sets all keyboard-constants to false.
-* This way, the character and the music stops, when a menu opens.
-*/
-function cancelEvents() {
-    if (inGame) {
-        world.audios.steps.pause();
-        world.audios.scenery.pause();
-        keyboard.UP = false;
-        keyboard.LEFT = false;
-        keyboard.RIGHT = false;
-        keyboard.ATTACK = false;
-    }
-}
-
-/**
-* This function sets the accoring constant for a pressed key to true (keydown).
-* If the character touches ground and walks, a sound is played.
-*/
-function keyDownEvents() {
-    switch (event.keyCode) {
-        case 38:
-        case 87:
-            keyboard.UP = true;
-            break;
-        case 37:
-        case 65: keyboard.LEFT = true;
-            if (!world.character.isAboveGround()) {
-                world.audios.steps.play();
-                world.audios.steps.volume = audioVolume;
-            }
-            break;
-        case 39:
-        case 68: keyboard.RIGHT = true;
-            if (!world.character.isAboveGround()) {
-                world.audios.steps.play();
-                world.audios.steps.volume = audioVolume;
-            }
-            break;
-        case 40:
-        case 32: keyboard.ATTACK = true;
-            break;
-    }
-}
-
-/**
-* This function sets the accoring constant for a pressed key to false (keyup).
-* The walking-sounds if the character was previously walking. 
-* A magicAttack is shot, after the spacebar is set to false.
-*/
-function keyUpEvents() {
-    switch (event.keyCode) {
-        case 38:
-        case 87: keyboard.UP = false;
-            break;
-        case 37:
-        case 65: keyboard.LEFT = false;
-            world.audios.steps.pause();
-            break;
-        case 39:
-        case 68: keyboard.RIGHT = false;
-            world.audios.steps.pause();
-            break;
-        case 40:
-        case 32: keyboard.ATTACK = false;
-            world.shootMagicAttack();
-            break;
-    }
-}
-
-function mobileControlsMousedown(key) {
-    switch (key) {
-        case 'up': keyboard.UP = true;
-            break;
-        case 'left': keyboard.LEFT = true;
-            if (!world.character.isAboveGround()) {
-                world.audios.steps.play();
-                world.audios.steps.volume = audioVolume;
-            }
-            break;
-        case 'right': keyboard.RIGHT = true;
-            if (!world.character.isAboveGround()) {
-                world.audios.steps.play();
-                world.audios.steps.volume = audioVolume;
-            }
-            break;
-        case 'attack': keyboard.ATTACK = true;
-            break;
-    }
-}
-
-function mobileControlsMouseup(key) {
-    switch (key) {
-        case 'up': keyboard.UP = false;
-            break;
-        case 'left': keyboard.LEFT = false;
-            world.audios.steps.pause();
-            break;
-        case 'right': keyboard.RIGHT = false;
-            world.audios.steps.pause();
-            break;
-        case 'attack': keyboard.ATTACK = false;
-            world.shootMagicAttack();
-            break;
-    }
-}
-
-/**
 * This function toggles the visibility and functionality of the game-settings.
 */
 function toggleGameSettings() {
     document.getElementById("gameSettings").classList.toggle("d-none");
     document.getElementById("gameOverlay").classList.toggle("dark-bg");
     document.getElementById("settingsBtn").classList.toggle("close-btn");
+    document.getElementById("mobileControls").classList.toggle("d-none");
     if (document.getElementById("gameSettings").classList.contains("d-none")) {
         addEventListeners();
         world.audios.scenery.play();
@@ -283,6 +155,7 @@ function gameEnd() {
     document.getElementById("gameSettings").classList.add("d-none");
     document.getElementById("gameOverlay").classList.add("dark-bg");
     document.getElementById("settingsBtn").hidden = true;
+    document.getElementById("mobileControls").classList.add("d-none");
     removeEventListeners();
 }
 
@@ -350,4 +223,71 @@ function adjustControlsVisibility() {
         document.getElementById("controls").classList.add("d-none");
     }
     localStorage.setItem('controlsVisibility', JSON.stringify(controlsVisibility));
+}
+
+/**
+* This function checks if the fullscreen-setting is deposited in the local storage.
+* This way, the previous fullscreen-setting is saved, so the player does not need to adjust it everytime playing.
+*/
+function checkScreenDimensionsSettings() {
+    try {
+        fullscreen = JSON.parse(localStorage.getItem('fullscreen'));
+    }
+    catch (error) {
+        fullscreen = false;
+    }
+    if (fullscreen == null) { fullscreen = false }
+    localStorage.setItem('fullscreen', JSON.stringify(fullscreen));
+    adjustScreenDimensions();
+}
+
+/**
+* This function is used to toggle the fullscreen-setting between true and false and saves it in the local storage.
+*/
+function toggleFullscreen() {
+    fullscreen = !fullscreen;
+    localStorage.setItem('fullscreen', JSON.stringify(fullscreen));
+    adjustScreenDimensions();
+}
+
+/**
+* This function adjusts the height and width for some elements to the global screenWidth and screenHeight variables.
+* The position of some elements is adjusted as well.
+*/
+function adjustScreenDimensions() {
+    getScreenDimensions()
+    let fullscreenElements = [
+        document.getElementById("canvas"),
+        document.getElementById("startscreen"),
+        document.getElementById("gameOverlay")
+    ];
+    fullscreenElements.forEach(element => {
+        element.style.width = screenWidth + "px";
+        element.style.height = screenHeight + "px";
+    });
+    document.getElementById("controls").style.top = (screenHeight + 140) + "px";
+    document.getElementById("mobileControls").style.width = screenWidth + "px";
+    document.getElementById("mobileControls").style.top = screenHeight + "px";
+}
+
+/**
+* This function sets the global screenWidth and screenHeight variables.
+* If fullscreen is turned off, the screenwidth and screenHeight are set to their default values.
+* If fullscreen is turned on, the screenwidth is the windows innerWidth and the screenHeight is 2/3 of the screenWidth.
+* In case of the screenHeight is above the windows innerHeight, the screenHeight is set equal to the windows innerHeight and the screenWidth is 1.5 times the screenHeight.
+*/
+function getScreenDimensions() {
+    if (fullscreen) {
+        document.getElementById("fullscreenBtn").classList.remove("low-opacity");
+        screenWidth = window.innerWidth;
+        screenHeight = (window.innerWidth * 0.66);
+        if (window.innerHeight < window.innerWidth * 0.66) {
+            screenWidth = (window.innerHeight * 1.5);
+            screenHeight = window.innerHeight;
+        }
+    } else {
+        document.getElementById("fullscreenBtn").classList.add("low-opacity");
+        screenWidth = 720;
+        screenHeight = 480;
+    }
 }

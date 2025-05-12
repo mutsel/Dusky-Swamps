@@ -323,17 +323,15 @@ canvas {
 }
 
 .mobile-controls {
-    width: 160px;
-    height: 110px;
-    padding: 0 12px 12px 0;
-    margin-left: 560px;
+    width: 100%;
     position: fixed;
-    top: 500px;
+    top: 480px;
+    justify-items: end;
     z-index: 2;
 
     .mobile-btns {
-        width: 100%;
-        height: 100%;
+        width: 160px;
+        margin: 24px 16px 0 0;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -367,7 +365,7 @@ canvas {
         }
 
         .attack-btn {
-            background-image: url("./img/GUI/button_w.png");
+            background-image: url("./img/GUI/button_attack.png");
         }
     }
 }
@@ -401,8 +399,6 @@ canvas {
             padding-left: 12px;
         }
     }
-
-
 }
 
 .d-none {

@@ -35,6 +35,7 @@
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
     <script src="js/audio.js"></script>
+    <script src="js/controls-events.js"></script>
 </head>
 
 <body onload="init()">
@@ -130,7 +131,7 @@
 
             <div class="settings-fullscreen">
                 <h3>Fullscreen</h3>
-                <button class="fullscreen-btn round-btn"></button>
+                <button onclick="toggleFullscreen()" id="fullscreenBtn" class="fullscreen-btn round-btn"></button>
             </div>
         </section>
 
