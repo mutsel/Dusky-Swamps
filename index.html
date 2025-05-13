@@ -36,6 +36,7 @@
     <script src="js/game.js"></script>
     <script src="js/audio.js"></script>
     <script src="js/controls-events.js"></script>
+    <script src="js/screen-dimensions.js"></script>
 </head>
 
 <body onload="init()" onresize="adjustScreenDimensions()">
@@ -108,11 +109,11 @@
             <div id="startscreenSettings" class="startscreen-settings startscreen-menu d-none">
                 <div class="startscreen-header">
                     <button onclick="init()" class="back-btn round-btn"></button>
-                    <h2>Settings</h2>
+                    <!-- <h2>Settings</h2> -->
                 </div>
 
                 <div class="settings-audio">
-                    <h3>Audio</h3>
+                    <!-- <h3>Audio</h3> -->
                     <div>
                         <div id="volumeRegulator" class="volume-regulator">
                             <button onclick="setAudioVolume('decrease')" class="volume-decrease-btn round-btn"></button>
@@ -124,13 +125,13 @@
                 </div>
 
                 <div class="settings-controls">
-                    <h3>Show Controls</h3>
+                    <!-- <h3>Show Controls</h3> -->
                     <button onclick="toggleControlsVisibility()" id="showControlsBtn"
                         class="show-controls-btn round-btn"></button>
                 </div>
 
                 <div class="settings-fullscreen">
-                    <h3>Fullscreen</h3>
+                    <!-- <h3>Fullscreen</h3> -->
                     <button onclick="toggleFullscreen()" id="fullscreenBtn" class="fullscreen-btn round-btn"></button>
                 </div>
             </div>
@@ -142,7 +143,7 @@
 
         <section id="gameOverlay" class="game-overlay d-none">
             <div id="gameOverlaySections" class="game-overlay-sections">
-                <div class="game-buttons">
+                <div id="gameBtns" class="game-buttons">
                     <button onclick="toggleAudio()" id="muteBtn" class="mute-btn round-btn"></button>
                     <button onclick="toggleGameSettings()" id="settingsBtn" class="settings-btn round-btn"></button>
                 </div>

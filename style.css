@@ -28,7 +28,6 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: aliceblue;
 }
 
 h1 {
@@ -440,6 +439,58 @@ canvas {
         .controls-section {
             margin: 0 -16px;
         }
+    }
+}
+
+.static-game-over {
+    width: 338.328px !important;
+    height: 412px !important;
+    padding-top: 60px !important;
+    padding-left: 44px !important;
+    gap: 28px !important;
+
+    button {
+        width: 52.5px !important;
+        height: 52.5px !important;
+    }
+}
+
+.static-victory {
+    width: 406.328px !important;
+    height: 475.188px !important;
+
+    .gem-counter {
+        height: 242.844px !important;
+    }
+
+    .victory-btns {
+        width: 345.471px !important;
+        padding-top: 29.143px !important;
+        padding-left: 60.857px !important;
+        gap: 42px !important;
+
+        button {
+            width: 52.5px !important;
+            height: 52.5px !important;
+        }
+    }
+}
+
+.static-game-btns {
+    button {
+        width: 36px !important;
+        height: 36px !important;
+    }
+}
+
+.static-mobile-controls {
+    width: 145.6px !important;
+    padding-right: 19.429px !important;
+    margin-top: 13.429px !important;
+
+    button {
+        width: 44px !important;
+        height: 44px !important;
     }
 }
 
