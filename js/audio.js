@@ -47,15 +47,20 @@ function toggleAudio() {
 * @param {string} method - if the indexAudioVolume should decrease or increse. If it's empty, it should not change.
 */
 function setAudioVolume(method) {
-    let audioVolumeContentRef = document.getElementById("volumeRegulator");
+    let volumeStartscreenContentRef = document.getElementById("volumeRegulatorStartscreen");
+    let volumeGameContentRef = document.getElementById("volumeRegulatorGame");
     switch (method) {
         case 'decrease': if (indexAudioVolume > 0) { indexAudioVolume-- };
-            audioVolumeContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
+            volumeStartscreenContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
+            volumeGameContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
             break;
         case 'increase': if (indexAudioVolume < 4) { indexAudioVolume++ };
-            audioVolumeContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
+            volumeStartscreenContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
+            volumeGameContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
             break;
-        default: audioVolumeContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
+        default:
+            volumeStartscreenContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
+            volumeGameContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
     }
     localStorage.setItem('indexAudioVolume', JSON.stringify(indexAudioVolume));
     toggleAudioSettingsLowOpacity();
@@ -86,12 +91,16 @@ function adjustAudioVolume() {
 */
 function toggleAudioSettingsLowOpacity() {
     if (indexAudioVolume == 0) {
-        document.getElementById("volumeRegulator").classList.add("low-opacity");
+        document.getElementById("volumeRegulatorStartscreen").classList.add("low-opacity");
+        document.getElementById("volumeRegulatorGame").classList.add("low-opacity");
         document.getElementById("muteBtnStartscreen").classList.remove("low-opacity");
+        document.getElementById("muteBtnGame").classList.remove("low-opacity");
         document.getElementById("muteBtn").classList.remove("low-opacity");
     } else {
-        document.getElementById("volumeRegulator").classList.remove("low-opacity");
+        document.getElementById("volumeRegulatorStartscreen").classList.remove("low-opacity");
+        document.getElementById("volumeRegulatorGame").classList.remove("low-opacity");
         document.getElementById("muteBtnStartscreen").classList.add("low-opacity");
+        document.getElementById("muteBtnGame").classList.add("low-opacity");
         document.getElementById("muteBtn").classList.add("low-opacity");
     }
 }

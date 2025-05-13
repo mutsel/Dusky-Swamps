@@ -55,19 +55,21 @@ function adjustScreenDimensions() {
 */
 function getScreenDimensions() {
     if (fullscreen) {
-        document.getElementById("fullscreenBtn").classList.remove("low-opacity");
+        document.getElementById("fullscreenBtnStartscreen").classList.remove("low-opacity");
+        document.getElementById("fullscreenBtnGame").classList.remove("low-opacity");
         screenWidth = window.innerWidth;
         screenHeight = (window.innerWidth * 0.66);
         getScreenDimensionsEdgeCases();
     } else {
-        document.getElementById("fullscreenBtn").classList.add("low-opacity");
+        document.getElementById("fullscreenBtnStartscreen").classList.add("low-opacity");
+        document.getElementById("fullscreenBtnGame").classList.add("low-opacity");
         if (window.innerWidth >= 720) {
             screenWidth = 720;
             screenHeight = 480;
         } else {
             screenWidth = window.innerWidth;
             screenHeight = (window.innerWidth * 0.66);
-        }
+        } 
     }
 }
 
@@ -94,7 +96,6 @@ function scaleElements() {
     let scaleableElements = [
         document.getElementById("startscreenOverview"),
         document.getElementById("startscreenAbout"),
-        document.getElementById("startscreenSettings"),
     ]
     scaleableElements.forEach(element => { element.style.scale = scale; });
     document.querySelectorAll(".controls-section").forEach(element => { element.style.scale = scale; });
@@ -105,11 +106,15 @@ function scaleElements() {
 */
 function adjustDimensionsElements() {
     if (fullscreen) {
+        document.getElementById("startscreenSettings").classList.remove("static-settings");
+        document.getElementById("gameSettings").classList.remove("static-settings");
         document.getElementById("gameBtns").classList.remove("static-game-btns");
         document.getElementById("mobileControlsBtns").classList.remove("static-mobile-controls");
         document.getElementById("gameOver").classList.remove("static-game-over");
         document.getElementById("victory").classList.remove("static-victory");
     } else {
+        document.getElementById("startscreenSettings").classList.add("static-settings");
+        document.getElementById("gameSettings").classList.add("static-settings");
         document.getElementById("gameBtns").classList.add("static-game-btns");
         document.getElementById("mobileControlsBtns").classList.add("static-mobile-controls");
         document.getElementById("gameOver").classList.add("static-game-over");

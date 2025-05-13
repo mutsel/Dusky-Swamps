@@ -8,7 +8,7 @@ const collectedGemsImgs = [
     "url('./img/GUI/menus/win_gems_01.png')",
     "url('./img/GUI/menus/win_gems_02.png')",
     "url('./img/GUI/menus/win_gems_03.png')",
-    "url('./img/GUI/menus/win_gems_04.png')"
+    "url('./img/GUI/menus/win_gems_04.png')" 
 ];
 
 /**
@@ -214,10 +214,12 @@ function adjustControlsVisibility() {
     }
     if (controlsVisibility || controlsVisibility == null) {
         controlsVisibility = true;
-        document.getElementById("showControlsBtn").classList.remove("low-opacity");
+        document.getElementById("showControlsBtnStartscreen").classList.remove("low-opacity");
+        document.getElementById("showControlsBtnGame").classList.remove("low-opacity");
         document.getElementById("controls").classList.remove("d-none");
     } else {
-        document.getElementById("showControlsBtn").classList.add("low-opacity");
+        document.getElementById("showControlsBtnStartscreen").classList.add("low-opacity");
+        document.getElementById("showControlsBtnGame").classList.add("low-opacity");
         document.getElementById("controls").classList.add("d-none");
     }
     localStorage.setItem('controlsVisibility', JSON.stringify(controlsVisibility));

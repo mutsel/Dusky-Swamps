@@ -106,16 +106,12 @@
                 </div>
             </div>
 
-            <div id="startscreenSettings" class="startscreen-settings startscreen-menu d-none">
-                <div class="startscreen-header">
-                    <button onclick="init()" class="back-btn round-btn"></button>
-                    <!-- <h2>Settings</h2> -->
-                </div>
+            <div id="startscreenSettings" class="startscreen-menu settings d-none">
+                <button onclick="init()" class="back-btn round-btn"></button>
 
                 <div class="settings-audio">
-                    <!-- <h3>Audio</h3> -->
                     <div>
-                        <div id="volumeRegulator" class="volume-regulator">
+                        <div id="volumeRegulatorStartscreen" class="volume-regulator">
                             <button onclick="setAudioVolume('decrease')" class="volume-decrease-btn round-btn"></button>
                             <button onclick="setAudioVolume('increase')" class="volume-increase-btn round-btn"></button>
                         </div>
@@ -124,15 +120,11 @@
                     </div>
                 </div>
 
-                <div class="settings-controls">
-                    <!-- <h3>Show Controls</h3> -->
-                    <button onclick="toggleControlsVisibility()" id="showControlsBtn"
+                <div class="settings-controls-fullscreen">
+                    <button onclick="toggleControlsVisibility()" id="showControlsBtnStartscreen"
                         class="show-controls-btn round-btn"></button>
-                </div>
 
-                <div class="settings-fullscreen">
-                    <!-- <h3>Fullscreen</h3> -->
-                    <button onclick="toggleFullscreen()" id="fullscreenBtn" class="fullscreen-btn round-btn"></button>
+                    <button onclick="toggleFullscreen()" id="fullscreenBtnStartscreen" class="fullscreen-btn round-btn"></button>
                 </div>
             </div>
 
@@ -148,7 +140,30 @@
                     <button onclick="toggleGameSettings()" id="settingsBtn" class="settings-btn round-btn"></button>
                 </div>
 
-                <div id="gameSettings" class="game-settings game-menu"></div>
+                <div id="gameSettings" class="settings game-menu">
+                    <button onclick="toggleGameSettings()" class="back-btn round-btn"></button>
+
+                    <div class="settings-audio">
+                        <div>
+                            <div id="volumeRegulatorGame" class="volume-regulator">
+                                <button onclick="setAudioVolume('decrease')"
+                                    class="volume-decrease-btn round-btn"></button>
+                                <button onclick="setAudioVolume('increase')"
+                                    class="volume-increase-btn round-btn"></button>
+                            </div>
+                            <button onclick="toggleAudio()" id="muteBtnGame"
+                                class="mute-btn round-btn low-opacity"></button>
+                        </div>
+                    </div>
+
+                    <div class="settings-controls-fullscreen">
+                        <button onclick="toggleControlsVisibility()" id="showControlsBtnGame"
+                            class="show-controls-btn round-btn"></button>
+
+                        <button onclick="toggleFullscreen()" id="fullscreenBtnGame"
+                            class="fullscreen-btn round-btn"></button>
+                    </div>
+                </div>
 
                 <div id="gameOver" class="game-over game-menu">
                     <button onclick="startGame()" id="gameOverRetryBtn" class="retry-btn"></button>
