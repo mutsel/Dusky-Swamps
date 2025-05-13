@@ -8,7 +8,7 @@ const collectedGemsImgs = [
     "url('./img/GUI/menus/win_gems_01.png')",
     "url('./img/GUI/menus/win_gems_02.png')",
     "url('./img/GUI/menus/win_gems_03.png')",
-    "url('./img/GUI/menus/win_gems_04.png')" 
+    "url('./img/GUI/menus/win_gems_04.png')"
 ];
 
 /**
@@ -17,7 +17,7 @@ const collectedGemsImgs = [
 function init() {
     inGame = false;
     closeAllStartscreenMenu();
-    closeAllGameMenu();
+    closeAll();
     document.getElementById("startscreen").classList.remove("d-none");
     document.getElementById("startscreenOverview").classList.remove("d-none");
     document.getElementById("mobileControls").classList.add("d-none");
@@ -37,7 +37,7 @@ function startGame() {
     createWorld();
     addEventListeners();
     closeAllStartscreenMenu();
-    closeAllGameMenu();
+    closeAll();
     document.getElementById("canvas").classList.remove("d-none");
     document.getElementById("mobileControls").classList.remove("d-none");
     document.getElementById("gameOverlay").classList.remove("d-none");
@@ -75,17 +75,25 @@ function closeAllStartscreenMenu() {
 
 /**
 * This function closes all menu of the game and the canvas (incl. gameOverlay) itself.
+* The victory buttons are set to default (disabled).
 */
-function closeAllGameMenu() {
+function closeAll() {
+    closeGameMenu();
     document.getElementById("canvas").classList.add("d-none");
     document.getElementById("gameOverlay").classList.add("d-none");
+    document.getElementById("victoryRetryBtn").classList.add("disabled-btn");
+    document.getElementById("victoryMainMenuBtn").classList.add("disabled-btn");
+    document.getElementById("mobileControls").classList.remove("d-none");
+}
+
+/**
+* This function closes all game-menu
+*/
+function closeGameMenu() {
     let gameMenu = document.querySelectorAll(".game-menu");
     for (let i = 0; i < gameMenu.length; i++) {
         gameMenu[i].classList.add("d-none")
     }
-    document.getElementById("victoryRetryBtn").classList.add("disabled-btn");
-    document.getElementById("victoryMainMenuBtn").classList.add("disabled-btn");
-    document.getElementById("mobileControls").classList.remove("d-none");
 }
 
 /**
@@ -105,21 +113,38 @@ function openStartscreenSettings() {
 }
 
 /**
-* This function toggles the visibility and functionality of the game-settings.
+* This function adds visibility and functionality to the game-settings or reset-options.
+* 
+* @param {string} contentRefId - the id of the game-menu
 */
-function toggleGameSettings() {
-    document.getElementById("gameSettings").classList.toggle("d-none");
-    document.getElementById("gameOverlay").classList.toggle("dark-bg");
-    document.getElementById("settingsBtn").classList.toggle("close-btn");
-    document.getElementById("mobileControls").classList.toggle("d-none");
-    if (document.getElementById("gameSettings").classList.contains("d-none")) {
-        addEventListeners();
-        world.audios.scenery.play();
-        world.audios.scenery.volume = audioVolume;
-    } else {
-        removeEventListeners();
+function openGameMenu(contentRefId) {
+    let contentRef = document.getElementById(contentRefId);
+    contentRef.classList.remove("d-none");
+    adjustGameOverlay("add");
+    removeEventListeners();
+}
+
+/**
+* This function adjusts the gameOverlay according to the toggle-option(add or remove).
+* 
+* @param {string} toggle - whether classes should be added or removed
+*/
+function adjustGameOverlay(toggle) {
+    if (toggle == "add") {
+        document.getElementById("closeBtn").classList.remove("d-none");
+        document.getElementById("gameOverlay").classList.add("dark-bg");
+        document.getElementById("resetBtn").classList.add("d-none");
+        document.getElementById("settingsBtn").classList.add("d-none");
+        document.getElementById("mobileControls").classList.add("d-none");
+    } else if (toggle == "remove") {
+        document.getElementById("closeBtn").classList.add("d-none");
+        document.getElementById("gameOverlay").classList.remove("dark-bg");
+        document.getElementById("resetBtn").classList.remove("d-none");
+        document.getElementById("settingsBtn").classList.remove("d-none");
+        document.getElementById("mobileControls").classList.remove("d-none");
     }
 }
+
 
 /**
 * This function shows the gameOver-screen if gameOver in the world is set to true.

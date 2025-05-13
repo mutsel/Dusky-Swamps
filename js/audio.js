@@ -95,12 +95,10 @@ function toggleAudioSettingsLowOpacity() {
         document.getElementById("volumeRegulatorGame").classList.add("low-opacity");
         document.getElementById("muteBtnStartscreen").classList.remove("low-opacity");
         document.getElementById("muteBtnGame").classList.remove("low-opacity");
-        document.getElementById("muteBtn").classList.remove("low-opacity");
     } else {
         document.getElementById("volumeRegulatorStartscreen").classList.remove("low-opacity");
         document.getElementById("volumeRegulatorGame").classList.remove("low-opacity");
         document.getElementById("muteBtnStartscreen").classList.add("low-opacity");
         document.getElementById("muteBtnGame").classList.add("low-opacity");
-        document.getElementById("muteBtn").classList.add("low-opacity");
     }
 }

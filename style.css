@@ -74,8 +74,8 @@ button:focus-visible {
     background-image: url("./img/GUI/button_back.png");
 }
 
-.mute-btn {
-    background-image: url("./img/GUI/button_audio_mute.png");
+.reset-btn {
+    background-image: url("./img/GUI/button_startscreen.png");
 }
 
 .settings-btn {
@@ -92,6 +92,10 @@ button:focus-visible {
 
 .volume-increase-btn {
     background-image: url("./img/GUI/button_audio_increase.png");
+}
+
+.mute-btn {
+    background-image: url("./img/GUI/button_audio_mute.png");
 }
 
 .fullscreen-btn {
@@ -288,6 +292,12 @@ canvas {
             }
         }
 
+        .reset-options {
+            height: 100px;
+            width: 100px;
+            background-color: black;
+        }
+
         .game-over {
             background-image: url(./img/GUI/menus/gameover.png);
             display: flex;
@@ -419,8 +429,6 @@ canvas {
         span {
             padding-left: 12px;
         }
-
-
     }
 
     @media (max-width: 400px) {
@@ -430,13 +438,44 @@ canvas {
     }
 }
 
+.d-none {
+    display: none !important;
+}
+
+.low-opacity {
+    filter: opacity(0.5);
+}
+
+.dark-bg {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
 .static-settings {
     width: 406.788px !important;
     height: 480px !important;
+    padding-top: 112.143px !important;
+    padding-right: 57px !important;
+    padding-left: 31.857px !important;
 
     button {
         width: 36px !important;
         height: 36px !important;
+    }
+
+    .settings-audio {
+        padding-top: 69.285px !important;
+
+        div {
+            .volume-regulator {
+                width: 207.875px !important;
+                height: 33.016px !important;
+            }
+        }
+    }
+
+    .settings-controls-fullscreen {
+        padding-top: 21.505px !important;
+        gap: 20px !important;
     }
 }
 
@@ -490,18 +529,6 @@ canvas {
         width: 44px !important;
         height: 44px !important;
     }
-}
-
-.d-none {
-    display: none !important;
-}
-
-.low-opacity {
-    filter: opacity(0.5);
-}
-
-.dark-bg {
-    background-color: rgba(0, 0, 0, 0.3);
 }
 
 @media only screen and (max-width: 720px) {

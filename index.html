@@ -136,13 +136,13 @@
         <section id="gameOverlay" class="game-overlay d-none">
             <div id="gameOverlaySections" class="game-overlay-sections">
                 <div id="gameBtns" class="game-buttons">
-                    <button onclick="toggleAudio()" id="muteBtn" class="mute-btn round-btn"></button>
-                    <button onclick="toggleGameSettings()" id="settingsBtn" class="settings-btn round-btn"></button>
+                    <button onclick="openGameMenu('gameResetOptions')" id="resetBtn" class="reset-btn round-btn"></button>
+                    <button onclick="openGameMenu('gameSettings')" id="settingsBtn" class="settings-btn round-btn"></button>
+                    <button onclick="closeGameMenu(), adjustGameOverlay('remove'), addEventListeners()" id="closeBtn" class="close-btn round-btn d-none"></button>
                 </div>
 
                 <div id="gameSettings" class="settings game-menu">
                     <button onclick="toggleGameSettings()" class="back-btn round-btn"></button>
-
                     <div class="settings-audio">
                         <div>
                             <div id="volumeRegulatorGame" class="volume-regulator">
@@ -155,7 +155,6 @@
                                 class="mute-btn round-btn low-opacity"></button>
                         </div>
                     </div>
-
                     <div class="settings-controls-fullscreen">
                         <button onclick="toggleControlsVisibility()" id="showControlsBtnGame"
                             class="show-controls-btn round-btn"></button>
@@ -163,6 +162,10 @@
                         <button onclick="toggleFullscreen()" id="fullscreenBtnGame"
                             class="fullscreen-btn round-btn"></button>
                     </div>
+                </div>
+
+                <div id="gameResetOptions" class="reset-options game-menu">
+
                 </div>
 
                 <div id="gameOver" class="game-over game-menu">
