@@ -3,11 +3,11 @@ class GemsBar extends StatusBar {
     y = 70;
 
     IMAGES = [
-        'img/GUI/statusbars/Gems_0.png',
-        'img/GUI/statusbars/Gems_25.png',
-        'img/GUI/statusbars/Gems_50.png',
-        'img/GUI/statusbars/Gems_75.png',
-        'img/GUI/statusbars/Gems_100.png',
+        'img/gui/statusbars/gems/gems_0.png',
+        'img/gui/statusbars/gems/gems_25.png',
+        'img/gui/statusbars/gems/gems_50.png',
+        'img/gui/statusbars/gems/gems_75.png',
+        'img/gui/statusbars/gems/gems_100.png',
     ];
 
     constructor() {

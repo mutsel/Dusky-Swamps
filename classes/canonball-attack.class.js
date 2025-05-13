@@ -8,7 +8,7 @@ class CanonballAttack extends ShootableObject {
     audio = new Audio('audio/canonball.mp3')
     
     constructor(x, y) {
-        super().loadImage('img/shootable-objects/magic-attack/Cannonball_01.png')
+        super().loadImage('img/shootable_objects/cannonball_01.png')
         this.x = x;
         this.y = y;
         this.shoot();

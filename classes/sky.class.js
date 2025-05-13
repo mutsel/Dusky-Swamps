@@ -5,7 +5,7 @@ class Sky extends MovableObject {
     speed = 0.05;
 
     constructor(x) {
-        super().loadImage("img/scenery/sky.png");
+        super().loadImage("./img/scenery/sky.png");
         this.x = x;
         this.animate();
     }

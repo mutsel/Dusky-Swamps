@@ -3,13 +3,13 @@ class MagicStone extends MovableObject {
     height = 25;
 
     IMAGES_MAGICSTONES = [
-        'img/collectable-objects/magic-stones/MagicStone_01.png',
-        'img/collectable-objects/magic-stones/MagicStone_02.png',
-        'img/collectable-objects/magic-stones/MagicStone_03.png',
-        'img/collectable-objects/magic-stones/MagicStone_04.png',
-        'img/collectable-objects/magic-stones/MagicStone_05.png',
-        'img/collectable-objects/magic-stones/MagicStone_06.png',
-        'img/collectable-objects/magic-stones/MagicStone_07.png',
+        'img/collectable_objects/magic_stones/magic_stone_01.png',
+        'img/collectable_objects/magic_stones/magic_stone_02.png',
+        'img/collectable_objects/magic_stones/magic_stone_03.png',
+        'img/collectable_objects/magic_stones/magic_stone_04.png',
+        'img/collectable_objects/magic_stones/magic_stone_05.png',
+        'img/collectable_objects/magic_stones/magic_stone_06.png',
+        'img/collectable_objects/magic_stones/magic_stone_07.png',
     ];
 
     constructor(x, y) {

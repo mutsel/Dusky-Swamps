@@ -3,11 +3,11 @@ class HealthBar extends StatusBar {
     y = 20;
 
     IMAGES = [
-        'img/GUI/statusbars/Health_100.png',
-        'img/GUI/statusbars/Health_75.png',
-        'img/GUI/statusbars/Health_50.png',
-        'img/GUI/statusbars/Health_25.png',
-        'img/GUI/statusbars/Health_0.png',
+        'img/gui/statusbars/health/health_100.png',
+        'img/gui/statusbars/health/health_75.png',
+        'img/gui/statusbars/health/health_50.png',
+        'img/gui/statusbars/health/health_25.png',
+        'img/gui/statusbars/health/health_0.png',
     ]
 
     constructor() {

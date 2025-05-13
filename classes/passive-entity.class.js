@@ -3,12 +3,12 @@ class PassiveEntity extends MovableObject {
     height = 20;
 
     IMAGES_CROW = [
-        'img/scenery/passive-entities/Crow_01.png',
-        'img/scenery/passive-entities/Crow_02.png',
-        'img/scenery/passive-entities/Crow_03.png',
-        'img/scenery/passive-entities/Crow_04.png',
-        'img/scenery/passive-entities/Crow_05.png',
-        'img/scenery/passive-entities/Crow_06.png',
+        'img/scenery/passive_entities/crow_01.png',
+        'img/scenery/passive_entities/crow_02.png',
+        'img/scenery/passive_entities/crow_03.png',
+        'img/scenery/passive_entities/crow_04.png',
+        'img/scenery/passive_entities/crow_05.png',
+        'img/scenery/passive_entities/crow_06.png',
     ];
 
     constructor(x) {

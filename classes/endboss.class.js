@@ -22,12 +22,12 @@ class Endboss extends MovableObject {
         'img/enemies/endboss/Hit/Hit_03.png',
         'img/enemies/endboss/Hit/Hit_02.png',
         'img/enemies/endboss/Hit/Hit_01.png',
-        'img/dead-animation-universal/disappearing_01.png',
-        'img/dead-animation-universal/disappearing_02.png',
-        'img/dead-animation-universal/disappearing_03.png',
-        'img/dead-animation-universal/disappearing_04.png',
-        'img/dead-animation-universal/disappearing_05.png',
-        'img/dead-animation-universal/dead.png',
+        'img/dead_animation_universal/disappearing_01.png',
+        'img/dead_animation_universal/disappearing_02.png',
+        'img/dead_animation_universal/disappearing_03.png',
+        'img/dead_animation_universal/disappearing_04.png',
+        'img/dead_animation_universal/disappearing_05.png',
+        'img/dead_animation_universal/dead.png',
     ];
 
     IMAGES_HIT = [
@@ -96,7 +96,7 @@ class Endboss extends MovableObject {
                     this.playAnimation(this.IMAGES_DEAD);
                     j++
                 } else if (this.isDead()) {
-                    this.loadImage('img/dead-animation-universal/dead.png');
+                    this.loadImage('img/dead_animation_universal/dead.png');
                     this.world.removeDeadEnemies();
                     this.world.victory = true;
                 } else if (this.isHurt) {

@@ -3,11 +3,11 @@ class AttackBar extends StatusBar {
     y = 45;
 
     IMAGES = [
-        'img/GUI/statusbars/Attack_100.png',
-        'img/GUI/statusbars/Attack_75.png',
-        'img/GUI/statusbars/Attack_50.png', 
-        'img/GUI/statusbars/Attack_25.png',
-        'img/GUI/statusbars/Attack_0.png',
+        'img/gui/statusbars/attack/attack_100.png',
+        'img/gui/statusbars/attack/attack_75.png',
+        'img/gui/statusbars/attack/attack_50.png', 
+        'img/gui/statusbars/attack/attack_25.png',
+        'img/gui/statusbars/attack/attack_0.png',
     ];
 
     constructor() {

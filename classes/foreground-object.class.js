@@ -5,7 +5,7 @@ class ForegroundObject extends MovableObject {
     speed = 4;
 
     constructor(x) {
-        super().loadImage("img/scenery/Foreground.png");
+        super().loadImage("./img/scenery/foreground.png");
         this.x = x;
     }
 } 

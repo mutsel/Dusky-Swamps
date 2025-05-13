@@ -15,7 +15,7 @@ body {
     height: 100vh;
     display: flex;
     justify-content: center;
-    background-image: url('img/1.png');
+    background-image: url('./img/1.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -71,39 +71,39 @@ button:focus-visible {
 }
 
 .back-btn {
-    background-image: url("./img/GUI/button_back.png");
+    background-image: url("./img/gui/buttons/button_back.png");
 }
 
 .reset-btn {
-    background-image: url("./img/GUI/button_startscreen.png");
+    background-image: url("./img/gui/buttons/button_startscreen.png");
 }
 
 .settings-btn {
-    background-image: url("./img/GUI/button_settings.png");
+    background-image: url("./img/gui/buttons/button_settings.png");
 }
 
 .close-btn {
-    background-image: url("./img/GUI/button_close.png") !important;
+    background-image: url("./img/gui/buttons/button_close.png");
 }
 
 .volume-decrease-btn {
-    background-image: url("./img/GUI/button_audio_decrease.png");
+    background-image: url("./img/gui/buttons/button_audio_decrease.png");
 }
 
 .volume-increase-btn {
-    background-image: url("./img/GUI/button_audio_increase.png");
+    background-image: url("./img/gui/buttons/button_audio_increase.png");
 }
 
 .mute-btn {
-    background-image: url("./img/GUI/button_audio_mute.png");
+    background-image: url("./img/gui/buttons/button_audio_mute.png");
 }
 
 .fullscreen-btn {
-    background-image: url("./img/GUI/button_fullscreen.png");
+    background-image: url("./img/gui/buttons/button_fullscreen.png");
 }
 
 .show-controls-btn {
-    background-image: url("./img/GUI/button_show_controls.png");
+    background-image: url("./img/gui/buttons/button_show_controls.png");
 }
 
 .startscreen {
@@ -121,14 +121,14 @@ button:focus-visible {
     .wooden-button {
         width: 132px;
         height: 44px;
-        background-image: url("./img/GUI/wooden_button_small.png");
+        background-image: url("./img/gui/wooden_button_small.png");
         font-family: tiny5;
         font-size: 24px;
     }
 
     .big-button {
         height: 88px;
-        background-image: url("./img/GUI/wooden_button_big.png");
+        background-image: url("./img/gui//wooden_button_big.png");
     }
 
     .startscreen-overview {
@@ -194,7 +194,7 @@ button:focus-visible {
     padding-top: calc(17.125rem - clamp(3.125rem, 17.1071rem + -15.5357vw, 14rem));
     padding-right: calc(8.875rem - clamp(1.375rem, 9.2500rem + -8.7500vw, 7.5rem));
     padding-left: calc(4.875rem - clamp(0.875rem, 4.8929rem + -4.4643vw, 4rem));
-    background-image: url("./img/GUI/menus/settings.png");
+    background-image: url("./img/GUI/menu/settings.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -276,19 +276,19 @@ canvas {
             display: flex;
 
             .retry-btn {
-                background-image: url("./img/GUI/menus/button_retry.png");
+                background-image: url("./img/gui/buttons/button_retry.png");
             }
 
             .retry-btn:hover {
-                background-image: url("./img/GUI/menus/button_retry_pressed.png");
+                background-image: url("./img/gui/buttons/button_retry_pressed.png");
             }
 
             .main-menu-btn {
-                background-image: url("./img/GUI/menus/button_main_menu.png");
+                background-image: url("./img/gui/buttons/button_main_menu.png");
             }
 
             .main-menu-btn:hover {
-                background-image: url("./img/GUI/menus/button_main_menu_pressed.png");
+                background-image: url("./img/gui/buttons/button_main_menu_pressed.png");
             }
         }
 
@@ -299,7 +299,7 @@ canvas {
         }
 
         .game-over {
-            background-image: url(./img/GUI/menus/gameover.png);
+            background-image: url("./img/gui/menu/gameover.png");
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -314,14 +314,14 @@ canvas {
         }
 
         .victory {
-            background-image: url("./img/GUI/menus/victory.png");
+            background-image: url("./img/gui/menu/victory.png");
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
 
             .gem-counter {
                 height: calc(37.5rem - clamp(6.25rem, 38.3929rem + -35.7143vw, 31.25rem));
-                background-image: url("./img/GUI/menus/win_gems_00.png");
+                background-image: url("./img/gui/win_gems/win_gems_00.png");
                 background-color: transparent;
                 background-size: cover;
                 background-repeat: no-repeat;
@@ -379,7 +379,7 @@ canvas {
         }
 
         .up-btn {
-            background-image: url("./img/GUI/button_up.png");
+            background-image: url("./img/gui/controls/button_up.png");
         }
 
         div {
@@ -389,17 +389,17 @@ canvas {
             transform: translateY(-25%);
 
             .left-btn {
-                background-image: url("./img/GUI/button_left.png");
+                background-image: url("./img/gui/controls/button_left.png");
             }
 
             .right-btn {
-                background-image: url("./img/GUI/button_right.png");
+                background-image: url("./img/gui/controls/button_right.png");
             }
         }
 
         .attack-btn {
             transform: translateY(-75%);
-            background-image: url("./img/GUI/button_attack.png");
+            background-image: url("./img/gui/controls/button_attack.png");
         }
     }
 }

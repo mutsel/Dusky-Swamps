@@ -2,11 +2,11 @@ let indexAudioVolume;
 let audioVolume;
 
 const volumeRegulatorImgs = [
-    "url('./img/GUI/volume_regulator_0.png')",
-    "url('./img/GUI/volume_regulator_25.png')",
-    "url('./img/GUI/volume_regulator_50.png')",
-    "url('./img/GUI/volume_regulator_75.png')",
-    "url('./img/GUI/volume_regulator_100.png')"
+    "url('img/gui/volume_regulator/volume_regulator_0.png')",
+    "url('img/gui/volume_regulator/volume_regulator_25.png')",
+    "url('img/gui/volume_regulator/volume_regulator_50.png')",
+    "url('img/gui/volume_regulator/volume_regulator_75.png')",
+    "url('img/gui/volume_regulator/volume_regulator_100.png')"
 ];
 
 /**

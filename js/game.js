@@ -4,11 +4,11 @@ let inGame;
 let controlsVisibility;
 
 const collectedGemsImgs = [
-    "url('./img/GUI/menus/win_gems_00.png')",
-    "url('./img/GUI/menus/win_gems_01.png')",
-    "url('./img/GUI/menus/win_gems_02.png')",
-    "url('./img/GUI/menus/win_gems_03.png')",
-    "url('./img/GUI/menus/win_gems_04.png')"
+    "url('/img/gui/win_gems/win_gems_00.png')",
+    "url('/img/gui/win_gems/win_gems_01.png')",
+    "url('/img/gui/win_gems/win_gems_02.png')",
+    "url('/img/gui/win_gems/win_gems_03.png')",
+    "url('/img/gui/win_gems/win_gems_04.png')"
 ];
 
 /**
@@ -42,8 +42,8 @@ function startGame() {
     document.getElementById("mobileControls").classList.remove("d-none");
     document.getElementById("gameOverlay").classList.remove("d-none");
     document.getElementById("gameOverlay").classList.remove("dark-bg");
-    document.getElementById("settingsBtn").classList.remove("close-btn");
-    document.getElementById("settingsBtn").hidden = false;
+    document.getElementById("resetBtn").classList.remove("d-none");
+    document.getElementById("settingsBtn").classList.remove("d-none");
     gemCounter.style.backgroundImage = collectedGemsImgs[0];
     checkAudioSettings();
     checkScreenDimensionsSettings();
@@ -177,7 +177,9 @@ function gameEnd() {
     document.getElementById("victory").classList.add("d-none");
     document.getElementById("gameSettings").classList.add("d-none");
     document.getElementById("gameOverlay").classList.add("dark-bg");
-    document.getElementById("settingsBtn").hidden = true;
+    document.getElementById("resetBtn").classList.add("d-none");
+    document.getElementById("settingsBtn").classList.add("d-none");
+    document.getElementById("closeBtn").classList.add("d-none");
     document.getElementById("mobileControls").classList.add("d-none");
     removeEventListeners();
 }

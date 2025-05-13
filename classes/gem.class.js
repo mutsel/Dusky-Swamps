@@ -3,13 +3,13 @@ class Gem extends MovableObject {
     height = 25;
 
     IMAGES_GEMS = [
-        'img/collectable-objects/gems/Gem_01.png',
-        'img/collectable-objects/gems/Gem_02.png',
-        'img/collectable-objects/gems/Gem_03.png',
-        'img/collectable-objects/gems/Gem_04.png',
-        'img/collectable-objects/gems/Gem_05.png',
-        'img/collectable-objects/gems/Gem_06.png',
-        'img/collectable-objects/gems/Gem_07.png',
+        'img/collectable_objects/gems/gem_01.png',
+        'img/collectable_objects/gems/gem_02.png',
+        'img/collectable_objects/gems/gem_03.png',
+        'img/collectable_objects/gems/gem_04.png',
+        'img/collectable_objects/gems/gem_05.png',
+        'img/collectable_objects/gems/gem_06.png',
+        'img/collectable_objects/gems/gem_07.png',
     ];
 
     constructor(x, y) {

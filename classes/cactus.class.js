@@ -9,12 +9,12 @@ class Cactus extends MovableObject {
         'img/enemies/cactus/Hit/Hit_03.png',
         'img/enemies/cactus/Hit/Hit_02.png',
         'img/enemies/cactus/Hit/Hit_01.png',
-        'img/dead-animation-universal/disappearing_01.png',
-        'img/dead-animation-universal/disappearing_02.png',
-        'img/dead-animation-universal/disappearing_03.png',
-        'img/dead-animation-universal/disappearing_04.png',
-        'img/dead-animation-universal/disappearing_05.png',
-        'img/dead-animation-universal/dead.png',
+        'img/dead_animation_universal/disappearing_01.png',
+        'img/dead_animation_universal/disappearing_02.png',
+        'img/dead_animation_universal/disappearing_03.png',
+        'img/dead_animation_universal/disappearing_04.png',
+        'img/dead_animation_universal/disappearing_05.png',
+        'img/dead_animation_universal/dead.png',
     ];
 
     IMAGES_HIT = [
@@ -66,7 +66,7 @@ class Cactus extends MovableObject {
                 this.playAnimation(this.IMAGES_DEAD);
                 i++
             } else if (this.isDead()) {
-                this.loadImage('img/dead-animation-universal/dead.png');
+                this.loadImage('img/dead_animation_universal/dead.png');
                 world.removeDeadEnemies();
                 i = 0;
             } else if (this.isHurt) {
