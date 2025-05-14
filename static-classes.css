@@ -1,0 +1,162 @@
+/* .gif-character {
+    width: 41.875px !important;
+    height: 59.813px !important;
+} */
+
+.static-startscreen-section {
+    padding: 19.429px !important;
+    gap: 26px !important;
+
+    .startscreen-headline {
+        height: 64.219px !important;
+    }
+
+    .round-btn {
+        width: 36px !important;
+        height: 36px !important;
+        margin-top: 19.429px !important;
+    }
+
+    p {
+        font-size: 21px !important;
+    }
+
+    div {
+        span {
+            padding-top: 6px !important;
+            font-size: 17px !important;
+        }
+
+        .gif-enemy {
+            width: 36.844px !important;
+            height: 43px !important;
+        }
+
+        .gif-endboss {
+            width: 67.563px !important;
+            height: 73.703px !important;
+        }
+
+        .gif-collectable {
+            width: 24.563px !important;
+            height: 24.563px !important;
+        }
+    }
+
+    h2 {
+        font-size: 28.72px !important;
+        padding-bottom: 7.143px !important;
+    }
+
+    .credits {
+        table {
+            td {
+                padding: 4.857px 7px !important;
+                font-size: 21px !important;
+            }
+        }
+    }
+}
+
+.static-settings {
+    width: 406.788px !important;
+    height: 480px !important;
+    padding-top: 112.143px !important;
+    padding-right: 57px !important;
+    padding-left: 31.857px !important;
+
+    button {
+        width: 36px !important;
+        height: 36px !important;
+    }
+
+    .settings-audio {
+        padding-top: 69.285px !important;
+
+        div {
+            .volume-regulator {
+                width: 207.875px !important;
+                height: 33.016px !important;
+            }
+        }
+    }
+
+    .settings-controls-fullscreen {
+        padding-top: 21.505px !important;
+        gap: 20px !important;
+    }
+}
+
+.static-reset-options {
+    width: 406.33px !important;
+    padding-top: 131.429px !important;
+    padding-left: 23.429px !important;
+
+    .back-btn {
+        width: 36px !important;
+        height: 36px !important;
+    }
+
+    div {
+        padding-top: 20.857px !important;
+        padding-left: 24.285px !important;
+        gap: 40px !important;
+
+        button {
+            width: 52.5px !important;
+            height: 52.5px !important;
+        }
+    }
+}
+
+.static-game-over {
+    width: 338.328px !important;
+    height: 412px !important;
+    padding-top: 60px !important;
+    padding-left: 44px !important;
+    gap: 28px !important;
+
+    button {
+        width: 52.5px !important;
+        height: 52.5px !important;
+    }
+}
+
+.static-victory {
+    width: 406.328px !important;
+    height: 475.188px !important;
+
+    .gem-counter {
+        height: 242.844px !important;
+    }
+
+    .victory-btns {
+        width: 345.471px !important;
+        padding-top: 29.143px !important;
+        padding-left: 60.857px !important;
+        gap: 42px !important;
+
+        button {
+            width: 52.5px !important;
+            height: 52.5px !important;
+        }
+    }
+}
+
+.static-game-btns {
+    button {
+        width: 36px !important;
+        height: 36px !important;
+    }
+}
+
+.static-mobile-controls {
+    width: 145.6px !important;
+    padding-right: 19.429px !important;
+    margin-top: 13.429px !important;
+
+    button {
+        width: 44px !important;
+        height: 44px !important;
+    }
+}

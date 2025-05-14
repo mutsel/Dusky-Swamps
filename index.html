@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dusky Swamps</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="static-classes.css">
     <link rel="icon" type="image/x-icon" href="img/favicon.png">
 
     <script src="classes/world.class.js"></script>
@@ -43,7 +44,11 @@
     <main id="content">
         <h1>Dusky Swamps</h1>
         <section id="startscreen" class="startscreen">
+            
             <div id="startscreenOverview" class="startscreen-overview startscreen-menu">
+
+                <button onclick="openStartscreenSettings()" class="settings-btn round-btn"></button>
+
                 <button onclick="startGame()" class="wooden-button">
                     Start
                 </button>
@@ -54,10 +59,6 @@
 
                 <button onclick="openAbout()" class="wooden-button big-button">
                     About the Game
-                </button>
-
-                <button onclick="openStartscreenSettings()" class="wooden-button">
-                    Settings
                 </button>
             </div>
 

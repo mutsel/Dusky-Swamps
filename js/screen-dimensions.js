@@ -93,10 +93,6 @@ function getScreenDimensionsEdgeCases() {
 */
 function scaleElements() {
     scale = screenWidth / 720;
-    let scaleableElements = [
-        document.getElementById("startscreenOverview"),
-    ]
-    scaleableElements.forEach(element => { element.style.scale = scale; });
     document.querySelectorAll(".controls-section").forEach(element => { element.style.scale = scale; });
 }
 
@@ -105,6 +101,7 @@ function scaleElements() {
 */
 function adjustDimensionsElements() {
     if (fullscreen || screenWidth < 720) {
+        document.getElementById("startscreenOverview").classList.remove("static-startscreen-section");
         document.getElementById("startscreenHowToPlay").classList.remove("static-startscreen-section");
         document.getElementById("startscreenAbout").classList.remove("static-startscreen-section");
         document.getElementById("startscreenSettings").classList.remove("static-settings");
@@ -115,6 +112,7 @@ function adjustDimensionsElements() {
         document.getElementById("gameOver").classList.remove("static-game-over");
         document.getElementById("victory").classList.remove("static-victory");
     } else {
+        document.getElementById("startscreenOverview").classList.add("static-startscreen-section");
         document.getElementById("startscreenHowToPlay").classList.add("static-startscreen-section");
         document.getElementById("startscreenAbout").classList.add("static-startscreen-section");
         document.getElementById("startscreenSettings").classList.add("static-settings");
