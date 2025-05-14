@@ -57,7 +57,6 @@ class World {
     setWorld() {
         this.character.world = this;
         this.level.world = this;
-        this.level.enemies[this.level.enemies.length - 1].world = this;
     }
 
     /**
@@ -124,7 +123,7 @@ class World {
         }
 
         mo.draw(this.ctx);
-        // mo.drawFrame(this.ctx);
+        mo.drawFrame(this.ctx);
 
         if (mo.otherDirection) {
             this.flipImageBack(mo);
@@ -188,19 +187,14 @@ class World {
      */
     checkCollisionsEnemies() {
         this.level.enemies.forEach((e) => {
-            if (this.character.isJumpingOnTop(e)) {
+            if (this.character.isJumpingOnTop(e) && e.energy > 0) {
                 e.hit(55);
-                // if (e instanceof Endboss) {
                 this.character.speedY = 12;
-                // this.keyboard.LEFT = true;
-                // this.keyboard.RIGHT = false;
-                // setTimeout(() => {
-                //     this.keyboard.LEFT = false;
-                // }, 500);
-                // } else {
-                //     this.character.speedY = 8;
-                // }
-            } else if (this.character.isColliding(e)) {
+                if (e instanceof Cactus) {
+                    this.character.hit(25);
+                    this.healthBar.setPercentage(this.character.energy);
+                }
+            } else if (this.character.isColliding(e) && e.energy > 0) {
                 this.character.hit(25);
                 this.character.speedY = -1;
                 this.healthBar.setPercentage(this.character.energy);

@@ -3,6 +3,7 @@ class Frog extends MovableObject {
     height = 35;
     y = 254 - this.height;
     walkLeft = true;
+    widths = [30, 30, 30, 30, 80, 80, 55, 40]
 
     IMAGES_ATTACK = [
         'img/enemies/frog/attack/Attack_01.png',
@@ -103,17 +104,24 @@ class Frog extends MovableObject {
         let i = 0;
         setInterval(() => {
             if (this.isDead() && i < 10) {
+                this.currentWidth = 0;
                 this.playAnimation(this.IMAGES_DEAD);
                 i++
             } else if (this.isDead()) {
+                this.currentWidth = 0;
                 this.loadImage('img/dead_animation_universal/dead.png');
                 world.removeDeadEnemies();
                 i = 0;
             } else if (this.isHurt) {
+                this.currentWidth = 0;
                 this.playAnimation(this.IMAGES_HIT);
+            } else if (this.walkLeft) {
+                this.x += this.width;
+                this.playAnimation(this.IMAGES_ATTACK);
+                this.x -= this.width;
             } else {
-                this.playAnimation(this.IMAGES_RUN);
+                this.playAnimation(this.IMAGES_ATTACK);
             }
-        }, 1000 / 20)
+        }, 1000 / 10)
     }
 }

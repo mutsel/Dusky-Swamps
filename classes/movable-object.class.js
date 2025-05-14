@@ -2,12 +2,12 @@ class MovableObject extends DrawableObject {
     x = 0
     y = 0;
     speed = 10;
-    // offset = {
-    //     top: 0,
-    //     right: 0,
-    //     bottom: 0,
-    //     left: 0
-    // };
+    offset = {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+    };
     otherDirection = false;
     isHurt = false;
     isJumping = false;
@@ -65,6 +65,15 @@ class MovableObject extends DrawableObject {
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
+        if (this instanceof Frog && images == this.IMAGES_ATTACK) {
+            this.changeWidth();
+        }
+    }
+
+    changeWidth() {
+        let i = this.currentWidth % this.widths.length;
+        this.width = this.widths[i];
+        this.currentWidth++;
     }
 
     /**

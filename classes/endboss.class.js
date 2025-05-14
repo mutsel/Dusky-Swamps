@@ -4,7 +4,7 @@ class Endboss extends MovableObject {
     y = 0 - this.height;
     speed = 6;
     energy = 250;
-    world;
+    // world;
 
     IMAGES_ATTACK = [
         'img/enemies/endboss/Attack/Attack_01.png',
@@ -97,8 +97,8 @@ class Endboss extends MovableObject {
                     j++
                 } else if (this.isDead()) {
                     this.loadImage('img/dead_animation_universal/dead.png');
-                    this.world.removeDeadEnemies();
-                    this.world.victory = true;
+                    world.removeDeadEnemies();
+                    world.victory = true;
                 } else if (this.isHurt) {
                     this.playAnimation(this.IMAGES_HIT);
                 } else {
@@ -107,9 +107,9 @@ class Endboss extends MovableObject {
             }
             i++
 
-            if (this.world.character.x > 1620 && !this.world.firstBossContact) {
+            if (world.character.x > 1620 && !world.firstBossContact) {
                 i = 0;
-                this.world.firstBossContact = true;
+                world.firstBossContact = true;
             }
         }, 1000 / 12);
     }

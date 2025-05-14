@@ -7,8 +7,8 @@ let level1;
 function initLevel() {
     level1 = new Level(
         [
-            new Cactus(),
-            new Cactus(),
+            // new Cactus(),
+            // new Cactus(),
 
             new Frog(),
 
