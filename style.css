@@ -3,10 +3,31 @@
     src: url('/fonts/Tiny5-Regular.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: 'jersey25';
+    src: url('/fonts/Jersey25-Regular.ttf') format('truetype');
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(33, 31, 48);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(33, 31, 48, 0.5);
+}
+
 * {
     margin: 0;
     box-sizing: border-box;
-    font-family: tiny5;
+    font-family: jersey25;
     font-size: 16px;
 }
 
@@ -15,7 +36,7 @@ body {
     height: 100vh;
     display: flex;
     justify-content: center;
-    background-image: url('./img/1.png');
+    background-image: url('./img/2.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -31,19 +52,16 @@ main {
 }
 
 h1 {
+    font-family: tiny5;
     font-size: calc(5rem - clamp(2rem, 3.5333rem + -2.6667vw, 3rem));
     letter-spacing: 6px;
     padding-top: 40px;
 }
 
 h2 {
-    font-size: 34px;
-    letter-spacing: 2px;
-}
-
-h3 {
-    font-size: 20px;
-    letter-spacing: 1px;
+    font-family: tiny5;
+    font-size: calc(4.125rem - clamp(1.125rem, 3.5357rem + -2.6786vw, 3rem));
+    letter-spacing: calc(0.188rem - clamp(0.063rem, 0.1427rem + -0.0886vw, 0.125rem));
 }
 
 button {
@@ -106,6 +124,11 @@ button:focus-visible {
     background-image: url("./img/gui/buttons/button_show_controls.png");
 }
 
+/* .gif-character {
+    width: calc(6.016rem - clamp(1.641rem, 5.1561rem + -3.9057vw, 4.375rem));
+    height: calc(8.594rem - clamp(2.344rem, 7.3660rem + -5.5800vw, 6.25rem));
+} */
+
 .startscreen {
     width: 720px;
     height: 480px;
@@ -139,52 +162,86 @@ button:focus-visible {
         flex-direction: column;
     }
 
+    .startscreen-how-to-play,
     .startscreen-about {
+        width: 100%;
         height: 100%;
-        padding: 32px;
-        gap: 20px;
+        padding: calc(3rem - clamp(0.5rem, 3.0714rem + -2.8571vw, 2.5rem));
+        gap: calc(4.75rem - clamp(0.75rem, 4.9286rem + -4.6429vw, 4rem));
         display: flex;
         flex-direction: column;
-        align-items: center;
-        background-color: rgb(255, 255, 255, 0.2);
-        line-height: 1.2;
+        color: rgb(245, 245, 245, 0.75);
+        overflow-y: auto;
 
-        .credits {
+        .startscreen-headline {
+            width: fit-content;
+            height: calc(9.688rem - clamp(1.938rem, 9.4106rem + -8.3029vw, 7.75rem));
+            align-self: center;
+        }
+
+        .round-btn {
+            margin-top: calc(3rem - clamp(0.5rem, 3.0714rem + -2.8571vw, 2.5rem));
+            position: fixed;
+        }
+
+        p {
+            font-size: calc(3rem - clamp(0.875rem, 2.4821rem + -1.7857vw, 2.125rem));
+            line-height: 0.9;
+        }
+
+        .explanation-row {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: rgb(0, 0, 0, 0.65);
-            line-height: 1;
+            justify-content: space-around;
 
-            table {
-                padding-top: 4px;
+            div {
+                flex: 0.33;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: end;
 
-                td {
-                    border-bottom: 1px solid;
-                    padding: 2px 16px;
+                span {
+                    font-size: calc(2.375rem - clamp(0.75rem, 1.8750rem + -1.2500vw, 1.625rem));
+                    padding-top: calc(1.25rem - clamp(0.25rem, 1.2143rem + -1.0714vw, 1rem));
+                    text-align: center;
                 }
 
-                .artist {
-                    width: 60%;
+                .gif-enemy {
+                    width: calc(5.25rem - clamp(1.5rem, 4.3929rem + -3.2143vw, 3.75rem));
+                    height: calc(6.125rem - clamp(1.75rem, 5.1250rem + -3.7500vw, 4.375rem));
+                }
+
+                .gif-endboss {
+                    width: calc(9.625rem - clamp(2.75rem, 8.0536rem + -5.8929vw, 6.875rem));
+                    height: calc(10.5rem - clamp(3rem, 8.7857rem + -6.4286vw, 7.5rem));
+                }
+
+                .gif-collectable {
+                    width: calc(3.5rem - clamp(1rem, 2.9286rem + -2.1429vw, 2.5rem));
+                    height: calc(3.5rem - clamp(1rem, 2.9286rem + -2.1429vw, 2.5rem));
                 }
             }
         }
 
-    }
+        h2 {
+            padding-bottom: calc(1.25rem - clamp(0rem, 1.6071rem + -1.7857vw, 1.25rem));
+            text-align: center;
+        }
 
-    .startscreen-header {
-        gap: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+        .credits {
+            width: 100%;
 
-    .character-icon {
-        width: 35px;
-        height: 50px;
-        position: absolute;
-        bottom: 20%;
-        left: 12%;
+            td {
+                width: 50%;
+                padding: calc(0.75rem - clamp(0.125rem, 0.7679rem + -0.7143vw, 0.625rem)) calc(1.125rem - clamp(0.125rem, 1.2500rem + -1.2500vw, 1rem));
+                font-size: calc(3rem - clamp(0.625rem, 2.8750rem + -2.5000vw, 2.375rem));
+                line-height: 0.9;
+            }
+
+            .artist {
+                text-align: right;
+            }
+        }
     }
 }
 
@@ -293,9 +350,24 @@ canvas {
         }
 
         .reset-options {
-            height: 100px;
-            width: 100px;
-            background-color: black;
+            background-image: url("./img/gui/menu/reset.png");
+            display: flex;
+            flex-direction: column;
+            padding-top: calc(20rem - clamp(3.75rem, 19.8214rem + -17.8571vw, 16.25rem));
+            padding-left: calc(3.5rem - clamp(0.75rem, 3.3214rem + -2.8571vw, 2.75rem));
+
+            div {
+                padding-top: calc(3.25rem - clamp(0.5rem, 3.3929rem + -3.2143vw, 2.75rem));
+                padding-left: calc(3.75rem - clamp(0.625rem, 3.8393rem + -3.5714vw, 3.125rem));
+                gap: calc(5.375rem - clamp(1rem, 5.3393rem + -4.8214vw, 4.375rem));
+                display: flex;
+                flex-direction: column;
+
+                button {
+                    width: calc(8.25rem - clamp(1.5rem, 8.2500rem + -7.5000vw, 6.75rem));
+                    height: calc(8.25rem - clamp(1.5rem, 8.2500rem + -7.5000vw, 6.75rem));
+                }
+            }
         }
 
         .game-over {
@@ -450,6 +522,67 @@ canvas {
     background-color: rgba(0, 0, 0, 0.3);
 }
 
+/* .gif-character {
+    width: 41.875px !important;
+    height: 59.813px !important;
+} */
+
+
+.static-startscreen-section {
+    padding: 19.429px !important;
+    gap: 26px !important;
+
+    .startscreen-headline {
+        height: 64.219px !important;
+    }
+
+    .round-btn {
+        width: 36px !important;
+        height: 36px !important;
+        margin-top: 19.429px !important;
+    }
+
+    p {
+        font-size: 21px !important;
+    }
+
+    div {
+        span {
+            padding-top: 6px !important;
+            font-size: 17px !important;
+        }
+
+        .gif-enemy {
+            width: 36.844px !important;
+            height: 43px !important;
+        }
+
+        .gif-endboss {
+            width: 67.563px !important;
+            height: 73.703px !important;
+        }
+
+        .gif-collectable {
+            width: 24.563px !important;
+            height: 24.563px !important;
+        }
+    }
+
+    h2 {
+        font-size: 28.72px !important;
+        padding-bottom: 7.143px !important;
+    }
+
+    .credits {
+        table {
+            td {
+                padding: 4.857px 7px !important;
+                font-size: 21px !important;
+            }
+        }
+    }
+}
+
 .static-settings {
     width: 406.788px !important;
     height: 480px !important;
@@ -476,6 +609,28 @@ canvas {
     .settings-controls-fullscreen {
         padding-top: 21.505px !important;
         gap: 20px !important;
+    }
+}
+
+.static-reset-options {
+    width: 406.33px !important;
+    padding-top: 131.429px !important;
+    padding-left: 23.429px !important;
+
+    .back-btn {
+        width: 36px !important;
+        height: 36px !important;
+    }
+
+    div {
+        padding-top: 20.857px !important;
+        padding-left: 24.285px !important;
+        gap: 40px !important;
+
+        button {
+            width: 52.5px !important;
+            height: 52.5px !important;
+        }
     }
 }
 

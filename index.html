@@ -48,6 +48,10 @@
                     Start
                 </button>
 
+                <button onclick="openHowToPlay()" class="wooden-button">
+                    How to play
+                </button>
+
                 <button onclick="openAbout()" class="wooden-button big-button">
                     About the Game
                 </button>
@@ -57,21 +61,55 @@
                 </button>
             </div>
 
-            <div id="startscreenAbout" class="startscreen-about startscreen-menu d-none">
-                <div class="startscreen-header">
-                    <button onclick="init()" class="back-btn round-btn"></button>
-                    <h2>About the Game</h2>
-                </div>
+            <!-- <img class="gif-character" src="./img/gif/character.gif"> -->
+
+            <div id="startscreenHowToPlay" class="startscreen-how-to-play startscreen-menu d-none">
+                <img src="./img/gui/menu/how_to_play.png" class="startscreen-headline">
+                <button onclick="init()" class="back-btn round-btn"></button>
 
                 <p>Welcome to my first game!
                     It is a small 2D plattformer, where you play as a lost alien on it's way back home.
-                    Your goal is to find enough gems to be able to repair your spaceship.
-                    But watch out! Dangerous creatures are coming for your and your precious gems.
+                    Your goal is to find enough gems to be able to repair your spaceship. <br>
+                    But watch out! Dangerous creatures are coming for your and your precious gems. <br>
                     Fortunately you are able to defend yourself with your magic attack!
                 </p>
 
+                <div class="explanation-row">
+                    <div>
+                        <img class="gif-collectable" src="./img/gif/gem.gif">
+                        <span>Gems are precious and you <br> should try to collect them all.</span>
+                    </div>
+                    <div>
+                        <img class="gif-collectable" src="./img/gif/magic_stone.gif">
+                        <span>Magic Stones are needed <br> to fill up your magic attacks.</span>
+                    </div>
+                </div>
+
+                <div class="explanation-row">
+                    <div>
+                        <img class="gif-enemy" src="./img/gif/cactus.gif">
+                        <span>Cacti hurt you when <br> jumping on top of them.</span>
+                    </div>
+                    <div>
+                        <img class="gif-enemy" src="./img/gif/frog.gif">
+                        <span>Frogs can attack you <br> with their tongue.</span>
+                    </div>
+                    <div>
+                        <img class="gif-endboss" src="./img/gif/endboss.gif">
+                        <span>The Endboss has more energy. <br>
+                            Moreover he can shoot canonballs.
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div id="startscreenAbout" class="startscreen-about startscreen-menu d-none">
+                <img src="./img/gui/menu/about_the_game.png" class="startscreen-headline">
+                <button onclick="init()" class="back-btn round-btn"></button>
+
                 <div class="credits">
-                    <h3>Credits for the used Art</h3>
+                    <h2>Credits for the used Art</h2>
                     <table>
                         <tr>
                             <td class="artist">Craftpix.net ("Free Simple Platformer Game Kit Pixel Art")</td>
@@ -124,11 +162,11 @@
                     <button onclick="toggleControlsVisibility()" id="showControlsBtnStartscreen"
                         class="show-controls-btn round-btn"></button>
 
-                    <button onclick="toggleFullscreen()" id="fullscreenBtnStartscreen" class="fullscreen-btn round-btn"></button>
+                    <button onclick="toggleFullscreen()" id="fullscreenBtnStartscreen"
+                        class="fullscreen-btn round-btn"></button>
                 </div>
             </div>
 
-            <!-- <img class="character-icon" src="./img/startscreen_character.gif"> -->
         </section>
 
         <canvas id="canvas" height="480px" width="720px" class="d-none"></canvas>
@@ -136,13 +174,17 @@
         <section id="gameOverlay" class="game-overlay d-none">
             <div id="gameOverlaySections" class="game-overlay-sections">
                 <div id="gameBtns" class="game-buttons">
-                    <button onclick="openGameMenu('gameResetOptions')" id="resetBtn" class="reset-btn round-btn"></button>
-                    <button onclick="openGameMenu('gameSettings')" id="settingsBtn" class="settings-btn round-btn"></button>
-                    <button onclick="closeGameMenu(), adjustGameOverlay('remove'), addEventListeners()" id="closeBtn" class="close-btn round-btn d-none"></button>
+                    <button onclick="openGameMenu('gameResetOptions')" id="resetBtn"
+                        class="reset-btn round-btn"></button>
+                    <button onclick="openGameMenu('gameSettings')" id="settingsBtn"
+                        class="settings-btn round-btn"></button>
+                    <button onclick="closeGameMenu(), adjustGameOverlay('remove'), addEventListeners()" id="closeBtn"
+                        class="close-btn round-btn d-none"></button>
                 </div>
 
                 <div id="gameSettings" class="settings game-menu">
-                    <button onclick="toggleGameSettings()" class="back-btn round-btn"></button>
+                    <button onclick="closeGameMenu(), adjustGameOverlay('remove'), addEventListeners()"
+                        class="back-btn round-btn"></button>
                     <div class="settings-audio">
                         <div>
                             <div id="volumeRegulatorGame" class="volume-regulator">
@@ -165,7 +207,12 @@
                 </div>
 
                 <div id="gameResetOptions" class="reset-options game-menu">
-
+                    <button onclick="closeGameMenu(), adjustGameOverlay('remove'), addEventListeners()"
+                        class="back-btn round-btn"></button>
+                    <div>
+                        <button onclick="startGame()" id="gameOverRetryBtn" class="retry-btn"></button>
+                        <button onclick="init()" id="gameOverMainMenuBtn" class="main-menu-btn"></button>
+                    </div>
                 </div>
 
                 <div id="gameOver" class="game-over game-menu">

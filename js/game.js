@@ -20,7 +20,6 @@ function init() {
     closeAll();
     document.getElementById("startscreen").classList.remove("d-none");
     document.getElementById("startscreenOverview").classList.remove("d-none");
-    document.getElementById("mobileControls").classList.add("d-none");
     removeEventListeners();
     checkAudioSettings();
     adjustControlsVisibility();
@@ -39,13 +38,14 @@ function startGame() {
     closeAllStartscreenMenu();
     closeAll();
     document.getElementById("canvas").classList.remove("d-none");
-    document.getElementById("mobileControls").classList.remove("d-none");
     document.getElementById("gameOverlay").classList.remove("d-none");
     document.getElementById("gameOverlay").classList.remove("dark-bg");
     document.getElementById("resetBtn").classList.remove("d-none");
     document.getElementById("settingsBtn").classList.remove("d-none");
+    document.getElementById("closeBtn").classList.add("d-none");
     gemCounter.style.backgroundImage = collectedGemsImgs[0];
     checkAudioSettings();
+    adjustControlsVisibility();
     checkScreenDimensionsSettings();
 }
 
@@ -83,7 +83,6 @@ function closeAll() {
     document.getElementById("gameOverlay").classList.add("d-none");
     document.getElementById("victoryRetryBtn").classList.add("disabled-btn");
     document.getElementById("victoryMainMenuBtn").classList.add("disabled-btn");
-    document.getElementById("mobileControls").classList.remove("d-none");
 }
 
 /**
@@ -94,6 +93,14 @@ function closeGameMenu() {
     for (let i = 0; i < gameMenu.length; i++) {
         gameMenu[i].classList.add("d-none")
     }
+}
+
+/**
+* This function opens the how-to-play-section in the main-menu.
+*/
+function openHowToPlay() {
+    document.getElementById("startscreenOverview").classList.toggle("d-none");
+    document.getElementById("startscreenHowToPlay").classList.toggle("d-none");
 }
 
 /**
@@ -135,13 +142,11 @@ function adjustGameOverlay(toggle) {
         document.getElementById("gameOverlay").classList.add("dark-bg");
         document.getElementById("resetBtn").classList.add("d-none");
         document.getElementById("settingsBtn").classList.add("d-none");
-        document.getElementById("mobileControls").classList.add("d-none");
     } else if (toggle == "remove") {
         document.getElementById("closeBtn").classList.add("d-none");
         document.getElementById("gameOverlay").classList.remove("dark-bg");
         document.getElementById("resetBtn").classList.remove("d-none");
         document.getElementById("settingsBtn").classList.remove("d-none");
-        document.getElementById("mobileControls").classList.remove("d-none");
     }
 }
 
@@ -176,11 +181,11 @@ function gameEnd() {
     document.getElementById("gameOver").classList.add("d-none");
     document.getElementById("victory").classList.add("d-none");
     document.getElementById("gameSettings").classList.add("d-none");
+    document.getElementById("gameResetOptions").classList.add("d-none");
     document.getElementById("gameOverlay").classList.add("dark-bg");
     document.getElementById("resetBtn").classList.add("d-none");
     document.getElementById("settingsBtn").classList.add("d-none");
     document.getElementById("closeBtn").classList.add("d-none");
-    document.getElementById("mobileControls").classList.add("d-none");
     removeEventListeners();
 }
 

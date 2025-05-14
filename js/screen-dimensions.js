@@ -69,7 +69,7 @@ function getScreenDimensions() {
         } else {
             screenWidth = window.innerWidth;
             screenHeight = (window.innerWidth * 0.66);
-        } 
+        }
     }
 }
 
@@ -95,7 +95,6 @@ function scaleElements() {
     scale = screenWidth / 720;
     let scaleableElements = [
         document.getElementById("startscreenOverview"),
-        document.getElementById("startscreenAbout"),
     ]
     scaleableElements.forEach(element => { element.style.scale = scale; });
     document.querySelectorAll(".controls-section").forEach(element => { element.style.scale = scale; });
@@ -105,16 +104,22 @@ function scaleElements() {
 * This function adjusts the height and width of some elements, so that they fit to the screen-dimensions.
 */
 function adjustDimensionsElements() {
-    if (fullscreen) {
+    if (fullscreen || screenWidth < 720) {
+        document.getElementById("startscreenHowToPlay").classList.remove("static-startscreen-section");
+        document.getElementById("startscreenAbout").classList.remove("static-startscreen-section");
         document.getElementById("startscreenSettings").classList.remove("static-settings");
         document.getElementById("gameSettings").classList.remove("static-settings");
+        document.getElementById("gameResetOptions").classList.remove("static-reset-options");
         document.getElementById("gameBtns").classList.remove("static-game-btns");
         document.getElementById("mobileControlsBtns").classList.remove("static-mobile-controls");
         document.getElementById("gameOver").classList.remove("static-game-over");
         document.getElementById("victory").classList.remove("static-victory");
     } else {
+        document.getElementById("startscreenHowToPlay").classList.add("static-startscreen-section");
+        document.getElementById("startscreenAbout").classList.add("static-startscreen-section");
         document.getElementById("startscreenSettings").classList.add("static-settings");
         document.getElementById("gameSettings").classList.add("static-settings");
+        document.getElementById("gameResetOptions").classList.add("static-reset-options");
         document.getElementById("gameBtns").classList.add("static-game-btns");
         document.getElementById("mobileControlsBtns").classList.add("static-mobile-controls");
         document.getElementById("gameOver").classList.add("static-game-over");
