@@ -24,6 +24,7 @@ function init() {
     checkAudioSettings();
     adjustControlsVisibility();
     checkScreenDimensionsSettings();
+    addButtonSounds();
 }
 
 /**
@@ -157,8 +158,8 @@ function adjustGameOverlay(toggle) {
 function gameOver() {
     gameEnd()
     document.getElementById("gameOver").classList.remove("d-none");
-    world.audios.gameOver.play();
-    world.audios.gameOver.volume = audioVolume;
+    audios.gameOver.play();
+    audios.gameOver.volume = audioVolume;
 }
 
 /**
@@ -167,8 +168,8 @@ function gameOver() {
 function victory() {
     gameEnd()
     document.getElementById("victory").classList.remove("d-none");
-    world.audios.victory.play();
-    world.audios.victory.volume = audioVolume;
+    audios.victory.play();
+    audios.victory.volume = audioVolume;
     setTimeout(() => {
         countGems();
     }, 1000);
@@ -199,8 +200,8 @@ async function countGems() {
     for (let i = 0; i <= collectedGems; i++) {
         gemCounter.style.backgroundImage = collectedGemsImgs[i];
         if (i > 0) {
-            world.audios.gem.play();
-            world.audios.gem.volume = audioVolume;
+            audios.gem.play();
+            audios.gem.volume = audioVolume;
         }
         await delay(600);
     }

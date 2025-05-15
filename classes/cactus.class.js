@@ -8,7 +8,6 @@ class Cactus extends MovableObject {
     rightBorder;
     walkLeft = true;
     characterNearby = false;
-    attackArea = 400;
 
     IMAGES_DEAD = [
         'img/enemies/cactus/Hit/Hit_05.png',

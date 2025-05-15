@@ -32,8 +32,8 @@ function removeEventListeners() {
 */
 function cancelEvents() {
     if (inGame) {
-        world.audios.steps.pause();
-        world.audios.scenery.pause();
+        audios.steps.pause();
+        audios.scenery.pause();
         keyboard.UP = false;
         keyboard.LEFT = false;
         keyboard.RIGHT = false;
@@ -54,15 +54,15 @@ function keyDownEvents() {
         case 37:
         case 65: keyboard.LEFT = true;
             if (!world.character.isAboveGround()) {
-                world.audios.steps.play();
-                world.audios.steps.volume = audioVolume;
+                audios.steps.play();
+                audios.steps.volume = audioVolume;
             }
             break;
         case 39:
         case 68: keyboard.RIGHT = true;
             if (!world.character.isAboveGround()) {
-                world.audios.steps.play();
-                world.audios.steps.volume = audioVolume;
+                audios.steps.play();
+                audios.steps.volume = audioVolume;
             }
             break;
         case 40:
@@ -83,11 +83,11 @@ function keyUpEvents() {
             break;
         case 37:
         case 65: keyboard.LEFT = false;
-            world.audios.steps.pause();
+            audios.steps.pause();
             break;
         case 39:
         case 68: keyboard.RIGHT = false;
-            world.audios.steps.pause();
+            audios.steps.pause();
             break;
         case 40:
         case 32: keyboard.ATTACK = false;
@@ -105,14 +105,14 @@ function mobileControlsMousedown(key) {
             break;
         case 'left': keyboard.LEFT = true;
             if (!world.character.isAboveGround()) {
-                world.audios.steps.play();
-                world.audios.steps.volume = audioVolume;
+                audios.steps.play();
+                audios.steps.volume = audioVolume;
             }
             break;
         case 'right': keyboard.RIGHT = true;
             if (!world.character.isAboveGround()) {
-                world.audios.steps.play();
-                world.audios.steps.volume = audioVolume;
+                audios.steps.play();
+                audios.steps.volume = audioVolume;
             }
             break;
         case 'attack': keyboard.ATTACK = true;
@@ -128,10 +128,10 @@ function mobileControlsMouseup(key) {
         case 'up': keyboard.UP = false;
             break;
         case 'left': keyboard.LEFT = false;
-            world.audios.steps.pause();
+            audios.steps.pause();
             break;
         case 'right': keyboard.RIGHT = false;
-            world.audios.steps.pause();
+            audios.steps.pause();
             break;
         case 'attack': keyboard.ATTACK = false;
             world.shootMagicAttack();

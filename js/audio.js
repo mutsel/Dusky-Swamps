@@ -9,6 +9,36 @@ const volumeRegulatorImgs = [
     "url('img/gui/volume_regulator/volume_regulator_100.png')"
 ];
 
+audios = {
+    scenery: new Audio('./audio/scenery.mp3'),
+    steps: new Audio('./audio/steps.mp3'),
+    gem: new Audio('./audio/gem.mp3'),
+    magicStone: new Audio('./audio/magic_stone.mp3'),
+    magicAttack: new Audio('./audio/magic_attack.mp3'),
+    gameOver: new Audio('./audio/game_over.mp3'),
+    victory: new Audio('./audio/victory.mp3'),
+    roundBtn: new Audio('./audio/round_btn.mp3'),
+    rectangleBtn: new Audio('./audio/rectangle_btn.mp3'),
+};
+
+
+function addButtonSounds() {
+    const roundBtns = document.querySelectorAll('.round-btn');
+    const rectangleBtns = document.querySelectorAll('.rectangle-btn');
+    roundBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            audios.roundBtn.play();
+            audios.roundBtn.volume = audioVolume;
+        });
+    });
+    rectangleBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            audios.rectangleBtn.play();
+            audios.rectangleBtn.volume = audioVolume;
+        });
+    });
+}
+
 /**
 * This function checks if an indexAudioVolume (0-4) is deposited in the local storage .
 * This way, previous audio-settings are saved, so the player does not need to adjust it everytime playing.
@@ -74,13 +104,13 @@ function setAudioVolume(method) {
 function adjustAudioVolume() {
     audioVolume = indexAudioVolume * 25 / 100;
     if (inGame) {
-        for (let i = 0; i < world.audios.length; i++) {
-            world.audios[i].volume = (indexAudioVolume * 25 / 100);
+        for (let i = 0; i < audios.length; i++) {
+            audios[i].volume = (indexAudioVolume * 25 / 100);
         }
         if (audioVolume == 0 || world.gameEndCalled) {
-            world.audios.scenery.pause();
+            audios.scenery.pause();
         } else {
-            world.audios.scenery.play();
+            audios.scenery.play();
         }
     }
 }

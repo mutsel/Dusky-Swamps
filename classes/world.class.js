@@ -21,16 +21,6 @@ class World {
         new PassiveEntity(2800)
     ];
 
-    audios = {
-        scenery: new Audio('audio/scenery.mp3'),
-        steps: new Audio('audio/steps.mp3'),
-        gem: new Audio('audio/gem.mp3'),
-        magicStone: new Audio('audio/magic_stone.mp3'),
-        magicAttack: new Audio('audio/magic_attack.mp3'),
-        gameOver: new Audio('audio/game_over.mp3'),
-        victory: new Audio('audio/victory.mp3'),
-    };
-
     level = level1;
     canvas;
     ctx;
@@ -176,9 +166,9 @@ class World {
 
         this.respawnScenery();
         if (audioVolume > 0) {
-            this.audios.scenery.play();
-            this.audios.scenery.volume = audioVolume;
-            this.audios.scenery.loop = true;
+            audios.scenery.play();
+            audios.scenery.volume = audioVolume;
+            audios.scenery.loop = true;
         }
     }
 
@@ -229,8 +219,8 @@ class World {
             if (this.character.isColliding(g)) {
                 this.level.gems.splice(this.level.gems.indexOf(g), 1);
                 this.gemsBar.setPercentage(this.level.gems.length * 25);
-                this.audios.gem.play();
-                this.audios.gem.volume = 0.5 * audioVolume;
+                audios.gem.play();
+                audios.gem.volume = 0.5 * audioVolume;
             }
         })
 
@@ -238,8 +228,8 @@ class World {
             if (this.character.isColliding(m) && this.attackBar.percentage < 100) {
                 this.level.magicStones.splice(this.level.magicStones.indexOf(m), 1);
                 this.attackBar.setPercentage(this.attackBar.percentage + 25)
-                this.audios.magicStone.play();
-                this.audios.magicStone.volume = audioVolume;
+                audios.magicStone.play();
+                audios.magicStone.volume = audioVolume;
             }
         })
     }
@@ -307,8 +297,8 @@ class World {
                 this.availableMagicAttacks.push(new MagicAttack(this.character.x, this.character.y, -12));
             }
 
-            this.audios.magicAttack.play();
-            this.audios.magicAttack.volume = 0.4 * audioVolume;
+            audios.magicAttack.play();
+            audios.magicAttack.volume = 0.4 * audioVolume;
 
             setTimeout(() => {
                 this.availableMagicAttacks.shift();

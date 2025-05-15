@@ -7,7 +7,7 @@ let level1;
 function initLevel() {
     level1 = new Level(
         [
-            new Cactus(400, 388, 180, 500),
+            new Cactus(400, 388, 200, 500),
             new Cactus(800, 388, 760, 1050),
 
             new Frog(460, 254, 470, 706),
