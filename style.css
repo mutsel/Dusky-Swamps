@@ -167,6 +167,7 @@ button:focus-visible {
         p {
             font-size: calc(3rem - clamp(0.875rem, 2.4821rem + -1.7857vw, 2.125rem));
             line-height: 0.9;
+            text-align: center;
         }
 
         .explanation-row {

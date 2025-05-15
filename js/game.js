@@ -16,6 +16,8 @@ const collectedGemsImgs = [
 */
 function init() {
     inGame = false;
+    audios.scenery.pause();
+    audios.bossfight.pause();
     closeAllStartscreenMenu();
     closeAll();
     document.getElementById("startscreen").classList.remove("d-none");

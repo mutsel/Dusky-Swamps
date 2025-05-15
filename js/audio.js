@@ -15,6 +15,7 @@ audios = {
     gem: new Audio('./audio/gem.mp3'),
     magicStone: new Audio('./audio/magic_stone.mp3'),
     magicAttack: new Audio('./audio/magic_attack.mp3'),
+    bossfight: new Audio('./audio/bossfight.mp3'),
     gameOver: new Audio('./audio/game_over.mp3'),
     victory: new Audio('./audio/victory.mp3'),
     roundBtn: new Audio('./audio/round_btn.mp3'),
@@ -103,14 +104,28 @@ function setAudioVolume(method) {
 */
 function adjustAudioVolume() {
     audioVolume = indexAudioVolume * 25 / 100;
+    for (let i = 0; i < audios.length; i++) {
+        audios[i].volume = (indexAudioVolume * 25 / 100);
+    }
     if (inGame) {
-        for (let i = 0; i < audios.length; i++) {
-            audios[i].volume = (indexAudioVolume * 25 / 100);
-        }
-        if (audioVolume == 0 || world.gameEndCalled) {
-            audios.scenery.pause();
-        } else {
-            audios.scenery.play();
+        adjustLoopSounds();
+    } 
+}
+
+/**
+* This function pauses/plays sounds that should loop.
+*/
+function adjustLoopSounds() {
+    if (audioVolume == 0 || world.gameEndCalled) {
+        audios.scenery.pause();
+        audios.bossfight.pause();
+    } else {
+        audios.scenery.play();
+        audios.scenery.volume = audioVolume;
+        if (world.firstBossContact) {
+            audios.bossfight.play();
+            audios.bossfight.loop = true;
+            audios.bossfight.volume = audioVolume;
         }
     }
 }

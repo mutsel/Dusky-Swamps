@@ -155,21 +155,16 @@ class World {
             if (this.gameOver && !this.gameEndCalled) {
                 gameOver();
                 this.gameEndCalled = true;
-                this.audios.scenery.pause();
+                adjustLoopSounds();
             } else if (this.victory && !this.gameEndCalled) {
                 victory();
                 this.gameEndCalled = true;
-                this.audios.scenery.pause();
+                adjustLoopSounds();
             }
             this.checkCharacterNearbyEnemy();
         }, 1000 / 60);
 
         this.respawnScenery();
-        if (audioVolume > 0) {
-            audios.scenery.play();
-            audios.scenery.volume = audioVolume;
-            audios.scenery.loop = true;
-        }
     }
 
     /**

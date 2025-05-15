@@ -178,7 +178,6 @@ class MovableObject extends DrawableObject {
      * This function shows the death-animation for each character
      */
     animateDeath() {
-        console.log(this.deathAnimationCounter)
         if (this.deathAnimationCounter <= 0) {
             this.loadImage('./img/dead_animation_universal/dead.png');
 

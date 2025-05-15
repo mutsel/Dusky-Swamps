@@ -107,6 +107,7 @@ class Endboss extends MovableObject {
             if (world.character.x > 1620 && !world.firstBossContact) {
                 i = 0;
                 world.firstBossContact = true;
+                adjustLoopSounds()
             }
 
 
