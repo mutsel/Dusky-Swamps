@@ -1,9 +1,14 @@
 class Frog extends MovableObject {
-    width = 30;
+    width = 31.5;
     height = 35;
-    y = 254 - this.height;
+    x;
+    y;
+    speed;
+    leftBorder;
+    rightBorder;
     walkLeft = true;
-    widths = [30, 30, 30, 30, 80, 80, 55, 40]
+    widths = [31.5, 31.5, 30, 30, 90, 90, 66, 37.5];
+    characterNearby = false;
 
     IMAGES_ATTACK = [
         'img/enemies/frog/attack/Attack_01.png',
@@ -67,61 +72,77 @@ class Frog extends MovableObject {
         'img/enemies/frog/run/Run_12.png',
     ];
 
-    constructor() {
+    constructor(x, y, leftBorder, rightBorder) {
         super().loadImage("img/enemies/frog/run/Run_01.png");
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HIT);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_RUN);
-
-        this.x = 460 + Math.random() * 252;
+        this.x = x + Math.random() * 252;
+        this.y = y - this.height;
         this.speed = 0.5 + Math.random() * 0.3;
-
-        this.animate();
+        this.leftBorder = leftBorder;
+        this.rightBorder = rightBorder;
+        this.animateImages();
+        this.animateMovement();
     }
 
     /**
-    * This function is used to animate the movable Object (movement and animation)
+    * This function is used to animate the images of the frogs
     */
-    animate() {
+    animateImages() {
+        setInterval(() => {
+            if (this.isDead()) {
+                this.width = 31.5;
+                this.animateDeath();
+                return;
+            } else if (this.isHurt) {
+                this.width = 31.5;
+                this.playAnimation(this.IMAGES_HIT);
+            }
+            else if (this.characterNearby) {
+                this.animateAttacks();
+            } else {
+                this.width = 31.5;
+                this.playAnimation(this.IMAGES_RUN);
+            }
+        }, 1000 / 10)
+    }
+
+    /**
+    * This function animates the attack-animation.
+    */
+    animateAttacks() {
+        if (this.otherDirection) {
+            this.playAnimation(this.IMAGES_ATTACK);
+        } else {
+            this.x += this.width;
+            this.playAnimation(this.IMAGES_ATTACK);
+            this.x -= this.width;
+        }
+    }
+
+    /**
+    * This function animates the frogs movement. The frog changes direction, if the character is behind him or if it reaches the movement-border.
+    */
+    animateMovement() {
         setInterval(() => {
             if (this.walkLeft) {
-                if (this.x <= 470) {
+                if (this.x <= this.leftBorder
+                    || (this.characterNearby && world.character.x > this.x + this.width)) {
                     this.walkLeft = false;
                 }
                 this.moveLeft();
                 this.otherDirection = false;
             } else {
-                if (this.x >= 706 - this.width) {
+                if (this.x >= this.rightBorder - this.width
+                    || (this.characterNearby && world.character.x < this.x)) {
                     return this.walkLeft = true;
                 }
                 this.moveRight();
                 this.otherDirection = true;
             }
-        }, 1000 / 60)
-
-        let i = 0;
-        setInterval(() => {
-            if (this.isDead() && i < 10) {
-                this.currentWidth = 0;
-                this.playAnimation(this.IMAGES_DEAD);
-                i++
-            } else if (this.isDead()) {
-                this.currentWidth = 0;
-                this.loadImage('img/dead_animation_universal/dead.png');
-                world.removeDeadEnemies();
-                i = 0;
-            } else if (this.isHurt) {
-                this.currentWidth = 0;
-                this.playAnimation(this.IMAGES_HIT);
-            } else if (this.walkLeft) {
-                this.x += this.width;
-                this.playAnimation(this.IMAGES_ATTACK);
-                this.x -= this.width;
-            } else {
-                this.playAnimation(this.IMAGES_ATTACK);
-            }
-        }, 1000 / 10)
+        }, 1000 / 50)
     }
 }

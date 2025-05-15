@@ -118,12 +118,9 @@ class Character extends MovableObject {
         // animations(dead, hurt, jump, fall, run, attack, idle)
         let i = 0;
         setInterval(() => {
-            if (this.isDead() && i < 12) {
-                this.playAnimation(this.IMAGES_DEAD);
-                i++
-            } else if (this.isDead()) {
-                this.loadImage('img/dead_animation_universal/dead.png');
-                this.world.gameOver = true;
+            if (this.isDead()) {
+                this.animateDeath();
+                return;
             } else if (this.isHurt) {
                 this.playAnimation(this.IMAGES_HIT);
             } else if (this.isAboveGround()) {

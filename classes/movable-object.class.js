@@ -14,6 +14,7 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     acceleration = 0.5;
     energy = 100;
+    deathAnimationCounter = 0;
 
     constructor() {
         super();
@@ -66,15 +67,15 @@ class MovableObject extends DrawableObject {
         this.img = this.imageCache[path];
         this.currentImage++;
         if (this instanceof Frog && images == this.IMAGES_ATTACK) {
-            this.changeWidth();
+            this.width = this.widths[i];
         }
     }
 
-    changeWidth() {
-        let i = this.currentWidth % this.widths.length;
-        this.width = this.widths[i];
-        this.currentWidth++;
-    }
+    // changeWidth() {
+    //     let i = this.currentWidth % this.widths.length;
+    //     this.width = this.widths[i];
+    //     this.currentWidth++;
+    // }
 
     /**
      * This function is used for an object to move left by substracting its speed from its x-position.
@@ -137,7 +138,7 @@ class MovableObject extends DrawableObject {
      * 
      * @param {number} damage - the amount of energy the hit will cost.
      */
-    hit(damage) {
+    async hit(damage) {
         if (this.isHurt == false) {
             this.energy -= damage;
             if (this.energy <= 0) {
@@ -166,4 +167,26 @@ class MovableObject extends DrawableObject {
     isDead() {
         return this.energy == 0;
     }
-} 
+
+    /**
+     * This function shows the death-animation for each character
+     */
+    animateDeath() {
+        let i = this.deathAnimationCounter % this.IMAGES_DEAD.length;
+        if (i < (this.IMAGES_DEAD.length - 1)) {
+            this.playAnimation(this.IMAGES_DEAD);
+            this.deathAnimationCounter++;
+        } else {
+            this.loadImage('img/dead_animation_universal/dead.png');
+            world.removeDeadEnemies();
+
+            if (this instanceof Character) {
+                world.gameOver = true;
+            }
+
+            if (this instanceof Endboss) {
+                world.victory = true;
+            }
+        }
+    }
+}

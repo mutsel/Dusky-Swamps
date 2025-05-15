@@ -171,6 +171,7 @@ class World {
                 this.gameEndCalled = true;
                 this.audios.scenery.pause();
             }
+            this.checkCharacterNearbyEnemy();
         }, 1000 / 60);
 
         this.respawnScenery();
@@ -186,20 +187,20 @@ class World {
      * If not, if checks if the character is colliding with an enemie. If so, it executes the hit()-funciton for the character.
      */
     checkCollisionsEnemies() {
-        this.level.enemies.forEach((e) => {
-            if (this.character.isJumpingOnTop(e) && e.energy > 0) {
-                e.hit(55);
-                this.character.speedY = 12;
-                if (e instanceof Cactus) {
-                    this.character.hit(25);
-                    this.healthBar.setPercentage(this.character.energy);
-                }
-            } else if (this.character.isColliding(e) && e.energy > 0) {
-                this.character.hit(25);
-                this.character.speedY = -1;
+        this.level.enemies.forEach(async (e) => {
+        if (this.character.isJumpingOnTop(e) && e.energy > 0) {
+            await e.hit(55);
+            this.character.speedY = 12;
+            if (e instanceof Cactus) {
+                await this.character.hit(25);
                 this.healthBar.setPercentage(this.character.energy);
             }
-        });
+        } else if (this.character.isColliding(e) && e.energy > 0) {
+            await this.character.hit(25);
+            this.character.speedY = -1;
+            this.healthBar.setPercentage(this.character.energy);
+        }
+    });
     }
 
     /**
@@ -241,6 +242,23 @@ class World {
                 this.audios.magicStone.volume = audioVolume;
             }
         })
+    }
+
+    /**
+    * This function sets the enmies characterisNearby-variable to true, if the character is nearby and to false, if the charcter is not.
+    * The charater is labeled as nearby, if its x-value is higher or lower by 80. Furhermore, one of two conditions must be fullfilled:
+    * The characters y-value is lower of the enemies y-value or the character is jumping.
+    */
+    checkCharacterNearbyEnemy() {
+        this.level.enemies.forEach((e) => {
+            if ((this.character.x >= e.x - 80 && this.character.x + this.character.width <= e.x + e.width + 80) &&
+                (this.character.y <= e.y + e.height || this.character.isJumping)) {
+                e.characterNearby = true;
+            }
+            else {
+                e.characterNearby = false;
+            }
+        });
     }
 
     /**

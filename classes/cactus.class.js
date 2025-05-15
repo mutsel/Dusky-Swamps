@@ -62,13 +62,9 @@ class Cactus extends MovableObject {
 
         let i = 0;
         setInterval(() => {
-            if (this.isDead() && i < 10) {
-                this.playAnimation(this.IMAGES_DEAD);
-                i++
-            } else if (this.isDead()) {
-                this.loadImage('img/dead_animation_universal/dead.png');
-                world.removeDeadEnemies();
-                i = 0;
+            if (this.isDead()) {
+                this.animateDeath();
+                return;
             } else if (this.isHurt) {
                 this.playAnimation(this.IMAGES_HIT);
             } else {

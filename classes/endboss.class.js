@@ -4,7 +4,6 @@ class Endboss extends MovableObject {
     y = 0 - this.height;
     speed = 6;
     energy = 250;
-    // world;
 
     IMAGES_ATTACK = [
         'img/enemies/endboss/Attack/Attack_01.png',
@@ -92,13 +91,9 @@ class Endboss extends MovableObject {
             } else if (i < 31) {
                 this.playAnimation(this.IMAGES_ATTACK);
             } else {
-                if (this.isDead() && j < 10) {
-                    this.playAnimation(this.IMAGES_DEAD);
-                    j++
-                } else if (this.isDead()) {
-                    this.loadImage('img/dead_animation_universal/dead.png');
-                    world.removeDeadEnemies();
-                    world.victory = true;
+                if (this.isDead()) {
+                this.animateDeath();
+                return;
                 } else if (this.isHurt) {
                     this.playAnimation(this.IMAGES_HIT);
                 } else {
