@@ -11,7 +11,7 @@ function initLevel() {
             // new Cactus(),
 
             new Frog(460, 254, 470, 706),
-            new Frog(1290, 388, 1250, 1600),
+            new Frog(1290, 388, 1050, 1400),
 
             new Endboss(),
         ],

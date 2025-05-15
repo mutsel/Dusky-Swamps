@@ -45,10 +45,9 @@ class Cactus extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HIT);
         this.loadImages(this.IMAGES_RUN);
-
+        this.deathAnimationCounter = this.IMAGES_DEAD.length;
         this.x = 200 + Math.random() * 400;
         this.speed = 0.2 + Math.random() * 0.5;
-
         this.animate();
     }
 

@@ -14,7 +14,8 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     acceleration = 0.5;
     energy = 100;
-    deathAnimationCounter = 0;
+    deathAnimationCounter;
+    alive = true;
 
     constructor() {
         super();
@@ -172,13 +173,9 @@ class MovableObject extends DrawableObject {
      * This function shows the death-animation for each character
      */
     animateDeath() {
-        let i = this.deathAnimationCounter % this.IMAGES_DEAD.length;
-        if (i < (this.IMAGES_DEAD.length - 1)) {
-            this.playAnimation(this.IMAGES_DEAD);
-            this.deathAnimationCounter++;
-        } else {
-            this.loadImage('img/dead_animation_universal/dead.png');
-            world.removeDeadEnemies();
+        console.log(this.deathAnimationCounter)
+        if (this.deathAnimationCounter <= 0) {
+            this.loadImage('./img/dead_animation_universal/dead.png');
 
             if (this instanceof Character) {
                 world.gameOver = true;
@@ -187,6 +184,12 @@ class MovableObject extends DrawableObject {
             if (this instanceof Endboss) {
                 world.victory = true;
             }
+            this.alive = false;
+            world.removeDeadEnemy();
+            return this.deathAnimationCounter = this.IMAGES_DEAD.length + 1;
+        } else {
+            this.playAnimation(this.IMAGES_DEAD);
+            this.deathAnimationCounter--;
         }
     }
 }

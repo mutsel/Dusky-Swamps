@@ -86,7 +86,7 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_JUMP);
         this.loadImages(this.IMAGES_RUN);
-
+        this.deathAnimationCounter = this.IMAGES_DEAD.length;
         this.applyGravity();
         this.animate();
     }
@@ -118,25 +118,28 @@ class Character extends MovableObject {
         // animations(dead, hurt, jump, fall, run, attack, idle)
         let i = 0;
         setInterval(() => {
-            if (this.isDead()) {
-                this.animateDeath();
-                return;
-            } else if (this.isHurt) {
-                this.playAnimation(this.IMAGES_HIT);
-            } else if (this.isAboveGround()) {
-                if (this.speedY > 0) {
-                    this.playAnimation(this.IMAGES_JUMP);
-                } else {
-                    this.playAnimation(this.IMAGES_FALL);
+            if (this.alive) {
+                if (this.isDead()) {
+                    this.animateDeath();
+                    return;
+                } else if (this.isHurt) {
+                    this.playAnimation(this.IMAGES_HIT);
+                } else if (this.isAboveGround()) {
+                    if (this.speedY > 0) {
+                        this.playAnimation(this.IMAGES_JUMP);
+                    } else {
+                        this.playAnimation(this.IMAGES_FALL);
+                    }
+                } else if (this.world.keyboard.LEFT || this.world.keyboard.RIGHT) {
+                    this.playAnimation(this.IMAGES_RUN);
+                } else if (this.world.keyboard.ATTACK) {
+                    this.playAnimation(this.IMAGES_ATTACK);
                 }
-            } else if (this.world.keyboard.LEFT || this.world.keyboard.RIGHT) {
-                this.playAnimation(this.IMAGES_RUN);
-            } else if (this.world.keyboard.ATTACK) {
-                this.playAnimation(this.IMAGES_ATTACK);
+                else if (!(this.world.keyboard.LEFT && this.world.keyboard.RIGHT && this.world.keyboard.UP && this.world.keyboard.ATTACK)) {
+                    this.playAnimation(this.IMAGES_IDLE);
+                }
             }
-            else if (!(this.world.keyboard.LEFT && this.world.keyboard.RIGHT && this.world.keyboard.UP && this.world.keyboard.ATTACK)) {
-                this.playAnimation(this.IMAGES_IDLE);
-            }
+
         }, 1000 / 10);
     }
 }

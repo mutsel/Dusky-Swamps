@@ -188,19 +188,19 @@ class World {
      */
     checkCollisionsEnemies() {
         this.level.enemies.forEach(async (e) => {
-        if (this.character.isJumpingOnTop(e) && e.energy > 0) {
-            await e.hit(55);
-            this.character.speedY = 12;
-            if (e instanceof Cactus) {
+            if (this.character.isJumpingOnTop(e) && e.energy > 0) {
+                await e.hit(55);
+                this.character.speedY = 12;
+                if (e instanceof Cactus) {
+                    await this.character.hit(25);
+                    this.healthBar.setPercentage(this.character.energy);
+                }
+            } else if (this.character.isColliding(e) && e.energy > 0) {
                 await this.character.hit(25);
+                this.character.speedY = -1;
                 this.healthBar.setPercentage(this.character.energy);
             }
-        } else if (this.character.isColliding(e) && e.energy > 0) {
-            await this.character.hit(25);
-            this.character.speedY = -1;
-            this.healthBar.setPercentage(this.character.energy);
-        }
-    });
+        });
     }
 
     /**
@@ -277,14 +277,10 @@ class World {
     }
 
     /**
-     * This function is used for dead enemies (enemies with an energylevel of zero) to be removed from the map.
+     * This function removes dead enemies (enemies with an energylevel of zero) from the map.
      */
-    removeDeadEnemies() {
-        this.level.enemies.forEach((e) => {
-            if (e.energy == 0) {
-                this.level.enemies.splice(this.level.enemies.indexOf(e), 1);
-            }
-        });
+    removeDeadEnemy() {
+        this.level.enemies = this.level.enemies.filter(enemy => enemy.alive);
     }
 
     /**

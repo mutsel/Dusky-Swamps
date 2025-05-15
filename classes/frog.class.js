@@ -84,6 +84,7 @@ class Frog extends MovableObject {
         this.speed = 0.5 + Math.random() * 0.3;
         this.leftBorder = leftBorder;
         this.rightBorder = rightBorder;
+        this.deathAnimationCounter = this.IMAGES_DEAD.length;
         this.animateImages();
         this.animateMovement();
     }
@@ -93,19 +94,21 @@ class Frog extends MovableObject {
     */
     animateImages() {
         setInterval(() => {
-            if (this.isDead()) {
-                this.width = 31.5;
-                this.animateDeath();
-                return;
-            } else if (this.isHurt) {
-                this.width = 31.5;
-                this.playAnimation(this.IMAGES_HIT);
-            }
-            else if (this.characterNearby) {
-                this.animateAttacks();
-            } else {
-                this.width = 31.5;
-                this.playAnimation(this.IMAGES_RUN);
+            if (this.alive) {
+                if (this.isDead()) {
+                    this.width = 31.5;
+                    this.animateDeath();
+                    return;
+                } else if (this.isHurt) {
+                    this.width = 31.5;
+                    this.playAnimation(this.IMAGES_HIT);
+                }
+                else if (this.characterNearby) {
+                    this.animateAttacks();
+                } else {
+                    this.width = 31.5;
+                    this.playAnimation(this.IMAGES_RUN);
+                }
             }
         }, 1000 / 10)
     }
