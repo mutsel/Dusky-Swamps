@@ -42,7 +42,7 @@ class MovableObject extends DrawableObject {
      * In case of the plattforms, those values are different to the ground so beforehand it is checked where the object is situated.
      */
     isAboveGround() {
-        //large plattform
+        //first large plattform
         if (this.x >= 460 - (this.width / 1.5) && this.x <= 716 - (this.width / 1.5) && this.y < 266 - this.height) {
             return this.y < 256 - this.height;
         }
@@ -50,6 +50,11 @@ class MovableObject extends DrawableObject {
         //medium plattform
         if (this.x >= 860 - (this.width / 1.5) && this.x <= 1048 - (this.width / 1.5) && this.y < 202 - this.height) {
             return this.y < 192 - this.height;
+        }
+
+        //second large plattform
+        if (this.x >= 1240 - (this.width / 1.5) && this.x <= 1496 - (this.width / 1.5) && this.y < 266 - this.height) {
+            return this.y < 256 - this.height;
         }
 
         //ground

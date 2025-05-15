@@ -8,4 +8,4 @@ class Plattform extends MovableObject {
         this.width = width;
         this.height = height;
     }
-} 
+}  
