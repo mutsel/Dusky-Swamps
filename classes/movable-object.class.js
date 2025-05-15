@@ -139,7 +139,7 @@ class MovableObject extends DrawableObject {
      * 
      * @param {number} damage - the amount of energy the hit will cost.
      */
-    async hit(damage) {
+    hit(damage) {
         if (this.isHurt == false) {
             this.energy -= damage;
             if (this.energy <= 0) {

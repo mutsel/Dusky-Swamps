@@ -9,6 +9,7 @@ class Frog extends MovableObject {
     walkLeft = true;
     widths = [31.5, 31.5, 30, 30, 90, 90, 66, 37.5];
     characterNearby = false;
+    attackArea = 80;
 
     IMAGES_ATTACK = [
         'img/enemies/frog/attack/Attack_01.png',
@@ -77,7 +78,7 @@ class Frog extends MovableObject {
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HIT);
-        this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_IDLE); 
         this.loadImages(this.IMAGES_RUN);
         this.x = x + Math.random() * 252;
         this.y = y - this.height;
@@ -104,7 +105,7 @@ class Frog extends MovableObject {
                     this.playAnimation(this.IMAGES_HIT);
                 }
                 else if (this.characterNearby) {
-                    this.animateAttacks();
+                    this.animateAttack();
                 } else {
                     this.width = 31.5;
                     this.playAnimation(this.IMAGES_RUN);
@@ -116,7 +117,7 @@ class Frog extends MovableObject {
     /**
     * This function animates the attack-animation.
     */
-    animateAttacks() {
+    animateAttack() {
         if (this.otherDirection) {
             this.playAnimation(this.IMAGES_ATTACK);
         } else {
@@ -134,7 +135,7 @@ class Frog extends MovableObject {
             if (this.walkLeft) {
                 if (this.x <= this.leftBorder
                     || (this.characterNearby && world.character.x > this.x + this.width)) {
-                    this.walkLeft = false;
+                    return this.walkLeft = false;
                 }
                 this.moveLeft();
                 this.otherDirection = false;

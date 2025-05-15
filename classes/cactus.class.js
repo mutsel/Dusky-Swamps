@@ -1,7 +1,14 @@
 class Cactus extends MovableObject {
     width = 35;
     height = 40;
-    y = 385 - this.height;
+    x;
+    y;
+    speed;
+    leftBorder;
+    rightBorder;
+    walkLeft = true;
+    characterNearby = false;
+    attackArea = 400;
 
     IMAGES_DEAD = [
         'img/enemies/cactus/Hit/Hit_05.png',
@@ -25,6 +32,21 @@ class Cactus extends MovableObject {
         'img/enemies/cactus/Hit/Hit_05.png',
     ];
 
+    IMAGES_IDLE = [
+        'img/enemies/cactus/Idle/Idle_01.png',
+        'img/enemies/cactus/Idle/Idle_02.png',
+        'img/enemies/cactus/Idle/Idle_03.png',
+        'img/enemies/cactus/Idle/Idle_04.png',
+        'img/enemies/cactus/Idle/Idle_05.png',
+        'img/enemies/cactus/Idle/Idle_06.png',
+        'img/enemies/cactus/Idle/Idle_07.png',
+        'img/enemies/cactus/Idle/Idle_08.png',
+        'img/enemies/cactus/Idle/Idle_09.png',
+        'img/enemies/cactus/Idle/Idle_10.png',
+        'img/enemies/cactus/Idle/Idle_11.png',
+    ];
+
+
     IMAGES_RUN = [
         'img/enemies/cactus/Run/Run_01.png',
         'img/enemies/cactus/Run/Run_02.png',
@@ -40,35 +62,59 @@ class Cactus extends MovableObject {
         'img/enemies/cactus/Run/Run_12.png',
     ];
 
-    constructor() {
+    constructor(x, y, leftBorder, rightBorder) {
         super().loadImage("img/enemies/cactus/Run/Run_01.png");
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HIT);
+        this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_RUN);
         this.deathAnimationCounter = this.IMAGES_DEAD.length;
-        this.x = 200 + Math.random() * 400;
-        this.speed = 0.2 + Math.random() * 0.5;
-        this.animate();
+        this.x = x + Math.random() * 100;
+        this.y = y - this.height;
+        this.speed = 0.5 + Math.random() * 0.3;
+        this.leftBorder = leftBorder;
+        this.rightBorder = rightBorder;
+        this.animateImages();
     }
 
     /**
-    * This function is used to animate the movable Object (movement and animation)
+    * This function is used to animate each cactus
     */
-    animate() {
+    animateImages() {
         setInterval(() => {
-            this.moveLeft();
-        }, 1000 / 60)
-
-        let i = 0;
-        setInterval(() => {
-            if (this.isDead()) {
-                this.animateDeath();
-                return;
-            } else if (this.isHurt) {
-                this.playAnimation(this.IMAGES_HIT);
-            } else {
-                this.playAnimation(this.IMAGES_RUN);
+            if (this.alive) {
+                if (this.isDead()) {
+                    this.animateDeath();
+                    return;
+                } else if (this.isHurt) {
+                    this.playAnimation(this.IMAGES_HIT);
+                } else if (this.characterNearby) {
+                    this.playAnimation(this.IMAGES_RUN);
+                    this.animateMovement();
+                } else {
+                    this.playAnimation(this.IMAGES_IDLE);
+                }
             }
         }, 1000 / 20)
+    }
+
+    /**
+    * This function animates the cactus movement. The cactus only moves, if the character is inside its range.
+    * The cactus changes direction and runs in the opposite direction, if the character is behind him.
+    */
+    animateMovement() {
+        setInterval(() => {
+            if (world.character.x + world.character.width < this.x) {
+                if (this.x > this.leftBorder) {
+                    this.moveLeft();
+                    this.otherDirection = false;
+                }
+            } else if (world.character.x > this.x + this.width) {
+                if (this.x + this.width < this.rightBorder) {
+                    this.moveRight();
+                    this.otherDirection = true;
+                }
+            }
+        }, 1000 / 10)
     }
 }
