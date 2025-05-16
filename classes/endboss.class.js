@@ -2,7 +2,7 @@ class Endboss extends MovableObject {
     width = 80;
     height = 80;
     y = 0 - this.height;
-    speed = 6;
+    speed = 9;
     energy = 250;
 
     IMAGES_ATTACK = [
@@ -74,22 +74,20 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_RUN);
         this.deathAnimationCounter = this.IMAGES_DEAD.length;
-        this.x = 2350;
+        this.x = 2450;
         this.animate();
         this.applyGravity();
     }
 
     /**
-    * This function is used to animate the movable Object (intro, movement and animation)
+    * This function is used to execude the endboss animations.
     */
     animate() {
         let i = 0;
+        let k = 0;
         setInterval(() => {
-            if (i < 24) {
-                this.moveLeft();
-                this.playAnimation(this.IMAGES_RUN);
-            } else if (i < 31) {
-                this.playAnimation(this.IMAGES_ATTACK);
+            if (i < 32) {
+                this.animateIntro(i);
             } else {
                 if (this.alive) {
                     if (this.isDead()) {
@@ -97,8 +95,11 @@ class Endboss extends MovableObject {
                         return;
                     } else if (this.isHurt) {
                         this.playAnimation(this.IMAGES_HIT);
-                    } else {
+                        k++
+                    } else if (this.energy == 250) {
                         this.playAnimation(this.IMAGES_IDLE);
+                    } else {
+                        k = this.animateBehavior(k);
                     }
                 }
             }
@@ -106,11 +107,56 @@ class Endboss extends MovableObject {
 
             if (world.character.x > 1620 && !world.firstBossContact) {
                 i = 0;
+                k  = 0;
                 world.firstBossContact = true;
-                adjustLoopSounds()
+                adjustLoopSounds();
             }
-
-
         }, 1000 / 12);
+    }
+
+    /**
+    * This function animates the endboss-intro-scene (it walks in and shoots one time)
+    */
+    animateIntro(i) {
+        if (i < 24) {
+            this.moveLeft();
+            this.playAnimation(this.IMAGES_RUN);
+        } else if (world.firstBossContact) {
+            this.playAnimation(this.IMAGES_ATTACK);
+        }
+    }
+
+    animateBehavior(k) {
+        if (k < 36) {
+            this.animateMovement();
+            return k+1
+        } else {
+            if (k > 43) {
+                return 0;
+            } else {
+                if (world.firstBossContact) {
+                    this.playAnimation(this.IMAGES_ATTACK);
+                }
+                return k+1
+            }
+        }
+    }
+
+    /**
+    * This function animates the endboss movement, depending on where the character is.
+    * It walks towards the character and changes direction, if the character is behind it.
+    */
+    animateMovement() {
+        if (world.character.x + world.character.width < this.x) {
+            this.moveLeft();
+            this.otherDirection = false;
+            this.playAnimation(this.IMAGES_RUN);
+        } else if (world.character.x > this.x + this.width) {
+            this.moveRight();
+            this.otherDirection = true;
+            this.playAnimation(this.IMAGES_RUN);
+        } else {
+            this.playAnimation(this.IMAGES_IDLE);
+        }
     }
 }

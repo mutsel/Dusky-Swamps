@@ -113,6 +113,8 @@ class Cactus extends MovableObject {
                     this.moveRight();
                     this.otherDirection = true;
                 }
+            } else {
+                this.playAnimation(this.IMAGES_IDLE);
             }
         }, 1000 / 10)
     }

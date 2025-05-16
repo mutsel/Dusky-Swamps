@@ -3,15 +3,14 @@ class CanonballAttack extends ShootableObject {
     y;
     width = 20;
     height = 20;
-    speed = 10;
 
     audio = new Audio('audio/canonball.mp3')
-    
-    constructor(x, y) {
-        super().loadImage('img/shootable_objects/cannonball_01.png')
+
+    constructor(x, y, speed) {
+        super().loadImage('./img/shootable_objects/cannonball.png')
         this.x = x;
-        this.y = y;
+        this.y = y + 15;
+        this.speed = speed;
         this.shoot();
-        this.applyGravity();
-    } 
-} 
+    }
+}  

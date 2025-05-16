@@ -150,7 +150,7 @@ class World {
     run() {
         setInterval(() => {
             this.checkCollisionsEnemies();
-            this.checkCollisionMagicAttacks();
+            this.checkCollisionShootableObjects();
             this.checkCollisionsCollectables();
             if (this.gameOver && !this.gameEndCalled) {
                 gameOver();
@@ -192,7 +192,7 @@ class World {
      * This function checks for each of the magic attacks in the availableMagicAttacks-array, if it colliding with an enemie.
      * If so, the hit()-function for the enemie is executed and the magicAttacks disappears.
      */
-    checkCollisionMagicAttacks() {
+    checkCollisionShootableObjects() {
         this.availableMagicAttacks.forEach((a) => {
             this.level.enemies.forEach((e) => {
                 if (a.isColliding(e)) {
@@ -202,7 +202,14 @@ class World {
                 }
             });
         });
-
+        this.canonballAttacks.forEach((c) => {
+                if (c.isColliding(this.character)) {
+                    this.character.hit(25);
+                    this.healthBar.setPercentage(this.healthBar.percentage - 25)
+                    this.canonballAttacks.splice(this.canonballAttacks.indexOf(c), 1);
+                    return;
+                }
+        });
     }
 
     /**

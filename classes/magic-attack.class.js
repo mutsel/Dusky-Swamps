@@ -12,7 +12,7 @@ class MagicAttack extends ShootableObject {
         'img/shootable_objects/magic_attack/magic_attack_04.png',
         'img/shootable_objects/magic_attack/magic_attack_05.png',
         'img/shootable_objects/magic_attack/magic_attack_06.png',
-        'img/shootable_objects/magic_attack/magic_attack_07.png',
+        'img/shootable_objects/magic_attack/magic_attack_07.png', 
         'img/shootable_objects/magic_attack/magic_attack_08.png',
         'img/shootable_objects/magic_attack/magic_attack_09.png',
         'img/shootable_objects/magic_attack/magic_attack_10.png',

@@ -75,13 +75,14 @@ class MovableObject extends DrawableObject {
         if (this instanceof Frog && images == this.IMAGES_ATTACK) {
             this.width = this.widths[i];
         }
+        if (this instanceof Endboss && images == this.IMAGES_ATTACK && i == 5) {
+            if (this.otherDirection) {
+                world.canonballAttacks.push(new CanonballAttack(this.x + this.width, this.y, -10));
+            } else {
+                world.canonballAttacks.push(new CanonballAttack(this.x, this.y, 10));
+            }
+        }
     }
-
-    // changeWidth() {
-    //     let i = this.currentWidth % this.widths.length;
-    //     this.width = this.widths[i];
-    //     this.currentWidth++;
-    // }
 
     /**
      * This function is used for an object to move left by substracting its speed from its x-position.
@@ -130,7 +131,7 @@ class MovableObject extends DrawableObject {
      */
     isJumpingOnTop(mo) {
         return (this.y + this.height > mo.y)                //B-T
-            && (this.y + this.height < mo.y + mo.height)    //B-B
+            && (this.y + this.height < mo.y + mo.height)    //B-B 
             && (this.y < mo.y)                              //T-T
             && (this.x + this.width > mo.x)                 //R
             && (this.x < mo.x + mo.width)                   //L

@@ -29,7 +29,7 @@ class ShootableObject extends MovableObject {
     */
     animate() {
         setInterval(() => {
-            this.playAnimation(this.IMAGES);
+            this.playAnimation(this.IMAGES); 
         }, 1000 / 20)
     }
 }

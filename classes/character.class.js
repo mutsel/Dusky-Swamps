@@ -1,12 +1,13 @@
 class Character extends MovableObject {
-    x = 164;
+    // x = 164;
+    x = 1564;
     y = 200;
     width = 35;
     height = 50;
     speed = 4;
     world;
 
-    IMAGES_ATTACK = [
+    IMAGES_ATTACK = [ 
         'img/character/Hit/Hit_03.png',
         'img/character/Hit/Hit_04.png',
         'img/character/Hit/Hit_05.png',

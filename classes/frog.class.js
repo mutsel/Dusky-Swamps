@@ -78,7 +78,7 @@ class Frog extends MovableObject {
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HIT);
-        this.loadImages(this.IMAGES_IDLE); 
+        this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_RUN);
         this.x = x + Math.random() * 252;
         this.y = y - this.height;
