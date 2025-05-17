@@ -1,9 +1,12 @@
 class Endboss extends MovableObject {
     width = 80;
     height = 80;
+    x = 2400;
     y = 0 - this.height;
     speed = 9;
     energy = 250;
+    b;
+    i;
 
     IMAGES_ATTACK = [
         'img/enemies/endboss/Attack/Attack_01.png',
@@ -74,40 +77,28 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_RUN);
         this.deathAnimationCounter = this.IMAGES_DEAD.length;
-        this.x = 2450;
-        this.animate();
         this.applyGravity();
+        this.animateEndboss();
     }
 
     /**
     * This function is used to execude the endboss animations.
+    * i is the counter for the intro-animation.
+    * b is the counter for the behavior-animation.
     */
-    animate() {
-        let i = 0;
-        let k = 0;
+    animateEndboss() {
         setInterval(() => {
-            if (i < 32) {
-                this.animateIntro(i);
+            if (this.i < 42) {
+                this.animateIntro();
             } else {
-                if (this.alive) {
-                    if (this.isDead()) {
-                        this.animateDeath();
-                        return;
-                    } else if (this.isHurt) {
-                        this.playAnimation(this.IMAGES_HIT);
-                        k++
-                    } else if (this.energy == 250) {
-                        this.playAnimation(this.IMAGES_IDLE);
-                    } else {
-                        k = this.animateBehavior(k);
-                    }
+                if (this.isAlive) {
+                    this.animateImages();
                 }
             }
-            i++
-
+            this.i++
             if (world.character.x > 1620 && !world.firstBossContact) {
-                i = 0;
-                k  = 0;
+                this.i = 0;
+                this.b = 0;
                 world.firstBossContact = true;
                 adjustLoopSounds();
             }
@@ -115,10 +106,10 @@ class Endboss extends MovableObject {
     }
 
     /**
-    * This function animates the endboss-intro-scene (it walks in and shoots one time)
+    * This function animates the endboss-intro-scene (it walks in and shoots one time).
     */
-    animateIntro(i) {
-        if (i < 24) {
+    animateIntro() {
+        if (this.i < 36) {
             this.moveLeft();
             this.playAnimation(this.IMAGES_RUN);
         } else if (world.firstBossContact) {
@@ -126,25 +117,45 @@ class Endboss extends MovableObject {
         }
     }
 
-    animateBehavior(k) {
-        if (k < 36) {
-            this.animateMovement();
-            return k+1
+    /**
+    * This function animates the endboss images for each situation (death, hit, idle, normal behavior).
+    */
+    animateImages() {
+        if (this.isDead()) {
+            return this.animateDeath();
+        } else if (this.isHurt) {
+            this.playAnimation(this.IMAGES_HIT);
+            this.b++
+        } else if (this.energy == 250) {
+            this.playAnimation(this.IMAGES_IDLE);
         } else {
-            if (k > 43) {
-                return 0;
+            this.animateBehavior();
+        }
+    }
+
+    /**
+    * This function animates the endboss-behavior. 
+    * It moves towards the player and interrupts the movement occasionally to attack.
+    */
+    animateBehavior() {
+        if (this.b < 24) {
+            this.animateMovement();
+            return this.b++
+        } else {
+            if (this.b > 31) {
+                return this.b = 0;
             } else {
                 if (world.firstBossContact) {
                     this.playAnimation(this.IMAGES_ATTACK);
                 }
-                return k+1
+                return this.b++
             }
         }
     }
 
     /**
-    * This function animates the endboss movement, depending on where the character is.
-    * It walks towards the character and changes direction, if the character is behind it.
+    * This function animates the endboss movement.
+    * The endboss changes direction and runs in the opposite direction, if the character is behind him.
     */
     animateMovement() {
         if (world.character.x + world.character.width < this.x) {

@@ -1,13 +1,12 @@
 class Character extends MovableObject {
-    // x = 164;
-    x = 1564;
+    x = 160;
     y = 200;
     width = 35;
     height = 50;
     speed = 4;
     world;
 
-    IMAGES_ATTACK = [ 
+    IMAGES_ATTACK = [
         'img/character/Hit/Hit_03.png',
         'img/character/Hit/Hit_04.png',
         'img/character/Hit/Hit_05.png',
@@ -90,57 +89,78 @@ class Character extends MovableObject {
         this.deathAnimationCounter = this.IMAGES_DEAD.length;
         this.applyGravity();
         this.animate();
+        this.adjustCamera();
     }
 
     /**
-    * This function is used to animate the movable Object (movement and animation)
+    * This function animates the characters movement.
     */
-    animate() {
-        //decrease/increase x-coordinate
+    animateMovement() {
+        if (this.world.keyboard.RIGHT && this.x + this.width < this.world.level.levelEndX) {
+            this.moveRight();
+            this.otherDirection = false;
+        } else if (this.world.keyboard.LEFT && ((!this.world.firstBossContact && this.x > 0) || (this.world.firstBossContact && this.x > 1540))) {
+            this.moveLeft();
+            this.otherDirection = true;
+        }
+        if (this.world.keyboard.UP && !this.isAboveGround() && !this.isJumping) {
+            this.speedY = 12;
+            this.isJumping = true;
+        }
+    }
+
+    /**
+    * This function adjusts the camera to the charactes current position.
+    */
+    adjustCamera() {
         setInterval(() => {
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.levelEndX) {
-                this.moveRight();
-                this.otherDirection = false;
-            } else if (this.world.keyboard.LEFT && ((!this.world.firstBossContact && this.x > 0) || (this.world.firstBossContact && this.x > 1540))) {
-                this.moveLeft();
-                this.otherDirection = true;
-            }
-
-            if (this.world.keyboard.UP && !this.isAboveGround() && !this.isJumping) {
-                this.speedY = 12;
-                this.isJumping = true;
-            }
-
             if (!this.world.firstBossContact) {
                 this.world.cameraX = -this.x + 100;
             }
         }, 1000 / 60);
+    }
 
-        // animations(dead, hurt, jump, fall, run, attack, idle)
-        let i = 0;
-        setInterval(() => {
-            if (this.alive) {
-                if (this.isDead()) {
-                    this.animateDeath();
-                    return;
-                } else if (this.isHurt) {
-                    this.playAnimation(this.IMAGES_HIT);
-                } else if (this.isAboveGround()) {
-                    if (this.speedY > 0) {
-                        this.playAnimation(this.IMAGES_JUMP);
-                    } else {
-                        this.playAnimation(this.IMAGES_FALL);
-                    }
-                } else if (this.world.keyboard.LEFT || this.world.keyboard.RIGHT) {
-                    this.playAnimation(this.IMAGES_RUN);
-                } else if (this.world.keyboard.ATTACK) {
-                    this.playAnimation(this.IMAGES_ATTACK);
-                }
-                else if (!(this.world.keyboard.LEFT && this.world.keyboard.RIGHT && this.world.keyboard.UP && this.world.keyboard.ATTACK)) {
-                    this.playAnimation(this.IMAGES_IDLE);
-                }
-            }
+    /**
+    * This function animates the characters images for each situation (death, hit, above ground, run, attack, idle).
+    */
+    animateImages() {
+        if (this.isDead()) {
+            return this.animateDeath();
+        } else if (this.isHurt) {
+            this.playAnimation(this.IMAGES_HIT);
+        } else if (this.isAboveGround()) {
+            this.airTimeAnimations();
+        } else if (this.world.keyboard.LEFT || this.world.keyboard.RIGHT) {
+            this.playAnimation(this.IMAGES_RUN);
+        } else if (this.world.keyboard.ATTACK) {
+            this.playAnimation(this.IMAGES_ATTACK);
+        } else if (this.isIdling()) {
+            this.playAnimation(this.IMAGES_IDLE);
+        }
+    }
 
-        }, 1000 / 10);
+    /**
+    * This function is part of the animateImages()-function and animates the characters images, if it is above ground.
+    * When the character has a positive speedY, the jumping-animation is shown. Otherwise, the falling-animation is shown.
+    */
+    airTimeAnimations() {
+        if (this.speedY > 0) {
+            this.playAnimation(this.IMAGES_JUMP);
+        } else {
+            this.playAnimation(this.IMAGES_FALL);
+        }
+    }
+
+    /**
+    * This function returns true or false, whether the player presses a key or not.
+    */
+    isIdling() {
+        if (!this.world.keyboard.LEFT &&
+            !this.world.keyboard.RIGHT &&
+            !this.world.keyboard.UP &&
+            !this.world.keyboard.ATTACK) {
+            return true;
+        }
+        return false;
     }
 }

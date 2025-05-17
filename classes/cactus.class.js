@@ -70,39 +70,19 @@ class Cactus extends MovableObject {
         this.deathAnimationCounter = this.IMAGES_DEAD.length;
         this.x = x + Math.random() * 100;
         this.y = y - this.height;
-        this.speed = 0.5 + Math.random() * 0.3;
+        this.speed = 4;
         this.leftBorder = leftBorder;
         this.rightBorder = rightBorder;
-        this.animateImages();
+        this.animate();
     }
 
     /**
-    * This function is used to animate each cactus
-    */
-    animateImages() {
-        setInterval(() => {
-            if (this.alive) {
-                if (this.isDead()) {
-                    this.animateDeath();
-                    return;
-                } else if (this.isHurt) {
-                    this.playAnimation(this.IMAGES_HIT);
-                } else if (this.characterNearby) {
-                    this.playAnimation(this.IMAGES_RUN);
-                    this.animateMovement();
-                } else {
-                    this.playAnimation(this.IMAGES_IDLE);
-                }
-            }
-        }, 1000 / 20)
-    }
-
-    /**
-    * This function animates the cactus movement. The cactus only moves, if the character is inside its range.
+    * This function animates the cactus movement.
+    * The cactus only moves, if the character is inside its range.
     * The cactus changes direction and runs in the opposite direction, if the character is behind him.
     */
     animateMovement() {
-        setInterval(() => {
+        if (world.character.x + world.character.width > this.leftBorder && world.character.x < this.rightBorder) {
             if (world.character.x + world.character.width < this.x) {
                 if (this.x > this.leftBorder) {
                     this.moveLeft();
@@ -116,6 +96,22 @@ class Cactus extends MovableObject {
             } else {
                 this.playAnimation(this.IMAGES_IDLE);
             }
-        }, 1000 / 10)
+        }
+    }
+
+    /**
+    * This function animates the cactus images for each situation (death, hit, run, idle).
+    */
+    animateImages() {
+        if (this.isDead()) {
+            return this.animateDeath();
+        } else if (this.isHurt) {
+            this.playAnimation(this.IMAGES_HIT);
+        } else if (this.characterNearby) {
+            this.playAnimation(this.IMAGES_RUN);
+        } else {
+            this.playAnimation(this.IMAGES_IDLE);
+        }
+
     }
 }

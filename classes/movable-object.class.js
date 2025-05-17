@@ -15,10 +15,24 @@ class MovableObject extends DrawableObject {
     acceleration = 0.5;
     energy = 100;
     deathAnimationCounter;
-    alive = true;
+    isAlive = true;
 
     constructor() {
         super();
+    }
+
+    /**
+    * This function is the overall animation-function and it executes the movement- and images-animation of each movable object.
+    */
+    animate() {
+        setInterval(() => {
+            this.animateMovement();
+        }, 1000 / 60);
+        setInterval(() => {
+            if (this.isAlive) {
+                this.animateImages();
+            }
+        }, 1000 / 10);
     }
 
     /**
@@ -57,7 +71,7 @@ class MovableObject extends DrawableObject {
             return this.y < 256 - this.height;
         }
 
-        //ground
+        //base ground
         return this.y < 380 - this.height;
     }
 
@@ -74,6 +88,12 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
         if (this instanceof Frog && images == this.IMAGES_ATTACK) {
             this.width = this.widths[i];
+            // console.log(i)
+            if (i < 7) {
+                this.attacking = true;
+            } else {
+                this.attacking = false;
+            }
         }
         if (this instanceof Endboss && images == this.IMAGES_ATTACK && i == 5) {
             if (this.otherDirection) {
@@ -156,15 +176,6 @@ class MovableObject extends DrawableObject {
                     this.isHurt = false;
                 }, 500);
             }
-            // if (this instanceof Character) {
-            //     setTimeout(() => {
-            //         this.isHurt = false;
-            //     }, 1000);
-            // } else {
-            //     setTimeout(() => {
-            //         this.isHurt = false;
-            //     }, 500);
-            // }
         }
     }
 
@@ -194,7 +205,7 @@ class MovableObject extends DrawableObject {
             return this.deathAnimationCounter = this.IMAGES_DEAD.length + 1;
         } else {
             this.playAnimation(this.IMAGES_DEAD);
-            this.deathAnimationCounter--;
+            return this.deathAnimationCounter--;
         }
     }
 }
