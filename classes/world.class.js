@@ -66,8 +66,7 @@ class World {
         this.addObjectsToMap(this.level.decoration);
         this.addObjectsToMap(this.level.plattforms);
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.gems);
-        this.addObjectsToMap(this.level.magicStones);
+        this.addObjectsToMap(this.level.collectableObjects);
         this.addToMap(this.character);
         this.addObjectsToMap(this.availableMagicAttacks);
         this.addObjectsToMap(this.canonballAttacks);
@@ -213,25 +212,25 @@ class World {
     }
 
     /**
-     * This function checks for each of the collectables (gems, magicStones) seperately, if the character is colliding with one of them.
+     * This function checks for each of the collectables (gems, magicStones), if the character is colliding with one of them.
      * If so, the collectable disappears, a sound is played and the statusbar for this collectable is updated.
      */
     checkCollisionsCollectables() {
-        this.level.gems.forEach((g) => {
-            if (this.character.isColliding(g)) {
-                this.level.gems.splice(this.level.gems.indexOf(g), 1);
-                this.gemsBar.setPercentage(this.level.gems.length * 25);
-                audios.gem.play();
-                audios.gem.volume = 0.5 * audioVolume;
-            }
-        })
-
-        this.level.magicStones.forEach((m) => {
-            if (this.character.isColliding(m) && this.attackBar.percentage < 100) {
-                this.level.magicStones.splice(this.level.magicStones.indexOf(m), 1);
-                this.attackBar.setPercentage(this.attackBar.percentage + 25)
-                audios.magicStone.play();
-                audios.magicStone.volume = audioVolume;
+        this.level.collectableObjects.forEach((c) => {
+            if (this.character.isColliding(c)) {
+                if (c.type == "gem") {
+                    let numberOfGems = this.level.collectableObjects.filter((c) => c.type == "gem").length - 1;
+                    this.gemsBar.setPercentage(numberOfGems * 25);
+                    audios.gem.play();
+                    audios.gem.volume = 0.5 * audioVolume;
+                    c.isAvailable = false;
+                } else if (c.type == "magicStone" && this.attackBar.percentage < 100) {
+                    this.attackBar.setPercentage(this.attackBar.percentage + 25);
+                    audios.magicStone.play();
+                    audios.magicStone.volume = audioVolume;
+                    c.isAvailable = false;
+                }
+                this.level.collectableObjects = this.level.collectableObjects.filter(c => c.isAvailable);
             }
         })
     }
