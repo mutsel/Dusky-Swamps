@@ -4,6 +4,7 @@ class MagicAttack extends ShootableObject {
     width = 50;
     height = 40;
     speed;
+    character = world.character;
 
     IMAGES = [
         'img/shootable_objects/magic_attack/magic_attack_01.png',
@@ -12,18 +13,30 @@ class MagicAttack extends ShootableObject {
         'img/shootable_objects/magic_attack/magic_attack_04.png',
         'img/shootable_objects/magic_attack/magic_attack_05.png',
         'img/shootable_objects/magic_attack/magic_attack_06.png',
-        'img/shootable_objects/magic_attack/magic_attack_07.png', 
+        'img/shootable_objects/magic_attack/magic_attack_07.png',
         'img/shootable_objects/magic_attack/magic_attack_08.png',
         'img/shootable_objects/magic_attack/magic_attack_09.png',
         'img/shootable_objects/magic_attack/magic_attack_10.png',
     ]
 
-    constructor(x, y, speed) {
+    constructor() {
         super().loadImage(this.IMAGES[0])
         this.loadImages(this.IMAGES);
-        this.x = x;
-        this.y = y + 10;
-        this.speed = speed;
+        this.x = this.character.x;
+        this.y = this.character.y + 10;
+        this.speed = this.setDirection(this.character, 12);
+        audios.magicAttack.play();
+        audios.magicAttack.volume = 0.4 * audioVolume;
         this.shoot();
+        this.animate();
+    }
+
+    /**
+    * This function is used to animate the magic attack.
+    */
+    animate() {
+        setInterval(() => {
+            this.playAnimation(this.IMAGES);
+        }, 1000 / 20)
     }
 } 

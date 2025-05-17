@@ -106,16 +106,9 @@ class Frog extends MovableObject {
     */
     animateMovementLeft() {
         if (this.x <= this.leftBorder) {
-            this.x = this.leftBorder;
-            setTimeout(() => {
-                return this.otherDirection = true;
-            }, 200);
-
+            this.setOtherDirection(true);
         } else if (this.characterNearby && world.character.x > this.x) {
-            setTimeout(() => {
-                return this.otherDirection = true;
-            }, 200);
-
+            this.setOtherDirection(true);
         }
         this.moveLeft();
         return this.otherDirection = false;
@@ -126,20 +119,24 @@ class Frog extends MovableObject {
     * The frog changes direction, if the character is behind him or if it reaches the movement-border.
     */
     animateMovementRight() {
-        if (this.x >= this.rightBorder - 31.5) {
-            this.x = this.rightBorder - 31.5;
-            setTimeout(() => {
-                return this.otherDirection = false;
-            }, 200);
-
+        if (this.x >= this.rightBorder) {
+            this.setOtherDirection(false);
         } else if (this.characterNearby && world.character.x < this.x) {
-            setTimeout(() => {
-                return this.otherDirection = false
-            }, 200);
-            ;
+            this.setOtherDirection(false);
         }
         this.moveRight();
         return this.otherDirection = true;
+    }
+
+    /**
+    * This function sets otherDirection to true or false, depending on the given value.
+    * 
+    * @param {boolean} boolean - true or false
+    */
+    setOtherDirection(boolean) {
+        setTimeout(() => {
+            return this.otherDirection = boolean;
+        }, 200);
     }
 
     /**
@@ -152,8 +149,7 @@ class Frog extends MovableObject {
         } else if (this.isHurt) {
             this.width = 31.5;
             this.playAnimation(this.IMAGES_HIT);
-        }
-        else if (this.attacking == true || this.characterNearby) {
+        } else if (this.attacking == true || this.characterNearby) {
             this.animateAttack();
         } else {
             this.width = 31.5;

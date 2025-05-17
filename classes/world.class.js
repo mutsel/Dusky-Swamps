@@ -203,12 +203,12 @@ class World {
             });
         });
         this.canonballAttacks.forEach((c) => {
-                if (c.isColliding(this.character)) {
-                    this.character.hit(25);
-                    this.healthBar.setPercentage(this.healthBar.percentage - 25)
-                    this.canonballAttacks.splice(this.canonballAttacks.indexOf(c), 1);
-                    return;
-                }
+            if (c.isColliding(this.character)) {
+                this.character.hit(25);
+                this.healthBar.setPercentage(this.healthBar.percentage - 25)
+                this.canonballAttacks.splice(this.canonballAttacks.indexOf(c), 1);
+                return;
+            }
         });
     }
 
@@ -279,7 +279,7 @@ class World {
      * This function removes dead enemies (enemies with an energylevel of zero) from the map.
      */
     removeDeadEnemy() {
-        this.level.enemies = this.level.enemies.filter(enemy => enemy.alive);
+        this.level.enemies = this.level.enemies.filter(enemy => enemy.isAlive);
     }
 
     /**
@@ -292,16 +292,7 @@ class World {
         if (this.attackBar.percentage > 0 && this.magicAttackAvailable) {
             this.magicAttackAvailable = false;
             this.attackBar.setPercentage(this.attackBar.percentage - 25)
-
-            if (this.character.otherDirection) {
-                this.availableMagicAttacks.push(new MagicAttack(this.character.x, this.character.y, 12));
-            } else {
-                this.availableMagicAttacks.push(new MagicAttack(this.character.x, this.character.y, -12));
-            }
-
-            audios.magicAttack.play();
-            audios.magicAttack.volume = 0.4 * audioVolume;
-
+            this.availableMagicAttacks.push(new MagicAttack());
             setTimeout(() => {
                 this.availableMagicAttacks.shift();
                 this.magicAttackAvailable = true;

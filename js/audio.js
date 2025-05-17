@@ -15,6 +15,7 @@ audios = {
     gem: new Audio('./audio/gem.mp3'),
     magicStone: new Audio('./audio/magic_stone.mp3'),
     magicAttack: new Audio('./audio/magic_attack.mp3'),
+    canonballAttack: new Audio('audio/canonball.mp3'),
     bossfight: new Audio('./audio/bossfight.mp3'),
     gameOver: new Audio('./audio/game_over.mp3'),
     victory: new Audio('./audio/victory.mp3'),

@@ -96,11 +96,7 @@ class MovableObject extends DrawableObject {
             }
         }
         if (this instanceof Endboss && images == this.IMAGES_ATTACK && i == 5) {
-            if (this.otherDirection) {
-                world.canonballAttacks.push(new CanonballAttack(this.x + this.width, this.y, -10));
-            } else {
-                world.canonballAttacks.push(new CanonballAttack(this.x, this.y, 10));
-            }
+            world.canonballAttacks.push(new CanonballAttack());
         }
     }
 
@@ -170,7 +166,7 @@ class MovableObject extends DrawableObject {
             this.energy -= damage;
             if (this.energy <= 0) {
                 this.energy = 0;
-            } else {
+            } else { 
                 this.isHurt = true;
                 setTimeout(() => {
                     this.isHurt = false;
@@ -192,15 +188,13 @@ class MovableObject extends DrawableObject {
     animateDeath() {
         if (this.deathAnimationCounter <= 0) {
             this.loadImage('./img/dead_animation_universal/dead.png');
-
             if (this instanceof Character) {
                 world.gameOver = true;
             }
-
             if (this instanceof Endboss) {
                 world.victory = true;
             }
-            this.alive = false;
+            this.isAlive = false;
             world.removeDeadEnemy();
             return this.deathAnimationCounter = this.IMAGES_DEAD.length + 1;
         } else {

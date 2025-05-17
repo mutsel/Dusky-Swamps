@@ -6,7 +6,6 @@ class Cactus extends MovableObject {
     speed;
     leftBorder;
     rightBorder;
-    walkLeft = true;
     characterNearby = false;
 
     IMAGES_DEAD = [
@@ -82,20 +81,36 @@ class Cactus extends MovableObject {
     * The cactus changes direction and runs in the opposite direction, if the character is behind him.
     */
     animateMovement() {
-        if (world.character.x + world.character.width > this.leftBorder && world.character.x < this.rightBorder) {
+        if (this.characterNearby) {
             if (world.character.x + world.character.width < this.x) {
-                if (this.x > this.leftBorder) {
-                    this.moveLeft();
-                    this.otherDirection = false;
-                }
+                this.animateMovementLeft();
             } else if (world.character.x > this.x + this.width) {
-                if (this.x + this.width < this.rightBorder) {
-                    this.moveRight();
-                    this.otherDirection = true;
-                }
+                this.animateMovementRight();
             } else {
                 this.playAnimation(this.IMAGES_IDLE);
             }
+        }
+    }
+
+    /**
+    * This function animates the cactus movement if the character is to its left.
+    * The cactus walks left until it reaches its left border.
+    */
+    animateMovementLeft() {
+        if (this.x > this.leftBorder) {
+            this.moveLeft();
+            this.otherDirection = false;
+        }
+    }
+
+    /**
+    * This function animates the cactus movement if the character is to its right.
+    * The cactus walks right until it reaches its tight border.
+    */
+    animateMovementRight() {
+        if (this.x + this.width < this.rightBorder) {
+            this.moveRight();
+            this.otherDirection = true;
         }
     }
 
