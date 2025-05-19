@@ -179,18 +179,10 @@ class World {
                 this.character.speedY = 12;
                 if (e instanceof Cactus) {
                     await this.character.hit(25);
-                    if (this.character.energy > 0) {
-                        audios.characterHurt.play();
-                        audios.characterHurt.volume = audioVolume;
-                    }
                     this.healthBar.setPercentage(this.character.energy);
                 }
             } else if (this.character.isColliding(e) && e.energy > 0) {
                 await this.character.hit(25);
-                if (this.character.energy > 0) {
-                    audios.characterHurt.play();
-                    audios.characterHurt.volume = audioVolume;
-                }
                 this.character.speedY = -1;
                 this.healthBar.setPercentage(this.character.energy);
             }
@@ -217,10 +209,6 @@ class World {
             if (c.isColliding(this.character)) {
                 this.character.hit(25);
                 this.healthBar.setPercentage(this.healthBar.percentage - 25)
-                if (this.character.energy > 0) {
-                    audios.characterHurt.play();
-                    audios.characterHurt.volume = audioVolume;
-                }
                 this.canonballAttacks.splice(this.canonballAttacks.indexOf(c), 1);
                 return;
             }

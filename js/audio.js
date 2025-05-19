@@ -13,6 +13,7 @@ audios = {
     scenery: new Audio('./audio/scenery.mp3'),
     steps: new Audio('./audio/steps.mp3'),
     characterHurt: new Audio('./audio/character_hurt.mp3'),
+    longIdle: new Audio('./audio/long_idle.mp3'),
     enemyHurtJump: new Audio('./audio/enemy_hurt_jump.mp3'),
     enemyHurtAttack: new Audio('./audio/enemy_hurt_attack.mp3'),
     gem: new Audio('./audio/gem.mp3'),

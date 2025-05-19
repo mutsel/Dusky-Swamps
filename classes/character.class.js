@@ -187,14 +187,20 @@ class Character extends MovableObject {
         return false;
     }
 
+    /**
+    * This function counts up the time the player is not pressing any key. 
+    * If 10seconds passed, the character is set to sleeping, the long-idle-animation is played and the according audio is played.
+    */
     countIdlingTime() {
         setInterval(() => {
-            if (this.timeIdling < 10) {
+            if (this.timeIdling < 300) {
                 this.isSleeping = false;
                 this.timeIdling++;
-            } else {
+            } else if (this.isAlive) {
+                audios.longIdle.play();
+                audios.longIdle.volume = audioVolume;
                 return this.isSleeping = true;
             }
-        }, 1000);
+        }, 1000 / 30);
     }
 }

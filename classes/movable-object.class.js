@@ -163,10 +163,14 @@ class MovableObject extends DrawableObject {
      */
     hit(damage) {
         if (this.isHurt == false) {
+            if (this instanceof Character && this.energy > 0) {
+                audios.characterHurt.play();
+                audios.characterHurt.volume = audioVolume;
+            }
             this.energy -= damage;
             if (this.energy <= 0) {
                 this.energy = 0;
-            } else { 
+            } else {
                 this.isHurt = true;
                 setTimeout(() => {
                     this.isHurt = false;

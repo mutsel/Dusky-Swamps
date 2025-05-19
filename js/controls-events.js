@@ -128,6 +128,7 @@ function mobileControlsMousedown(key) {
 */
 function mobileControlsMouseup(key) {
     world.character.timeIdling = 0;
+    audios.steps.pause();
     switch (key) {
         case 'up': keyboard.UP = false;
             break;
