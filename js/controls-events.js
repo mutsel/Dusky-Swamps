@@ -46,6 +46,7 @@ function cancelEvents() {
 * If the character touches ground and walks, a sound is played.
 */
 function keyDownEvents() {
+    world.character.timeIdling = 0;
     switch (event.keyCode) {
         case 38:
         case 87:
@@ -77,6 +78,7 @@ function keyDownEvents() {
 * A magicAttack is shot, after the spacebar is set to false.
 */
 function keyUpEvents() {
+    world.character.timeIdling = 0;
     switch (event.keyCode) {
         case 38:
         case 87: keyboard.UP = false;
@@ -100,6 +102,7 @@ function keyUpEvents() {
 * This function has the same functionality as the keyDownEvents()-function, but for the mobile-controls-buttons instead of the keys.
 */
 function mobileControlsMousedown(key) {
+    world.character.timeIdling = 0;
     switch (key) {
         case 'up': keyboard.UP = true;
             break;
@@ -124,6 +127,7 @@ function mobileControlsMousedown(key) {
 * This function has the same functionality as the keyUpEvents()-function, but for the mobile-controls-buttons instead of the keys.
 */
 function mobileControlsMouseup(key) {
+    world.character.timeIdling = 0;
     switch (key) {
         case 'up': keyboard.UP = false;
             break;

@@ -174,13 +174,23 @@ class World {
         this.level.enemies.forEach(async (e) => {
             if (this.character.isJumpingOnTop(e) && e.energy > 0) {
                 await e.hit(55);
+                audios.enemyHurtJump.play();
+                audios.enemyHurtJump.volume = audioVolume;
                 this.character.speedY = 12;
                 if (e instanceof Cactus) {
                     await this.character.hit(25);
+                    if (this.character.energy > 0) {
+                        audios.characterHurt.play();
+                        audios.characterHurt.volume = audioVolume;
+                    }
                     this.healthBar.setPercentage(this.character.energy);
                 }
             } else if (this.character.isColliding(e) && e.energy > 0) {
                 await this.character.hit(25);
+                if (this.character.energy > 0) {
+                    audios.characterHurt.play();
+                    audios.characterHurt.volume = audioVolume;
+                }
                 this.character.speedY = -1;
                 this.healthBar.setPercentage(this.character.energy);
             }
@@ -197,6 +207,8 @@ class World {
                 if (a.isColliding(e)) {
                     this.availableMagicAttacks.splice(this.availableMagicAttacks.indexOf(a), 1);
                     e.hit(55);
+                    audios.enemyHurtAttack.play();
+                    audios.enemyHurtAttack.volume = audioVolume;
                     return;
                 }
             });
@@ -205,6 +217,10 @@ class World {
             if (c.isColliding(this.character)) {
                 this.character.hit(25);
                 this.healthBar.setPercentage(this.healthBar.percentage - 25)
+                if (this.character.energy > 0) {
+                    audios.characterHurt.play();
+                    audios.characterHurt.volume = audioVolume;
+                }
                 this.canonballAttacks.splice(this.canonballAttacks.indexOf(c), 1);
                 return;
             }

@@ -5,6 +5,8 @@ class Character extends MovableObject {
     height = 50;
     speed = 4;
     world;
+    timeIdling = 0;
+    isSleeping = false;
 
     IMAGES_ATTACK = [
         'img/character/Hit/Hit_03.png',
@@ -62,6 +64,21 @@ class Character extends MovableObject {
         'img/character/Jump.png'
     ];
 
+    IMAGES_LONG_IDLE = [
+        'img/character/long_idle/long_idle_01.png',
+        'img/character/long_idle/long_idle_02.png',
+        'img/character/long_idle/long_idle_03.png',
+        'img/character/long_idle/long_idle_04.png',
+        'img/character/long_idle/long_idle_05.png',
+        'img/character/long_idle/long_idle_06.png',
+        'img/character/long_idle/long_idle_07.png',
+        'img/character/long_idle/long_idle_08.png',
+        'img/character/long_idle/long_idle_09.png',
+        'img/character/long_idle/long_idle_10.png',
+        'img/character/long_idle/long_idle_11.png',
+        'img/character/long_idle/long_idle_12.png',
+    ];
+
     IMAGES_RUN = [
         'img/character/Run/Run_01.png',
         'img/character/Run/Run_02.png',
@@ -85,11 +102,13 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_HIT);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_JUMP);
+        this.loadImages(this.IMAGES_LONG_IDLE);
         this.loadImages(this.IMAGES_RUN);
         this.deathAnimationCounter = this.IMAGES_DEAD.length;
         this.applyGravity();
         this.animate();
         this.adjustCamera();
+        this.countIdlingTime();
     }
 
     /**
@@ -125,8 +144,10 @@ class Character extends MovableObject {
     */
     animateImages() {
         if (this.isDead()) {
+            world.character.timeIdling = 0;
             return this.animateDeath();
         } else if (this.isHurt) {
+            world.character.timeIdling = 0;
             this.playAnimation(this.IMAGES_HIT);
         } else if (this.isAboveGround()) {
             this.airTimeAnimations();
@@ -134,8 +155,10 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_RUN);
         } else if (this.world.keyboard.ATTACK) {
             this.playAnimation(this.IMAGES_ATTACK);
-        } else if (this.isIdling()) {
+        } else if (this.isIdling() && !this.isSleeping) {
             this.playAnimation(this.IMAGES_IDLE);
+        } else if (this.isSleeping) {
+            this.playAnimation(this.IMAGES_LONG_IDLE)
         }
     }
 
@@ -162,5 +185,16 @@ class Character extends MovableObject {
             return true;
         }
         return false;
+    }
+
+    countIdlingTime() {
+        setInterval(() => {
+            if (this.timeIdling < 10) {
+                this.isSleeping = false;
+                this.timeIdling++;
+            } else {
+                return this.isSleeping = true;
+            }
+        }, 1000);
     }
 }
