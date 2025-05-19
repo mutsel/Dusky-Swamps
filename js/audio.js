@@ -16,6 +16,8 @@ audios = {
     longIdle: new Audio('./audio/long_idle.mp3'),
     enemyHurtJump: new Audio('./audio/enemy_hurt_jump.mp3'),
     enemyHurtAttack: new Audio('./audio/enemy_hurt_attack.mp3'),
+    frogAttack: new Audio('./audio/frog_attack.mp3'),
+    cactusNoticedCharacter: new Audio('./audio/cactus_noticed_character.mp3'),
     gem: new Audio('./audio/gem.mp3'),
     magicStone: new Audio('./audio/magic_stone.mp3'),
     magicAttack: new Audio('./audio/magic_attack.mp3'),

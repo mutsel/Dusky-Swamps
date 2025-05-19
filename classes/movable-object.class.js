@@ -72,7 +72,7 @@ class MovableObject extends DrawableObject {
         }
 
         //base ground
-        return this.y < 380 - this.height;
+        return this.y < 385 - this.height;
     }
 
     /**
@@ -88,11 +88,12 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
         if (this instanceof Frog && images == this.IMAGES_ATTACK) {
             this.width = this.widths[i];
-            // console.log(i)
             if (i < 7) {
                 this.attacking = true;
             } else {
                 this.attacking = false;
+                audios.frogAttack.play();
+                audios.frogAttack.volume = audioVolume;
             }
         }
         if (this instanceof Endboss && images == this.IMAGES_ATTACK && i == 5) {

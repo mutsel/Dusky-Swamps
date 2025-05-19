@@ -226,7 +226,7 @@ class World {
                     let numberOfGems = this.level.collectableObjects.filter((c) => c.type == "gem").length - 1;
                     this.gemsBar.setPercentage(numberOfGems * 25);
                     audios.gem.play();
-                    audios.gem.volume = 0.5 * audioVolume;
+                    audios.gem.volume = 0.7 * audioVolume;
                     c.isAvailable = false;
                 } else if (c.type == "magicStone" && this.attackBar.percentage < 100) {
                     this.attackBar.setPercentage(this.attackBar.percentage + 25);
@@ -260,6 +260,7 @@ class World {
                 }
             }
             e.characterNearby = false;
+            e.characterNoticed = false;
         });
     }
 

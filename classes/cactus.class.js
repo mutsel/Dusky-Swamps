@@ -7,6 +7,8 @@ class Cactus extends MovableObject {
     leftBorder;
     rightBorder;
     characterNearby = false;
+    characterNoticed = false;
+    acceleration = 1;
 
     IMAGES_DEAD = [
         'img/enemies/cactus/Hit/Hit_05.png',
@@ -68,10 +70,11 @@ class Cactus extends MovableObject {
         this.loadImages(this.IMAGES_RUN);
         this.deathAnimationCounter = this.IMAGES_DEAD.length;
         this.x = x + Math.random() * 100;
-        this.y = y - this.height;
+        this.y = y;
         this.speed = 4;
         this.leftBorder = leftBorder;
         this.rightBorder = rightBorder;
+        this.applyGravity();
         this.animate();
     }
 
@@ -80,15 +83,35 @@ class Cactus extends MovableObject {
     * The cactus only moves, if the character is inside its range.
     * The cactus changes direction and runs in the opposite direction, if the character is behind him.
     */
-    animateMovement() {
+    async animateMovement() {
         if (this.characterNearby) {
-            if (world.character.x + world.character.width < this.x) {
-                this.animateMovementLeft();
-            } else if (world.character.x > this.x + this.width) {
-                this.animateMovementRight();
-            } else {
-                this.playAnimation(this.IMAGES_IDLE);
+            if (this.characterNoticed == false) {
+                await this.animateNoticeCharacter();
             }
+            setTimeout(() => {
+                if (world.character.x + world.character.width < this.x) {
+                    this.animateMovementLeft();
+                } else if (world.character.x > this.x + this.width) {
+                    this.animateMovementRight();
+                } else {
+                    this.playAnimation(this.IMAGES_IDLE);
+                }
+            }, 400);
+        }
+    }
+
+    /**
+    * This function checkes if the cactus already noticed the character.
+    * If not, the according audio is played.
+    */
+    async animateNoticeCharacter() {
+        if (this.characterNoticed == false) {
+            audios.cactusNoticedCharacter.play();
+            audios.cactusNoticedCharacter.volume = audioVolume;
+            this.speedY = 1;
+            setTimeout(() => {
+                return this.characterNoticed = true;
+            }, 400);
         }
     }
 
