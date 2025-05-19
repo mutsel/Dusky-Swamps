@@ -105,7 +105,7 @@ class Cactus extends MovableObject {
     * If not, the according audio is played.
     */
     async animateNoticeCharacter() {
-        if (this.characterNoticed == false) {
+        if (!this.characterNoticed) {
             audios.cactusNoticedCharacter.play();
             audios.cactusNoticedCharacter.volume = audioVolume;
             this.speedY = 1;

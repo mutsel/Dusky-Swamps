@@ -171,18 +171,18 @@ class World {
      * If not, if checks if the character is colliding with an enemie. If so, it executes the hit()-funciton for the character.
      */
     checkCollisionsEnemies() {
-        this.level.enemies.forEach(async (e) => {
+        this.level.enemies.forEach((e) => {
             if (this.character.isJumpingOnTop(e) && e.energy > 0) {
-                await e.hit(55);
+                if (e instanceof Cactus) {
+                    this.character.hit(25);
+                    this.healthBar.setPercentage(this.character.energy);
+                }
+                e.hit(55);
                 audios.enemyHurtJump.play();
                 audios.enemyHurtJump.volume = audioVolume;
                 this.character.speedY = 12;
-                if (e instanceof Cactus) {
-                    await this.character.hit(25);
-                    this.healthBar.setPercentage(this.character.energy);
-                }
             } else if (this.character.isColliding(e) && e.energy > 0) {
-                await this.character.hit(25);
+                this.character.hit(25);
                 this.character.speedY = -1;
                 this.healthBar.setPercentage(this.character.energy);
             }

@@ -47,6 +47,7 @@ class MovableObject extends DrawableObject {
             } else if (!this.isAboveGround()) {
                 this.speedY = 0;
                 this.isJumping = false;
+                this.y = this.getGroundY();
             }
         }, 1000 / 60)
     }
@@ -72,7 +73,27 @@ class MovableObject extends DrawableObject {
         }
 
         //base ground
-        return this.y < 385 - this.height;
+        return this.y < 380 - this.height;
+    }
+
+    getGroundY() {
+        //first large plattform
+        if (this.x >= 460 - (this.width / 1.5) && this.x <= 716 - (this.width / 1.5) && this.y < 266 - this.height) {
+            return 261 - this.height;
+        }
+
+        //medium plattform
+        if (this.x >= 860 - (this.width / 1.5) && this.x <= 1048 - (this.width / 1.5) && this.y < 202 - this.height) {
+            return 197 - this.height;
+        }
+
+        //second large plattform
+        if (this.x >= 1240 - (this.width / 1.5) && this.x <= 1496 - (this.width / 1.5) && this.y < 266 - this.height) {
+            return 261 - this.height;
+        }
+
+        //base ground
+        return 385 - this.height;
     }
 
     /**
@@ -98,6 +119,7 @@ class MovableObject extends DrawableObject {
         }
         if (this instanceof Endboss && images == this.IMAGES_ATTACK && i == 5) {
             world.canonballAttacks.push(new CanonballAttack());
+            return;
         }
     }
 
@@ -147,12 +169,11 @@ class MovableObject extends DrawableObject {
      * @param {Object} mo - a movable object
      */
     isJumpingOnTop(mo) {
-        return (this.y + this.height > mo.y)                //B-T
-            && (this.y + this.height < mo.y + mo.height)    //B-B 
-            && (this.y < mo.y)                              //T-T
-            && (this.x + this.width > mo.x)                 //R
-            && (this.x < mo.x + mo.width)                   //L
-            && this.speedY <= 0;
+        return (this.y + this.height > mo.y)                        //B-T
+            && (this.y + this.height < mo.y + mo.height * 0.5)      //B-B 
+            && (this.y < mo.y)                                      //T-T
+            && (this.x + this.width > mo.x)                         //R
+            && (this.x < mo.x + mo.width)                           //L
     }
 
     /**

@@ -2,7 +2,7 @@ class Endboss extends MovableObject {
     width = 80;
     height = 80;
     x = 2400;
-    y = 0 - this.height;
+    y = 300;
     speed = 9;
     energy = 250;
     b;
@@ -77,6 +77,8 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_RUN);
         this.deathAnimationCounter = this.IMAGES_DEAD.length;
+        this.b;
+        this.i;
         this.applyGravity();
         this.animateEndboss();
     }
@@ -100,19 +102,24 @@ class Endboss extends MovableObject {
                 this.i = 0;
                 this.b = 0;
                 world.firstBossContact = true;
+                world.character.stopMovementEndbossIntro();
                 adjustLoopSounds();
             }
         }, 1000 / 12);
     }
+    
 
     /**
     * This function animates the endboss-intro-scene (it walks in and shoots one time).
     */
     animateIntro() {
         if (this.i < 36) {
+            audios.creakingSteps.play();
+            audios.creakingSteps.volume = audioVolume;
             this.moveLeft();
             this.playAnimation(this.IMAGES_RUN);
-        } else if (world.firstBossContact) {
+        } else {
+            audios.creakingSteps.pause();
             this.playAnimation(this.IMAGES_ATTACK);
         }
     }
@@ -127,6 +134,7 @@ class Endboss extends MovableObject {
             this.playAnimation(this.IMAGES_HIT);
             this.b++
         } else if (this.energy == 250) {
+            audios.creakingSteps.pause();
             this.playAnimation(this.IMAGES_IDLE);
         } else {
             this.animateBehavior();
@@ -145,9 +153,8 @@ class Endboss extends MovableObject {
             if (this.b > 31) {
                 return this.b = 0;
             } else {
-                if (world.firstBossContact) {
-                    this.playAnimation(this.IMAGES_ATTACK);
-                }
+                audios.creakingSteps.pause();
+                this.playAnimation(this.IMAGES_ATTACK);
                 return this.b++
             }
         }
@@ -159,10 +166,14 @@ class Endboss extends MovableObject {
     */
     animateMovement() {
         if (world.character.x + world.character.width < this.x) {
+            audios.creakingSteps.play();
+            audios.creakingSteps.volume = audioVolume;
             this.moveLeft();
             this.otherDirection = false;
             this.playAnimation(this.IMAGES_RUN);
         } else if (world.character.x > this.x + this.width) {
+            audios.creakingSteps.play();
+            audios.creakingSteps.volume = audioVolume;
             this.moveRight();
             this.otherDirection = true;
             this.playAnimation(this.IMAGES_RUN);

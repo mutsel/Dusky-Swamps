@@ -12,6 +12,7 @@ const volumeRegulatorImgs = [
 audios = {
     scenery: new Audio('./audio/scenery.mp3'),
     steps: new Audio('./audio/steps.mp3'),
+    creakingSteps: new Audio('./audio/creaking_steps.mp3'),
     characterHurt: new Audio('./audio/character_hurt.mp3'),
     longIdle: new Audio('./audio/long_idle.mp3'),
     enemyHurtJump: new Audio('./audio/enemy_hurt_jump.mp3'),

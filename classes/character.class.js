@@ -129,6 +129,16 @@ class Character extends MovableObject {
     }
 
     /**
+    * This function stops the characters movement, while the endboss-intro takes place.
+    */
+    stopMovementEndbossIntro() {
+        removeEventListeners();
+        setTimeout(() => {
+            addEventListeners()
+        }, 3500);
+    }
+
+    /**
     * This function adjusts the camera to the charactes current position.
     */
     adjustCamera() {
