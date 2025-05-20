@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'tiny5';
-    src: url('/fonts/Tiny5-Regular.ttf') format('truetype');
+    src: url('./fonts/Tiny5-Regular.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'jersey25';
-    src: url('/fonts/Jersey25-Regular.ttf') format('truetype');
+    src: url('./fonts/Jersey25-Regular.ttf') format('truetype');
 }
 
 ::-webkit-scrollbar {
@@ -36,12 +36,13 @@ body {
     height: 100vh;
     display: flex;
     justify-content: center;
-    background-image: url('./img/2.png');
+    background-image: url('./img/3.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     cursor: default;
     overflow-x: hidden;
+    color: rgb(245, 245, 245, 0.75);
 }
 
 main {
@@ -124,6 +125,30 @@ button:focus-visible {
     background-image: url("./img/gui/buttons/button_show_controls.png");
 }
 
+.start-btn {
+    background-image: url("./img/gui/buttons/button_start.png");
+}
+
+.start-btn:hover {
+    background-image: url("./img/gui/buttons/button_start_pressed.png");
+}
+
+.how-to-play-btn {
+    background-image: url("./img/gui/buttons/button_how_to_play.png");
+}
+
+.how-to-play-btn:hover {
+    background-image: url("./img/gui/buttons/button_how_to_play_pressed.png");
+}
+
+.about-btn {
+    background-image: url("./img/gui/buttons/button_about.png");
+}
+
+.about-btn:hover {
+    background-image: url("./img/gui/buttons/button_about_pressed.png");
+}
+
 /* .gif-character {
     width: calc(6.016rem - clamp(1.641rem, 5.1561rem + -3.9057vw, 4.375rem));
     height: calc(8.594rem - clamp(2.344rem, 7.3660rem + -5.5800vw, 6.25rem));
@@ -150,8 +175,12 @@ button:focus-visible {
         gap: calc(4.75rem - clamp(0.75rem, 4.9286rem + -4.6429vw, 4rem));
         display: flex;
         flex-direction: column;
-        color: rgb(245, 245, 245, 0.75);
         overflow-y: auto;
+
+        .rectangle-btn {
+            width: calc(8.25rem - clamp(1.5rem, 8.2500rem + -7.5000vw, 6.75rem));
+            height: calc(8.25rem - clamp(1.5rem, 8.2500rem + -7.5000vw, 6.75rem));
+        }
 
         .startscreen-headline {
             width: fit-content;
@@ -168,6 +197,23 @@ button:focus-visible {
             font-size: calc(3rem - clamp(0.875rem, 2.4821rem + -1.7857vw, 2.125rem));
             line-height: 0.9;
             text-align: center;
+        }
+
+        .startscreen-overview-btns {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+
+            div {
+                width: 50%;
+                gap: 8px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
         }
 
         .explanation-row {
@@ -222,6 +268,33 @@ button:focus-visible {
             .artist {
                 text-align: right;
             }
+        }
+
+        .externals {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 20px;
+            padding-left: 16px;
+
+            div {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                gap: 10%;
+
+                .external-btn {
+                    background-image: url("./img/gui/buttons/button_external.png");
+                }
+
+                .external-btn:hover {
+                    background-image: url("./img/gui/buttons/button_external_pressed.png");
+                }
+
+                h2 {
+                    padding: 0;
+                }
+            }
+
         }
     }
 }

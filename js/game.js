@@ -133,7 +133,7 @@ function openGameMenu(contentRefId) {
     adjustGameOverlay("add");
     removeEventListeners();
 }
-
+ 
 /**
 * This function adjusts the gameOverlay according to the toggle-option(add or remove).
 * 
@@ -258,4 +258,12 @@ function adjustControlsVisibility() {
         document.getElementById("controls").classList.add("d-none");
     }
     localStorage.setItem('controlsVisibility', JSON.stringify(controlsVisibility));
+}
+
+function openImpress() {
+
+}
+
+function openLegals() {
+    
 }

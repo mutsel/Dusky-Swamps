@@ -11,6 +11,11 @@
         height: 64.219px !important;
     }
 
+    button {
+        width: 52.5px !important;
+        height: 52.5px !important;
+    }
+
     .round-btn {
         width: 36px !important;
         height: 36px !important;

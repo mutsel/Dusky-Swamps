@@ -206,7 +206,7 @@ class Character extends MovableObject {
             if (this.timeIdling < 300) {
                 this.isSleeping = false;
                 this.timeIdling++;
-            } else if (this.isAlive) {
+            } else if (this.isAlive && !gameEndCalled) {
                 audios.longIdle.play();
                 audios.longIdle.volume = audioVolume;
                 return this.isSleeping = true;
