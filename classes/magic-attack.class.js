@@ -36,7 +36,9 @@ class MagicAttack extends ShootableObject {
     */
     animate() {
         setInterval(() => {
-            this.playAnimation(this.IMAGES);
+            if (!world.gamePaused) {
+                this.playAnimation(this.IMAGES);
+            }
         }, 1000 / 20)
     }
 } 

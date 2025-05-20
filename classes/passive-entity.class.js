@@ -27,11 +27,15 @@ class PassiveEntity extends MovableObject {
     */
     animate() {
         setInterval(() => {
-            this.moveLeft();
-            this.otherDirection = true;
+            if (!world.gamePaused) {
+                this.moveLeft();
+                this.otherDirection = true;
+            }
         }, 1000 / 30)
         setInterval(() => {
-            this.playAnimation(this.IMAGES_CROW);
+            if (!world.gamePaused) {
+                this.playAnimation(this.IMAGES_CROW);
+            }
         }, 1000 / 8)
     }
 }

@@ -30,6 +30,7 @@ class World {
     gameOver = false;
     victory = false;
     gameEndCalled = false;
+    gamePaused = false;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext("2d");
@@ -148,19 +149,22 @@ class World {
      */
     run() {
         setInterval(() => {
-            this.checkCollisionsEnemies();
-            this.checkCollisionShootableObjects();
-            this.checkCollisionsCollectables();
-            if (this.gameOver && !this.gameEndCalled) {
-                gameOver();
-                this.gameEndCalled = true;
-                adjustLoopSounds();
-            } else if (this.victory && !this.gameEndCalled) {
-                victory();
-                this.gameEndCalled = true;
-                adjustLoopSounds();
+            if (!this.gamePaused) {
+                this.checkCollisionsEnemies();
+                this.checkCollisionShootableObjects();
+                this.checkCollisionsCollectables();
+                if (this.gameOver && !this.gameEndCalled) {
+                    gameOver();
+                    this.gameEndCalled = true;
+                    adjustLoopSounds();
+                } else if (this.victory && !this.gameEndCalled) {
+                    victory();
+                    this.gameEndCalled = true;
+                    adjustLoopSounds();
+                }
+                this.checkCharacterNearbyEnemy();
             }
-            this.checkCharacterNearbyEnemy();
+
         }, 1000 / 60);
 
         this.respawnScenery();
@@ -270,12 +274,16 @@ class World {
      */
     respawnScenery() {
         setInterval(() => {
-            this.passiveEntities.push(new PassiveEntity(2800));
-            this.passiveEntities.push(new PassiveEntity(2800));
-            this.passiveEntities.push(new PassiveEntity(2800))
+            if (!this.gamePaused) {
+                this.passiveEntities.push(new PassiveEntity(2800));
+                this.passiveEntities.push(new PassiveEntity(2800));
+                this.passiveEntities.push(new PassiveEntity(2800))
+            }
         }, 20000);
         setInterval(() => {
-            this.level.sky.push(new Sky(2880));
+            if (!this.gamePaused) {
+                this.level.sky.push(new Sky(2880));
+            }
         }, 230000);
     }
 
@@ -298,8 +306,10 @@ class World {
             this.attackBar.setPercentage(this.attackBar.percentage - 25)
             this.availableMagicAttacks.push(new MagicAttack());
             setTimeout(() => {
-                this.availableMagicAttacks.shift();
-                this.magicAttackAvailable = true;
+                if (!world.gamePaused) {
+                    this.availableMagicAttacks.shift();
+                    this.magicAttackAvailable = true;
+                }
             }, 800);
         }
     }

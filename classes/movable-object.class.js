@@ -26,10 +26,12 @@ class MovableObject extends DrawableObject {
     */
     animate() {
         setInterval(() => {
-            this.animateMovement();
+            if (!world.gamePaused) {
+                this.animateMovement();
+            }
         }, 1000 / 60);
         setInterval(() => {
-            if (this.isAlive) {
+            if (this.isAlive && !world.gamePaused) {
                 this.animateImages();
             }
         }, 1000 / 10);

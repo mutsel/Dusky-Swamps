@@ -54,6 +54,7 @@ function keyDownEvents() {
             break;
         case 37:
         case 65: keyboard.LEFT = true;
+            keyboard.RIGHT = false;
             if (!world.character.isAboveGround()) {
                 audios.steps.play();
                 audios.steps.volume = audioVolume;
@@ -61,6 +62,7 @@ function keyDownEvents() {
             break;
         case 39:
         case 68: keyboard.RIGHT = true;
+            keyboard.LEFT = false;
             if (!world.character.isAboveGround()) {
                 audios.steps.play();
                 audios.steps.volume = audioVolume;

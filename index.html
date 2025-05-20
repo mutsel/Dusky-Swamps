@@ -192,16 +192,16 @@
         <section id="gameOverlay" class="game-overlay d-none">
             <div id="gameOverlaySections" class="game-overlay-sections">
                 <div id="gameBtns" class="game-buttons">
-                    <button onclick="openGameMenu('gameResetOptions')" id="resetBtn"
+                    <button onclick="openGameMenu('gameResetOptions'), toggleGamePaused()" id="resetBtn"
                         class="reset-btn round-btn"></button>
-                    <button onclick="openGameMenu('gameSettings')" id="settingsBtn"
+                    <button onclick="openGameMenu('gameSettings'), toggleGamePaused()" id="settingsBtn"
                         class="settings-btn round-btn"></button>
-                    <button onclick="closeGameMenu(), adjustGameOverlay('remove'), addEventListeners()" id="closeBtn"
+                    <button onclick="closeGameMenu(), adjustGameOverlay('remove'), addEventListeners(), toggleGamePaused()" id="closeBtn"
                         class="close-btn round-btn d-none"></button>
                 </div>
 
                 <div id="gameSettings" class="settings game-menu">
-                    <button onclick="closeGameMenu(), adjustGameOverlay('remove'), addEventListeners()"
+                    <button onclick="closeGameMenu(), adjustGameOverlay('remove'), addEventListeners(), toggleGamePaused()"
                         class="back-btn round-btn"></button>
                     <div class="settings-audio">
                         <div>
@@ -225,7 +225,7 @@
                 </div>
 
                 <div id="gameResetOptions" class="reset-options game-menu">
-                    <button onclick="closeGameMenu(), adjustGameOverlay('remove'), addEventListeners()"
+                    <button onclick="closeGameMenu(), adjustGameOverlay('remove'), addEventListeners(), toggleGamePaused()"
                         class="back-btn round-btn"></button>
                     <div>
                         <button onclick="startGame()" id="gameOverRetryBtn" class="retry-btn rectangle-btn"></button>

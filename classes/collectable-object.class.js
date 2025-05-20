@@ -47,7 +47,9 @@ class CollectableObject extends MovableObject {
     */
     animate() {
         setInterval(() => {
-            this.playAnimation(this.getImages());
+            if (!world.gamePaused) {
+                this.playAnimation(this.getImages());
+            }
         }, 1000 / 12)
     }
 }

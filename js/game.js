@@ -63,6 +63,7 @@ function createWorld() {
     world.gameOver = false;
     world.victory = false;
     gameEndCalled = false;
+    world.gamePaused = false;
 }
 
 /**
@@ -133,7 +134,7 @@ function openGameMenu(contentRefId) {
     adjustGameOverlay("add");
     removeEventListeners();
 }
- 
+
 /**
 * This function adjusts the gameOverlay according to the toggle-option(add or remove).
 * 
@@ -190,6 +191,7 @@ function gameEnd() {
     document.getElementById("settingsBtn").classList.add("d-none");
     document.getElementById("closeBtn").classList.add("d-none");
     removeEventListeners();
+    world.gamePaused = true;
 }
 
 /**
@@ -265,5 +267,13 @@ function openImpress() {
 }
 
 function openLegals() {
-    
+
 }
+
+/**
+* This function toggles the world gamePaused.
+* If the game is paused, no animations or movements are possible and no mo can take damage.
+*/
+function toggleGamePaused() {
+    world.gamePaused = !world.gamePaused;
+} 
