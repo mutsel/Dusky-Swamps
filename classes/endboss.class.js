@@ -82,7 +82,7 @@ class Endboss extends MovableObject {
         this.applyGravity();
         this.animateEndboss();
     }
-
+ 
     /**
     * This function is used to execude the endboss animations.
     * i is the counter for the intro-animation.

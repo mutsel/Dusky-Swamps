@@ -3,6 +3,7 @@ class World {
     healthBar = new HealthBar();
     attackBar = new AttackBar();
     gemsBar = new GemsBar();
+    endbossHealthbar = new EndbossHealthBar();
     availableMagicAttacks = [];
     magicAttackAvailable = true;
     canonballAttacks = [];
@@ -71,16 +72,18 @@ class World {
         this.addToMap(this.character);
         this.addObjectsToMap(this.availableMagicAttacks);
         this.addObjectsToMap(this.canonballAttacks);
+        this.addObjectsToMap(this.level.foregroundObjects);
 
         this.ctx.translate(-this.cameraX, 0);
         // Space for fixed objects
         this.addToMap(this.healthBar);
         this.addToMap(this.attackBar);
         this.addToMap(this.gemsBar);
+        if (this.firstBossContact) {
+            this.addToMap(this.endbossHealthbar);
+        }
 
         this.ctx.translate(this.cameraX, 0);
-
-        this.addObjectsToMap(this.level.foregroundObjects);
 
         this.ctx.translate(-this.cameraX, 0);
 
@@ -181,7 +184,10 @@ class World {
                     this.character.hit(25);
                     this.healthBar.setPercentage(this.character.energy);
                 }
-                e.hit(55);
+                e.hit(50);
+                if (e instanceof Endboss) {
+                    this.endbossHealthbar.setPercentageEndboss(e.energy / 2.5);
+                }
                 audios.enemyHurtJump.play();
                 audios.enemyHurtJump.volume = audioVolume;
                 this.character.speedY = 12;
@@ -202,9 +208,12 @@ class World {
             this.level.enemies.forEach((e) => {
                 if (a.isColliding(e)) {
                     this.availableMagicAttacks.splice(this.availableMagicAttacks.indexOf(a), 1);
-                    e.hit(55);
+                    e.hit(50);
                     audios.enemyHurtAttack.play();
                     audios.enemyHurtAttack.volume = audioVolume;
+                    if (e instanceof Endboss) {
+                        this.endbossHealthbar.setPercentageEndboss(e.energy / 2.5);
+                    }
                     return;
                 }
             });
