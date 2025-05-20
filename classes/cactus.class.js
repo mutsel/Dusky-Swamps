@@ -77,7 +77,7 @@ class Cactus extends MovableObject {
         this.applyGravity();
         this.animate();
     }
-
+ 
     /**
     * This function animates the cactus movement.
     * The cactus only moves, if the character is inside its range.
@@ -96,7 +96,7 @@ class Cactus extends MovableObject {
                 } else {
                     this.playAnimation(this.IMAGES_IDLE);
                 }
-            }, 400);
+            }, 400); 
         }
     }
 
@@ -142,6 +142,7 @@ class Cactus extends MovableObject {
     */
     animateImages() {
         if (this.isDead()) {
+            this.speed = 0;
             return this.animateDeath();
         } else if (this.isHurt) {
             this.playAnimation(this.IMAGES_HIT);

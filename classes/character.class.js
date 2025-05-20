@@ -154,6 +154,7 @@ class Character extends MovableObject {
     */
     animateImages() {
         if (this.isDead()) {
+            removeEventListeners();
             world.character.timeIdling = 0;
             return this.animateDeath();
         } else if (this.isHurt) {

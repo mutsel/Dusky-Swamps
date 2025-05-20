@@ -144,6 +144,7 @@ class Frog extends MovableObject {
     */
     animateImages() {
         if (this.isDead()) {
+            this.speed = 0;
             this.width = 31.5;
             return this.animateDeath();
         } else if (this.isHurt) {
