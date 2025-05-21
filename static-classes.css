@@ -35,6 +35,7 @@
     .startscreen-overview,
     .startscreen-how-to-play,
     .startscreen-about {
+        height: 480px !important;
         padding: 19.429px !important;
         gap: 26px !important;
 

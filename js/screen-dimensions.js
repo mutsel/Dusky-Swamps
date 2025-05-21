@@ -1,7 +1,6 @@
 let fullscreen;
 let screenWidth;
 let screenHeight;
-// let scale;
 
 /**
 * This function checks if the fullscreen-setting is deposited in the local storage.
@@ -44,7 +43,6 @@ function adjustScreenDimensions() {
         element.style.width = screenWidth + "px";
         element.style.height = screenHeight + "px";
     });
-    // scaleElements();
     adjustDimensionsElements();
 }
 
@@ -78,10 +76,10 @@ function getScreenDimensions() {
 * In case of the screenHeight is above the windows innerHeight - 240, the screenHeight is set equal to the windows innerHeight and the screenWidth is 1.5 times the screenHeight.
 */
 function getScreenDimensionsEdgeCases() {
-    if (window.innerHeight - 240 < window.innerWidth * 0.66) {
-        screenHeight = window.innerHeight - 240;
-        screenWidth = ((window.innerHeight - 240) * 1.5);
-    }
+    // if (window.innerHeight - 240 < window.innerWidth * 0.66) {
+    //     screenHeight = window.innerHeight - 240;
+    //     screenWidth = ((window.innerHeight - 240) * 1.5);
+    // }
     if (screenWidth > 1440) {
         screenWidth = 1440;
         screenHeight = 950.4;
@@ -100,7 +98,7 @@ function getScreenDimensionsEdgeCases() {
 * This function adjusts the height and width of some elements, so that they fit to the screen-dimensions.
 */
 function adjustDimensionsElements() {
-    if (fullscreen|| screenWidth < 720) {
+    if (fullscreen || screenWidth < 720) {
         document.getElementById("startscreen").classList.remove("static-size");
         document.getElementById("gameOverlay").classList.remove("static-size");
         document.getElementById("mobileControls").classList.remove("static-size");

@@ -175,7 +175,7 @@ button:disabled {
     .startscreen-how-to-play,
     .startscreen-about {
         width: 100%;
-        height: 480px;
+        height: 100%;
         padding: calc(3rem - clamp(0.5rem, 3.0714rem + -2.8571vw, 2.5rem));
         gap: calc(4.75rem - clamp(0.75rem, 4.9286rem + -4.6429vw, 4rem));
         display: flex;
@@ -589,6 +589,19 @@ canvas {
         width: 100%;
     }
 }
+
+/* @media (max-height: 1290px) {
+    .startscreen {
+        height: calc(100vw*0.666);
+
+        .startscreen-overview,
+        .startscreen-how-to-play,
+        .startscreen-about {
+            height: calc(100vw*0.666);
+        }
+
+    }
+} */
 
 @media only screen and (max-height: 720px) {
     h1 {
