@@ -3,54 +3,72 @@
     height: 59.813px !important;
 } */
 
-.static-startscreen-section {
-    padding: 19.429px !important;
-    gap: 26px !important;
-
-    .startscreen-headline {
-        height: 64.219px !important;
-    }
-
-    button {
-        width: 52.5px !important;
-        height: 52.5px !important;
+.static-size {
+    h2 {
+        padding-bottom: 7.143px !important;
+        font-size: 28.72px !important;
     }
 
     .round-btn {
         width: 36px !important;
         height: 36px !important;
-        margin-top: 19.429px !important;
+        margin-top: 0 !important;
+    }
+
+    .rectangle-btn {
+        width: 52.5px !important;
+        height: 52.5px !important;
+    }
+
+    .startscreen-headline {
+        padding-right: 36px !important;
+
+        img {
+            height: 64.219px !important;
+        }
     }
 
     p {
         font-size: 21px !important;
     }
 
-    div {
-        span {
-            padding-top: 6px !important;
-            font-size: 17px !important;
-        }
+    .startscreen-overview,
+    .startscreen-how-to-play,
+    .startscreen-about {
+        padding: 19.429px !important;
+        gap: 26px !important;
 
-        .gif-enemy {
-            width: 36.844px !important;
-            height: 43px !important;
-        }
+        .startscreen-overview-btns {
+            gap: 12px;
 
-        .gif-endboss {
-            width: 67.563px !important;
-            height: 73.703px !important;
-        }
+            .settings-btn {
+                margin-top: 14.11px !important;
+            }
 
-        .gif-collectable {
-            width: 24.563px !important;
-            height: 24.563px !important;
+            div {
+                gap: 8px !important;
+            }
         }
     }
 
-    h2 {
-        font-size: 28.72px !important;
-        padding-bottom: 7.143px !important;
+    span {
+        padding-top: 6px !important;
+        font-size: 17px !important;
+    }
+
+    .gif-enemy {
+        width: 36.844px !important;
+        height: 43px !important;
+    }
+
+    .gif-endboss {
+        width: 67.563px !important;
+        height: 73.703px !important;
+    }
+
+    .gif-collectable {
+        width: 24.563px !important;
+        height: 24.563px !important;
     }
 
     .credits {
@@ -61,107 +79,96 @@
             }
         }
     }
-}
 
-.static-settings {
-    width: 406.788px !important;
-    height: 480px !important;
-    padding-top: 112.143px !important;
-    padding-right: 57px !important;
-    padding-left: 31.857px !important;
+    .settings {
+        width: 406.788px !important;
+        height: 480px !important;
+        padding-top: 112.143px !important;
+        padding-right: 57px !important;
+        padding-left: 31.857px !important;
 
-    button {
-        width: 36px !important;
-        height: 36px !important;
-    }
+        .settings-audio {
+            padding-top: 69.285px !important;
 
-    .settings-audio {
-        padding-top: 69.285px !important;
-
-        div {
-            .volume-regulator {
-                width: 207.875px !important;
-                height: 33.016px !important;
+            div {
+                .volume-regulator {
+                    width: 207.875px !important;
+                    height: 33.016px !important;
+                }
             }
         }
-    }
 
-    .settings-controls-fullscreen {
-        padding-top: 21.505px !important;
-        gap: 20px !important;
-    }
-}
-
-.static-reset-options {
-    width: 406.33px !important;
-    padding-top: 131.429px !important;
-    padding-left: 23.429px !important;
-
-    .back-btn {
-        width: 36px !important;
-        height: 36px !important;
-    }
-
-    div {
-        padding-top: 20.857px !important;
-        padding-left: 24.285px !important;
-        gap: 40px !important;
-
-        button {
-            width: 52.5px !important;
-            height: 52.5px !important;
+        .settings-controls-fullscreen {
+            padding-top: 21.505px !important;
+            gap: 20px !important;
         }
     }
-}
 
-.static-game-over {
-    width: 338.328px !important;
-    height: 412px !important;
-    padding-top: 60px !important;
-    padding-left: 44px !important;
-    gap: 28px !important;
+    .reset-options {
+        width: 406.33px !important;
+        padding-top: 131.429px !important;
+        padding-left: 23.429px !important;
 
-    button {
-        width: 52.5px !important;
-        height: 52.5px !important;
-    }
-}
-
-.static-victory {
-    width: 406.328px !important;
-    height: 475.188px !important;
-
-    .gem-counter {
-        height: 242.844px !important;
-    }
-
-    .victory-btns {
-        width: 345.471px !important;
-        padding-top: 29.143px !important;
-        padding-left: 60.857px !important;
-        gap: 42px !important;
-
-        button {
-            width: 52.5px !important;
-            height: 52.5px !important;
+        div {
+            padding-top: 20.857px !important;
+            padding-left: 24.285px !important;
+            gap: 40px !important;
         }
     }
-}
 
-.static-game-btns {
-    button {
-        width: 36px !important;
-        height: 36px !important;
+    .game-over {
+        width: 338.328px !important;
+        height: 412px !important;
+        padding-top: 60px !important;
+        padding-left: 44px !important;
+        gap: 28px !important;
     }
-}
 
-.static-mobile-controls {
-    width: 145.6px !important;
-    padding-right: 19.429px !important;
-    margin-top: 13.429px !important;
+    .victory {
+        width: 406.328px !important;
+        height: 475.188px !important;
 
-    button {
-        width: 44px !important;
-        height: 44px !important;
+        .gem-counter {
+            height: 242.844px !important;
+        }
+
+        .victory-btns {
+            width: 345.471px !important;
+            padding-top: 29.143px !important;
+            padding-left: 60.857px !important;
+            gap: 42px !important;
+        }
+    }
+
+    .game-btns {
+        padding: 8.275px 8.275px 0 0 !important;
+    }
+
+    .mobile-btns {
+        width: 145.6px !important;
+        padding-right: 19.429px !important;
+        margin-top: 13.429px !important;
+
+        button {
+            width: 44px !important;
+            height: 44px !important;
+        }
+    }
+
+    .controls-section {
+        padding: 16.571px 10.857px !important;
+
+        div {
+            gap: 4.14px !important;
+        }
+
+        img {
+            height: 33.14px !important;
+        }
+
+        span {
+            font-size: 21px !important;
+            padding-left: 9.715px !important;
+        }
     }
 }

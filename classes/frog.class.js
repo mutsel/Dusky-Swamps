@@ -93,10 +93,12 @@ class Frog extends MovableObject {
     * This function animates the frogs movement.
     */
     animateMovement() {
-        if (this.otherDirection) {
-            return this.animateMovementRight();
-        } else {
-            return this.animateMovementLeft();
+        if (!this.attacking) {
+            if (this.otherDirection) {
+                return this.animateMovementRight();
+            } else {
+                return this.animateMovementLeft();
+            }
         }
     }
 

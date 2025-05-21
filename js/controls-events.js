@@ -14,6 +14,7 @@ window.addEventListener('keydown', (e) => {
 function addEventListeners() {
     window.addEventListener('keydown', keyDownEvents);
     window.addEventListener('keyup', keyUpEvents);
+    toggleMobileControls(false)
 }
 
 /**
@@ -23,6 +24,7 @@ function addEventListeners() {
 function removeEventListeners() {
     window.removeEventListener('keydown', keyDownEvents);
     window.removeEventListener('keyup', keyUpEvents);
+    toggleMobileControls(true)
     cancelEvents()
 }
 
@@ -144,4 +146,16 @@ function mobileControlsMouseup(key) {
             world.shootMagicAttack();
             break;
     }
+}
+
+/**
+* This function toggles the mobile-controls-btns-disabled-state.
+*
+* @param {boolean} boolean - true or false
+*/
+function toggleMobileControls(boolean) {
+    let mobileControlBtns = document.querySelectorAll(".mobile-control-btn");
+    mobileControlBtns.forEach(btn => {
+        btn.disabled = boolean;
+    });
 }

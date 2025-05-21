@@ -1,7 +1,7 @@
 let fullscreen;
 let screenWidth;
 let screenHeight;
-let scale;
+// let scale;
 
 /**
 * This function checks if the fullscreen-setting is deposited in the local storage.
@@ -44,7 +44,7 @@ function adjustScreenDimensions() {
         element.style.width = screenWidth + "px";
         element.style.height = screenHeight + "px";
     });
-    scaleElements();
+    // scaleElements();
     adjustDimensionsElements();
 }
 
@@ -88,39 +88,27 @@ function getScreenDimensionsEdgeCases() {
     }
 }
 
-/**
-* This function scales some elements, so that they fit to the screen-dimensions.
-*/
-function scaleElements() {
-    scale = screenWidth / 720;
-    document.querySelectorAll(".controls-section").forEach(element => { element.style.scale = scale; });
-}
+// /**
+// * This function scales some elements, so that they fit to the screen-dimensions.
+// */
+// function scaleElements() {
+//     scale = screenWidth / 720;
+//     document.querySelectorAll(".controls-section").forEach(element => { element.style.scale = scale; });
+// }
 
-/**
+/** 
 * This function adjusts the height and width of some elements, so that they fit to the screen-dimensions.
 */
 function adjustDimensionsElements() {
-    if (fullscreen || screenWidth < 720) {
-        document.getElementById("startscreenOverview").classList.remove("static-startscreen-section");
-        document.getElementById("startscreenHowToPlay").classList.remove("static-startscreen-section");
-        document.getElementById("startscreenAbout").classList.remove("static-startscreen-section");
-        document.getElementById("startscreenSettings").classList.remove("static-settings");
-        document.getElementById("gameSettings").classList.remove("static-settings");
-        document.getElementById("gameResetOptions").classList.remove("static-reset-options");
-        document.getElementById("gameBtns").classList.remove("static-game-btns");
-        document.getElementById("mobileControlsBtns").classList.remove("static-mobile-controls");
-        document.getElementById("gameOver").classList.remove("static-game-over");
-        document.getElementById("victory").classList.remove("static-victory");
+    if (fullscreen|| screenWidth < 720) {
+        document.getElementById("startscreen").classList.remove("static-size");
+        document.getElementById("gameOverlay").classList.remove("static-size");
+        document.getElementById("mobileControls").classList.remove("static-size");
+        document.getElementById("controls").classList.remove("static-size");
     } else {
-        document.getElementById("startscreenOverview").classList.add("static-startscreen-section");
-        document.getElementById("startscreenHowToPlay").classList.add("static-startscreen-section");
-        document.getElementById("startscreenAbout").classList.add("static-startscreen-section");
-        document.getElementById("startscreenSettings").classList.add("static-settings");
-        document.getElementById("gameSettings").classList.add("static-settings");
-        document.getElementById("gameResetOptions").classList.add("static-reset-options");
-        document.getElementById("gameBtns").classList.add("static-game-btns");
-        document.getElementById("mobileControlsBtns").classList.add("static-mobile-controls");
-        document.getElementById("gameOver").classList.add("static-game-over");
-        document.getElementById("victory").classList.add("static-victory");
+        document.getElementById("startscreen").classList.add("static-size");
+        document.getElementById("gameOverlay").classList.add("static-size");
+        document.getElementById("mobileControls").classList.add("static-size");
+        document.getElementById("controls").classList.add("static-size");
     }
 }

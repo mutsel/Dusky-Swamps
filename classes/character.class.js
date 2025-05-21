@@ -126,7 +126,7 @@ class Character extends MovableObject {
             this.speedY = 12;
             this.isJumping = true;
         }
-    }
+    } 
 
     /**
     * This function stops the characters movement, while the endboss-intro takes place.
@@ -134,7 +134,8 @@ class Character extends MovableObject {
     stopMovementEndbossIntro() {
         removeEventListeners();
         setTimeout(() => {
-            addEventListeners()
+            addEventListeners();
+            this.world.bossFightStarted = true;
         }, 3500);
     }
 
@@ -203,15 +204,15 @@ class Character extends MovableObject {
     * If 10seconds passed, the character is set to sleeping, the long-idle-animation is played and the according audio is played.
     */
     countIdlingTime() {
-        setInterval(() => {
-            if (this.timeIdling < 300) {
-                this.isSleeping = false;
-                this.timeIdling++;
-            } else if (this.isAlive && !gameEndCalled) {
-                audios.longIdle.play();
-                audios.longIdle.volume = audioVolume;
-                return this.isSleeping = true;
-            }
-        }, 1000 / 30);
+        // setInterval(() => {
+        //     if (this.timeIdling < 300) {
+        //         this.isSleeping = false;
+        //         this.timeIdling++;
+        //     } else if (this.isAlive && !gameEndCalled) {
+        //         audios.longIdle.play();
+        //         audios.longIdle.volume = audioVolume;
+        //         return this.isSleeping = true;
+        //     }
+        // }, 1000 / 30);
     }
 }

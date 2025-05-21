@@ -43,13 +43,15 @@ class MovableObject extends DrawableObject {
      */
     applyGravity() {
         setInterval(() => {
-            if (this.isAboveGround() || this.speedY > 0) {
-                this.y -= this.speedY;
-                this.speedY -= this.acceleration;
-            } else if (!this.isAboveGround()) {
-                this.speedY = 0;
-                this.isJumping = false;
-                this.y = this.getGroundY();
+            if (!world.gamePaused) {
+                if (this.isAboveGround() || this.speedY > 0) {
+                    this.y -= this.speedY;
+                    this.speedY -= this.acceleration;
+                } else if (!this.isAboveGround()) {
+                    this.speedY = 0;
+                    this.isJumping = false;
+                    this.y = this.getGroundY();
+                }
             }
         }, 1000 / 60)
     }
@@ -78,6 +80,10 @@ class MovableObject extends DrawableObject {
         return this.y < 380 - this.height;
     }
 
+    /**
+     * This function returns the ground-y-coordinate for each plattform and the ground.
+     * This way, it is made safe, that each entity is set back to the exact ground level are falling/jumping/...
+     */
     getGroundY() {
         //first large plattform
         if (this.x >= 460 - (this.width / 1.5) && this.x <= 716 - (this.width / 1.5) && this.y < 266 - this.height) {
@@ -224,7 +230,6 @@ class MovableObject extends DrawableObject {
             }
             this.isAlive = false;
             world.removeDeadEnemy();
-            return this.deathAnimationCounter = this.IMAGES_DEAD.length + 1;
         } else {
             this.playAnimation(this.IMAGES_DEAD);
             return this.deathAnimationCounter--;

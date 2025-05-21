@@ -28,6 +28,7 @@ class World {
     keyboard;
     cameraX = 0;
     firstBossContact = false;
+    bossFightStarted = false;
     gameOver = false;
     victory = false;
     gameEndCalled = false;
@@ -40,7 +41,7 @@ class World {
         this.setWorld();
         this.draw();
         this.run();
-    }
+    } 
 
     /**
      * This function sets this object as the world object for different other objects.
@@ -79,7 +80,7 @@ class World {
         this.addToMap(this.healthBar);
         this.addToMap(this.attackBar);
         this.addToMap(this.gemsBar);
-        if (this.firstBossContact) {
+        if (this.bossFightStarted) {
             this.addToMap(this.endbossHealthbar);
         }
 
@@ -206,14 +207,16 @@ class World {
     checkCollisionShootableObjects() {
         this.availableMagicAttacks.forEach((a) => {
             this.level.enemies.forEach((e) => {
-                if (a.isColliding(e)) {
-                    this.availableMagicAttacks.splice(this.availableMagicAttacks.indexOf(a), 1);
+                if (a.isColliding(e) && e.energy > 0) {
                     e.hit(50);
                     audios.enemyHurtAttack.play();
                     audios.enemyHurtAttack.volume = audioVolume;
                     if (e instanceof Endboss) {
                         this.endbossHealthbar.setPercentageEndboss(e.energy / 2.5);
                     }
+                    setTimeout(() => {
+                        this.availableMagicAttacks.splice(this.availableMagicAttacks.indexOf(a), 1);
+                    }, 20);
                     return;
                 }
             });
@@ -319,7 +322,7 @@ class World {
                     this.availableMagicAttacks.shift();
                     this.magicAttackAvailable = true;
                 }
-            }, 800);
+            }, 600);
         }
     }
 }

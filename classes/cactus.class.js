@@ -84,7 +84,7 @@ class Cactus extends MovableObject {
     * The cactus changes direction and runs in the opposite direction, if the character is behind him.
     */
     async animateMovement() {
-        if (this.characterNearby) {
+        if (this.characterNearby && !this.isDead()) {
             if (this.characterNoticed == false) {
                 await this.animateNoticeCharacter();
             }
@@ -111,7 +111,7 @@ class Cactus extends MovableObject {
             this.speedY = 1;
             setTimeout(() => {
                 return this.characterNoticed = true;
-            }, 400);
+            }, 400); 
         }
     }
 

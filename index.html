@@ -46,10 +46,8 @@
         <section id="startscreen" class="startscreen">
 
             <div id="startscreenOverview" class="startscreen-overview startscreen-menu">
-
-                <button onclick="openStartscreenSettings()" class="settings-btn round-btn"></button>
-
                 <div class="startscreen-overview-btns">
+                    <button onclick="openStartscreenSettings()" class="settings-btn round-btn"></button>
                     <div>
                         <button onclick="startGame()" class="start-btn rectangle-btn"></button>
                         <h2>Start</h2>
@@ -68,8 +66,11 @@
             <!-- <img class="gif-character" src="./img/gif/character.gif"> -->
 
             <div id="startscreenHowToPlay" class="startscreen-how-to-play startscreen-menu d-none">
-                <img src="./img/gui/menu/how_to_play.png" class="startscreen-headline">
-                <button onclick="init()" class="back-btn round-btn"></button>
+                <div class="startscreen-headline">
+                    <button onclick="init()" class="back-btn round-btn"></button>
+                    <img src="./img/gui/menu/how_to_play.png" class="headline-how-to-play">
+                </div>
+
 
                 <p>Welcome to my first game!
                     It is a small 2D plattformer, where you play as a lost alien on it's way back home.
@@ -109,8 +110,10 @@
             </div>
 
             <div id="startscreenAbout" class="startscreen-about startscreen-menu d-none">
-                <img src="./img/gui/menu/about_the_game.png" class="startscreen-headline">
-                <button onclick="init()" class="back-btn round-btn"></button>
+                <div class="startscreen-headline">
+                    <button onclick="init()" class="back-btn round-btn"></button>
+                    <img src="./img/gui/menu/about_the_game.png" class="headline-about">
+                </div>
 
                 <div>
                     <h2>Used Technologies</h2>
@@ -197,12 +200,14 @@
                         class="reset-btn round-btn"></button>
                     <button onclick="openGameMenu('gameSettings'), toggleGamePaused()" id="settingsBtn"
                         class="settings-btn round-btn"></button>
-                    <button onclick="closeGameMenu(), adjustGameOverlay('remove'), addEventListeners(), toggleGamePaused()" id="closeBtn"
-                        class="close-btn round-btn d-none"></button>
+                    <button
+                        onclick="closeGameMenu(), adjustGameOverlay('remove'), addEventListeners(), toggleGamePaused()"
+                        id="closeBtn" class="close-btn round-btn d-none"></button>
                 </div>
 
                 <div id="gameSettings" class="settings game-menu">
-                    <button onclick="closeGameMenu(), adjustGameOverlay('remove'), addEventListeners(), toggleGamePaused()"
+                    <button
+                        onclick="closeGameMenu(), adjustGameOverlay('remove'), addEventListeners(), toggleGamePaused()"
                         class="back-btn round-btn"></button>
                     <div class="settings-audio">
                         <div>
@@ -226,7 +231,8 @@
                 </div>
 
                 <div id="gameResetOptions" class="reset-options game-menu">
-                    <button onclick="closeGameMenu(), adjustGameOverlay('remove'), addEventListeners(), toggleGamePaused()"
+                    <button
+                        onclick="closeGameMenu(), adjustGameOverlay('remove'), addEventListeners(), toggleGamePaused()"
                         class="back-btn round-btn"></button>
                     <div>
                         <button onclick="startGame()" id="gameOverRetryBtn" class="retry-btn rectangle-btn"></button>
