@@ -262,12 +262,12 @@ function adjustControlsVisibility() {
     localStorage.setItem('controlsVisibility', JSON.stringify(controlsVisibility));
 }
 
+/**
+* This function opens the impress-section in the about-section.
+*/
 function openImpress() {
-
-}
-
-function openLegals() {
-
+    document.getElementById("startscreenAbout").classList.toggle("d-none");
+    document.getElementById("startscreenImpress").classList.toggle("d-none");
 }
 
 /**

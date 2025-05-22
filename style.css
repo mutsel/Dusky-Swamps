@@ -70,6 +70,11 @@ h2 {
     letter-spacing: (0.063rem, min(0.3vw, 0.2vh), 0.125rem);
 }
 
+a {
+    color: unset;
+    cursor: pointer;
+}
+
 button {
     border: none;
     background-color: transparent;
@@ -185,7 +190,8 @@ button:disabled {
 
     .startscreen-overview,
     .startscreen-how-to-play,
-    .startscreen-about {
+    .startscreen-about,
+    .startscreen-impress {
         width: 100%;
         height: 100%;
         /* padding: calc(3rem - clamp(0.5rem, 3.0714rem + -2.8571vw, 2.5rem)); */
@@ -203,6 +209,7 @@ button:disabled {
             align-items: center;
             justify-content: space-between;
             /* padding-right: calc(5.5rem - clamp(1rem, 5.5000rem + -5.0000vw, 4.5rem)); */
+            padding-right: clamp(1rem, min(5vw, 7.5vh), 4.5rem);
 
             .round-btn {
                 /* margin-top: calc(3rem - clamp(0.5rem, 3.0714rem + -2.8571vw, 2.5rem)); */
@@ -215,9 +222,14 @@ button:disabled {
                 height: clamp(1.938rem, min(8.3029vw, 11.718vh), 7.75rem);
                 margin: auto;
             }
+
+            h2 {
+                margin: auto;
+            }
         }
 
-        p {
+        p,
+        a {
             /* font-size: calc(3rem - clamp(0.875rem, 2.4821rem + -1.7857vw, 2.125rem)); */
             font-size: clamp(0.875rem, min(1.7857vw, 2.6786vh), 2.125rem);
             text-align: center;
