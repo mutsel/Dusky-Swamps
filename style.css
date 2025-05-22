@@ -285,29 +285,16 @@ button:disabled {
 
         .externals {
             display: flex;
-            justify-content: space-between;
-            padding-top: 20px;
-            padding-left: 16px;
+            align-items: center;
+            gap: calc(2.6rem - clamp(0.75rem, 2.3571rem + -1.7857vw, 2rem));
 
-            div {
-                flex: 1;
-                display: flex;
-                align-items: center;
-                gap: 10%;
-
-                .external-btn {
-                    background-image: url("./img/gui/buttons/button_external.png");
-                }
-
-                .external-btn:hover {
-                    background-image: url("./img/gui/buttons/button_external_pressed.png");
-                }
-
-                h2 {
-                    padding: 0;
-                }
+            .external-btn {
+                background-image: url("./img/gui/buttons/button_external.png");
             }
 
+            .external-btn:hover {
+                background-image: url("./img/gui/buttons/button_external_pressed.png");
+            }
         }
     }
 }
@@ -604,10 +591,6 @@ canvas {
 } */
 
 @media only screen and (max-height: 720px) {
-    h1 {
-        display: none !important;
-    }
-
     .game-overlay {
         height: 480px !important;
         margin-bottom: -480px !important;

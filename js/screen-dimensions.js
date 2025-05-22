@@ -28,74 +28,75 @@ function toggleFullscreen() {
 }
 
 /**
-* This function adjusts the height and width for some elements to the global screenWidth and screenHeight variables.
-* The position of some elements is adjusted as well.
+* This function executes the screen-dimensions-functions, so that the screenHeight and -Width are adjusted to the settings and window-size.
+* The viewport is adjusted to the canvas and startscreen, if necessary (i.e. if the viewport is too small to also show the game title).
 */
-function adjustScreenDimensions() {
-    getScreenDimensions()
-    document.getElementById("content").style.width = screenWidth + "px";
-    let fullscreenElements = [
-        document.getElementById("canvas"),
-        document.getElementById("startscreen"),
-        document.getElementById("gameOverlaySections")
-    ];
-    fullscreenElements.forEach(element => {
-        element.style.width = screenWidth + "px";
-        element.style.height = screenHeight + "px";
-    });
+async function adjustScreenDimensions() {
+    await getScreenDimensions();
+    adjustDimensionsContent();
     adjustDimensionsElements();
+    adjustFullscreenBtns();
+    document.getElementById("startscreen").scrollIntoView();
+    document.getElementById("canvas").scrollIntoView();
 }
 
 /**
 * This function sets the global screenWidth and screenHeight variables.
-* If fullscreen is turned off, the screenwidth and screenHeight are set to their default values.
 * If fullscreen is turned on, the screenwidth is the windows innerWidth and the screenHeight is 2/3 of the screenWidth.
+* If fullscreen is turned off, the screenwidth and screenHeight are set to their default values.
 */
-function getScreenDimensions() {
-    if (fullscreen) {
-        document.getElementById("fullscreenBtnStartscreen").classList.remove("low-opacity");
-        document.getElementById("fullscreenBtnGame").classList.remove("low-opacity");
+async function getScreenDimensions() {
+    if (fullscreen || window.innerWidth <= 720) {
         screenWidth = window.innerWidth;
-        screenHeight = (window.innerWidth * 0.66);
-        getScreenDimensionsEdgeCases();
-    } else {
-        document.getElementById("fullscreenBtnStartscreen").classList.add("low-opacity");
-        document.getElementById("fullscreenBtnGame").classList.add("low-opacity");
-        if (window.innerWidth >= 720) {
-            screenWidth = 720;
-            screenHeight = 480;
-        } else {
-            screenWidth = window.innerWidth;
-            screenHeight = (window.innerWidth * 0.66);
+        screenHeight = window.innerWidth * 0.66;
+        if (window.innerWidth > 1440) {
+            getScreenDimensionsBigWidth();
         }
+    } else {
+        screenWidth = 720;
+        screenHeight = 480;
+    }
+    if (screenHeight > window.innerHeight) {
+        getScreenDimensionsSmallHeight();
     }
 }
 
 /**
-* This function sets the global screenWidth and screenHeight variables for edge cases (i.e. extraordinary window-dimensions).
-* In case of the screenHeight is above the windows innerHeight - 240, the screenHeight is set equal to the windows innerHeight and the screenWidth is 1.5 times the screenHeight.
+* This function sets the screen-dimensions values to their max-values for larger window-widths.
 */
-function getScreenDimensionsEdgeCases() {
-    // if (window.innerHeight - 240 < window.innerWidth * 0.66) {
-    //     screenHeight = window.innerHeight - 240;
-    //     screenWidth = ((window.innerHeight - 240) * 1.5);
-    // }
-    if (screenWidth > 1440) {
-        screenWidth = 1440;
-        screenHeight = 950.4;
-    }
+function getScreenDimensionsBigWidth() {
+    screenWidth = 1440;
+    screenHeight = 950.4;
 }
 
-// /**
-// * This function scales some elements, so that they fit to the screen-dimensions.
-// */
-// function scaleElements() {
-//     scale = screenWidth / 720;
-//     document.querySelectorAll(".controls-section").forEach(element => { element.style.scale = scale; });
-// }
+/**
+* This function is used for viewports which are much wider then they are high.
+* It sets the screenHeight-value to the windows height. The screenWidth is adjusted accordingly.
+*/
+function getScreenDimensionsSmallHeight() {
+    screenHeight = window.innerHeight;
+    screenWidth = screenHeight * 1.5;
+}
+
+/**
+* This function adjusts the content-width to the screenWidth,
+* The contents elements are also adjusted to the screenWidth and -Height.
+*/
+function adjustDimensionsContent() {
+    document.getElementById("content").style.width = screenWidth + "px";
+    let contentElements = [
+        document.getElementById("canvas"),
+        document.getElementById("startscreen"),
+        document.getElementById("gameOverlaySections")
+    ];
+    contentElements.forEach(element => {
+        element.style.width = screenWidth + "px";
+        element.style.height = screenHeight + "px";
+    });
+}
 
 /** 
-* This function adjusts the height and width of some elements, so that they fit to the screen-dimensions.
+* This function toggles css-classes for some content-elements, so that they fit to the screen-dimensions.
 */
 function adjustDimensionsElements() {
     if (fullscreen || screenWidth < 720) {
@@ -108,5 +109,18 @@ function adjustDimensionsElements() {
         document.getElementById("gameOverlay").classList.add("static-size");
         document.getElementById("mobileControls").classList.add("static-size");
         document.getElementById("controls").classList.add("static-size");
+    }
+}
+
+/** 
+* This function toggles the low-opacity of the fullscreen-buttons.
+*/
+function adjustFullscreenBtns() {
+    if (fullscreen) {
+        document.getElementById("fullscreenBtnStartscreen").classList.remove("low-opacity");
+        document.getElementById("fullscreenBtnGame").classList.remove("low-opacity");
+    } else {
+        document.getElementById("fullscreenBtnStartscreen").classList.add("low-opacity");
+        document.getElementById("fullscreenBtnGame").classList.add("low-opacity");
     }
 }
