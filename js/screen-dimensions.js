@@ -92,14 +92,18 @@ function adjustDimensionsContent() {
     contentElements.forEach(element => {
         element.style.width = screenWidth + "px";
         element.style.height = screenHeight + "px";
+        element.style.minHeight = screenHeight + "px";
     });
+    if (inGame) {
+        document.getElementById("controls").style.marginTop = -screenHeight + "px";
+    }
 }
 
 /** 
 * This function toggles css-classes for some content-elements, so that they fit to the screen-dimensions.
 */
 function adjustDimensionsElements() {
-    if (fullscreen || screenWidth < 720) {
+    if (fullscreen || screenWidth < 720 || screenHeight < 480) {
         document.getElementById("startscreen").classList.remove("static-size");
         document.getElementById("gameOverlay").classList.remove("static-size");
         document.getElementById("mobileControls").classList.remove("static-size");

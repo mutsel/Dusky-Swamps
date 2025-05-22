@@ -104,6 +104,12 @@
             gap: 20px !important;
         }
     }
+/* 
+    .game-overlay-sections {
+        min-height: 480px;
+        position: static !important;
+        transform: translateY(-480px) !important;
+    } */
 
     .reset-options {
         width: 406.33px !important;
