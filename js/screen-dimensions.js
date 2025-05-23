@@ -35,6 +35,7 @@ async function adjustScreenDimensions() {
     await getScreenDimensions();
     adjustDimensionsContent();
     adjustDimensionsElements();
+    adjustInGameControls();
     adjustFullscreenBtns();
     document.getElementById("startscreen").scrollIntoView();
     document.getElementById("canvas").scrollIntoView();
@@ -87,32 +88,46 @@ function adjustDimensionsContent() {
     let contentElements = [
         document.getElementById("canvas"),
         document.getElementById("startscreen"),
-        document.getElementById("gameOverlaySections")
+        document.getElementById("gameOverlaySections"),
+        document.getElementById("mobileAlertFormat"),
     ];
     contentElements.forEach(element => {
         element.style.width = screenWidth + "px";
         element.style.height = screenHeight + "px";
         element.style.minHeight = screenHeight + "px";
     });
-    if (inGame) {
-        document.getElementById("controls").style.marginTop = -screenHeight + "px";
-    }
 }
 
 /** 
-* This function toggles css-classes for some content-elements, so that they fit to the screen-dimensions.
+* This function toggles css-classes for some elements, so that they fit to the screen-dimensions (static or not).
 */
 function adjustDimensionsElements() {
-    if (fullscreen || screenWidth < 720 || screenHeight < 480) {
-        document.getElementById("startscreen").classList.remove("static-size");
-        document.getElementById("gameOverlay").classList.remove("static-size");
-        document.getElementById("mobileControls").classList.remove("static-size");
-        document.getElementById("controls").classList.remove("static-size");
+    let staticElements = [
+        document.getElementById("startscreen"),
+        document.getElementById("gameOverlay"),
+        document.getElementById("mobileControls"),
+        document.getElementById("mobileAlert"),
+        document.getElementById("controls")
+    ]
+    staticElements.forEach(e => {
+        if (fullscreen || screenWidth < 720 || screenHeight < 480) {
+            e.classList.remove("static-size");
+        } else {
+            e.classList.add("static-size");
+        }
+    });
+}
+
+/** 
+* This function adjusts the position of the mobile-controls- and controls-section, when inGame.
+*/
+function adjustInGameControls() {
+    if (inGame) {
+        document.getElementById("mobileControls").style.marginTop = -screenHeight + "px";
+        document.getElementById("controls").style.marginTop = -screenHeight + "px";
     } else {
-        document.getElementById("startscreen").classList.add("static-size");
-        document.getElementById("gameOverlay").classList.add("static-size");
-        document.getElementById("mobileControls").classList.add("static-size");
-        document.getElementById("controls").classList.add("static-size");
+        document.getElementById("mobileControls").style.marginTop = 0;
+        document.getElementById("controls").style.marginTop = 0;
     }
 }
 

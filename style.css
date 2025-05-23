@@ -55,7 +55,6 @@ main {
 
 h1 {
     font-family: tiny5;
-    /* font-size: calc(5rem - clamp(2rem, 3.5333rem + -2.6667vw, 3rem)); */
     font-size: clamp(2rem, min(2.6667vw, 4rem), 3rem);
     letter-spacing: 6px;
     padding-top: 40px;
@@ -64,9 +63,7 @@ h1 {
 
 h2 {
     font-family: tiny5;
-    /* font-size: calc(4.5rem - clamp(1rem, 4.2143rem + -3.5714vw, 3.5rem)); */
     font-size: clamp(1rem, min(5vw, 5.9vh), 3.5rem);
-    /* letter-spacing: calc(0.188rem - clamp(0.063rem, 0.1427rem + -0.0886vw, 0.125rem)); */
     letter-spacing: (0.063rem, min(0.3vw, 0.2vh), 0.125rem);
 }
 
@@ -95,10 +92,6 @@ button:disabled {
 }
 
 .round-btn {
-    /* width: calc(5.5rem - clamp(1rem, 5.5000rem + -5.0000vw, 4.5rem));
-    height: calc(5.5rem - clamp(1rem, 5.5000rem + -5.0000vw, 4.5rem)); */
-    /* width: clamp(1rem, min(5vw, 7.5vh), 4.5rem);
-    height: clamp(1rem, min(5vw, 7.5vh), 4.5rem); */
     width: clamp(1rem, min(5vw, 7.5vh), 4.5rem);
     height: clamp(1rem, min(5vw, 7.5vh), 4.5rem);
 }
@@ -194,12 +187,8 @@ button:disabled {
     .startscreen-impress {
         width: 100%;
         height: 100%;
-        /* padding: calc(3rem - clamp(0.5rem, 3.0714rem + -2.8571vw, 2.5rem)); */
-        /* padding: clamp(0.5rem, min(2.5vw, 4.2vh), 2.5rem); */
         padding: clamp(0.5rem, min(2.8571vw, 3.9286vh), 2.5rem);
-        /* gap: calc(4.75rem - clamp(0.75rem, 4.9286rem + -4.6429vw, 4rem)); */
         gap: clamp(0.75rem, min(3.75vw, 6.7vh), 4rem);
-        /* gap: clamp(0.75rem, max(4.6429vw, 5.2105vh), 4rem); */
         display: flex;
         flex-direction: column;
         overflow-y: auto;
@@ -208,17 +197,13 @@ button:disabled {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            /* padding-right: calc(5.5rem - clamp(1rem, 5.5000rem + -5.0000vw, 4.5rem)); */
             padding-right: clamp(1rem, min(5vw, 7.5vh), 4.5rem);
 
             .round-btn {
-                /* margin-top: calc(3rem - clamp(0.5rem, 3.0714rem + -2.8571vw, 2.5rem)); */
-                /* margin-top: clamp(0.5rem, min(2.5vw, 4.2vh), 2.5rem); */
                 margin-top: clamp(0.5rem, min(2.8571vw, 3.9286vh), 2.5rem);
             }
 
             img {
-                /* height: calc(9.688rem - clamp(1.938rem, 9.4106rem + -8.3029vw, 7.75rem)); */
                 height: clamp(1.938rem, min(8.3029vw, 11.718vh), 7.75rem);
                 margin: auto;
             }
@@ -230,13 +215,11 @@ button:disabled {
 
         p,
         a {
-            /* font-size: calc(3rem - clamp(0.875rem, 2.4821rem + -1.7857vw, 2.125rem)); */
             font-size: clamp(0.875rem, min(1.7857vw, 2.6786vh), 2.125rem);
             text-align: center;
         }
 
         .startscreen-overview-btns {
-            /* gap: calc(2.6rem - clamp(0.75rem, 2.3571rem + -1.7857vw, 2rem)); */
             gap: clamp(0.75rem, min(1.7857vw, 3.2143vh), 2rem);
             display: flex;
             flex-direction: column;
@@ -247,14 +230,12 @@ button:disabled {
             }
 
             .settings-btn {
-                /* margin-top: calc(3rem - clamp(0.5rem, 3.0714rem + -2.8571vw, 2.5rem)); */
                 margin-top: clamp(0.5rem, min(2.8571vw, 3.9286vh), 2.5rem);
                 align-self: start;
             }
 
             div {
                 width: 50%;
-                /* gap: calc(1rem - clamp(0.25rem, 0.8929rem + -0.7143vw, 0.75rem)); */
                 gap: clamp(0.25rem, min(0.7143vw, 1.4286vh), 0.75rem);
                 display: flex;
                 flex-direction: column;
@@ -274,30 +255,23 @@ button:disabled {
                 justify-content: end;
 
                 span {
-                    /* font-size: calc(2.375rem - clamp(0.75rem, 1.8750rem + -1.2500vw, 1.625rem));
-                    padding-top: calc(1.25rem - clamp(0.25rem, 1.2143rem + -1.0714vw, 1rem)); */
-                    font-size: clamp(0.75rem, min(1.25vw, 1.875vh), 1.625rem);
-                    padding-top: clamp(0.25rem, min(1.0714vw, 1.6071vh), 1rem);
+                    font-size: clamp(0.75rem, min(2.5vw, 3.125vh), 1.625rem);
+                    padding-top: clamp(0.25rem, min(3.333vw, 4.464vh), 1rem);
+                    line-height: 0.9;
                     text-align: center;
                 }
 
                 .gif-enemy {
-                    /* width: calc(5.25rem - clamp(1.5rem, 4.3929rem + -3.2143vw, 3.75rem));
-                    height: calc(6.125rem - clamp(1.75rem, 5.1250rem + -3.7500vw, 4.375rem)); */
                     width: clamp(1.5rem, min(3.2143vw, 4.8214vh), 3.75rem);
                     height: clamp(1.75rem, min(3.75vw, 5.625vh), 4.375rem);
                 }
 
                 .gif-endboss {
-                    /* width: calc(9.625rem - clamp(2.75rem, 8.0536rem + -5.8929vw, 6.875rem));
-                    height: calc(10.5rem - clamp(3rem, 8.7857rem + -6.4286vw, 7.5rem)); */
                     width: clamp(2.75rem, min(5.8929vw, 8.8393vh), 6.875rem);
                     height: clamp(3rem, min(6.4286vw, 9.6429vh), 7.5rem);
                 }
 
                 .gif-collectable {
-                    /* width: calc(3.5rem - clamp(1rem, 2.9286rem + -2.1429vw, 2.5rem));
-                    height: calc(3.5rem - clamp(1rem, 2.9286rem + -2.1429vw, 2.5rem)); */
                     width: clamp(1rem, min(2.1429vw, 3.2143vh), 2.5rem);
                     height: clamp(1rem, min(2.1429vw, 3.2143vh), 2.5rem);
                 }
@@ -305,7 +279,6 @@ button:disabled {
         }
 
         h2 {
-            /* padding-bottom: calc(1.25rem - clamp(0rem, 1.6071rem + -1.7857vw, 1.25rem)); */
             padding-bottom: clamp(0rem, min(1.7857vw, 2.6786vh), 1.25rem);
             text-align: center;
         }
@@ -315,8 +288,6 @@ button:disabled {
 
             td {
                 width: 50%;
-                /* padding: calc(0.75rem - clamp(0.125rem, 0.7679rem + -0.7143vw, 0.625rem)) calc(1.125rem - clamp(0.125rem, 1.2500rem + -1.2500vw, 1rem));
-                font-size: calc(3rem - clamp(0.625rem, 2.8750rem + -2.5000vw, 2.375rem)); */
                 padding: clamp(0.125rem, min(0.7143vw, 1.0714vh), 0.625rem) clamp(0.125rem, min(1.25vw, 1.875vh), 1rem);
                 font-size: clamp(0.625rem, min(2.5vw, 3.75vh), 2.375rem);
                 line-height: 0.9;
@@ -330,7 +301,6 @@ button:disabled {
         .externals {
             display: flex;
             align-items: center;
-            /* gap: calc(2.6rem - clamp(0.75rem, 2.3571rem + -1.7857vw, 2rem)); */
             gap: clamp(0.75rem, min(1.7857vw, 2.6786vh), 2rem);
 
             .external-btn {
@@ -345,16 +315,12 @@ button:disabled {
 }
 
 .settings {
-    height: 100%;
-    /* width: calc(62.144000000000005rem - clamp(11.206rem, 62.2900rem + -56.7600vw, 50.938rem));
-    padding-top: calc(17.125rem - clamp(3.125rem, 17.1071rem + -15.5357vw, 14rem));
-    padding-right: calc(8.875rem - clamp(1.375rem, 9.2500rem + -8.7500vw, 7.5rem));
-    padding-left: calc(4.875rem - clamp(0.875rem, 4.8929rem + -4.4643vw, 4rem)); */
     width: clamp(11.206rem, min(56.76vw, 85.14vh), 50.938rem);
+    height: 100%;
     padding-top: clamp(3.125rem, min(15.5357vw, 23.3036vh), 14rem);
     padding-right: clamp(1.375rem, min(8.75vw, 13.125vh), 7.5rem);
     padding-left: clamp(0.875rem, min(4.4643vw, 6.6964vh), 4rem);
-    background-image: url("./img/GUI/menu/settings.png");
+    background-image: url("./img/gui/menu/settings.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -362,7 +328,6 @@ button:disabled {
     flex-direction: column;
 
     .settings-audio {
-        /* padding-top: calc(10.625rem - clamp(1.875rem, 10.7143rem + -9.8214vw, 8.75rem)); */
         padding-top: clamp(1.875rem, min(9.8214vw, 14.7321vh), 8.75rem);
         display: flex;
         flex-direction: column;
@@ -373,8 +338,6 @@ button:disabled {
             justify-content: space-between;
 
             .volume-regulator {
-                /* width: calc(32.1rem - clamp(5.35rem, 32.8643rem + -30.5714vw, 26.75rem));
-                height: calc(5.1rem - clamp(0.85rem, 5.2214rem + -4.8571vw, 4.25rem)); */
                 width: clamp(5.35rem, min(30.5714vw, 45.8571vh), 26.75rem);
                 height: clamp(0.85rem, min(4.8571vw, 7.2857vh), 4.25rem);
                 display: flex;
@@ -387,8 +350,6 @@ button:disabled {
 
     .settings-controls-fullscreen {
         width: 100%;
-        /* padding-top: calc(3.3129999999999997rem - clamp(0.563rem, 3.3749rem + -3.1243vw, 2.75rem));
-        gap: calc(2.8129999999999997rem - clamp(0.563rem, 2.7320rem + -2.4100vw, 2.25rem)); */
         padding-top: clamp(0.563rem, min(3.1243vw, 4.687vh), 2.75rem);
         gap: clamp(0.563rem, min(2.41vw, 3.615vh), 2.25rem);
         display: flex;
@@ -421,17 +382,14 @@ canvas {
             width: 100%;
             display: flex;
             justify-content: end;
-            /* padding: calc(1.25rem - clamp(0.25rem, 1.2143rem + -1.0714vw, 1rem)) calc(1.25rem - clamp(0.25rem, 1.2143rem + -1.0714vw, 1rem)) 0 0; */
             padding: clamp(0.25rem, min(1.0714vw, 1.0714vh), 1rem) clamp(0.25rem, min(1.0714vw, 1.0714vh), 1rem) 0 0;
             z-index: 2;
-            /* gap: calc(0.75rem - clamp(0.125rem, 0.5714rem + -0.3571vw, 0.5rem)); */
             gap: clamp(0.125rem, min(0.3571vw, 0.7143vh), 0.5rem);
             position: fixed;
             top: 0;
         }
 
         .game-menu {
-            /* width: calc(62.144000000000005rem - clamp(11.206rem, 62.2900rem + -56.7600vw, 50.938rem)); */
             width: clamp(11.206rem, min(56.76vw, 83.026vh), 50.938rem);
             height: 100%;
             background-size: contain;
@@ -460,17 +418,10 @@ canvas {
             background-image: url("./img/gui/menu/reset.png");
             display: flex;
             flex-direction: column;
-            /* padding-top: calc(20rem - clamp(3.75rem, 19.8214rem + -17.8571vw, 16.25rem));
-            padding-left: calc(3.5rem - clamp(0.75rem, 3.3214rem + -2.8571vw, 2.75rem)); */
-            /* padding-top: clamp(3.75rem, min(17.8571vw, 24.286vh), 16.25rem);
-            padding-left: clamp(0.75rem, min(2.8571vw, 4.0714vh), 2.75rem); */
             padding-top: clamp(3.75rem, min(17.8571vw, 26.7857vh), 16.25rem);
             padding-left: clamp(0.75rem, min(2.8571vw, 4.2857vh), 2.75rem);
 
             div {
-                /* padding-top: calc(3.25rem - clamp(0.5rem, 3.3929rem + -3.2143vw, 2.75rem));
-                padding-left: calc(3.75rem - clamp(0.625rem, 3.8393rem + -3.5714vw, 3.125rem));
-                gap: calc(5.375rem - clamp(1rem, 5.3393rem + -4.8214vw, 4.375rem)); */
                 padding-top: clamp(0.5rem, min(3.2143vw, 4.5714vh), 2.75rem);
                 padding-left: clamp(0.625rem, min(3.5714vw, 5vh), 3.125rem);
                 gap: clamp(1rem, min(4.8214vw, 6.2143vh), 4.375rem);
@@ -484,9 +435,6 @@ canvas {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            /* padding-top: calc(10.5rem - clamp(1.75rem, 10.7500rem + -10.0000vw, 8.75rem));
-            padding-left: calc(10.5rem - clamp(1.75rem, 10.7500rem + -10.0000vw, 8.75rem));
-            gap: calc(5.375rem - clamp(1rem, 5.3393rem + -4.8214vw, 4.375rem)); */
             padding-top: clamp(1.75rem, min(10vw, 14.1176vh), 8.75rem);
             padding-left: clamp(1.75rem, min(10vw, 14.1176vh), 8.75rem);
             gap: clamp(1rem, min(4.8214vw, 6.2143vh), 4.375rem);
@@ -499,7 +447,6 @@ canvas {
             justify-content: flex-start;
 
             .gem-counter {
-                /* height: calc(37.5rem - clamp(6.25rem, 38.3929rem + -35.7143vw, 31.25rem)); */
                 height: clamp(6.25rem, min(35.7143vw, 51.4286vh), 31.25rem);
                 background-image: url("./img/gui/win_gems/win_gems_00.png");
                 background-color: transparent;
@@ -511,9 +458,6 @@ canvas {
             .victory-btns {
                 display: flex;
                 flex-direction: column;
-                /* padding-top: calc(3.75rem - clamp(1.25rem, 2.8571rem + -1.7857vw, 2.5rem));
-                padding-left: calc(9.25rem - clamp(1.75rem, 9.1429rem + -8.2143vw, 7.5rem));
-                gap: calc(6rem - clamp(1rem, 6.1429rem + -5.7143vw, 5rem)); */
                 padding-top: clamp(1.25rem, min(1.7857vw, 2.5vh), 2.5rem);
                 padding-left: clamp(1.75rem, min(8.2143vw, 11.7143vh), 7.5rem);
                 gap: clamp(1rem, min(5.7143vw, 8.5714vh), 5rem);
@@ -534,15 +478,13 @@ canvas {
 
 .mobile-controls {
     width: 100%;
+    height: 0;
     justify-items: end;
     z-index: 2;
     position: relative;
-    height: 0;
+    display: none;
 
     .mobile-btns {
-        /* width: calc(24.375rem - clamp(5.625rem, 22.5000rem + -18.7500vw, 18.75rem));
-        padding-right: calc(3rem - clamp(0.5rem, 3.0714rem + -2.8571vw, 2.5rem));
-        margin-top: calc(1.75rem - clamp(0.75rem, 1.0714rem + -0.3571vw, 1rem)); */
         width: clamp(5.625rem, min(18.75vw, 27.5vh), 18.75rem);
         padding-right: clamp(0.5rem, min(2.8571vw, 3.9286vh), 2.5rem);
         margin-top: clamp(0.75rem, min(0.3571vw, 0.5357vh), 1rem);
@@ -552,8 +494,6 @@ canvas {
         align-items: center;
 
         button {
-            /* width: calc(6.5rem - clamp(1rem, 6.0000rem + -5.0000vw, 5rem));
-            height: calc(6.5rem - clamp(1rem, 6.0000rem + -5.0000vw, 5rem)); */
             width: clamp(1rem, min(5vw, 7.5vh), 5rem);
             height: clamp(1rem, min(5vw, 7.5vh), 5rem);
             background-color: transparent;
@@ -587,6 +527,25 @@ canvas {
     }
 }
 
+.mobile-alert {
+    height: 0;
+    z-index: 3;
+    display: none;
+
+    .dark-bg {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translateY(0%); 
+
+        img {
+            width: auto;
+            height: clamp(3.875rem, min(19.375vw, 23.5625vh), 15.5rem);
+        }
+    }
+}
+
 .controls {
     width: 100%;
     display: flex;
@@ -595,25 +554,20 @@ canvas {
     .controls-section {
         display: flex;
         align-items: center;
-        /* padding: calc(2.5rem - clamp(0.5rem, 2.4286rem + -2.1429vw, 2rem)) calc(1.5rem - clamp(0.5rem, 1.1429rem + -0.7143vw, 1rem)); */
         padding: clamp(0.5rem, min(2.1429vw, 3.2143vh), 2rem) clamp(0.5rem, min(0.7143vw, 1.0714vh), 1rem);
 
         div {
             display: flex;
             flex-direction: column;
-            /* gap: calc(0.625rem - clamp(0.125rem, 0.6071rem + -0.5357vw, 0.5rem)); */
             gap: clamp(0.125rem, min(0.5357vw, 0.8929vh), 0.5rem);
         }
 
         img {
             width: fit-content;
-            /* height: calc(5rem - clamp(1rem, 4.8571rem + -4.2857vw, 4rem)); */
             height: clamp(1rem, min(4.2857vw, 6.4286vh), 4rem);
         }
 
         span {
-            /* font-size: calc(3rem - clamp(0.75rem, 2.6786rem + -2.1429vw, 2.25rem));
-            padding-left: calc(1.5rem - clamp(0.25rem, 1.5357rem + -1.4286vw, 1.25rem)); */
             font-size: clamp(0.75rem, min(2.1429vw, 3.2143vh), 2.25rem);
             padding-left: clamp(0.25rem, min(1.4286vw, 2.1429vh), 1.25rem);
         }
@@ -632,5 +586,18 @@ canvas {
     background-color: rgba(0, 0, 0, 0.3);
 }
 
-/* @media only screen and (max-width: ...px) {
-} */
+@media screen and (orientation: portrait) and (pointer: coarse) and (max-width: 950px) {
+    .mobile-alert {
+        display: flex !important;
+    }
+}
+
+@media screen and (pointer: coarse) {
+    .mobile-controls {
+        display: block;
+    }
+
+    .controls {
+        margin-top: 0 !important;
+    }
+}

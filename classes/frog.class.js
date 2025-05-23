@@ -12,22 +12,22 @@ class Frog extends MovableObject {
     attacking = false;
 
     IMAGES_ATTACK = [
-        'img/enemies/frog/attack/Attack_01.png',
-        'img/enemies/frog/attack/Attack_02.png',
-        'img/enemies/frog/attack/Attack_03.png',
-        'img/enemies/frog/attack/Attack_04.png',
-        'img/enemies/frog/attack/Attack_05.png',
-        'img/enemies/frog/attack/Attack_06.png',
-        'img/enemies/frog/attack/Attack_07.png',
-        'img/enemies/frog/attack/Attack_08.png',
+        'img/enemies/frog/attack/attack_01.png',
+        'img/enemies/frog/attack/attack_02.png',
+        'img/enemies/frog/attack/attack_03.png',
+        'img/enemies/frog/attack/attack_04.png',
+        'img/enemies/frog/attack/attack_05.png',
+        'img/enemies/frog/attack/attack_06.png',
+        'img/enemies/frog/attack/attack_07.png',
+        'img/enemies/frog/attack/attack_08.png',
     ];
 
     IMAGES_DEAD = [
-        'img/enemies/frog/hit/Hit_05.png',
-        'img/enemies/frog/hit/Hit_04.png',
-        'img/enemies/frog/hit/Hit_03.png',
-        'img/enemies/frog/hit/Hit_02.png',
-        'img/enemies/frog/hit/Hit_01.png',
+        'img/enemies/frog/hit/hit_05.png',
+        'img/enemies/frog/hit/hit_04.png',
+        'img/enemies/frog/hit/hit_03.png',
+        'img/enemies/frog/hit/hit_02.png',
+        'img/enemies/frog/hit/hit_01.png',
         'img/dead_animation_universal/disappearing_01.png',
         'img/dead_animation_universal/disappearing_02.png',
         'img/dead_animation_universal/disappearing_03.png',
@@ -37,44 +37,44 @@ class Frog extends MovableObject {
     ];
 
     IMAGES_HIT = [
-        'img/enemies/frog/hit/Hit_01.png',
-        'img/enemies/frog/hit/Hit_02.png',
-        'img/enemies/frog/hit/Hit_03.png',
-        'img/enemies/frog/hit/Hit_04.png',
-        'img/enemies/frog/hit/Hit_05.png',
+        'img/enemies/frog/hit/hit_01.png',
+        'img/enemies/frog/hit/hit_02.png',
+        'img/enemies/frog/hit/hit_03.png',
+        'img/enemies/frog/hit/hit_04.png',
+        'img/enemies/frog/hit/hit_05.png',
     ];
 
     IMAGES_IDLE = [
-        'img/enemies/frog/idle/Idle_01.png',
-        'img/enemies/frog/idle/Idle_02.png',
-        'img/enemies/frog/idle/Idle_03.png',
-        'img/enemies/frog/idle/Idle_04.png',
-        'img/enemies/frog/idle/Idle_05.png',
-        'img/enemies/frog/idle/Idle_06.png',
-        'img/enemies/frog/idle/Idle_07.png',
-        'img/enemies/frog/idle/Idle_08.png',
-        'img/enemies/frog/idle/Idle_09.png',
-        'img/enemies/frog/idle/Idle_10.png',
-        'img/enemies/frog/idle/Idle_11.png',
+        'img/enemies/frog/idle/idle_01.png',
+        'img/enemies/frog/idle/idle_02.png',
+        'img/enemies/frog/idle/idle_03.png',
+        'img/enemies/frog/idle/idle_04.png',
+        'img/enemies/frog/idle/idle_05.png',
+        'img/enemies/frog/idle/idle_06.png',
+        'img/enemies/frog/idle/idle_07.png',
+        'img/enemies/frog/idle/idle_08.png',
+        'img/enemies/frog/idle/idle_09.png',
+        'img/enemies/frog/idle/idle_10.png',
+        'img/enemies/frog/idle/idle_11.png',
     ];
 
     IMAGES_RUN = [
-        'img/enemies/frog/run/Run_01.png',
-        'img/enemies/frog/run/Run_02.png',
-        'img/enemies/frog/run/Run_03.png',
-        'img/enemies/frog/run/Run_04.png',
-        'img/enemies/frog/run/Run_05.png',
-        'img/enemies/frog/run/Run_06.png',
-        'img/enemies/frog/run/Run_07.png',
-        'img/enemies/frog/run/Run_08.png',
-        'img/enemies/frog/run/Run_09.png',
-        'img/enemies/frog/run/Run_10.png',
-        'img/enemies/frog/run/Run_11.png',
-        'img/enemies/frog/run/Run_12.png',
+        'img/enemies/frog/run/run_01.png',
+        'img/enemies/frog/run/run_02.png',
+        'img/enemies/frog/run/run_03.png',
+        'img/enemies/frog/run/run_04.png',
+        'img/enemies/frog/run/run_05.png',
+        'img/enemies/frog/run/run_06.png',
+        'img/enemies/frog/run/run_07.png',
+        'img/enemies/frog/run/run_08.png',
+        'img/enemies/frog/run/run_09.png',
+        'img/enemies/frog/run/run_10.png',
+        'img/enemies/frog/run/run_11.png',
+        'img/enemies/frog/run/run_12.png',
     ];
 
     constructor(x, y, leftBorder, rightBorder) {
-        super().loadImage("img/enemies/frog/run/Run_01.png");
+        super().loadImage("img/enemies/frog/run/run_01.png");
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HIT);

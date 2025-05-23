@@ -9,21 +9,21 @@ class Endboss extends MovableObject {
     i;
 
     IMAGES_ATTACK = [
-        'img/enemies/endboss/Attack/Attack_01.png',
-        'img/enemies/endboss/Attack/Attack_02.png',
-        'img/enemies/endboss/Attack/Attack_03.png',
-        'img/enemies/endboss/Attack/Attack_04.png',
-        'img/enemies/endboss/Attack/Attack_05.png',
-        'img/enemies/endboss/Attack/Attack_06.png',
-        'img/enemies/endboss/Attack/Attack_07.png',
+        'img/enemies/endboss/attack/attack_01.png',
+        'img/enemies/endboss/attack/attack_02.png',
+        'img/enemies/endboss/attack/attack_03.png',
+        'img/enemies/endboss/attack/attack_04.png',
+        'img/enemies/endboss/attack/attack_05.png',
+        'img/enemies/endboss/attack/attack_06.png',
+        'img/enemies/endboss/attack/attack_07.png',
     ];
 
     IMAGES_DEAD = [
-        'img/enemies/endboss/Hit/Hit_05.png',
-        'img/enemies/endboss/Hit/Hit_04.png',
-        'img/enemies/endboss/Hit/Hit_03.png',
-        'img/enemies/endboss/Hit/Hit_02.png',
-        'img/enemies/endboss/Hit/Hit_01.png',
+        'img/enemies/endboss/hit/hit_05.png',
+        'img/enemies/endboss/hit/hit_04.png',
+        'img/enemies/endboss/hit/hit_03.png',
+        'img/enemies/endboss/hit/hit_02.png',
+        'img/enemies/endboss/hit/hit_01.png',
         'img/dead_animation_universal/disappearing_01.png',
         'img/dead_animation_universal/disappearing_02.png',
         'img/dead_animation_universal/disappearing_03.png',
@@ -33,40 +33,40 @@ class Endboss extends MovableObject {
     ];
 
     IMAGES_HIT = [
-        'img/enemies/endboss/Hit/Hit_01.png',
-        'img/enemies/endboss/Hit/Hit_02.png',
-        'img/enemies/endboss/Hit/Hit_03.png',
-        'img/enemies/endboss/Hit/Hit_04.png',
-        'img/enemies/endboss/Hit/Hit_05.png',
+        'img/enemies/endboss/hit/hit_01.png',
+        'img/enemies/endboss/hit/hit_02.png',
+        'img/enemies/endboss/hit/hit_03.png',
+        'img/enemies/endboss/hit/hit_04.png',
+        'img/enemies/endboss/hit/hit_05.png',
     ];
 
     IMAGES_IDLE = [
-        'img/enemies/endboss/Idle/Idle_01.png',
-        'img/enemies/endboss/Idle/Idle_02.png',
-        'img/enemies/endboss/Idle/Idle_03.png',
-        'img/enemies/endboss/Idle/Idle_04.png',
-        'img/enemies/endboss/Idle/Idle_05.png',
-        'img/enemies/endboss/Idle/Idle_06.png',
-        'img/enemies/endboss/Idle/Idle_07.png',
-        'img/enemies/endboss/Idle/Idle_08.png',
-        'img/enemies/endboss/Idle/Idle_09.png',
-        'img/enemies/endboss/Idle/Idle_10.png',
-        'img/enemies/endboss/Idle/Idle_11.png',
+        'img/enemies/endboss/idle/idle_01.png',
+        'img/enemies/endboss/idle/idle_02.png',
+        'img/enemies/endboss/idle/idle_03.png',
+        'img/enemies/endboss/idle/idle_04.png',
+        'img/enemies/endboss/idle/idle_05.png',
+        'img/enemies/endboss/idle/idle_06.png',
+        'img/enemies/endboss/idle/idle_07.png',
+        'img/enemies/endboss/idle/idle_08.png',
+        'img/enemies/endboss/idle/idle_09.png',
+        'img/enemies/endboss/idle/idle_10.png',
+        'img/enemies/endboss/idle/idle_11.png',
     ];
 
     IMAGES_RUN = [
-        'img/enemies/endboss/Run/Walk_01.png',
-        'img/enemies/endboss/Run/Walk_02.png',
-        'img/enemies/endboss/Run/Walk_03.png',
-        'img/enemies/endboss/Run/Walk_04.png',
-        'img/enemies/endboss/Run/Walk_05.png',
-        'img/enemies/endboss/Run/Walk_06.png',
-        'img/enemies/endboss/Run/Walk_07.png',
-        'img/enemies/endboss/Run/Walk_08.png',
-        'img/enemies/endboss/Run/Walk_09.png',
-        'img/enemies/endboss/Run/Walk_10.png',
-        'img/enemies/endboss/Run/Walk_11.png',
-        'img/enemies/endboss/Run/Walk_12.png',
+        'img/enemies/endboss/run/walk_01.png',
+        'img/enemies/endboss/run/walk_02.png',
+        'img/enemies/endboss/run/walk_03.png',
+        'img/enemies/endboss/run/walk_04.png',
+        'img/enemies/endboss/run/walk_05.png',
+        'img/enemies/endboss/run/walk_06.png',
+        'img/enemies/endboss/run/walk_07.png',
+        'img/enemies/endboss/run/walk_08.png',
+        'img/enemies/endboss/run/walk_09.png',
+        'img/enemies/endboss/run/walk_10.png',
+        'img/enemies/endboss/run/walk_11.png',
+        'img/enemies/endboss/run/walk_12.png',
     ];
 
     constructor() {

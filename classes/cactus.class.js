@@ -11,11 +11,11 @@ class Cactus extends MovableObject {
     acceleration = 1;
 
     IMAGES_DEAD = [
-        'img/enemies/cactus/Hit/Hit_05.png',
-        'img/enemies/cactus/Hit/Hit_04.png',
-        'img/enemies/cactus/Hit/Hit_03.png',
-        'img/enemies/cactus/Hit/Hit_02.png',
-        'img/enemies/cactus/Hit/Hit_01.png',
+        'img/enemies/cactus/hit/hit_05.png',
+        'img/enemies/cactus/hit/hit_04.png',
+        'img/enemies/cactus/hit/hit_03.png',
+        'img/enemies/cactus/hit/hit_02.png',
+        'img/enemies/cactus/hit/hit_01.png',
         'img/dead_animation_universal/disappearing_01.png',
         'img/dead_animation_universal/disappearing_02.png',
         'img/dead_animation_universal/disappearing_03.png',
@@ -25,45 +25,45 @@ class Cactus extends MovableObject {
     ];
 
     IMAGES_HIT = [
-        'img/enemies/cactus/Hit/Hit_01.png',
-        'img/enemies/cactus/Hit/Hit_02.png',
-        'img/enemies/cactus/Hit/Hit_03.png',
-        'img/enemies/cactus/Hit/Hit_04.png',
-        'img/enemies/cactus/Hit/Hit_05.png',
+        'img/enemies/cactus/hit/hit_01.png',
+        'img/enemies/cactus/hit/hit_02.png',
+        'img/enemies/cactus/hit/hit_03.png',
+        'img/enemies/cactus/hit/hit_04.png',
+        'img/enemies/cactus/hit/hit_05.png',
     ];
 
     IMAGES_IDLE = [
-        'img/enemies/cactus/Idle/Idle_01.png',
-        'img/enemies/cactus/Idle/Idle_02.png',
-        'img/enemies/cactus/Idle/Idle_03.png',
-        'img/enemies/cactus/Idle/Idle_04.png',
-        'img/enemies/cactus/Idle/Idle_05.png',
-        'img/enemies/cactus/Idle/Idle_06.png',
-        'img/enemies/cactus/Idle/Idle_07.png',
-        'img/enemies/cactus/Idle/Idle_08.png',
-        'img/enemies/cactus/Idle/Idle_09.png',
-        'img/enemies/cactus/Idle/Idle_10.png',
-        'img/enemies/cactus/Idle/Idle_11.png',
+        'img/enemies/cactus/idle/idle_01.png',
+        'img/enemies/cactus/idle/idle_02.png',
+        'img/enemies/cactus/idle/idle_03.png',
+        'img/enemies/cactus/idle/idle_04.png',
+        'img/enemies/cactus/idle/idle_05.png',
+        'img/enemies/cactus/idle/idle_06.png',
+        'img/enemies/cactus/idle/idle_07.png',
+        'img/enemies/cactus/idle/idle_08.png',
+        'img/enemies/cactus/idle/idle_09.png',
+        'img/enemies/cactus/idle/idle_10.png',
+        'img/enemies/cactus/idle/idle_11.png',
     ];
 
 
     IMAGES_RUN = [
-        'img/enemies/cactus/Run/Run_01.png',
-        'img/enemies/cactus/Run/Run_02.png',
-        'img/enemies/cactus/Run/Run_03.png',
-        'img/enemies/cactus/Run/Run_04.png',
-        'img/enemies/cactus/Run/Run_05.png',
-        'img/enemies/cactus/Run/Run_06.png',
-        'img/enemies/cactus/Run/Run_07.png',
-        'img/enemies/cactus/Run/Run_08.png',
-        'img/enemies/cactus/Run/Run_09.png',
-        'img/enemies/cactus/Run/Run_10.png',
-        'img/enemies/cactus/Run/Run_11.png',
-        'img/enemies/cactus/Run/Run_12.png',
+        'img/enemies/cactus/run/run_01.png',
+        'img/enemies/cactus/run/run_02.png',
+        'img/enemies/cactus/run/run_03.png',
+        'img/enemies/cactus/run/run_04.png',
+        'img/enemies/cactus/run/run_05.png',
+        'img/enemies/cactus/run/run_06.png',
+        'img/enemies/cactus/run/run_07.png',
+        'img/enemies/cactus/run/run_08.png',
+        'img/enemies/cactus/run/run_09.png',
+        'img/enemies/cactus/run/run_10.png',
+        'img/enemies/cactus/run/run_11.png',
+        'img/enemies/cactus/run/run_12.png',
     ];
 
     constructor(x, y, leftBorder, rightBorder) {
-        super().loadImage("img/enemies/cactus/Run/Run_01.png");
+        super().loadImage("img/enemies/cactus/run/run_01.png");
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HIT);
         this.loadImages(this.IMAGES_IDLE);

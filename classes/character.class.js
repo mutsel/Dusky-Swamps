@@ -9,21 +9,21 @@ class Character extends MovableObject {
     isSleeping = false;
 
     IMAGES_ATTACK = [
-        'img/character/Hit/Hit_03.png',
-        'img/character/Hit/Hit_04.png',
-        'img/character/Hit/Hit_05.png',
-        'img/character/Hit/Hit_06.png',
-        'img/character/Hit/Hit_07.png',
+        'img/character/hit/hit_03.png',
+        'img/character/hit/hit_04.png',
+        'img/character/hit/hit_05.png',
+        'img/character/hit/hit_06.png',
+        'img/character/hit/hit_07.png',
     ];
 
     IMAGES_DEAD = [
-        'img/character/Hit/Hit_07.png',
-        'img/character/Hit/Hit_06.png',
-        'img/character/Hit/Hit_05.png',
-        'img/character/Hit/Hit_04.png',
-        'img/character/Hit/Hit_03.png',
-        'img/character/Hit/Hit_02.png',
-        'img/character/Hit/Hit_01.png',
+        'img/character/hit/hit_07.png',
+        'img/character/hit/hit_06.png',
+        'img/character/hit/hit_05.png',
+        'img/character/hit/hit_04.png',
+        'img/character/hit/hit_03.png',
+        'img/character/hit/hit_02.png',
+        'img/character/hit/hit_01.png',
         'img/dead_animation_universal/disappearing_01.png',
         'img/dead_animation_universal/disappearing_02.png',
         'img/dead_animation_universal/disappearing_03.png',
@@ -33,35 +33,35 @@ class Character extends MovableObject {
     ];
 
     IMAGES_FALL = [
-        'img/character/Fall.png'
+        'img/character/fall.png'
     ];
 
     IMAGES_HIT = [
-        'img/character/Hit/Hit_01.png',
-        'img/character/Hit/Hit_02.png',
-        'img/character/Hit/Hit_03.png',
-        'img/character/Hit/Hit_04.png',
-        'img/character/Hit/Hit_05.png',
-        'img/character/Hit/Hit_06.png',
-        'img/character/Hit/Hit_07.png',
+        'img/character/hit/hit_01.png',
+        'img/character/hit/hit_02.png',
+        'img/character/hit/hit_03.png',
+        'img/character/hit/hit_04.png',
+        'img/character/hit/hit_05.png',
+        'img/character/hit/hit_06.png',
+        'img/character/hit/hit_07.png',
     ];
 
     IMAGES_IDLE = [
-        'img/character/Idle/Idle_01.png',
-        'img/character/Idle/Idle_02.png',
-        'img/character/Idle/Idle_03.png',
-        'img/character/Idle/Idle_04.png',
-        'img/character/Idle/Idle_05.png',
-        'img/character/Idle/Idle_06.png',
-        'img/character/Idle/Idle_07.png',
-        'img/character/Idle/Idle_08.png',
-        'img/character/Idle/Idle_09.png',
-        'img/character/Idle/Idle_10.png',
-        'img/character/Idle/Idle_11.png',
+        'img/character/idle/idle_01.png',
+        'img/character/idle/idle_02.png',
+        'img/character/idle/idle_03.png',
+        'img/character/idle/idle_04.png',
+        'img/character/idle/idle_05.png',
+        'img/character/idle/idle_06.png',
+        'img/character/idle/idle_07.png',
+        'img/character/idle/idle_08.png',
+        'img/character/idle/idle_09.png',
+        'img/character/idle/idle_10.png',
+        'img/character/idle/idle_11.png',
     ];
 
     IMAGES_JUMP = [
-        'img/character/Jump.png'
+        'img/character/jump.png'
     ];
 
     IMAGES_LONG_IDLE = [
@@ -80,22 +80,22 @@ class Character extends MovableObject {
     ];
 
     IMAGES_RUN = [
-        'img/character/Run/Run_01.png',
-        'img/character/Run/Run_02.png',
-        'img/character/Run/Run_03.png',
-        'img/character/Run/Run_04.png',
-        'img/character/Run/Run_05.png',
-        'img/character/Run/Run_06.png',
-        'img/character/Run/Run_07.png',
-        'img/character/Run/Run_08.png',
-        'img/character/Run/Run_09.png',
-        'img/character/Run/Run_10.png',
-        'img/character/Run/Run_11.png',
-        'img/character/Run/Run_12.png',
+        'img/character/run/run_01.png',
+        'img/character/run/run_02.png',
+        'img/character/run/run_03.png',
+        'img/character/run/run_04.png',
+        'img/character/run/run_05.png',
+        'img/character/run/run_06.png',
+        'img/character/run/run_07.png',
+        'img/character/run/run_08.png',
+        'img/character/run/run_09.png',
+        'img/character/run/run_10.png',
+        'img/character/run/run_11.png',
+        'img/character/run/run_12.png',
     ];
 
     constructor() {
-        super().loadImage("img/character/Fall.png");
+        super().loadImage("img/character/fall.png");
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_FALL);
@@ -197,22 +197,22 @@ class Character extends MovableObject {
             return true;
         }
         return false;
-    }
+    } 
 
     /**
     * This function counts up the time the player is not pressing any key. 
     * If 10seconds passed, the character is set to sleeping, the long-idle-animation is played and the according audio is played.
     */
     countIdlingTime() {
-        // setInterval(() => {
-        //     if (this.timeIdling < 300) {
-        //         this.isSleeping = false;
-        //         this.timeIdling++;
-        //     } else if (this.isAlive && !gameEndCalled) {
-        //         audios.longIdle.play();
-        //         audios.longIdle.volume = audioVolume;
-        //         return this.isSleeping = true;
-        //     }
-        // }, 1000 / 30);
+        setInterval(() => {
+            if (this.timeIdling < 300) {
+                this.isSleeping = false;
+                this.timeIdling++;
+            } else if (this.isAlive && !gameEndCalled) {
+                audios.longIdle.play();
+                audios.longIdle.volume = audioVolume;
+                return this.isSleeping = true;
+            }
+        }, 1000 / 30);
     }
 }

@@ -104,12 +104,6 @@
             gap: 20px !important;
         }
     }
-/* 
-    .game-overlay-sections {
-        min-height: 480px;
-        position: static !important;
-        transform: translateY(-480px) !important;
-    } */
 
     .reset-options {
         width: 406.33px !important;
@@ -176,6 +170,15 @@
         span {
             font-size: 21px !important;
             padding-left: 9.715px !important;
+        }
+    }
+
+    .dark-bg {
+        width: 720px !important;
+        height: 480px !important;
+
+        img {
+            height: 139.5px !important;
         }
     }
 }

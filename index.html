@@ -43,6 +43,13 @@
 <body onload="init()" onresize="adjustScreenDimensions()">
     <main id="content">
         <h1>Dusky Swamps</h1>
+
+        <section id="mobileAlert" class="mobile-alert">
+            <div id="mobileAlertFormat" class="dark-bg">
+                <img src="./img/gui/menu/mobile_alert_format.png" alt="mobile-alert-format">
+            </div>
+        </section>
+
         <section id="startscreen" class="startscreen">
 
             <div id="startscreenOverview" class="startscreen-overview startscreen-menu">
@@ -268,17 +275,17 @@
 
         </section>
 
-        <section id="mobileControls" class="mobile-controls d-none">
+        <section id="mobileControls" class="mobile-controls">
             <div id="mobileControlsBtns" class="mobile-btns">
-                <button onmousedown="mobileControlsMousedown('up')" onmouseup="mobileControlsMouseup('up')"
+                <button ontouchstart="mobileControlsMousedown('up')" ontouchend="mobileControlsMouseup('up')"
                     class="up-btn mobile-control-btn"></button>
                 <div>
-                    <button onmousedown="mobileControlsMousedown('left')" onmouseup="mobileControlsMouseup('left')"
+                    <button ontouchstart="mobileControlsMousedown('left')" ontouchend="mobileControlsMouseup('left')"
                         class="left-btn mobile-control-btn"></button>
-                    <button onmousedown="mobileControlsMousedown('right')" onmouseup="mobileControlsMouseup('right')"
+                    <button ontouchstart="mobileControlsMousedown('right')" ontouchend="mobileControlsMouseup('right')"
                         class="right-btn mobile-control-btn"></button>
                 </div>
-                <button onmousedown="mobileControlsMousedown('attack')" onmouseup="mobileControlsMouseup('attack')"
+                <button ontouchstart="mobileControlsMousedown('attack')" ontouchend="mobileControlsMouseup('attack')"
                     class="attack-btn mobile-control-btn"></button>
             </div>
         </section>
