@@ -68,6 +68,7 @@ h2 {
 }
 
 a {
+    text-decoration: none;
     color: unset;
     cursor: pointer;
 }
@@ -165,11 +166,6 @@ button:disabled {
     background-image: url("./img/gui/buttons/button_about_pressed.png");
 }
 
-/* .gif-character {
-    width: calc(6.016rem - clamp(1.641rem, 5.1561rem + -3.9057vw, 4.375rem));
-    height: calc(8.594rem - clamp(2.344rem, 7.3660rem + -5.5800vw, 6.25rem));
-} */
-
 .startscreen {
     width: 720px;
     height: 480px;
@@ -180,6 +176,10 @@ button:disabled {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+    .startscreen-overview {
+        overflow-y: hidden !important;
+    }
 
     .startscreen-overview,
     .startscreen-how-to-play,
@@ -219,6 +219,10 @@ button:disabled {
             text-align: center;
         }
 
+        .underlined {
+            text-decoration: underline;
+        }
+
         .startscreen-overview-btns {
             gap: clamp(0.75rem, min(1.7857vw, 3.2143vh), 2rem);
             display: flex;
@@ -229,17 +233,38 @@ button:disabled {
                 padding: 0;
             }
 
-            .settings-btn {
-                margin-top: clamp(0.5rem, min(2.8571vw, 3.9286vh), 2.5rem);
-                align-self: start;
-            }
-
             div {
                 width: 50%;
                 gap: clamp(0.25rem, min(0.7143vw, 1.4286vh), 0.75rem);
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+            }
+
+            .overview-btns-first-row {
+                width: 100%;
+
+                .gif-character {
+                    height: 0;
+
+                    img {
+                        width: clamp(1.641rem, min(5.1561vw, 6.016vh), 4.375rem);
+                        height: clamp(2.344rem, min(7.366vw, 8.594vh), 6.25rem);
+                        margin-top: clamp(10rem, min(50vw, 76.19vh), 50rem);
+                        margin-right: clamp(17.5rem, min(83.75vw, 116.52vh), 83.75rem);
+                        position: relative;
+                        cursor: grab;
+                    }
+
+                    img:active {
+                        cursor: grabbing;
+                    }
+                }
+
+                .settings-btn {
+                    margin-top: clamp(0.5rem, min(2.8571vw, 3.9286vh), 2.5rem);
+                    align-self: start;
+                }
             }
         }
 
@@ -301,6 +326,7 @@ button:disabled {
         .externals {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: clamp(0.75rem, min(1.7857vw, 2.6786vh), 2rem);
 
             .external-btn {
@@ -537,7 +563,7 @@ canvas {
         display: flex;
         align-items: center;
         justify-content: center;
-        transform: translateY(0%); 
+        transform: translateY(0%);
 
         img {
             width: auto;

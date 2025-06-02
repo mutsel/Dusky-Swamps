@@ -51,10 +51,14 @@
         </section>
 
         <section id="startscreen" class="startscreen">
-
             <div id="startscreenOverview" class="startscreen-overview startscreen-menu">
                 <div class="startscreen-overview-btns">
-                    <button onclick="openStartscreenSettings()" class="settings-btn round-btn"></button>
+                    <div class="overview-btns-first-row">
+                        <div class="gif-character" onclick="playStartscreenAnimation()">
+                            <img id="characterAnimation" src="./img/gif/character.gif">
+                        </div>
+                        <button onclick="openStartscreenSettings()" class="settings-btn round-btn"></button>
+                    </div>
                     <div>
                         <button onclick="startGame()" class="start-btn rectangle-btn"></button>
                         <h2>Start</h2>
@@ -70,8 +74,6 @@
                 </div>
             </div>
 
-            <!-- <img class="gif-character" src="./img/gif/character.gif"> -->
-
             <div id="startscreenHowToPlay" class="startscreen-how-to-play startscreen-menu d-none">
                 <div class="startscreen-headline">
                     <button onclick="init()" class="back-btn round-btn"></button>
@@ -79,10 +81,10 @@
                 </div>
 
 
-                <p>Welcome to my first game!
-                    It is a small 2D plattformer, where you play as a lost alien on it's way back home.
+                <p>Welcome to Dusky Swamps!
+                    This game is a small 2D plattformer, where you play as a lost alien on it's way back home.
                     Your goal is to find enough gems to be able to repair your spaceship. <br>
-                    But watch out! Dangerous creatures are coming for your and your precious gems. <br>
+                    But watch out! Dangerous creatures are coming for you and your precious gems. <br>
                     Fortunately you are able to defend yourself with your magic attack!
                 </p>
 
@@ -108,8 +110,8 @@
                     </div>
                     <div>
                         <img class="gif-endboss" src="./img/gif/endboss.gif">
-                        <span>The Endboss has more energy. <br>
-                            Moreover he can shoot canonballs
+                        <span>The Endboss has more energy <br>
+                            and can shoot canonballs
                         </span>
                     </div>
                 </div>
@@ -124,8 +126,8 @@
 
                 <div>
                     <h2>Used Technologies</h2>
-                    <p>This game is programmed using JavaScript. I used object-oriented programming. It also taught me a
-                        lot about game design and game physics.</p>
+                    <p>Dusky Swamps is my first game with JavaScript. I used object-oriented programming.
+                        Furthermore, the development taught me about game design and game physics.</p>
                 </div>
 
                 <div class="credits">
@@ -171,7 +173,7 @@
 
             <div id="startscreenImpress" class="startscreen-impress startscreen-menu d-none">
                 <div class="startscreen-headline">
-                    <button onclick="init()" class="back-btn round-btn"></button>
+                    <button onclick="openAbout()" class="back-btn round-btn"></button>
                     <h2>Impress</h2>
                 </div>
 
@@ -181,7 +183,7 @@
 
                 <p>contact:<br><br>
                     Tel: +49 1573 4850567<br>
-                    Mail: vollmann.anne@web.de</p>
+                    Mail: <a href="mailto:vollmann.anne@web.de" class="underlined">vollmann.anne@web.de</a></p>
 
                 <p>Source: <a href="https://www.e-recht24.de">e-recht24.de</a></p>
             </div>

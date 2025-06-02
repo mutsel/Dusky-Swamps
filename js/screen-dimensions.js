@@ -40,7 +40,7 @@ async function adjustScreenDimensions() {
     document.getElementById("startscreen").scrollIntoView();
     document.getElementById("canvas").scrollIntoView();
 }
-
+ 
 /**
 * This function sets the global screenWidth and screenHeight variables.
 * If fullscreen is turned on, the screenwidth is the windows innerWidth and the screenHeight is 2/3 of the screenWidth.

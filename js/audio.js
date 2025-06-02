@@ -26,7 +26,7 @@ audios = {
     bossfight: new Audio('./audio/bossfight.mp3'),
     gameOver: new Audio('./audio/game_over.mp3'),
     victory: new Audio('./audio/victory.mp3'),
-    roundBtn: new Audio('./audio/round_btn.mp3'),
+    roundBtn: new Audio('./audio/round_btn.mp3'), 
     rectangleBtn: new Audio('./audio/rectangle_btn.mp3')
 };
 

@@ -1,8 +1,3 @@
-/* .gif-character {
-    width: 41.875px !important;
-    height: 59.813px !important;
-} */
-
 .static-size {
     h2 {
         padding-bottom: 7.143px !important;
@@ -40,7 +35,16 @@
         gap: 26px !important;
 
         .startscreen-overview-btns {
-            gap: 12px;
+            gap: 12px !important;
+
+            .gif-character {
+                img {
+                    width: 41.875px !important;
+                    height: 59.813px !important;
+                    margin-top: 360px !important;
+                    margin-right: 603px !important;
+                }
+            }
 
             .settings-btn {
                 margin-top: 14.11px !important;

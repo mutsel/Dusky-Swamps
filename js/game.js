@@ -103,27 +103,47 @@ function closeGameMenu() {
 }
 
 /**
+* This function plays a small animation, when clicking the character in the startscreen
+*/
+async function playStartscreenAnimation() {
+    document.getElementById("characterAnimation").src = "./img/gif/character_clicked.gif";
+    audios.characterHurt.play()
+    audios.characterHurt.volume = audioVolume;
+    await delay(700);
+    document.getElementById("characterAnimation").src = "./img/gif/character.gif";
+}
+
+/**
 * This function opens the how-to-play-section in the main-menu.
 */
 function openHowToPlay() {
-    document.getElementById("startscreenOverview").classList.toggle("d-none");
-    document.getElementById("startscreenHowToPlay").classList.toggle("d-none");
+    document.getElementById("startscreenOverview").classList.add("d-none");
+    document.getElementById("startscreenHowToPlay").classList.remove("d-none");
 }
 
 /**
 * This function opens the about-section in the main-menu.
 */
 function openAbout() {
-    document.getElementById("startscreenOverview").classList.toggle("d-none");
-    document.getElementById("startscreenAbout").classList.toggle("d-none");
+    document.getElementById("startscreenOverview").classList.add("d-none");
+    document.getElementById("startscreenAbout").classList.remove("d-none");
+    document.getElementById("startscreenImpress").classList.add("d-none")
+}
+
+/**
+* This function opens the impress-section in the about-section.
+*/
+function openImpress() {
+    document.getElementById("startscreenAbout").classList.add("d-none");
+    document.getElementById("startscreenImpress").classList.remove("d-none");
 }
 
 /**
 * This function opens the settings-section in the main-menu.
 */
 function openStartscreenSettings() {
-    document.getElementById("startscreenOverview").classList.toggle("d-none");
-    document.getElementById("startscreenSettings").classList.toggle("d-none");
+    document.getElementById("startscreenOverview").classList.add("d-none");
+    document.getElementById("startscreenSettings").classList.remove("d-none");
 }
 
 /**
@@ -263,14 +283,6 @@ function adjustControlsVisibility() {
         document.getElementById("controls").classList.add("d-none");
     }
     localStorage.setItem('controlsVisibility', JSON.stringify(controlsVisibility));
-}
-
-/**
-* This function opens the impress-section in the about-section.
-*/
-function openImpress() {
-    document.getElementById("startscreenAbout").classList.toggle("d-none");
-    document.getElementById("startscreenImpress").classList.toggle("d-none");
 }
 
 /**
