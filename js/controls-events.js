@@ -58,16 +58,14 @@ function keyDownEvents() {
         case 65: keyboard.LEFT = true;
             keyboard.RIGHT = false;
             if (!world.character.isAboveGround()) {
-                audios.steps.play();
-                audios.steps.volume = audioVolume;
+                playAudio("steps");
             }
             break;
         case 39:
         case 68: keyboard.RIGHT = true;
             keyboard.LEFT = false;
             if (!world.character.isAboveGround()) {
-                audios.steps.play();
-                audios.steps.volume = audioVolume;
+                playAudio("steps");
             }
             break;
         case 40:
@@ -112,14 +110,12 @@ function mobileControlsMousedown(key) {
             break;
         case 'left': keyboard.LEFT = true;
             if (!world.character.isAboveGround()) {
-                audios.steps.play();
-                audios.steps.volume = audioVolume;
+                playAudio("steps");
             }
             break;
         case 'right': keyboard.RIGHT = true;
             if (!world.character.isAboveGround()) {
-                audios.steps.play();
-                audios.steps.volume = audioVolume;
+                playAudio("steps");
             }
             break;
         case 'attack': keyboard.ATTACK = true;

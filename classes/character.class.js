@@ -109,6 +109,19 @@ class Character extends MovableObject {
         this.animate();
         this.adjustCamera();
         this.countIdlingTime();
+        // this.setStoppableInterval(this.countIdlingTime, 1000 / 30);
+        // this.setStoppableInterval(this.adjustCamera, 1000 / 60);
+    }
+
+    /**
+    * This function adjusts the camera to the charactes current position.
+    */
+    adjustCamera() {
+        setInterval(() => {
+            if (!this.world.firstBossContact) {
+                this.world.cameraX = -this.x + 100;
+            }
+        }, 1000 / 60);
     }
 
     /**
@@ -126,7 +139,7 @@ class Character extends MovableObject {
             this.speedY = 12;
             this.isJumping = true;
         }
-    } 
+    }
 
     /**
     * This function stops the characters movement, while the endboss-intro takes place.
@@ -137,17 +150,6 @@ class Character extends MovableObject {
             addEventListeners();
             this.world.bossFightStarted = true;
         }, 3500);
-    }
-
-    /**
-    * This function adjusts the camera to the charactes current position.
-    */
-    adjustCamera() {
-        setInterval(() => {
-            if (!this.world.firstBossContact) {
-                this.world.cameraX = -this.x + 100;
-            }
-        }, 1000 / 60);
     }
 
     /**
@@ -197,7 +199,7 @@ class Character extends MovableObject {
             return true;
         }
         return false;
-    } 
+    }
 
     /**
     * This function counts up the time the player is not pressing any key. 
@@ -208,9 +210,8 @@ class Character extends MovableObject {
             if (this.timeIdling < 300) {
                 this.isSleeping = false;
                 this.timeIdling++;
-            } else if (this.isAlive && !gameEndCalled) {
-                audios.longIdle.play();
-                audios.longIdle.volume = audioVolume;
+            } else if (this.isAlive && !this.world.gameEndCalled) {
+                playAudio("longIdle");
                 return this.isSleeping = true;
             }
         }, 1000 / 30);

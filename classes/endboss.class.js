@@ -77,8 +77,6 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_RUN);
         this.deathAnimationCounter = this.IMAGES_DEAD.length;
-        this.b;
-        this.i;
         this.applyGravity();
         this.animateEndboss();
     }
@@ -89,6 +87,7 @@ class Endboss extends MovableObject {
     * b is the counter for the behavior-animation.
     */
     animateEndboss() {
+        // const endbossAnimationInterval = 
         setInterval(() => {
             if (!world.gamePaused) {
                 if (this.i < 42) {
@@ -108,6 +107,7 @@ class Endboss extends MovableObject {
                 }
             } else {audios.creakingSteps.pause();}
         }, 1000 / 12);
+        // world.intervals.push(endbossAnimationInterval);
     }
 
 
@@ -116,8 +116,7 @@ class Endboss extends MovableObject {
     */
     animateIntro() {
         if (this.i < 36) {
-            audios.creakingSteps.play();
-            audios.creakingSteps.volume = audioVolume;
+            playAudio("creakingSteps");
             this.moveLeft();
             this.playAnimation(this.IMAGES_RUN);
         } else {
@@ -169,14 +168,12 @@ class Endboss extends MovableObject {
     */
     animateMovement() {
         if (world.character.x + world.character.width < this.x) {
-            audios.creakingSteps.play();
-            audios.creakingSteps.volume = audioVolume;
+            playAudio("creakingSteps");
             this.moveLeft();
             this.otherDirection = false;
             this.playAnimation(this.IMAGES_RUN);
         } else if (world.character.x > this.x + this.width) {
-            audios.creakingSteps.play();
-            audios.creakingSteps.volume = audioVolume;
+            playAudio("creakingSteps");
             this.moveRight();
             this.otherDirection = true;
             this.playAnimation(this.IMAGES_RUN);

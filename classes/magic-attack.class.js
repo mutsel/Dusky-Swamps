@@ -25,8 +25,7 @@ class MagicAttack extends ShootableObject {
         this.x = this.character.x;
         this.y = this.character.y + 10;
         this.speed = this.setDirection(this.character, 12);
-        audios.magicAttack.play();
-        audios.magicAttack.volume = 0.4 * audioVolume;
+        playAudio("magicAttack");
         this.shoot();
         this.animate();
     }
@@ -35,10 +34,12 @@ class MagicAttack extends ShootableObject {
     * This function is used to animate the magic attack.
     */
     animate() {
+        // const magicAttackAnimationInterval = 
         setInterval(() => {
             if (!world.gamePaused) {
                 this.playAnimation(this.IMAGES);
             }
         }, 1000 / 20)
+        // world.intervals.push(magicAttackAnimationInterval);
     }
 } 

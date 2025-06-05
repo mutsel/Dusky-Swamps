@@ -28,11 +28,13 @@ class ShootableObject extends MovableObject {
      * The result is its new x-position.
      */
     shoot() {
+        // const shootableObjectMovementInterval = 
         setInterval(() => {
             if (!world.gamePaused) {
                 this.x -= this.speed;
                 this.otherDirection = true;
             }
         }, 1000 / 60);
+        // world.intervals.push(shootableObjectMovementInterval);
     }
 }

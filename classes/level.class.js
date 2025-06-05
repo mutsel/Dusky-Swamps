@@ -7,7 +7,7 @@ class Level {
     collectableObjects = [];
     foregroundObjects = [];
     levelEndX = 710 * 3 + 100;
-    
+    world;
 
     constructor(enemies, sky, backgroundObjects, decoration, plattforms, collectableObjects, foregroundObjects) {
         this.enemies = enemies;
@@ -28,6 +28,7 @@ class Level {
      * @param {Object} objects - the fore- and background-objects to be animated
      */
     animate(objects) {
+        // const sceneryAnimationInterval = 
         setInterval(() => {
             objects.forEach((o) => {
                 if (o.category !== "ground") {
@@ -40,5 +41,6 @@ class Level {
                 }
             });
         }, 1000 / 60);
+        // this.world.intervals.push(sceneryAnimationInterval);
     }
 }

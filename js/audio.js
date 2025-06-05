@@ -9,7 +9,7 @@ const volumeRegulatorImgs = [
     "url('img/gui/volume_regulator/volume_regulator_100.png')"
 ];
 
-audios = {
+let audios = {
     scenery: new Audio('./audio/scenery.mp3'),
     steps: new Audio('./audio/steps.mp3'),
     creakingSteps: new Audio('./audio/creaking_steps.mp3'),
@@ -26,9 +26,14 @@ audios = {
     bossfight: new Audio('./audio/bossfight.mp3'),
     gameOver: new Audio('./audio/game_over.mp3'),
     victory: new Audio('./audio/victory.mp3'),
-    roundBtn: new Audio('./audio/round_btn.mp3'), 
+    roundBtn: new Audio('./audio/round_btn.mp3'),
     rectangleBtn: new Audio('./audio/rectangle_btn.mp3')
 };
+
+function playAudio(audio) {
+    audios[audio].play();
+    audios[audio].volume = audioVolume;
+}
 
 /**
 * This function adds sound to each button. Round and rectangle buttons have different audios.
@@ -38,14 +43,12 @@ function addButtonSounds() {
     const rectangleBtns = document.querySelectorAll('.rectangle-btn');
     roundBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            audios.roundBtn.play();
-            audios.roundBtn.volume = audioVolume;
+            playAudio("roundBtn");
         });
     });
     rectangleBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            audios.rectangleBtn.play();
-            audios.rectangleBtn.volume = audioVolume;
+            playAudio("rectangleBtn");
         });
     });
 }
@@ -119,7 +122,7 @@ function adjustAudioVolume() {
     }
     if (inGame) {
         adjustLoopSounds();
-    } 
+    }
 }
 
 /**
@@ -130,12 +133,10 @@ function adjustLoopSounds() {
         audios.scenery.pause();
         audios.bossfight.pause();
     } else {
-        audios.scenery.play();
-        audios.scenery.volume = audioVolume;
+        playAudio("scenery");
         if (world.firstBossContact) {
-            audios.bossfight.play();
+            playAudio("bossfight");
             audios.bossfight.loop = true;
-            audios.bossfight.volume = audioVolume;
         }
     }
 }

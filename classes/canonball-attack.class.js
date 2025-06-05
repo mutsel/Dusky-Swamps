@@ -11,8 +11,7 @@ class CanonballAttack extends ShootableObject {
         this.x = this.setX();
         this.y = this.endboss.y + 15;
         this.speed = this.setDirection(this.endboss, -10);
-        audios.canonballAttack.play();
-        audios.canonballAttack.volume = audioVolume * 0.25;
+        playAudio("canonballAttack");
         this.shoot();
     }
 

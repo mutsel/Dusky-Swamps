@@ -14,28 +14,30 @@ class PassiveEntity extends MovableObject {
     constructor(x) {
         super().loadImage(this.IMAGES_CROW[0]);
         this.loadImages(this.IMAGES_CROW);
-
         this.x = x + Math.random() * 300;
         this.y = 50 + Math.random() * 200;
         this.speed = 0.8;
-
         this.animate();
     }
 
     /**
-    * This function is used to animate the movable Object (movement and animation)
+    * This function is used to animate the passive entities (movement and animation)
     */
     animate() {
+        // const passiveEntitiesMovemenInterval = 
         setInterval(() => {
             if (!world.gamePaused) {
                 this.moveLeft();
                 this.otherDirection = true;
             }
         }, 1000 / 30)
-        setInterval(() => {
+        // const passiveEntitiesAnimationInterval =
+         setInterval(() => {
             if (!world.gamePaused) {
                 this.playAnimation(this.IMAGES_CROW);
             }
         }, 1000 / 8)
+        // world.intervals.push(passiveEntitiesMovemenInterval);
+        // world.intervals.push(passiveEntitiesAnimationInterval);
     }
 }

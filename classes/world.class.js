@@ -1,4 +1,5 @@
 class World {
+    intervals = [];
     character = new Character();
     healthBar = new HealthBar();
     attackBar = new AttackBar();
@@ -41,7 +42,7 @@ class World {
         this.setWorld();
         this.draw();
         this.run();
-    } 
+    }
 
     /**
      * This function sets this object as the world object for different other objects.
@@ -115,10 +116,8 @@ class World {
         if (mo.otherDirection) {
             this.flipImage(mo);
         }
-
         mo.draw(this.ctx);
         mo.drawFrame(this.ctx);
-
         if (mo.otherDirection) {
             this.flipImageBack(mo);
         }
@@ -149,29 +148,53 @@ class World {
     }
 
     /**
+     * This function sets an interval-function and pushes it in the worlds interval-array.
+     * 
+     * @param {function} fn - the function, that should be called
+     * @param {number} time - the execution interval in milliseconds
+     */
+    setStoppableInterval(fn, time) {
+        let id = setInterval(fn.bind(this), time);
+        this.intervals.push(id);
+    }
+
+    /**
+     * This function stops the game by clearing all intervals.
+     */
+    stopGame() {
+        // console.log(this.intervals);
+        this.intervals.forEach(clearInterval);
+    }
+
+    /**
      * This function runs the game. It executes the checkCollision-functions, checks if the game ends and is used for the scenery.
      */
     run() {
-        setInterval(() => {
-            if (!this.gamePaused) {
-                this.checkCollisionsEnemies();
-                this.checkCollisionShootableObjects();
-                this.checkCollisionsCollectables();
-                if (this.gameOver && !this.gameEndCalled) {
-                    gameOver();
-                    this.gameEndCalled = true;
-                    adjustLoopSounds();
-                } else if (this.victory && !this.gameEndCalled) {
-                    victory();
-                    this.gameEndCalled = true;
-                    adjustLoopSounds();
-                }
-                this.checkCharacterNearbyEnemy();
-            }
+        // if (!this.gamePaused) {
+        this.setStoppableInterval(this.respawnPassiveEntities, 20000);
+        this.setStoppableInterval(this.checkRespawnSky, 1000 / 60);
+        this.setStoppableInterval(this.checkCollisionsEnemies, 1000 / 60);
+        this.setStoppableInterval(this.checkCollisionShootableObjects, 1000 / 60);
+        this.setStoppableInterval(this.checkCollisionsCollectables, 1000 / 60);
+        this.setStoppableInterval(this.checkCharacterNearbyEnemy, 1000 / 60);
+        this.setStoppableInterval(this.checkGameEnd, 1000 / 60);
+        // }
+    }
 
-        }, 1000 / 60);
-
-        this.respawnScenery();
+    /**
+     * This function checks if the game did not already ended and if victory or gameOver are set to true.
+     * If so, it executes the according function.
+     */
+    checkGameEnd() {
+        if (this.gameOver && !this.gameEndCalled) {
+            gameOver();
+            this.gameEndCalled = true;
+            adjustLoopSounds();
+        } else if (this.victory && !this.gameEndCalled) {
+            victory();
+            this.gameEndCalled = true;
+            adjustLoopSounds();
+        }
     }
 
     /**
@@ -181,74 +204,104 @@ class World {
     checkCollisionsEnemies() {
         this.level.enemies.forEach((e) => {
             if (this.character.isJumpingOnTop(e) && e.energy > 0) {
-                if (e instanceof Cactus) {
-                    this.character.hit(25);
-                    this.healthBar.setPercentage(this.character.energy);
-                }
-                e.hit(50);
-                if (e instanceof Endboss) {
-                    this.endbossHealthbar.setPercentageEndboss(e.energy / 2.5);
-                }
-                audios.enemyHurtJump.play();
-                audios.enemyHurtJump.volume = audioVolume;
-                this.character.speedY = 12;
+                this.characterJumpsOnEnemy(e)
             } else if (this.character.isColliding(e) && e.energy > 0) {
-                this.character.hit(25);
-                this.character.speedY = -1;
-                this.healthBar.setPercentage(this.character.energy);
+                this.characterCollidesWithEnemy();
             }
         });
     }
 
     /**
-     * This function checks for each of the magic attacks in the availableMagicAttacks-array, if it colliding with an enemie.
-     * If so, the hit()-function for the enemie is executed and the magicAttacks disappears.
+     * This function is used, when the character jumps on top of an enemy.
+     * The enemy suffers damage and the character bounces back.
+     * If the enemy is a cactus, the character also suffers damage.
+     * If the enemy is the endboss, the endboss healthbar is adjusted.
+     * 
+     * @param {Object} e - an enemy
+     */
+    characterJumpsOnEnemy(e) {
+        e.hit(50);
+        this.character.speedY = 12;
+        playAudio("enemyHurtJump");
+        if (e instanceof Cactus) {
+            this.character.hit(25);
+            this.healthBar.setPercentage(this.character.energy);
+        }
+        if (e instanceof Endboss) {
+            this.endbossHealthbar.setPercentageEndboss(e.energy / 2.5);
+        }
+    }
+
+    /**
+     * This function is used, when the character collides with an enemy.
+     * The character suffers damage and its speed is reduced.
+     */
+    characterCollidesWithEnemy() {
+        this.character.hit(25);
+        this.character.speedY = -1;
+        this.healthBar.setPercentage(this.character.energy);
+    }
+
+    /**
+     * This function checks for each of the magic attacks in the availableMagicAttacks-array, if it is colliding with an enemy.
+     * If so, the according function is executed.
      */
     checkCollisionShootableObjects() {
         this.availableMagicAttacks.forEach((a) => {
             this.level.enemies.forEach((e) => {
                 if (a.isColliding(e) && e.energy > 0) {
-                    e.hit(50);
-                    audios.enemyHurtAttack.play();
-                    audios.enemyHurtAttack.volume = audioVolume;
-                    if (e instanceof Endboss) {
-                        this.endbossHealthbar.setPercentageEndboss(e.energy / 2.5);
-                    }
-                    setTimeout(() => {
-                        this.availableMagicAttacks.splice(this.availableMagicAttacks.indexOf(a), 1);
-                    }, 20);
-                    return;
+                    this.magicAttackHitEnemy(a, e);
                 }
             });
         });
         this.canonballAttacks.forEach((c) => {
             if (c.isColliding(this.character)) {
-                this.character.hit(25);
-                this.healthBar.setPercentage(this.healthBar.percentage - 25)
-                this.canonballAttacks.splice(this.canonballAttacks.indexOf(c), 1);
-                return;
+                this.canonballAttackHitCharacter(c);
             }
         });
     }
 
     /**
+     * This function is used, when a magic attack hits an enemy.
+     * The enemy suffers damage and the magic attack is removed.
+     * 
+     * @param {Object} a - a magic attack
+     * @param {Object} e - en enemy
+     */
+    magicAttackHitEnemy(a, e) {
+        e.hit(50);
+        playAudio("enemyHurtAttack");
+        if (e instanceof Endboss) {
+            this.endbossHealthbar.setPercentageEndboss(e.energy / 2.5);
+        }
+        setTimeout(() => {
+            this.availableMagicAttacks.splice(this.availableMagicAttacks.indexOf(a), 1);
+        }, 20);
+    }
+
+    /**
+     * This function is used, when a canonball attack hits the character.
+     * The character suffers damage and the canonball attack is removed.
+     * 
+     * @param {Object} c - a canonball attack
+     */
+    canonballAttackHitCharacter(c) {
+        this.character.hit(25);
+        this.healthBar.setPercentage(this.healthBar.percentage - 25)
+        this.canonballAttacks.splice(this.canonballAttacks.indexOf(c), 1);
+    }
+
+    /**
      * This function checks for each of the collectables (gems, magicStones), if the character is colliding with one of them.
-     * If so, the collectable disappears, a sound is played and the statusbar for this collectable is updated.
+     * If so, the according function is executed.
      */
     checkCollisionsCollectables() {
         this.level.collectableObjects.forEach((c) => {
             if (this.character.isColliding(c)) {
                 if (c.type == "gem") {
-                    let numberOfGems = this.level.collectableObjects.filter((c) => c.type == "gem").length - 1;
-                    this.gemsBar.setPercentage(numberOfGems * 25);
-                    audios.gem.play();
-                    audios.gem.volume = 0.7 * audioVolume;
-                    c.isAvailable = false;
+                    this.characterCollectsGem(c)
                 } else if (c.type == "magicStone" && this.attackBar.percentage < 100) {
-                    this.attackBar.setPercentage(this.attackBar.percentage + 25);
-                    audios.magicStone.play();
-                    audios.magicStone.volume = audioVolume;
-                    c.isAvailable = false;
+                    this.characterCollectsMagicStone(c)
                 }
                 this.level.collectableObjects = this.level.collectableObjects.filter(c => c.isAvailable);
             }
@@ -256,22 +309,44 @@ class World {
     }
 
     /**
-    * This function sets the enmies characterisNearby-variable to true, if the character is nearby and to false, if the charcter is not.
-    * The charater is labeled as nearby, if its x-value is higher or lower by the attackArea of each Enemy. Furhermore, one of two conditions must be fullfilled:
-    * The characters y-value is lower of the enemies y-value or the character is jumping.
+     * This function is used, when the player collects a gem.
+     * The gems-bar is updated and the gem is no longer available.
+     * 
+     * @param {Object} c - a collectable object
+     */
+    characterCollectsGem(c) {
+        let numberOfGems = this.level.collectableObjects.filter((c) => c.type == "gem").length - 1;
+        this.gemsBar.setPercentage(numberOfGems * 25);
+        playAudio("gem");
+        c.isAvailable = false;
+    }
+
+    /**
+     * This function is used, when the player collects a magic stone.
+     * The attack-bar is updated and the magic stone is no longer available.
+     * 
+     * @param {Object} c - a collectable object
+     */
+    characterCollectsMagicStone(c) {
+        this.attackBar.setPercentage(this.attackBar.percentage + 25);
+        playAudio("magicStone");
+        c.isAvailable = false;
+    }
+
+
+    /**
+    * This function sets characterNearby to true, if the character is nearby an enemy.
+    * After that, this value is set back to false.
     */
     checkCharacterNearbyEnemy() {
         this.level.enemies.forEach((e) => {
             if (e instanceof Frog) {
-                if ((this.character.x >= e.x - e.attackArea
-                    && this.character.x + this.character.width <= e.x + e.width + e.attackArea)
-                    && (this.character.y <= e.y + e.height || this.character.isJumping)) {
+                if (this.characterIsNearbyFrog(e)) {
                     return e.characterNearby = true;
                 }
             }
             if (e instanceof Cactus) {
-                if (this.character.x + this.character.width >= e.leftBorder
-                    && this.character.x <= e.rightBorder) {
+                if (this.characterIsNearbyCactus(e)) {
                     return e.characterNearby = true;
                 }
             }
@@ -281,22 +356,47 @@ class World {
     }
 
     /**
-     * This function spawns a new swarm of passive entities every 20 seconds and a new sky every 230 seconds.
-     * They only serve decoration purposes.
+     * This function returns true, if the character is within the attack-area of a frog and if one of the following two conditions is fullfilled:
+     * The character is above the frog or the character is jumping.
+     * 
+     * @param {Object} e - an enemy of the type Frog
      */
-    respawnScenery() {
-        setInterval(() => {
-            if (!this.gamePaused) {
-                this.passiveEntities.push(new PassiveEntity(2800));
-                this.passiveEntities.push(new PassiveEntity(2800));
-                this.passiveEntities.push(new PassiveEntity(2800))
-            }
-        }, 20000);
-        setInterval(() => {
-            if (!this.gamePaused) {
-                this.level.sky.push(new Sky(2880));
-            }
-        }, 230000);
+    characterIsNearbyFrog(e) {
+        return (this.character.x >= e.x - e.attackArea
+            && this.character.x + this.character.width <= e.x + e.width + e.attackArea)
+            && (this.character.y <= e.y + e.height || this.character.isJumping);
+    }
+
+    /**
+     * This function returns true, if the character is within the attack-area of a cactus.
+     * 
+     * @param {Object} e - an enemy of the type Cactus
+     */
+    characterIsNearbyCactus(e) {
+        return this.character.x + this.character.width >= e.leftBorder
+            && this.character.x <= e.rightBorder;
+    }
+
+    /**
+    * This function spawns a new swarm of passive entities every 20 seconds.
+    * They only serve decoration purposes.
+    */
+    respawnPassiveEntities() {
+        this.passiveEntities.push(new PassiveEntity(2800));
+        this.passiveEntities.push(new PassiveEntity(2800));
+        this.passiveEntities.push(new PassiveEntity(2800));
+
+    }
+
+    /**
+    * This function checks, if the previous sky-img has exceeded the x-value of 2900.
+    * If so, a new sky-img is created.
+    */
+    checkRespawnSky() {
+        let lastSkyImg = this.level.sky[this.level.sky.length - 1];
+        if (lastSkyImg.x + lastSkyImg.width <= 2900) {
+            this.level.sky.push(new Sky(lastSkyImg.x + 700));
+        }
     }
 
     /**
