@@ -203,14 +203,16 @@ class World {
      * If so, it executes the according function.
      */
     checkGameEnd() {
-        if (this.gameOver && !this.gameEndCalled) {
-            gameOver();
-            this.gameEndCalled = true;
-            adjustLoopSounds();
-        } else if (this.victory && !this.gameEndCalled) {
-            victory();
-            this.gameEndCalled = true;
-            adjustLoopSounds();
+        if (!this.gamePaused) {
+            if (this.gameOver && !this.gameEndCalled) {
+                gameOver();
+                this.gameEndCalled = true;
+                adjustLoopSounds();
+            } else if (this.victory && !this.gameEndCalled) {
+                victory();
+                this.gameEndCalled = true;
+                adjustLoopSounds();
+            };
         }
     }
 
@@ -219,13 +221,15 @@ class World {
      * If not, if checks if the character is colliding with an enemie. If so, it executes the hit()-funciton for the character.
      */
     checkCollisionsEnemies() {
-        this.level.enemies.forEach((e) => {
-            if (this.character.isJumpingOnTop(e) && e.energy > 0) {
-                this.characterJumpsOnEnemy(e)
-            } else if (this.character.isColliding(e) && e.energy > 0) {
-                this.characterCollidesWithEnemy();
-            }
-        });
+        if (!this.gamePaused) {
+            this.level.enemies.forEach((e) => {
+                if (this.character.isJumpingOnTop(e) && e.energy > 0) {
+                    this.characterJumpsOnEnemy(e)
+                } else if (this.character.isColliding(e) && e.energy > 0) {
+                    this.characterCollidesWithEnemy();
+                }
+            });
+        }
     }
 
     /**
@@ -264,18 +268,20 @@ class World {
      * If so, the according function is executed.
      */
     checkCollisionShootableObjects() {
-        this.availableMagicAttacks.forEach((a) => {
-            this.level.enemies.forEach((e) => {
-                if (a.isColliding(e) && e.energy > 0) {
-                    this.magicAttackHitEnemy(a, e);
+        if (!this.gamePaused) {
+            this.availableMagicAttacks.forEach((a) => {
+                this.level.enemies.forEach((e) => {
+                    if (a.isColliding(e) && e.energy > 0) {
+                        this.magicAttackHitEnemy(a, e);
+                    }
+                });
+            });
+            this.canonballAttacks.forEach((c) => {
+                if (c.isColliding(this.character)) {
+                    this.canonballAttackHitCharacter(c);
                 }
             });
-        });
-        this.canonballAttacks.forEach((c) => {
-            if (c.isColliding(this.character)) {
-                this.canonballAttackHitCharacter(c);
-            }
-        });
+        }
     }
 
     /**
@@ -313,16 +319,18 @@ class World {
      * If so, the according function is executed.
      */
     checkCollisionsCollectables() {
-        this.level.collectableObjects.forEach((c) => {
-            if (this.character.isColliding(c)) {
-                if (c.type == "gem") {
-                    this.gemsBar.characterCollectsGem(c)
-                } else if (c.type == "magicStone" && this.attackBar.percentage < 100) {
-                    this.attackBar.characterCollectsMagicStone(c)
+        if (!this.gamePaused) {
+            this.level.collectableObjects.forEach((c) => {
+                if (this.character.isColliding(c)) {
+                    if (c.type == "gem") {
+                        this.gemsBar.characterCollectsGem(c)
+                    } else if (c.type == "magicStone" && this.attackBar.percentage < 100) {
+                        this.attackBar.characterCollectsMagicStone(c)
+                    }
+                    this.level.collectableObjects = this.level.collectableObjects.filter(c => c.isAvailable);
                 }
-                this.level.collectableObjects = this.level.collectableObjects.filter(c => c.isAvailable);
-            }
-        })
+            });
+        }
     }
 
     /**
@@ -330,20 +338,22 @@ class World {
     * After that, this value is set back to false.
     */
     checkCharacterNearbyEnemy() {
-        this.level.enemies.forEach((e) => {
-            if (e instanceof Frog) {
-                if (this.characterIsNearbyFrog(e)) {
-                    return e.characterNearby = true;
+        if (!this.gamePaused) {
+            this.level.enemies.forEach((e) => {
+                if (e instanceof Frog) {
+                    if (this.characterIsNearbyFrog(e)) {
+                        return e.characterNearby = true;
+                    }
                 }
-            }
-            if (e instanceof Cactus) {
-                if (this.characterIsNearbyCactus(e)) {
-                    return e.characterNearby = true;
+                if (e instanceof Cactus) {
+                    if (this.characterIsNearbyCactus(e)) {
+                        return e.characterNearby = true;
+                    }
                 }
-            }
-            e.characterNearby = false;
-            e.characterNoticed = false;
-        });
+                e.characterNearby = false;
+                e.characterNoticed = false;
+            });
+        }
     }
 
     /**
@@ -373,10 +383,11 @@ class World {
     * They only serve decoration purposes.
     */
     respawnPassiveEntities() {
-        this.passiveEntities.push(new PassiveEntity(2800));
-        this.passiveEntities.push(new PassiveEntity(2800));
-        this.passiveEntities.push(new PassiveEntity(2800));
-
+        if (!this.gamePaused) {
+            this.passiveEntities.push(new PassiveEntity(2800));
+            this.passiveEntities.push(new PassiveEntity(2800));
+            this.passiveEntities.push(new PassiveEntity(2800));
+        }
     }
 
     /**
@@ -384,9 +395,11 @@ class World {
     * If so, a new sky-img is created.
     */
     checkRespawnSky() {
-        let lastSkyImg = this.level.sky[this.level.sky.length - 1];
-        if (lastSkyImg.x + lastSkyImg.width <= 2900) {
-            this.level.sky.push(new Sky(lastSkyImg.x + 700));
+        if (!this.gamePaused) {
+            let lastSkyImg = this.level.sky[this.level.sky.length - 1];
+            if (lastSkyImg.x + lastSkyImg.width <= 2900) {
+                this.level.sky.push(new Sky(lastSkyImg.x + 700));
+            }
         }
     }
 

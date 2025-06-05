@@ -87,6 +87,7 @@ class Cactus extends MovableObject {
         if (this.characterNearby && !this.isDead()) {
             if (!this.characterNoticed) {
                 await this.animateNoticeCharacter();
+                return;
             }
             setTimeout(() => {
                 if (this.characterIsOnTheLeftHandSide()) {

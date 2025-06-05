@@ -238,7 +238,7 @@ class Character extends MovableObject {
     */
     countIdlingTime() {
         setInterval(() => {
-            if (this.timeIdling < 300) {
+            if (this.timeIdling < 300 && !this.world.gamePaused) {
                 this.timeIdling++;
             } else if (this.longIdlingPossible()) {
                 playAudio("longIdle");
@@ -251,6 +251,6 @@ class Character extends MovableObject {
     * This means, the player is alive and the game has not ended jet.
     */
     longIdlingPossible() {
-        return this.isAlive && !this.world.gameEndCalled;
+        return this.isAlive && !this.world.gameEndCalled && !this.world.gamePaused;
     }
 }

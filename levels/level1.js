@@ -9,10 +9,8 @@ function initLevel() {
         [
             new Cactus(400, 338, 200, 500),
             new Cactus(800, 338, 760, 1200),
-
             new Frog(460, 226, 470, 675),
             new Frog(1290, 350, 1250, 1450),
-
             new Endboss(),
         ],
         [
