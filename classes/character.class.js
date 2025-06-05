@@ -6,7 +6,6 @@ class Character extends MovableObject {
     speed = 4;
     world;
     timeIdling = 0;
-    isSleeping = false;
 
     IMAGES_ATTACK = [
         'img/character/hit/hit_03.png',
@@ -183,10 +182,10 @@ class Character extends MovableObject {
     animateImages() {
         if (this.isDead()) {
             removeEventListeners();
-            world.character.timeIdling = 0;
+            this.timeIdling = 0;
             return this.animateDeath();
         } else if (this.isHurt) {
-            world.character.timeIdling = 0;
+            this.timeIdling = 0;
             this.playAnimation(this.IMAGES_HIT);
         } else if (this.isAboveGround()) {
             this.airTimeAnimations();
@@ -194,9 +193,9 @@ class Character extends MovableObject {
             this.playAnimation(this.IMAGES_RUN);
         } else if (this.world.keyboard.ATTACK) {
             this.playAnimation(this.IMAGES_ATTACK);
-        } else if (this.isIdling() && !this.isSleeping) {
+        } else if (this.isIdling() && this.timeIdling < 300) {
             this.playAnimation(this.IMAGES_IDLE);
-        } else if (this.isSleeping) {
+        } else if (this.timeIdling == 300) {
             this.playAnimation(this.IMAGES_LONG_IDLE)
         }
     }
@@ -240,11 +239,9 @@ class Character extends MovableObject {
     countIdlingTime() {
         setInterval(() => {
             if (this.timeIdling < 300) {
-                this.isSleeping = false;
                 this.timeIdling++;
             } else if (this.longIdlingPossible()) {
                 playAudio("longIdle");
-                return this.isSleeping = true;
             }
         }, 1000 / 30);
     }

@@ -108,9 +108,9 @@ class Frog extends MovableObject {
     */
     animateMovementLeft() {
         if (this.x <= this.leftBorder) {
-            this.setOtherDirection(true);
+            this.setOtherDirectionTimeout(true);
         } else if (this.characterNearby && world.character.x > this.x) {
-            this.setOtherDirection(true);
+            this.setOtherDirectionTimeout(true);
         }
         this.moveLeft();
         return this.otherDirection = false;
