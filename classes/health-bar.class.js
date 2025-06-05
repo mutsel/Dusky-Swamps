@@ -1,6 +1,7 @@
 class HealthBar extends StatusBar {
     x = 20;
     y = 20;
+    world;
 
     IMAGES = [
         'img/gui/statusbars/health/health_100.png',
@@ -15,4 +16,4 @@ class HealthBar extends StatusBar {
         this.loadImages(this.IMAGES);
         this.setPercentage(100);
     }
-}
+} 

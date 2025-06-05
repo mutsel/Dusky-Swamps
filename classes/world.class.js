@@ -22,7 +22,6 @@ class World {
         new PassiveEntity(2800),
         new PassiveEntity(2800)
     ];
-
     level = level1;
     canvas;
     ctx;
@@ -51,19 +50,30 @@ class World {
     setWorld() {
         this.character.world = this;
         this.level.world = this;
+        this.healthBar.world = this;
+        this.attackBar.world = this;
+        this.gemsBar.world = this;
     }
 
     /**
      * This function adds every necessary movable object to the map.
      * Beforehand, the canvas is cleared and the camera is positioned.
      * Static objects are drawn afterwards to be visible the whole time.
-     * This function is repeated over and over.
+     * This function is repeated permanently.
      */
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
         this.ctx.translate(this.cameraX, 0);
+        this.drawFlexibleObjects();
+        this.drawFixedObjects();
+        this.ctx.translate(-this.cameraX, 0);
+        this.repeatDrawing();
+    }
 
+    /**
+     * This function adds all flexible/moving objects to the canvas.
+     */
+    drawFlexibleObjects() {
         this.addObjectsToMap(this.level.sky);
         this.addObjectsToMap(this.level.backgroundObjects);
         this.addObjectsToMap(this.passiveEntities);
@@ -75,20 +85,27 @@ class World {
         this.addObjectsToMap(this.availableMagicAttacks);
         this.addObjectsToMap(this.canonballAttacks);
         this.addObjectsToMap(this.level.foregroundObjects);
+    }
 
+    /**
+     * This function adds all fixed/static objects to the canvas.
+     * Therefore, the context needs to be adjusted beforehand and afterwards.
+     */
+    drawFixedObjects() {
         this.ctx.translate(-this.cameraX, 0);
-        // Space for fixed objects
         this.addToMap(this.healthBar);
         this.addToMap(this.attackBar);
         this.addToMap(this.gemsBar);
         if (this.bossFightStarted) {
             this.addToMap(this.endbossHealthbar);
         }
-
         this.ctx.translate(this.cameraX, 0);
+    }
 
-        this.ctx.translate(-this.cameraX, 0);
-
+    /**
+     * This function executes the callback-function.
+     */
+    repeatDrawing() {
         let self = this;
         requestAnimationFrame(function () {
             self.draw();
@@ -299,40 +316,14 @@ class World {
         this.level.collectableObjects.forEach((c) => {
             if (this.character.isColliding(c)) {
                 if (c.type == "gem") {
-                    this.characterCollectsGem(c)
+                    this.gemsBar.characterCollectsGem(c)
                 } else if (c.type == "magicStone" && this.attackBar.percentage < 100) {
-                    this.characterCollectsMagicStone(c)
+                    this.attackBar.characterCollectsMagicStone(c)
                 }
                 this.level.collectableObjects = this.level.collectableObjects.filter(c => c.isAvailable);
             }
         })
     }
-
-    /**
-     * This function is used, when the player collects a gem.
-     * The gems-bar is updated and the gem is no longer available.
-     * 
-     * @param {Object} c - a collectable object
-     */
-    characterCollectsGem(c) {
-        let numberOfGems = this.level.collectableObjects.filter((c) => c.type == "gem").length - 1;
-        this.gemsBar.setPercentage(numberOfGems * 25);
-        playAudio("gem");
-        c.isAvailable = false;
-    }
-
-    /**
-     * This function is used, when the player collects a magic stone.
-     * The attack-bar is updated and the magic stone is no longer available.
-     * 
-     * @param {Object} c - a collectable object
-     */
-    characterCollectsMagicStone(c) {
-        this.attackBar.setPercentage(this.attackBar.percentage + 25);
-        playAudio("magicStone");
-        c.isAvailable = false;
-    }
-
 
     /**
     * This function sets characterNearby to true, if the character is nearby an enemy.
@@ -404,25 +395,5 @@ class World {
      */
     removeDeadEnemy() {
         this.level.enemies = this.level.enemies.filter(enemy => enemy.isAlive);
-    }
-
-    /**
-    * This function is used to be able to shoot magicAttacks if an attack is available and the attackbar-percentage is above zero.
-    * The magicAttackAvailable is set to false and the attackbar is updated.
-    * The shootable object is created, it moves in the direction the character faces and the audio is played.
-    * Eventually (after 0.8 seconds), the magicAttackAvailable is set back to true and the magicAttack disappears.
-    */
-    shootMagicAttack() {
-        if (this.attackBar.percentage > 0 && this.magicAttackAvailable) {
-            this.magicAttackAvailable = false;
-            this.attackBar.setPercentage(this.attackBar.percentage - 25)
-            this.availableMagicAttacks.push(new MagicAttack());
-            setTimeout(() => {
-                if (!world.gamePaused) {
-                    this.availableMagicAttacks.shift();
-                    this.magicAttackAvailable = true;
-                }
-            }, 600);
-        }
     }
 }

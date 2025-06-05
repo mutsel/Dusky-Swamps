@@ -82,9 +82,9 @@ class Frog extends MovableObject {
         this.loadImages(this.IMAGES_RUN);
         this.x = x + Math.random() * 252;
         this.y = y;
-        this.speed = 0.5 + Math.random() * 0.3;
         this.leftBorder = leftBorder;
         this.rightBorder = rightBorder;
+        this.speed = 0.5 + Math.random() * 0.3;
         this.deathAnimationCounter = this.IMAGES_DEAD.length;
         this.animate();
     }
@@ -122,9 +122,9 @@ class Frog extends MovableObject {
     */
     animateMovementRight() {
         if (this.x >= this.rightBorder) {
-            this.setOtherDirection(false);
+            this.setOtherDirectionTimeout(false);
         } else if (this.characterNearby && world.character.x < this.x) {
-            this.setOtherDirection(false);
+            this.setOtherDirectionTimeout(false);
         }
         this.moveRight();
         return this.otherDirection = true;
@@ -135,7 +135,7 @@ class Frog extends MovableObject {
     * 
     * @param {boolean} boolean - true or false
     */
-    setOtherDirection(boolean) {
+    setOtherDirectionTimeout(boolean) {
         setTimeout(() => {
             return this.otherDirection = boolean;
         }, 200);

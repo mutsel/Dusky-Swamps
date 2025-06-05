@@ -32,12 +32,12 @@ class PassiveEntity extends MovableObject {
             }
         }, 1000 / 30)
         // const passiveEntitiesAnimationInterval =
-         setInterval(() => {
+        setInterval(() => {
             if (!world.gamePaused) {
                 this.playAnimation(this.IMAGES_CROW);
             }
         }, 1000 / 8)
         // world.intervals.push(passiveEntitiesMovemenInterval);
-        // world.intervals.push(passiveEntitiesAnimationInterval);
+        // world.intervals.push(passiveEntitiesAnimationInterval); 
     }
 }

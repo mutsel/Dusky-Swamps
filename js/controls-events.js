@@ -95,7 +95,7 @@ function keyUpEvents() {
             break;
         case 40:
         case 32: keyboard.ATTACK = false;
-            world.shootMagicAttack();
+            world.attackBar.shootMagicAttack();
             break;
     }
 }
@@ -139,7 +139,7 @@ function mobileControlsMouseup(key) {
             audios.steps.pause();
             break;
         case 'attack': keyboard.ATTACK = false;
-            world.shootMagicAttack();
+            world.attackBar.shootMagicAttack();
             break;
     }
 }

@@ -77,7 +77,7 @@ class Cactus extends MovableObject {
         this.applyGravity();
         this.animate();
     }
- 
+
     /**
     * This function animates the cactus movement.
     * The cactus only moves, if the character is inside its range.
@@ -85,19 +85,33 @@ class Cactus extends MovableObject {
     */
     async animateMovement() {
         if (this.characterNearby && !this.isDead()) {
-            if (this.characterNoticed == false) {
+            if (!this.characterNoticed) {
                 await this.animateNoticeCharacter();
             }
             setTimeout(() => {
-                if (world.character.x + world.character.width < this.x) {
+                if (this.characterIsOnTheLeftHandSide()) {
                     this.animateMovementLeft();
-                } else if (world.character.x > this.x + this.width) {
+                } else if (this.characterIsOnThRightHandSide) {
                     this.animateMovementRight();
                 } else {
                     this.playAnimation(this.IMAGES_IDLE);
                 }
-            }, 400); 
+            }, 400);
         }
+    }
+
+    /**
+    * This function returns true, if the character is on the left-hand side of the cactus.
+    */
+    characterIsOnTheLeftHandSide() {
+        return world.character.x + world.character.width < this.x;
+    }
+
+    /**
+    * This function returns true, if the character is on the right-hand side of the cactus.
+    */
+    characterIsOnThRightHandSide() {
+        return world.character.x > this.x + this.width;
     }
 
     /**
@@ -110,7 +124,7 @@ class Cactus extends MovableObject {
             this.speedY = 1;
             setTimeout(() => {
                 return this.characterNoticed = true;
-            }, 400); 
+            }, 400);
         }
     }
 

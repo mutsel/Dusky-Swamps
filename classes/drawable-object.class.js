@@ -8,7 +8,7 @@ class DrawableObject {
     currentImage = 0;
     currentWidth = 0;
 
-    constructor() { }
+    constructor() {}
 
     /**
      * This function creates an image from a given image-path

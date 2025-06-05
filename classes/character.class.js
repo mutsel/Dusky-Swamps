@@ -128,17 +128,42 @@ class Character extends MovableObject {
     * This function animates the characters movement.
     */
     animateMovement() {
-        if (this.world.keyboard.RIGHT && this.x + this.width < this.world.level.levelEndX) {
+        if (this.canMoveRight()) {
             this.moveRight();
             this.otherDirection = false;
-        } else if (this.world.keyboard.LEFT && ((!this.world.firstBossContact && this.x > 0) || (this.world.firstBossContact && this.x > 1540))) {
+        } else if (this.canMoveLeft()) {
             this.moveLeft();
             this.otherDirection = true;
         }
-        if (this.world.keyboard.UP && !this.isAboveGround() && !this.isJumping) {
+        if (this.canJump()) {
             this.speedY = 12;
             this.isJumping = true;
         }
+    }
+
+    /**
+    * This function returns true, if the character is able to move right.
+    * This is the case, when the right-key/button is pressed and the character did not already reached the level-end-x-coordinate.
+    */
+    canMoveRight() {
+        return this.world.keyboard.RIGHT && this.x + this.width < this.world.level.levelEndX;
+    }
+
+    /**
+    * This function returns true, if the character is able to move left.
+    * This is the case, when the left-key/button is pressed.
+    * Furthermore the character did not already reached the level-start-x-coordinate (or in case of the bossfight, it did not reached the boss-area-start-coordinate).
+    */
+    canMoveLeft() {
+        return this.world.keyboard.LEFT && ((!this.world.firstBossContact && this.x > 0) || (this.world.firstBossContact && this.x > 1540));
+    }
+
+    /**
+    * This function returns true, if the character is able to jump.
+    * This is the case, when the up-key/button is pressed and the character is not above the ground and the character is not jumping.
+    */
+    canJump() {
+        return this.world.keyboard.UP && !this.isAboveGround() && !this.isJumping;
     }
 
     /**
@@ -192,13 +217,20 @@ class Character extends MovableObject {
     * This function returns true or false, whether the player presses a key or not.
     */
     isIdling() {
-        if (!this.world.keyboard.LEFT &&
-            !this.world.keyboard.RIGHT &&
-            !this.world.keyboard.UP &&
-            !this.world.keyboard.ATTACK) {
+        if (this.noKeyIsPressed()) {
             return true;
         }
         return false;
+    }
+
+    /**
+    * This function returns true, if no key is pressed by the player.
+    */
+    noKeyIsPressed() {
+        return !this.world.keyboard.LEFT &&
+            !this.world.keyboard.RIGHT &&
+            !this.world.keyboard.UP &&
+            !this.world.keyboard.ATTACK;
     }
 
     /**
@@ -210,10 +242,18 @@ class Character extends MovableObject {
             if (this.timeIdling < 300) {
                 this.isSleeping = false;
                 this.timeIdling++;
-            } else if (this.isAlive && !this.world.gameEndCalled) {
+            } else if (this.longIdlingPossible()) {
                 playAudio("longIdle");
                 return this.isSleeping = true;
             }
         }, 1000 / 30);
+    }
+
+    /**
+    * This function returns true, if the conditions for the long-idling-animation are fullfilled.
+    * This means, the player is alive and the game has not ended jet.
+    */
+    longIdlingPossible() {
+        return this.isAlive && !this.world.gameEndCalled;
     }
 }

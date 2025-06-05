@@ -227,7 +227,7 @@ async function countGems() {
         if (i > 0) {
             playAudio("gem");
         }
-        await delay(600);
+        await delay(650);
     }
     enableVictoryButtons();
 }
