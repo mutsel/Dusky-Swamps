@@ -6,7 +6,7 @@ class AttackBar extends StatusBar {
     IMAGES = [
         'img/gui/statusbars/attack/attack_100.png',
         'img/gui/statusbars/attack/attack_75.png',
-        'img/gui/statusbars/attack/attack_50.png', 
+        'img/gui/statusbars/attack/attack_50.png',
         'img/gui/statusbars/attack/attack_25.png',
         'img/gui/statusbars/attack/attack_0.png',
     ];
@@ -39,7 +39,10 @@ class AttackBar extends StatusBar {
         if (this.percentage > 0 && this.world.magicAttackAvailable) {
             this.world.magicAttackAvailable = false;
             this.setPercentage(this.percentage - 25)
-            this.world.availableMagicAttacks.push(new MagicAttack());
+            let newMagicAttack = new MagicAttack();
+            this.world.availableMagicAttacks.push(newMagicAttack);
+            this.world.setStoppableInterval(newMagicAttack.animateImages, 1000 / 20, newMagicAttack);
+            this.world.setStoppableInterval(newMagicAttack.animateMovement, 1000 / 20, newMagicAttack);
             setTimeout(() => {
                 if (!this.world.gamePaused) {
                     this.world.availableMagicAttacks.shift();

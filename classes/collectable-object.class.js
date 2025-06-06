@@ -31,7 +31,6 @@ class CollectableObject extends MovableObject {
         this.loadImages(this.getImages());
         this.x = x;
         this.y = y;
-        this.animate();
     }
 
     getImages() {
@@ -46,10 +45,8 @@ class CollectableObject extends MovableObject {
     * This function is used to animate collectable Object
     */
     animate() {
-        setInterval(() => {
-            if (!world.gamePaused) {
-                this.playAnimation(this.getImages());
-            }
-        }, 1000 / 12)
+        if (!world.gamePaused) {
+            this.playAnimation(this.getImages());
+        }
     }
 }

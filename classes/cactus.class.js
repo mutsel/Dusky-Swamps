@@ -74,8 +74,6 @@ class Cactus extends MovableObject {
         this.speed = 4;
         this.leftBorder = leftBorder;
         this.rightBorder = rightBorder;
-        this.applyGravity();
-        this.animate();
     }
 
     /**
@@ -84,7 +82,7 @@ class Cactus extends MovableObject {
     * The cactus changes direction and runs in the opposite direction, if the character is behind him.
     */
     async animateMovement() {
-        if (this.characterNearby && !this.isDead()) {
+        if (!world.gamePaused && this.characterNearby && !this.isDead()) {
             if (!this.characterNoticed) {
                 await this.animateNoticeCharacter();
                 return;
@@ -135,8 +133,10 @@ class Cactus extends MovableObject {
     */
     animateMovementLeft() {
         if (this.x > this.leftBorder) {
-            this.moveLeft();
-            this.otherDirection = false;
+            setTimeout(() => {
+                this.moveLeft();
+                this.otherDirection = false;
+            }, 100);
         }
     }
 
@@ -146,8 +146,10 @@ class Cactus extends MovableObject {
     */
     animateMovementRight() {
         if (this.x + this.width < this.rightBorder) {
-            this.moveRight();
-            this.otherDirection = true;
+            setTimeout(() => {
+                this.moveRight();
+                this.otherDirection = true;
+            }, 100);
         }
     }
 
@@ -155,16 +157,17 @@ class Cactus extends MovableObject {
     * This function animates the cactus images for each situation (death, hit, run, idle).
     */
     animateImages() {
-        if (this.isDead()) {
-            this.speed = 0;
-            return this.animateDeath();
-        } else if (this.isHurt) {
-            this.playAnimation(this.IMAGES_HIT);
-        } else if (this.characterNearby) {
-            this.playAnimation(this.IMAGES_RUN);
-        } else {
-            this.playAnimation(this.IMAGES_IDLE);
+        if (!world.gamePaused) {
+            if (this.isDead()) {
+                this.speed = 0;
+                return this.animateDeath();
+            } else if (this.isHurt) {
+                this.playAnimation(this.IMAGES_HIT);
+            } else if (this.characterNearby) {
+                this.playAnimation(this.IMAGES_RUN);
+            } else {
+                this.playAnimation(this.IMAGES_IDLE);
+            }
         }
-
     }
 }

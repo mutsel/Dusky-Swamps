@@ -104,39 +104,35 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_LONG_IDLE);
         this.loadImages(this.IMAGES_RUN);
         this.deathAnimationCounter = this.IMAGES_DEAD.length;
-        this.applyGravity();
-        this.animate();
-        this.adjustCamera();
-        this.countIdlingTime();
-        // this.setStoppableInterval(this.countIdlingTime, 1000 / 30);
-        // this.setStoppableInterval(this.adjustCamera, 1000 / 60);
+        // this.applyGravity();
+        // this.animate();
     }
 
     /**
     * This function adjusts the camera to the charactes current position.
     */
     adjustCamera() {
-        setInterval(() => {
-            if (!this.world.firstBossContact) {
-                this.world.cameraX = -this.x + 100;
-            }
-        }, 1000 / 60);
+        if (!this.world.firstBossContact) {
+            this.world.cameraX = -this.x + 100;
+        }
     }
 
     /**
     * This function animates the characters movement.
     */
     animateMovement() {
-        if (this.canMoveRight()) {
-            this.moveRight();
-            this.otherDirection = false;
-        } else if (this.canMoveLeft()) {
-            this.moveLeft();
-            this.otherDirection = true;
-        }
-        if (this.canJump()) {
-            this.speedY = 12;
-            this.isJumping = true;
+        if (!world.gamePaused) {
+            if (this.canMoveRight()) {
+                this.moveRight();
+                this.otherDirection = false;
+            } else if (this.canMoveLeft()) {
+                this.moveLeft();
+                this.otherDirection = true;
+            }
+            if (this.canJump()) {
+                this.speedY = 12;
+                this.isJumping = true;
+            }
         }
     }
 
@@ -180,23 +176,25 @@ class Character extends MovableObject {
     * This function animates the characters images for each situation (death, hit, above ground, run, attack, idle).
     */
     animateImages() {
-        if (this.isDead()) {
-            removeEventListeners();
-            this.timeIdling = 0;
-            return this.animateDeath();
-        } else if (this.isHurt) {
-            this.timeIdling = 0;
-            this.playAnimation(this.IMAGES_HIT);
-        } else if (this.isAboveGround()) {
-            this.airTimeAnimations();
-        } else if (this.world.keyboard.LEFT || this.world.keyboard.RIGHT) {
-            this.playAnimation(this.IMAGES_RUN);
-        } else if (this.world.keyboard.ATTACK) {
-            this.playAnimation(this.IMAGES_ATTACK);
-        } else if (this.isIdling() && this.timeIdling < 300) {
-            this.playAnimation(this.IMAGES_IDLE);
-        } else if (this.timeIdling == 300) {
-            this.playAnimation(this.IMAGES_LONG_IDLE)
+        if (this.isAlive && !world.gamePaused) {
+            if (this.isDead()) {
+                removeEventListeners();
+                this.timeIdling = 0;
+                return this.animateDeath();
+            } else if (this.isHurt) {
+                this.timeIdling = 0;
+                this.playAnimation(this.IMAGES_HIT);
+            } else if (this.isAboveGround()) {
+                this.airTimeAnimations();
+            } else if (this.world.keyboard.LEFT || this.world.keyboard.RIGHT) {
+                this.playAnimation(this.IMAGES_RUN);
+            } else if (this.world.keyboard.ATTACK) {
+                this.playAnimation(this.IMAGES_ATTACK);
+            } else if (this.isIdling() && this.timeIdling < 300) {
+                this.playAnimation(this.IMAGES_IDLE);
+            } else if (this.timeIdling == 300) {
+                this.playAnimation(this.IMAGES_LONG_IDLE)
+            }
         }
     }
 
@@ -237,13 +235,11 @@ class Character extends MovableObject {
     * If 10seconds passed, the character is set to sleeping, the long-idle-animation is played and the according audio is played.
     */
     countIdlingTime() {
-        setInterval(() => {
-            if (this.timeIdling < 300 && !this.world.gamePaused) {
-                this.timeIdling++;
-            } else if (this.longIdlingPossible()) {
-                playAudio("longIdle");
-            }
-        }, 1000 / 30);
+        if (this.timeIdling < 300 && !this.world.gamePaused) {
+            this.timeIdling++;
+        } else if (this.longIdlingPossible()) {
+            playAudio("longIdle");
+        }
     }
 
     /**

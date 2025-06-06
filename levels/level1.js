@@ -14,7 +14,7 @@ function initLevel() {
             new Endboss(),
         ],
         [
-            new Sky(-720),
+            new Sky(-720), 
             new Sky(0),
             new Sky(720),
             new Sky(1440),
@@ -35,7 +35,7 @@ function initLevel() {
             new BackgroundObject("water", 1440, -20),
             new BackgroundObject("water", 2160, -20),
             new BackgroundObject("water", 2880, -20),
-
+ 
             new BackgroundObject("ground", -448, 380),
             new BackgroundObject("ground", -384, 380),
             new BackgroundObject("ground", -320, 380),

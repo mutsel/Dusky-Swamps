@@ -44,9 +44,36 @@ class World {
     }
 
     /**
-     * This function sets this object as the world object for different other objects.
-     * This way, those other objects are able to access methods and variables of this object.
+     * This function sets an interval-function and pushes it in the worlds interval-array.
+     * 
+     * @param {function} fn - the function, that should be called
+     * @param {number} time - the execution interval in milliseconds
+     * @param {Object} context - the object to wich the function should bind (world by default)
      */
+    setStoppableInterval(fn, time, context = this) {
+        let id = setInterval(fn.bind(context), time);
+        this.intervals.push(id);
+    }
+
+    /**
+     * This function stops the game by clearing all intervals.
+     */
+    stopGame() {
+        this.intervals.forEach(clearInterval);
+        removeEventListeners();
+        this.magicAttackAvailable = false;
+        for (let key in audios) {
+            if (audios[key] instanceof Audio) {
+                audios[key].pause();
+                audios[key].volume = 0;
+            }
+        }
+    }
+
+    /**
+    * This function sets this object as the world object for different other objects.
+    * This way, those other objects are able to access methods and variables of this object.
+    */
     setWorld() {
         this.character.world = this;
         this.level.world = this;
@@ -165,37 +192,53 @@ class World {
     }
 
     /**
-     * This function sets an interval-function and pushes it in the worlds interval-array.
-     * 
-     * @param {function} fn - the function, that should be called
-     * @param {number} time - the execution interval in milliseconds
-     */
-    setStoppableInterval(fn, time) {
-        let id = setInterval(fn.bind(this), time);
-        this.intervals.push(id);
-    }
-
-    /**
-     * This function stops the game by clearing all intervals.
-     */
-    stopGame() {
-        // console.log(this.intervals);
-        this.intervals.forEach(clearInterval);
-    }
-
-    /**
      * This function runs the game. It executes the checkCollision-functions, checks if the game ends and is used for the scenery.
      */
     run() {
-        // if (!this.gamePaused) {
-        this.setStoppableInterval(this.respawnPassiveEntities, 20000);
-        this.setStoppableInterval(this.checkRespawnSky, 1000 / 60);
-        this.setStoppableInterval(this.checkCollisionsEnemies, 1000 / 60);
-        this.setStoppableInterval(this.checkCollisionShootableObjects, 1000 / 60);
-        this.setStoppableInterval(this.checkCollisionsCollectables, 1000 / 60);
-        this.setStoppableInterval(this.checkCharacterNearbyEnemy, 1000 / 60);
-        this.setStoppableInterval(this.checkGameEnd, 1000 / 60);
-        // }
+        setTimeout(() => {
+            this.setStoppableInterval(this.respawnPassiveEntities, 20000);
+            this.setStoppableInterval(this.checkRespawnSky, 1000 / 60);
+            this.setStoppableInterval(this.checkCollisionsEnemies, 1000 / 60);
+            this.setStoppableInterval(this.checkCollisionShootableObjects, 1000 / 60);
+            this.setStoppableInterval(this.checkCollisionsCollectables, 1000 / 60);
+            this.setStoppableInterval(this.checkCharacterNearbyEnemy, 1000 / 60);
+            this.setStoppableInterval(this.checkGameEnd, 1000 / 60);
+            this.setStoppableInterval(this.character.countIdlingTime, 1000 / 30, this.character);
+            this.setStoppableInterval(this.character.adjustCamera, 1000 / 60, this.character);
+            this.setStoppableInterval(this.character.animateMovement, 1000 / 60, this.character);
+            this.setStoppableInterval(this.character.animateImages, 1000 / 10, this.character);
+            this.setStoppableInterval(this.character.applyGravity, 1000 / 60, this.character);
+            this.passiveEntities.forEach(e => {
+                this.setStoppableInterval(e.animateMovement, 1000 / 30, e);
+                this.setStoppableInterval(e.animateImages, 1000 / 8, e);
+            });
+            this.level.sky.forEach(s => {
+                this.setStoppableInterval(s.animate, 1000 / 60, s);
+            });
+            this.level.foregroundObjects.forEach(o => {
+                this.setStoppableInterval(o.animate, 1000 / 60, o);
+            });
+            this.level.backgroundObjects.forEach(o => {
+                this.setStoppableInterval(o.animate, 1000 / 60, o);
+            });
+            this.level.collectableObjects.forEach(o => {
+                this.setStoppableInterval(o.animate, 1000 / 12, o);
+            });
+            let endboss = this.level.enemies.find(e => e instanceof Endboss);
+            this.setStoppableInterval(endboss.animateEndboss, 1000 / 12, endboss);
+            this.setStoppableInterval(endboss.applyGravity, 1000 / 60, endboss);
+            let cacti = this.level.enemies.filter(e => e instanceof Cactus);
+            cacti.forEach(c => {
+                this.setStoppableInterval(c.animateMovement, 1000 / 60, c);
+                this.setStoppableInterval(c.animateImages, 1000 / 10, c);
+                this.setStoppableInterval(c.applyGravity, 1000 / 60, c);
+            });
+            let frogs = this.level.enemies.filter(e => e instanceof Frog);
+            frogs.forEach(f => {
+                this.setStoppableInterval(f.animateMovement, 1000 / 60, f);
+                this.setStoppableInterval(f.animateImages, 1000 / 10, f);
+            });
+        }, 100);
     }
 
     /**
@@ -384,9 +427,12 @@ class World {
     */
     respawnPassiveEntities() {
         if (!this.gamePaused) {
-            this.passiveEntities.push(new PassiveEntity(2800));
-            this.passiveEntities.push(new PassiveEntity(2800));
-            this.passiveEntities.push(new PassiveEntity(2800));
+            for (let i = 0; i < 3; i++) {
+                let newPassiveEntity = new PassiveEntity(2800);
+                this.passiveEntities.push(newPassiveEntity);
+                this.setStoppableInterval(newPassiveEntity.animateMovement, 1000 / 30, newPassiveEntity);
+                this.setStoppableInterval(newPassiveEntity.animateImages, 1000 / 8, newPassiveEntity);
+            }
         }
     }
 
@@ -398,7 +444,9 @@ class World {
         if (!this.gamePaused) {
             let lastSkyImg = this.level.sky[this.level.sky.length - 1];
             if (lastSkyImg.x + lastSkyImg.width <= 2900) {
-                this.level.sky.push(new Sky(lastSkyImg.x + 700));
+                let newSky = new Sky(lastSkyImg.x + 700);
+                this.level.sky.push(newSky);
+                this.setStoppableInterval(newSky.animateSky, 1000 / 60, newSky);
             }
         }
     }

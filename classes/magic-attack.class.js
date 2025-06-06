@@ -24,22 +24,17 @@ class MagicAttack extends ShootableObject {
         this.loadImages(this.IMAGES);
         this.x = this.character.x;
         this.y = this.character.y + 10;
-        this.speed = this.setDirection(this.character, 12);
+        this.speed = this.setSpeed(this.character, 12);
+        this.otherDirection = this.character.otherDirection;
         playAudio("magicAttack");
-        this.shoot();
-        this.animate();
     }
 
     /**
     * This function is used to animate the magic attack.
     */
-    animate() {
-        // const magicAttackAnimationInterval = 
-        setInterval(() => {
-            if (!world.gamePaused) {
-                this.playAnimation(this.IMAGES);
-            }
-        }, 1000 / 20)
-        // world.intervals.push(magicAttackAnimationInterval);
+    animateImages() {
+        if (!world.gamePaused) {
+            this.playAnimation(this.IMAGES);
+        }
     }
 } 

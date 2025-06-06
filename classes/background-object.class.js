@@ -29,13 +29,29 @@ class BackgroundObject extends MovableObject {
                 return this.water;
             case "trees":
                 this.width = 721;
-                this.height = 480;
+                this.height = 480; 
                 this.speed = 0.4;
                 return this.trees;
             case "ground":
                 this.width = 64;
                 this.height = 128;
+                this.speed = 0;
                 return this.ground;
+        }
+    }
+
+    /**
+     * This function is used to animate fore- and background-objects to give the illusion of depth (parallaxe).
+     * When the player reaches the endboss-area, the objects stop moving.
+     * 
+     * @param {Object} objects - the fore- and background-objects to be animated
+     */
+    animate() {
+        if (keyboard.LEFT && world.character.x > 0 && !world.firstBossContact) {
+            this.moveRight();
+        }
+        if (keyboard.RIGHT && !world.firstBossContact) {
+            this.moveLeft();
         }
     }
 } 

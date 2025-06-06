@@ -155,6 +155,7 @@ function openGameMenu(contentRefId) {
     contentRef.classList.remove("d-none");
     adjustGameOverlay("add");
     removeEventListeners();
+    world.stopGame();
 }
 
 /**

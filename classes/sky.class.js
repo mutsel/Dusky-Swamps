@@ -7,17 +7,14 @@ class Sky extends MovableObject {
     constructor(x) {
         super().loadImage("./img/scenery/sky.png");
         this.x = x;
-        this.animate();
     }
 
     /**
     * This function is used to animate the movable Object (movement)
     */
     animate() {
-        setInterval(() => {
-            if (!world.gamePaused) {
-                this.moveLeft();
-            }
-        }, 1000 / 60);
+        if (!world.gamePaused) {
+            this.moveLeft();
+        }
     }
 } 

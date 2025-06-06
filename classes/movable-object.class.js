@@ -17,28 +17,8 @@ class MovableObject extends DrawableObject {
     deathAnimationCounter;
     isAlive = true;
 
-    constructor() {
+    constructor() { 
         super();
-    }
-
-    /**
-    * This function is the overall animation-function and it executes the movement- and images-animation of each movable object.
-    */
-    animate() {
-        // const mOMovementInterval = 
-        setInterval(() => {
-            if (!world.gamePaused) {
-                this.animateMovement();
-            }
-        }, 1000 / 60);
-        // const mOAnimationInterval = 
-        setInterval(() => {
-            if (this.isAlive && !world.gamePaused) {
-                this.animateImages();
-            }
-        }, 1000 / 10);
-        // world.intervals.push(mOMovementInterval);
-        // world.intervals.push(mOAnimationInterval);
     }
 
     /**
@@ -46,8 +26,7 @@ class MovableObject extends DrawableObject {
      * If the object is above the set ground, it will move towards it with a given speed and acceleration until it hits the ground.
      */
     applyGravity() {
-        // const gravityApplicationInterval = 
-        setInterval(() => {
+        // setInterval(() => {
             if (!world.gamePaused) {
                 if (this.isAboveGround() || this.speedY > 0) {
                     this.y -= this.speedY;
@@ -58,8 +37,7 @@ class MovableObject extends DrawableObject {
                     this.y = this.getGroundY();
                 }
             }
-        }, 1000 / 60)
-        // world.intervals.push(gravityApplicationInterval);
+        // }, 1000 / 60)
     }
 
     /**
@@ -131,7 +109,9 @@ class MovableObject extends DrawableObject {
             }
         }
         if (this instanceof Endboss && images == this.IMAGES_ATTACK && i == 5) {
-            world.canonballAttacks.push(new CanonballAttack());
+            let newCanonballAttack = new CanonballAttack();
+            world.canonballAttacks.push(newCanonballAttack);
+            world.setStoppableInterval(newCanonballAttack.animateMovement, 1000 / 20, newCanonballAttack);
             return;
         }
     }

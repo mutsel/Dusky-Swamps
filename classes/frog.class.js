@@ -86,14 +86,13 @@ class Frog extends MovableObject {
         this.rightBorder = rightBorder;
         this.speed = 0.5 + Math.random() * 0.3;
         this.deathAnimationCounter = this.IMAGES_DEAD.length;
-        this.animate();
     }
 
     /**
     * This function animates the frogs movement.
     */
     animateMovement() {
-        if (!this.attacking) {
+        if (!world.gamePaused && !this.attacking) {
             if (this.otherDirection) {
                 return this.animateMovementRight();
             } else {
@@ -145,18 +144,20 @@ class Frog extends MovableObject {
     * This function animates the frogs images for each situation (death, hit, attack, run).
     */
     animateImages() {
-        if (this.isDead()) {
-            this.speed = 0;
-            this.width = 31.5;
-            return this.animateDeath();
-        } else if (this.isHurt) {
-            this.width = 31.5;
-            this.playAnimation(this.IMAGES_HIT);
-        } else if (this.attacking == true || this.characterNearby) {
-            this.animateAttack();
-        } else {
-            this.width = 31.5;
-            this.playAnimation(this.IMAGES_RUN);
+        if (!world.gamePaused) {
+            if (this.isDead()) {
+                this.speed = 0;
+                this.width = 31.5;
+                return this.animateDeath();
+            } else if (this.isHurt) {
+                this.width = 31.5;
+                this.playAnimation(this.IMAGES_HIT);
+            } else if (this.attacking == true || this.characterNearby) {
+                this.animateAttack();
+            } else {
+                this.width = 31.5;
+                this.playAnimation(this.IMAGES_RUN);
+            }
         }
     }
 

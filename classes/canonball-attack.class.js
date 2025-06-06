@@ -10,9 +10,8 @@ class CanonballAttack extends ShootableObject {
         super().loadImage(this.imagePath)
         this.x = this.setX();
         this.y = this.endboss.y + 15;
-        this.speed = this.setDirection(this.endboss, -10);
+        this.speed = this.setSpeed(this.endboss, -10);
         playAudio("canonballAttack");
-        this.shoot();
     }
 
     /**

@@ -14,7 +14,7 @@ class DrawableObject {
      * This function creates an image from a given image-path
      * 
      * @param {string} path - the path of a single image
-     */
+     */ 
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;

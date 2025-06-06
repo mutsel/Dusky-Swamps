@@ -77,37 +77,31 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_RUN);
         this.deathAnimationCounter = this.IMAGES_DEAD.length;
-        this.applyGravity();
-        this.animateEndboss();
     }
- 
+
     /**
     * This function is used to execude the endboss animations.
     * i is the counter for the intro-animation.
     * b is the counter for the behavior-animation.
     */
     animateEndboss() {
-        // const endbossAnimationInterval = 
-        setInterval(() => {
-            if (!world.gamePaused) {
-                if (this.i < 42) {
-                    this.animateIntro();
-                } else {
-                    if (this.isAlive) {
-                        this.animateImages();
-                    }
+        if (!world.gamePaused) {
+            if (this.i < 42) {
+                this.animateIntro();
+            } else {
+                if (this.isAlive) {
+                    this.animateImages();
                 }
-                this.i++
-                if (world.character.x > 1620 && !world.firstBossContact) {
-                    this.i = 0;
-                    this.b = 0;
-                    world.firstBossContact = true;
-                    world.character.stopMovementEndbossIntro();
-                    adjustLoopSounds();
-                }
-            } else {audios.creakingSteps.pause();}
-        }, 1000 / 12);
-        // world.intervals.push(endbossAnimationInterval);
+            }
+            this.i++
+            if (world.character.x > 1620 && !world.firstBossContact) {
+                this.i = 0;
+                this.b = 0;
+                world.firstBossContact = true;
+                world.character.stopMovementEndbossIntro();
+                adjustLoopSounds();
+            }
+        } else { audios.creakingSteps.pause(); }
     }
 
 
