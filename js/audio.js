@@ -55,16 +55,8 @@ function stopAllAudios() {
 function addButtonSounds() {
     const roundBtns = document.querySelectorAll('.round-btn');
     const rectangleBtns = document.querySelectorAll('.rectangle-btn');
-    roundBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            playAudio("roundBtn");
-        });
-    });
-    rectangleBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            playAudio("rectangleBtn");
-        });
-    });
+    roundBtns.forEach(btn => btn.addEventListener('click', () => playAudio("roundBtn")));
+    rectangleBtns.forEach(btn => btn.addEventListener('click', () => playAudio("rectangleBtn")));
 }
 
 /**
@@ -72,9 +64,7 @@ function addButtonSounds() {
 * This way, previous audio-settings are saved, so the player does not need to adjust it everytime playing.
 */
 function checkAudioSettings() {
-    try {
-        indexAudioVolume = JSON.parse(localStorage.getItem('indexAudioVolume'));
-    }
+    try {indexAudioVolume = JSON.parse(localStorage.getItem('indexAudioVolume'));}
     catch (error) {
         indexAudioVolume = 2;
         audioVolume = 0.5;
@@ -108,11 +98,11 @@ function setAudioVolume(method) {
     let volumeStartscreenContentRef = document.getElementById("volumeRegulatorStartscreen");
     let volumeGameContentRef = document.getElementById("volumeRegulatorGame");
     switch (method) {
-        case 'decrease': if (indexAudioVolume > 0) { indexAudioVolume-- };
+        case 'decrease': if (indexAudioVolume > 0) indexAudioVolume-- ;
             volumeStartscreenContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
             volumeGameContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
             break;
-        case 'increase': if (indexAudioVolume < 4) { indexAudioVolume++ };
+        case 'increase': if (indexAudioVolume < 4) indexAudioVolume++ ;
             volumeStartscreenContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
             volumeGameContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
             break;
@@ -131,12 +121,8 @@ function setAudioVolume(method) {
 */
 function adjustAudioVolume() {
     audioVolume = indexAudioVolume * 25 / 100;
-    for (let i = 0; i < audios.length; i++) {
-        audios[i].volume = (indexAudioVolume * 25 / 100);
-    }
-    if (inGame) {
-        adjustLoopSounds();
-    }
+    for (let i = 0; i < audios.length; i++) audios[i].volume = (indexAudioVolume * 25 / 100);
+    if (inGame) adjustLoopSounds();
 }
 
 /**

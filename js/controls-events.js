@@ -2,11 +2,7 @@
 * This eventListener called on keydown prevents default behavior for buttons.
 * Like this, accidentaly clicked buttons by pressing a key are not happening.
 */
-window.addEventListener('keydown', (e) => {
-    if (document.activeElement.tagName == 'BUTTON') {
-        e.preventDefault();
-    }
-});
+window.addEventListener('keydown', (e) => { if (document.activeElement.tagName == 'BUTTON') e.preventDefault() });
 
 /**
 * This function adds the keydown- and keyup-eventListeners for the game.
@@ -14,7 +10,7 @@ window.addEventListener('keydown', (e) => {
 function addEventListeners() {
     window.addEventListener('keydown', keyDownEvents);
     window.addEventListener('keyup', keyUpEvents);
-    toggleMobileControls(false)
+    toggleMobileControls(false);
 }
 
 /**
@@ -24,8 +20,8 @@ function addEventListeners() {
 function removeEventListeners() {
     window.removeEventListener('keydown', keyDownEvents);
     window.removeEventListener('keyup', keyUpEvents);
-    toggleMobileControls(true)
-    cancelEvents()
+    toggleMobileControls(true);
+    cancelEvents();
 }
 
 /**
@@ -50,26 +46,17 @@ function cancelEvents() {
 function keyDownEvents() {
     world.character.timeIdling = 0;
     switch (event.keyCode) {
-        case 38:
-        case 87:
-            keyboard.UP = true;
+        case 38: case 87: keyboard.UP = true;
             break;
-        case 37:
-        case 65: keyboard.LEFT = true;
+        case 37: case 65: keyboard.LEFT = true;
             keyboard.RIGHT = false;
-            if (!world.character.isAboveGround()) {
-                playAudio("steps");
-            }
+            if (!world.character.isAboveGround()) playAudio("steps");
             break;
-        case 39:
-        case 68: keyboard.RIGHT = true;
+        case 39: case 68: keyboard.RIGHT = true;
             keyboard.LEFT = false;
-            if (!world.character.isAboveGround()) {
-                playAudio("steps");
-            }
+            if (!world.character.isAboveGround()) playAudio("steps");
             break;
-        case 40:
-        case 32: keyboard.ATTACK = true;
+        case 40: case 32: keyboard.ATTACK = true;
             break;
     }
 }
@@ -82,19 +69,15 @@ function keyDownEvents() {
 function keyUpEvents() {
     world.character.timeIdling = 0;
     switch (event.keyCode) {
-        case 38:
-        case 87: keyboard.UP = false;
+        case 38: case 87: keyboard.UP = false;
             break;
-        case 37:
-        case 65: keyboard.LEFT = false;
+        case 37: case 65: keyboard.LEFT = false;
             audios.steps.pause();
             break;
-        case 39:
-        case 68: keyboard.RIGHT = false;
+        case 39: case 68: keyboard.RIGHT = false;
             audios.steps.pause();
             break;
-        case 40:
-        case 32: keyboard.ATTACK = false;
+        case 40: case 32: keyboard.ATTACK = false;
             world.attackBar.shootMagicAttack();
             break;
     }
@@ -109,14 +92,10 @@ function mobileControlsMousedown(key) {
         case 'up': keyboard.UP = true;
             break;
         case 'left': keyboard.LEFT = true;
-            if (!world.character.isAboveGround()) {
-                playAudio("steps");
-            }
+            if (!world.character.isAboveGround()) playAudio("steps");
             break;
         case 'right': keyboard.RIGHT = true;
-            if (!world.character.isAboveGround()) {
-                playAudio("steps");
-            }
+            if (!world.character.isAboveGround()) playAudio("steps");
             break;
         case 'attack': keyboard.ATTACK = true;
             break;
@@ -151,7 +130,5 @@ function mobileControlsMouseup(key) {
 */
 function toggleMobileControls(boolean) {
     let mobileControlBtns = document.querySelectorAll(".mobile-control-btn");
-    mobileControlBtns.forEach(btn => {
-        btn.disabled = boolean;
-    });
+    mobileControlBtns.forEach(btn => btn.disabled = boolean);
 }

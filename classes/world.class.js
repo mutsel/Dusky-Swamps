@@ -397,7 +397,7 @@ class World {
             if (lastSkyImg.x + lastSkyImg.width <= 2900) {
                 let newSky = new Sky(lastSkyImg.x + 700);
                 this.level.sky.push(newSky);
-                this.setStoppableInterval(newSky.animateSky, 1000 / 60, newSky);
+                this.setStoppableInterval(newSky.animate, 1000 / 60, newSky);
             }
         }
     }

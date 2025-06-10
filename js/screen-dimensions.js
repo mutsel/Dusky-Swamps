@@ -7,13 +7,9 @@ let screenHeight;
 * This way, the previous fullscreen-setting is saved, so the player does not need to adjust it everytime playing.
 */
 function checkScreenDimensionsSettings() {
-    try {
-        fullscreen = JSON.parse(localStorage.getItem('fullscreen'));
-    }
-    catch (error) {
-        fullscreen = false;
-    }
-    if (fullscreen == null) { fullscreen = false }
+    try {fullscreen = JSON.parse(localStorage.getItem('fullscreen'));}
+    catch (error) {fullscreen = false;}
+    if (fullscreen == null) fullscreen = false;
     localStorage.setItem('fullscreen', JSON.stringify(fullscreen));
     adjustScreenDimensions();
 }
@@ -50,16 +46,12 @@ async function getScreenDimensions() {
     if (fullscreen || window.innerWidth <= 720) {
         screenWidth = window.innerWidth;
         screenHeight = window.innerWidth * 0.66;
-        if (window.innerWidth > 1440) {
-            getScreenDimensionsBigWidth();
-        }
+        if (window.innerWidth > 1440) getScreenDimensionsBigWidth();
     } else {
         screenWidth = 720;
         screenHeight = 480;
     }
-    if (screenHeight > window.innerHeight) {
-        getScreenDimensionsSmallHeight();
-    }
+    if (screenHeight > window.innerHeight) getScreenDimensionsSmallHeight();
 }
 
 /**
@@ -110,11 +102,8 @@ function adjustDimensionsElements() {
         document.getElementById("controls")
     ]
     staticElements.forEach(e => {
-        if (fullscreen || screenWidth < 720 || screenHeight < 480) {
-            e.classList.remove("static-size");
-        } else {
-            e.classList.add("static-size");
-        }
+        if (fullscreen || screenWidth < 720 || screenHeight < 480) e.classList.remove("static-size");
+        else e.classList.add("static-size");
     });
 }
 

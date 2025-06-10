@@ -41,6 +41,17 @@ function startGame() {
     addEventListeners();
     closeAllStartscreenMenu();
     closeAll();
+    resetCssGameStart();
+    checkAudioSettings();
+    adjustControlsVisibility();
+    checkScreenDimensionsSettings();
+    adjustDimensionsContent();
+}
+
+/**
+* This function is part of the startGame()-function. resets the css-properties of some elements for the game to start properly.
+*/
+function resetCssGameStart() {
     document.getElementById("canvas").classList.remove("d-none");
     document.getElementById("gameOverlay").classList.remove("d-none");
     document.getElementById("gameOverlay").classList.remove("dark-bg");
@@ -49,10 +60,6 @@ function startGame() {
     document.getElementById("closeBtn").classList.add("d-none");
     document.getElementById("mobileControls").classList.remove("d-none");
     gemCounter.style.backgroundImage = collectedGemsImgs[0];
-    checkAudioSettings();
-    adjustControlsVisibility();
-    checkScreenDimensionsSettings();
-    adjustDimensionsContent();
 }
 
 /**
@@ -75,9 +82,7 @@ function createWorld() {
 function closeAllStartscreenMenu() {
     document.getElementById("startscreen").classList.add("d-none");
     let startscreenMenu = document.querySelectorAll(".startscreen-menu");
-    for (let i = 0; i < startscreenMenu.length; i++) {
-        startscreenMenu[i].classList.add("d-none")
-    }
+    for (let i = 0; i < startscreenMenu.length; i++) startscreenMenu[i].classList.add("d-none");
 }
 
 /**
@@ -97,9 +102,7 @@ function closeAll() {
 */
 function closeGameMenu() {
     let gameMenu = document.querySelectorAll(".game-menu");
-    for (let i = 0; i < gameMenu.length; i++) {
-        gameMenu[i].classList.add("d-none")
-    }
+    for (let i = 0; i < gameMenu.length; i++) gameMenu[i].classList.add("d-none");
     if (inGame) playAudio("scenery");
 }
 
@@ -152,7 +155,7 @@ function openStartscreenSettings() {
 * @param {string} contentRefId - the id of the game-menu
 */
 function openGameMenu(contentRefId) {
-    let contentRef = document.getElementById(contentRefId); 
+    let contentRef = document.getElementById(contentRefId);
     contentRef.classList.remove("d-none");
     adjustGameOverlay("add");
     removeEventListeners();
@@ -177,7 +180,6 @@ function adjustGameOverlay(toggle) {
     }
 }
 
-
 /**
 * This function shows the gameOver-screen if gameOver in the world is set to true.
 */
@@ -195,9 +197,7 @@ function victory() {
     document.getElementById("victory").classList.remove("d-none");
     playAudio("victory");
     playAudio("characterHurt");
-    setTimeout(() => {
-        countGems();
-    }, 1000);
+    setTimeout(() => countGems(), 1000);
 }
 
 /**
@@ -225,9 +225,7 @@ async function countGems() {
     let collectedGems = 4 - (world.gemsBar.percentage / 100 * 4);
     for (let i = 0; i <= collectedGems; i++) {
         gemCounter.style.backgroundImage = collectedGemsImgs[i];
-        if (i > 0) {
-            playAudio("gem");
-        }
+        if (i > 0) playAudio("gem");
         await delay(650);
     }
     enableVictoryButtons();
@@ -264,12 +262,8 @@ function toggleControlsVisibility() {
 * The state is saved in the local storage.
 */
 function adjustControlsVisibility() {
-    try {
-        controlsVisibility = JSON.parse(localStorage.getItem('controlsVisibility'));
-    }
-    catch (error) {
-        controlsVisibility = true;
-    }
+    try { controlsVisibility = JSON.parse(localStorage.getItem('controlsVisibility'));}
+    catch (error) {controlsVisibility = true;}
     if (controlsVisibility || controlsVisibility == null) {
         controlsVisibility = true;
         document.getElementById("showControlsBtnStartscreen").classList.remove("low-opacity");
