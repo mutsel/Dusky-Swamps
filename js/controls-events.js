@@ -29,7 +29,7 @@ function removeEventListeners() {
 }
 
 /**
-* This function stops the music and sets all keyboard-constants to false.
+* This function stops the music and sets all keyboard-constants to false. 
 * This way, the character and the music stops, when a menu opens.
 */
 function cancelEvents() {

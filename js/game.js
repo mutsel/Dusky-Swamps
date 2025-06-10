@@ -100,6 +100,7 @@ function closeGameMenu() {
     for (let i = 0; i < gameMenu.length; i++) {
         gameMenu[i].classList.add("d-none")
     }
+    if (inGame) playAudio("scenery");
 }
 
 /**
@@ -151,11 +152,10 @@ function openStartscreenSettings() {
 * @param {string} contentRefId - the id of the game-menu
 */
 function openGameMenu(contentRefId) {
-    let contentRef = document.getElementById(contentRefId);
+    let contentRef = document.getElementById(contentRefId); 
     contentRef.classList.remove("d-none");
     adjustGameOverlay("add");
     removeEventListeners();
-    world.stopGame();
 }
 
 /**

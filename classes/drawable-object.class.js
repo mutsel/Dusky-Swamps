@@ -39,7 +39,8 @@ class DrawableObject {
      * @param {string} ctx - the context, where the image should be drawn 
      */
     draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+        try {ctx.drawImage(this.img, this.x, this.y, this.width, this.height)}
+        catch (error) {return}
     }
 
     /**

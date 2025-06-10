@@ -5,8 +5,19 @@ class Endboss extends MovableObject {
     y = 300;
     speed = 9;
     energy = 250;
+    a;
     b;
-    i;
+    attackFired = false;
+
+    IMAGES_INTRO_ATTACK = [
+        'img/enemies/endboss/intro_attack/intro_attack_01.png',
+        'img/enemies/endboss/intro_attack/intro_attack_02.png',
+        'img/enemies/endboss/intro_attack/intro_attack_03.png',
+        'img/enemies/endboss/intro_attack/intro_attack_04.png',
+        'img/enemies/endboss/intro_attack/intro_attack_05.png',
+        'img/enemies/endboss/intro_attack/intro_attack_06.png',
+        'img/enemies/endboss/intro_attack/intro_attack_07.png',
+    ];
 
     IMAGES_ATTACK = [
         'img/enemies/endboss/attack/attack_01.png',
@@ -71,51 +82,60 @@ class Endboss extends MovableObject {
 
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);
+        this.loadImages(this.IMAGES_INTRO_ATTACK);
         this.loadImages(this.IMAGES_ATTACK);
         this.loadImages(this.IMAGES_DEAD);
         this.loadImages(this.IMAGES_HIT);
         this.loadImages(this.IMAGES_IDLE);
         this.loadImages(this.IMAGES_RUN);
         this.deathAnimationCounter = this.IMAGES_DEAD.length;
+        this.attackFired = false;
     }
 
     /**
     * This function is used to execude the endboss animations.
-    * i is the counter for the intro-animation.
+    * a is the counter for the intro-animation.
     * b is the counter for the behavior-animation.
     */
     animateEndboss() {
-        if (!world.gamePaused) {
-            if (this.i < 42) {
-                this.animateIntro();
-            } else {
-                if (this.isAlive) {
-                    this.animateImages();
-                }
-            }
-            this.i++
-            if (world.character.x > 1620 && !world.firstBossContact) {
-                this.i = 0;
-                this.b = 0;
-                world.firstBossContact = true;
-                world.character.stopMovementEndbossIntro();
-                adjustLoopSounds();
-            }
-        } else { audios.creakingSteps.pause(); }
+        if (world.gamePaused) return audios.creakingSteps.pause();
+        else if (this.a < 43) this.animateIntro();
+        else if (this.isAlive) this.animateImages();
+        this.a++;
+        if (this.bossfightStarted()) this.prepareBossfight();
     }
 
+    /**
+    * This function returns true, if the character crosses the border to the boss area and the bossfight did not already started.
+    */
+    bossfightStarted() {
+        return world.character.x > 1620 && !world.firstBossContact;
+    }
 
     /**
-    * This function animates the endboss-intro-scene (it walks in and shoots one time).
+    * This function sets the game, endboss and character in the bossfight-mode by adjusting variables and executing functions.
+    */
+    prepareBossfight() {
+        this.a = 0;
+        this.b = 0;
+        world.firstBossContact = true;
+        world.character.stopMovementEndbossIntro();
+        adjustLoopSounds();
+    }
+
+    /**
+    * This function animates the endboss-intro-scene.
     */
     animateIntro() {
-        if (this.i < 36) {
+        if (this.a < 36) {
             playAudio("creakingSteps");
             this.moveLeft();
             this.playAnimation(this.IMAGES_RUN);
         } else {
-            audios.creakingSteps.pause();
-            this.playAnimation(this.IMAGES_ATTACK);
+            this.playAnimation(this.IMAGES_INTRO_ATTACK);
+            if (this.a == 39) {
+                this.createCanonballAttack();
+            }
         }
     }
 
@@ -123,18 +143,12 @@ class Endboss extends MovableObject {
     * This function animates the endboss images for each situation (death, hit, idle, normal behavior).
     */
     animateImages() {
-        if (this.isDead()) {
-            this.speed = 0;
-            return this.animateDeath();
-        } else if (this.isHurt) {
-            this.playAnimation(this.IMAGES_HIT);
-            this.b++
-        } else if (this.energy == 250) {
+        if (this.isDead()) return this.animateDeath();
+        else if (this.isHurt) this.playAnimation(this.IMAGES_HIT);
+        else if (this.energy == 250) {
             audios.creakingSteps.pause();
             this.playAnimation(this.IMAGES_IDLE);
-        } else {
-            this.animateBehavior();
-        }
+        } else this.animateBehavior();
     }
 
     /**
@@ -144,21 +158,20 @@ class Endboss extends MovableObject {
     animateBehavior() {
         if (this.b < 24) {
             this.animateMovement();
-            return this.b++
+            this.b++;
+        } else if (this.b <= 31) {
+            audios.creakingSteps.pause();
+            this.playAnimation(this.IMAGES_ATTACK);
+            this.b++;
         } else {
-            if (this.b > 31) {
-                return this.b = 0;
-            } else {
-                audios.creakingSteps.pause();
-                this.playAnimation(this.IMAGES_ATTACK);
-                return this.b++
-            }
+            this.b = 0;
+            this.attackFired = false;
         }
     }
 
     /**
     * This function animates the endboss movement.
-    * The endboss changes direction and runs in the opposite direction, if the character is behind him.
+    * The endboss changes direction, if the character is behind him.
     */
     animateMovement() {
         if (world.character.x + world.character.width < this.x) {
@@ -174,5 +187,33 @@ class Endboss extends MovableObject {
         } else {
             this.playAnimation(this.IMAGES_IDLE);
         }
+    }
+
+    /**
+     * This function creates the canonball-attack in the 5th attack-animation frame.
+     * 
+     * @param {number} i - the modulos residual value for the attack-frame
+     */
+    animateAttack(i) {
+        if (i == 5 && !this.attackFired) {
+            this.createCanonballAttack();
+            this.attackFired = true;
+        } else { this.attackFired = false }
+    }
+
+    /**
+    * This function creates a new canonball-attack.
+    * If the canonball created is part of the intro-animation, it has adjusted physics (it shoots in the air instead of to the character).
+    */
+    createCanonballAttack() {
+        let newCanonballAttack = new CanonballAttack();
+        world.canonballAttacks.push(newCanonballAttack);
+        if (this.a == 39) {
+            newCanonballAttack.y = this.y + 10;
+            newCanonballAttack.speedY = 0.8;
+            newCanonballAttack.acceleration = 0;
+        }
+        world.setStoppableInterval(newCanonballAttack.animateMovement, 1000 / 60, newCanonballAttack);
+        world.setStoppableInterval(newCanonballAttack.applyGravity, 1000 / 60, newCanonballAttack);
     }
 }

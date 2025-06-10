@@ -17,7 +17,7 @@ class MovableObject extends DrawableObject {
     deathAnimationCounter;
     isAlive = true;
 
-    constructor() { 
+    constructor() {
         super();
     }
 
@@ -27,16 +27,16 @@ class MovableObject extends DrawableObject {
      */
     applyGravity() {
         // setInterval(() => {
-            if (!world.gamePaused) {
-                if (this.isAboveGround() || this.speedY > 0) {
-                    this.y -= this.speedY;
-                    this.speedY -= this.acceleration;
-                } else if (!this.isAboveGround()) {
-                    this.speedY = 0;
-                    this.isJumping = false;
-                    this.y = this.getGroundY();
-                }
+        if (!world.gamePaused) {
+            if (this.isAboveGround() || this.speedY > 0) {
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+            } else if (!this.isAboveGround()) {
+                this.speedY = 0;
+                this.isJumping = false;
+                this.y = this.getGroundY();
             }
+        }
         // }, 1000 / 60)
     }
 
@@ -108,11 +108,8 @@ class MovableObject extends DrawableObject {
                 playAudio("frogAttack");
             }
         }
-        if (this instanceof Endboss && images == this.IMAGES_ATTACK && i == 5) {
-            let newCanonballAttack = new CanonballAttack();
-            world.canonballAttacks.push(newCanonballAttack);
-            world.setStoppableInterval(newCanonballAttack.animateMovement, 1000 / 20, newCanonballAttack);
-            return;
+        if (this instanceof Endboss && images == this.IMAGES_ATTACK) {
+            this.animateAttack(i);
         }
     }
 
@@ -204,6 +201,7 @@ class MovableObject extends DrawableObject {
      * This function shows the death-animation for each character
      */
     animateDeath() {
+        this.speed = 0;
         if (this.deathAnimationCounter <= 0) {
             this.loadImage('./img/dead_animation_universal/dead.png');
             if (this instanceof Character) {

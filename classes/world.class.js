@@ -35,12 +35,16 @@ class World {
     gamePaused = false;
 
     constructor(canvas, keyboard) {
-        this.ctx = canvas.getContext("2d");
-        this.canvas = canvas;
-        this.keyboard = keyboard;
-        this.setWorld();
-        this.draw();
-        this.run();
+        let createWorld = new Promise(() => {
+            this.ctx = canvas.getContext("2d");
+            this.canvas = canvas;
+            this.keyboard = keyboard;
+            this.setWorld();
+            this.draw();
+        })
+        createWorld.then(
+            this.run()
+        )
     }
 
     /**
@@ -192,53 +196,66 @@ class World {
     }
 
     /**
-     * This function runs the game. It executes the checkCollision-functions, checks if the game ends and is used for the scenery.
+     * This function runs the game. It executes all the setStoppableInterval-functions.
      */
     run() {
-        setTimeout(() => {
-            this.setStoppableInterval(this.respawnPassiveEntities, 20000);
-            this.setStoppableInterval(this.checkRespawnSky, 1000 / 60);
-            this.setStoppableInterval(this.checkCollisionsEnemies, 1000 / 60);
-            this.setStoppableInterval(this.checkCollisionShootableObjects, 1000 / 60);
-            this.setStoppableInterval(this.checkCollisionsCollectables, 1000 / 60);
-            this.setStoppableInterval(this.checkCharacterNearbyEnemy, 1000 / 60);
-            this.setStoppableInterval(this.checkGameEnd, 1000 / 60);
-            this.setStoppableInterval(this.character.countIdlingTime, 1000 / 30, this.character);
-            this.setStoppableInterval(this.character.adjustCamera, 1000 / 60, this.character);
-            this.setStoppableInterval(this.character.animateMovement, 1000 / 60, this.character);
-            this.setStoppableInterval(this.character.animateImages, 1000 / 10, this.character);
-            this.setStoppableInterval(this.character.applyGravity, 1000 / 60, this.character);
-            this.passiveEntities.forEach(e => {
-                this.setStoppableInterval(e.animateMovement, 1000 / 30, e);
-                this.setStoppableInterval(e.animateImages, 1000 / 8, e);
-            });
-            this.level.sky.forEach(s => {
-                this.setStoppableInterval(s.animate, 1000 / 60, s);
-            });
-            this.level.foregroundObjects.forEach(o => {
-                this.setStoppableInterval(o.animate, 1000 / 60, o);
-            });
-            this.level.backgroundObjects.forEach(o => {
-                this.setStoppableInterval(o.animate, 1000 / 60, o);
-            });
-            this.level.collectableObjects.forEach(o => {
-                this.setStoppableInterval(o.animate, 1000 / 12, o);
-            });
-            let endboss = this.level.enemies.find(e => e instanceof Endboss);
-            this.setStoppableInterval(endboss.animateEndboss, 1000 / 12, endboss);
-            this.setStoppableInterval(endboss.applyGravity, 1000 / 60, endboss);
-            let cacti = this.level.enemies.filter(e => e instanceof Cactus);
-            cacti.forEach(c => {
-                this.setStoppableInterval(c.animateMovement, 1000 / 60, c);
-                this.setStoppableInterval(c.animateImages, 1000 / 10, c);
-                this.setStoppableInterval(c.applyGravity, 1000 / 60, c);
-            });
-            let frogs = this.level.enemies.filter(e => e instanceof Frog);
-            frogs.forEach(f => {
-                this.setStoppableInterval(f.animateMovement, 1000 / 60, f);
-                this.setStoppableInterval(f.animateImages, 1000 / 10, f);
-            });
-        }, 100);
+        this.setStoppableIntervalsWorld();
+        this.setStoppableIntervalsCharacter();
+        this.setStoppableIntervalsEnemies();
+        this.setStoppableIntervalsScenery();
+        this.level.collectableObjects.forEach(o => this.setStoppableInterval(o.animate, 1000 / 12, o));
+    }
+
+    /**
+     * This function sets stoppable Intervals for all the worlds functions with intervals.
+     */
+    setStoppableIntervalsWorld() {
+        this.setStoppableInterval(this.respawnPassiveEntities, 20000);
+        this.setStoppableInterval(this.checkRespawnSky, 1000 / 60);
+        this.setStoppableInterval(this.checkCollisionsEnemies, 1000 / 60);
+        this.setStoppableInterval(this.checkCollisionShootableObjects, 1000 / 60);
+        this.setStoppableInterval(this.checkCollisionsCollectables, 1000 / 60);
+        this.setStoppableInterval(this.checkCharacterNearbyEnemy, 1000 / 60);
+        this.setStoppableInterval(this.checkGameEnd, 1000 / 60);
+    }
+
+    /**
+     * This function sets stoppable Intervals for the character.
+     */
+    setStoppableIntervalsCharacter() {
+        this.setStoppableInterval(this.character.countIdlingTime, 1000 / 30, this.character);
+        this.setStoppableInterval(this.character.adjustCamera, 1000 / 60, this.character);
+        this.setStoppableInterval(this.character.animateMovement, 1000 / 60, this.character);
+        this.setStoppableInterval(this.character.animateImages, 1000 / 10, this.character);
+        this.setStoppableInterval(this.character.applyGravity, 1000 / 60, this.character);
+    }
+
+    /**
+     * This function sets stoppable Intervals for all enemies.
+     */
+    setStoppableIntervalsEnemies() {
+        let endboss = this.level.enemies.find(e => e instanceof Endboss);
+        this.setStoppableInterval(endboss.animateEndboss, 1000 / 12, endboss);
+        this.setStoppableInterval(endboss.applyGravity, 1000 / 60, endboss);
+        let otherEnemies = this.level.enemies.filter(e => e instanceof Cactus || e instanceof Frog);
+        otherEnemies.forEach(e => {
+            this.setStoppableInterval(e.animateMovement, 1000 / 60, e);
+            this.setStoppableInterval(e.animateImages, 1000 / 10, e);
+            if (e instanceof Cactus) this.setStoppableInterval(e.applyGravity, 1000 / 60, e);
+        });
+    }
+
+    /**
+     * This function sets stoppable Intervals for all scenery.
+     */
+    setStoppableIntervalsScenery() {
+        this.level.sky.forEach(s => this.setStoppableInterval(s.animate, 1000 / 60, s));
+        this.level.foregroundObjects.forEach(o => this.setStoppableInterval(o.animate, 1000 / 60, o));
+        this.level.backgroundObjects.forEach(o => this.setStoppableInterval(o.animate, 1000 / 60, o));
+        this.passiveEntities.forEach(e => {
+            this.setStoppableInterval(e.animateMovement, 1000 / 30, e);
+            this.setStoppableInterval(e.animateImages, 1000 / 8, e);
+        });
     }
 
     /**
@@ -246,16 +263,11 @@ class World {
      * If so, it executes the according function.
      */
     checkGameEnd() {
-        if (!this.gamePaused) {
-            if (this.gameOver && !this.gameEndCalled) {
-                gameOver();
-                this.gameEndCalled = true;
-                adjustLoopSounds();
-            } else if (this.victory && !this.gameEndCalled) {
-                victory();
-                this.gameEndCalled = true;
-                adjustLoopSounds();
-            };
+        if (!this.gamePaused && !this.gameEndCalled && (this.gameOver || this.victory)) {
+            this.stopGame();
+            this.gameEndCalled = true;
+            this.gameOver ? gameOver() : victory();
+            adjustLoopSounds();
         }
     }
 
@@ -266,11 +278,8 @@ class World {
     checkCollisionsEnemies() {
         if (!this.gamePaused) {
             this.level.enemies.forEach((e) => {
-                if (this.character.isJumpingOnTop(e) && e.energy > 0) {
-                    this.characterJumpsOnEnemy(e)
-                } else if (this.character.isColliding(e) && e.energy > 0) {
-                    this.characterCollidesWithEnemy();
-                }
+                if (this.character.isJumpingOnTop(e) && e.energy > 0) this.characterJumpsOnEnemy(e);
+                else if (this.character.isColliding(e) && e.energy > 0) this.characterCollidesWithEnemy();
             });
         }
     }
@@ -291,9 +300,7 @@ class World {
             this.character.hit(25);
             this.healthBar.setPercentage(this.character.energy);
         }
-        if (e instanceof Endboss) {
-            this.endbossHealthbar.setPercentageEndboss(e.energy / 2.5);
-        }
+        if (e instanceof Endboss) this.endbossHealthbar.setPercentageEndboss(e.energy / 2.5);
     }
 
     /**
@@ -314,15 +321,11 @@ class World {
         if (!this.gamePaused) {
             this.availableMagicAttacks.forEach((a) => {
                 this.level.enemies.forEach((e) => {
-                    if (a.isColliding(e) && e.energy > 0) {
-                        this.magicAttackHitEnemy(a, e);
-                    }
+                    if (a.isColliding(e) && e.energy > 0) this.magicAttackHitEnemy(a, e);
                 });
             });
             this.canonballAttacks.forEach((c) => {
-                if (c.isColliding(this.character)) {
-                    this.canonballAttackHitCharacter(c);
-                }
+                if (c.isColliding(this.character)) this.canonballAttackHitCharacter(c);
             });
         }
     }
@@ -337,12 +340,8 @@ class World {
     magicAttackHitEnemy(a, e) {
         e.hit(50);
         playAudio("enemyHurtAttack");
-        if (e instanceof Endboss) {
-            this.endbossHealthbar.setPercentageEndboss(e.energy / 2.5);
-        }
-        setTimeout(() => {
-            this.availableMagicAttacks.splice(this.availableMagicAttacks.indexOf(a), 1);
-        }, 20);
+        if (e instanceof Endboss) this.endbossHealthbar.setPercentageEndboss(e.energy / 2.5);
+        setTimeout(() => { this.availableMagicAttacks.splice(this.availableMagicAttacks.indexOf(a), 1) }, 20);
     }
 
     /**
@@ -365,11 +364,8 @@ class World {
         if (!this.gamePaused) {
             this.level.collectableObjects.forEach((c) => {
                 if (this.character.isColliding(c)) {
-                    if (c.type == "gem") {
-                        this.gemsBar.characterCollectsGem(c)
-                    } else if (c.type == "magicStone" && this.attackBar.percentage < 100) {
-                        this.attackBar.characterCollectsMagicStone(c)
-                    }
+                    if (c.type == "gem") this.gemsBar.characterCollectsGem(c);
+                    else if (c.type == "magicStone" && this.attackBar.percentage < 100) this.attackBar.characterCollectsMagicStone(c);
                     this.level.collectableObjects = this.level.collectableObjects.filter(c => c.isAvailable);
                 }
             });
@@ -383,16 +379,8 @@ class World {
     checkCharacterNearbyEnemy() {
         if (!this.gamePaused) {
             this.level.enemies.forEach((e) => {
-                if (e instanceof Frog) {
-                    if (this.characterIsNearbyFrog(e)) {
-                        return e.characterNearby = true;
-                    }
-                }
-                if (e instanceof Cactus) {
-                    if (this.characterIsNearbyCactus(e)) {
-                        return e.characterNearby = true;
-                    }
-                }
+                if (e instanceof Frog && this.characterIsNearbyFrog(e)) return e.characterNearby = true;
+                if (e instanceof Cactus && this.characterIsNearbyCactus(e)) return e.characterNearby = true;
                 e.characterNearby = false;
                 e.characterNoticed = false;
             });

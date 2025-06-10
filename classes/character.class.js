@@ -104,8 +104,6 @@ class Character extends MovableObject {
         this.loadImages(this.IMAGES_LONG_IDLE);
         this.loadImages(this.IMAGES_RUN);
         this.deathAnimationCounter = this.IMAGES_DEAD.length;
-        // this.applyGravity();
-        // this.animate();
     }
 
     /**

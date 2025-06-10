@@ -24,7 +24,7 @@ class MagicAttack extends ShootableObject {
         this.loadImages(this.IMAGES);
         this.x = this.character.x;
         this.y = this.character.y + 10;
-        this.speed = this.setSpeed(this.character, 12);
+        this.speed = this.setSpeed(this.character, 8);
         this.otherDirection = this.character.otherDirection;
         playAudio("magicAttack");
     }

@@ -41,8 +41,8 @@ class AttackBar extends StatusBar {
             this.setPercentage(this.percentage - 25)
             let newMagicAttack = new MagicAttack();
             this.world.availableMagicAttacks.push(newMagicAttack);
-            this.world.setStoppableInterval(newMagicAttack.animateImages, 1000 / 20, newMagicAttack);
-            this.world.setStoppableInterval(newMagicAttack.animateMovement, 1000 / 20, newMagicAttack);
+            this.world.setStoppableInterval(newMagicAttack.animateImages, 1000 / 60, newMagicAttack);
+            this.world.setStoppableInterval(newMagicAttack.animateMovement, 1000 / 60, newMagicAttack);
             setTimeout(() => {
                 if (!this.world.gamePaused) {
                     this.world.availableMagicAttacks.shift();

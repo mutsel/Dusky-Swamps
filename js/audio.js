@@ -30,6 +30,11 @@ let audios = {
     rectangleBtn: new Audio('./audio/rectangle_btn.mp3')
 };
 
+/**
+* This function plays the given audio and sets its volume to the audioVolume.
+*
+* @param {string} audio - the name of the audio to play
+*/
 function playAudio(audio) {
     audios[audio].play();
     audios[audio].volume = audioVolume;
