@@ -17,16 +17,13 @@ class MovableObject extends DrawableObject {
     deathAnimationCounter;
     isAlive = true;
 
-    constructor() {
-        super();
-    }
+    constructor() { super(); }
 
     /**
      * This function is used for objects that should experience gravity.
      * If the object is above the set ground, it will move towards it with a given speed and acceleration until it hits the ground.
      */
     applyGravity() {
-        // setInterval(() => {
         if (!world.gamePaused) {
             if (this.isAboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
@@ -37,7 +34,6 @@ class MovableObject extends DrawableObject {
                 this.y = this.getGroundY();
             }
         }
-        // }, 1000 / 60)
     }
 
     /**
@@ -45,22 +41,9 @@ class MovableObject extends DrawableObject {
      * In case of the plattforms, those values are different to the ground so beforehand it is checked where the object is situated.
      */
     isAboveGround() {
-        //first large plattform
-        if (this.x >= 460 - (this.width / 1.5) && this.x <= 716 - (this.width / 1.5) && this.y < 266 - this.height) {
-            return this.y < 256 - this.height;
-        }
-
-        //medium plattform
-        if (this.x >= 860 - (this.width / 1.5) && this.x <= 1048 - (this.width / 1.5) && this.y < 202 - this.height) {
-            return this.y < 192 - this.height;
-        }
-
-        //second large plattform
-        if (this.x >= 1240 - (this.width / 1.5) && this.x <= 1496 - (this.width / 1.5) && this.y < 266 - this.height) {
-            return this.y < 256 - this.height;
-        }
-
-        //base ground
+        if (this.isAboveFirstPlattform()) return this.y < 256 - this.height;
+        if (this.isAboveSecondPlattform()) return this.y < 192 - this.height;
+        if (this.isAboveThirdPlattform()) return this.y < 256 - this.height;
         return this.y < 380 - this.height;
     }
 
@@ -69,24 +52,26 @@ class MovableObject extends DrawableObject {
      * This way, it is made safe, that each entity is set back to the exact ground level are falling/jumping/...
      */
     getGroundY() {
-        //first large plattform
-        if (this.x >= 460 - (this.width / 1.5) && this.x <= 716 - (this.width / 1.5) && this.y < 266 - this.height) {
-            return 261 - this.height;
-        }
-
-        //medium plattform
-        if (this.x >= 860 - (this.width / 1.5) && this.x <= 1048 - (this.width / 1.5) && this.y < 202 - this.height) {
-            return 197 - this.height;
-        }
-
-        //second large plattform
-        if (this.x >= 1240 - (this.width / 1.5) && this.x <= 1496 - (this.width / 1.5) && this.y < 266 - this.height) {
-            return 261 - this.height;
-        }
-
-        //base ground
+        if (this.isAboveFirstPlattform()) return 261 - this.height;
+        if (this.isAboveSecondPlattform()) return 197 - this.height;
+        if (this.isAboveThirdPlattform()) return 261 - this.height;
         return 385 - this.height;
     }
+
+    /**
+     * This function returns true, if the character is above the first plattform
+     */
+    isAboveFirstPlattform() { return this.x >= 460 - (this.width / 1.5) && this.x <= 716 - (this.width / 1.5) && this.y < 266 - this.height; }
+
+    /**
+     * This function returns true, if the character is above the second plattform
+     */
+    isAboveSecondPlattform() { return this.x >= 860 - (this.width / 1.5) && this.x <= 1048 - (this.width / 1.5) && this.y < 202 - this.height; }
+
+    /**
+     * This function returns true, if the character is above the third plattform
+     */
+    isAboveThirdPlattform() { return this.x >= 1240 - (this.width / 1.5) && this.x <= 1496 - (this.width / 1.5) && this.y < 266 - this.height; }
 
     /**
      * This function plays an repeating animation of the given images.
@@ -99,35 +84,43 @@ class MovableObject extends DrawableObject {
         let path = images[i];
         this.img = this.imageCache[path];
         this.currentImage++;
-        if (this instanceof Frog && images == this.IMAGES_ATTACK) {
-            this.width = this.widths[i];
-            if (i < 7) {
-                this.attacking = true;
-            } else {
-                this.attacking = false;
-                playAudio("frogAttack");
-            }
+        if (this instanceof Frog) {
+            this.width = 31.5;
+            if (images == this.IMAGES_ATTACK) this.animateAttack(i);
         }
-        if (this instanceof Endboss && images == this.IMAGES_ATTACK) {
-            this.animateAttack(i);
-        }
+        if (this instanceof Endboss && images == this.IMAGES_ATTACK) { this.animateAttack(i); }
     }
 
     /**
-     * This function is used for an object to move left by substracting its speed from its x-position.
-     * The result is its new x-position.
+     * This function is used to animate fore- and background-objects to give the illusion of depth (parallaxe).
+     * When the player reaches the endboss-area, the objects stop moving.
+     * 
+     * @param {Object} objects - the fore- and background-objects to be animated
      */
-    moveLeft() {
-        this.x -= this.speed;
+    animateScenery() {
+        if (keyboard.LEFT && world.character.x > 0 && !world.firstBossContact) this.moveRight();
+        if (keyboard.RIGHT && !world.firstBossContact) this.moveLeft();
     }
 
     /**
-     * This function is used for an object to move right by adding its speed to its x-position.
-     * The result is its new x-position.
+    * This function returns true, if the character is on the left-hand side of the enemy.
+    */
+    characterIsOnTheLeftHandSide() { return world.character.x + world.character.width < this.x; }
+
+    /**
+    * This function returns true, if the character is on the right-hand side of the enemy.
+    */
+    characterIsOnThRightHandSide() { return world.character.x > this.x + this.width; }
+
+    /**
+     * This function is used for an object to move left by substracting its speed from its x-position. The result is its new x-position.
      */
-    moveRight() {
-        this.x += this.speed;
-    }
+    moveLeft() { this.x -= this.speed; }
+
+    /**
+     * This function is used for an object to move right by adding its speed to its x-position. The result is its new x-position.
+     */
+    moveRight() { this.x += this.speed; }
 
     // isColliding(mo) {
     //     return ((this.x + this.offset.left) + (this.width - this.offset.right) > (mo.x + mo.offset.left))
@@ -175,17 +168,12 @@ class MovableObject extends DrawableObject {
      */
     hit(damage) {
         if (this.isHurt == false) {
-            if (this instanceof Character && this.energy > 0) {
-                playAudio("characterHurt");
-            }
+            if (this instanceof Character && this.energy > 0) playAudio("characterHurt");
             this.energy -= damage;
-            if (this.energy <= 0) {
-                this.energy = 0;
-            } else {
+            if (this.energy <= 0) this.energy = 0;
+            else {
                 this.isHurt = true;
-                setTimeout(() => {
-                    this.isHurt = false;
-                }, 500);
+                setTimeout(() => { this.isHurt = false; }, 500);
             }
         }
     }
@@ -193,9 +181,7 @@ class MovableObject extends DrawableObject {
     /**
      * This function returns true, if the objects energy is equal to zero (if the object is dead)
      */
-    isDead() {
-        return this.energy == 0;
-    }
+    isDead() { return this.energy == 0; }
 
     /**
      * This function shows the death-animation for each character
@@ -204,12 +190,8 @@ class MovableObject extends DrawableObject {
         this.speed = 0;
         if (this.deathAnimationCounter <= 0) {
             this.loadImage('./img/dead_animation_universal/dead.png');
-            if (this instanceof Character) {
-                world.gameOver = true;
-            }
-            if (this instanceof Endboss) {
-                world.victory = true;
-            }
+            if (this instanceof Character) world.gameOver = true;
+            if (this instanceof Endboss) world.victory = true;
             this.isAlive = false;
             world.removeDeadEnemy();
         } else {

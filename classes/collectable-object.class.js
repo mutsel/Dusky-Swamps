@@ -24,29 +24,27 @@ class CollectableObject extends MovableObject {
         'img/collectable_objects/magic_stones/magic_stone_07.png',
     ];
 
+    imageTypes = ["IMAGES_GEM", "IMAGES_MAGICSTONE"]
+
     constructor(type, x, y) {
         super();
         this.type = type;
         this.loadImage(this.getImages()[0]);
-        this.loadImages(this.getImages());
+        this.loadImages(this.imageTypes);
         this.x = x;
         this.y = y;
     }
 
+    /**
+    * This function loads the images according to the collectable objects type (gem or magic stone).
+    */
     getImages() {
-        if (this.type == "gem") {
-            return this.IMAGES_GEM;
-        } else if (this.type == "magicStone") {
-            return this.IMAGES_MAGICSTONE;
-        }
+        if (this.type == "gem") return this.IMAGES_GEM;
+        else if (this.type == "magicStone") return this.IMAGES_MAGICSTONE;
     }
 
     /**
     * This function is used to animate collectable Object
     */
-    animate() {
-        if (!world.gamePaused) {
-            this.playAnimation(this.getImages());
-        }
-    }
+    animate() { if (!world.gamePaused) this.playAnimation(this.getImages()); }
 }

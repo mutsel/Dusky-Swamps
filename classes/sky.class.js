@@ -12,9 +12,5 @@ class Sky extends MovableObject {
     /**
     * This function is used to animate the movable Object (movement)
     */
-    animate() {
-        if (!world.gamePaused) {
-            this.moveLeft();
-        }
-    }
+    animate() { if (!world.gamePaused) this.moveLeft(); }
 } 

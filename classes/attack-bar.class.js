@@ -13,7 +13,7 @@ class AttackBar extends StatusBar {
 
     constructor() {
         super();
-        this.loadImages(this.IMAGES);
+        this.loadImages();
         this.setPercentage(100);
     }
 
@@ -43,12 +43,14 @@ class AttackBar extends StatusBar {
             this.world.availableMagicAttacks.push(newMagicAttack);
             this.world.setStoppableInterval(newMagicAttack.animateImages, 1000 / 60, newMagicAttack);
             this.world.setStoppableInterval(newMagicAttack.animateMovement, 1000 / 60, newMagicAttack);
-            setTimeout(() => {
-                if (!this.world.gamePaused) {
-                    this.world.availableMagicAttacks.shift();
-                    this.world.magicAttackAvailable = true;
-                }
-            }, 600);
+            this.removeMagicAttack();
         }
+    }
+
+    removeMagicAttack() {
+        setTimeout(() => {
+            this.world.availableMagicAttacks.shift();
+            this.world.magicAttackAvailable = true;
+        }, 600);
     }
 } 

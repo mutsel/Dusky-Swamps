@@ -9,7 +9,7 @@ class Frog extends MovableObject {
     widths = [31.5, 31.5, 30, 30, 90, 90, 66, 37.5];
     characterNearby = false;
     attackArea = 80;
-    attacking = false;
+    isAttacking = false;
 
     IMAGES_ATTACK = [
         'img/enemies/frog/attack/attack_01.png',
@@ -73,13 +73,11 @@ class Frog extends MovableObject {
         'img/enemies/frog/run/run_12.png',
     ];
 
+    imageTypes = ["IMAGES_ATTACK", "IMAGES_DEAD", "IMAGES_HIT", "IMAGES_IDLE", "IMAGES_RUN"];
+
     constructor(x, y, leftBorder, rightBorder) {
         super().loadImage("img/enemies/frog/run/run_01.png");
-        this.loadImages(this.IMAGES_ATTACK);
-        this.loadImages(this.IMAGES_DEAD);
-        this.loadImages(this.IMAGES_HIT);
-        this.loadImages(this.IMAGES_IDLE);
-        this.loadImages(this.IMAGES_RUN);
+        super.loadImages(this.imageTypes);
         this.x = x + Math.random() * 252;
         this.y = y;
         this.leftBorder = leftBorder;
@@ -92,12 +90,9 @@ class Frog extends MovableObject {
     * This function animates the frogs movement.
     */
     animateMovement() {
-        if (!world.gamePaused && !this.attacking) {
-            if (this.otherDirection) {
-                return this.animateMovementRight();
-            } else {
-                return this.animateMovementLeft();
-            }
+        if (!world.gamePaused && !this.isAttacking) {
+            if (this.otherDirection) return this.animateMovementRight();
+            else return this.animateMovementLeft();
         }
     }
 
@@ -106,11 +101,8 @@ class Frog extends MovableObject {
     * The frog changes direction, if the character is behind him or if it reaches the movement-border.
     */
     animateMovementLeft() {
-        if (this.x <= this.leftBorder) {
-            this.setOtherDirectionTimeout(true);
-        } else if (this.characterNearby && world.character.x > this.x) {
-            this.setOtherDirectionTimeout(true);
-        }
+        if (this.x <= this.leftBorder) this.setOtherDirectionTimeout(true);
+        else if (this.characterNearby && world.character.x > this.x) this.setOtherDirectionTimeout(true);
         this.moveLeft();
         return this.otherDirection = false;
     }
@@ -120,11 +112,8 @@ class Frog extends MovableObject {
     * The frog changes direction, if the character is behind him or if it reaches the movement-border.
     */
     animateMovementRight() {
-        if (this.x >= this.rightBorder) {
-            this.setOtherDirectionTimeout(false);
-        } else if (this.characterNearby && world.character.x < this.x) {
-            this.setOtherDirectionTimeout(false);
-        }
+        if (this.x >= this.rightBorder) this.setOtherDirectionTimeout(false);
+        else if (this.characterNearby && world.character.x < this.x) this.setOtherDirectionTimeout(false);
         this.moveRight();
         return this.otherDirection = true;
     }
@@ -134,43 +123,43 @@ class Frog extends MovableObject {
     * 
     * @param {boolean} boolean - true or false
     */
-    setOtherDirectionTimeout(boolean) {
-        setTimeout(() => {
-            return this.otherDirection = boolean;
-        }, 200);
-    }
+    setOtherDirectionTimeout(boolean) { setTimeout(() => { return this.otherDirection = boolean; }, 200) }
 
     /**
     * This function animates the frogs images for each situation (death, hit, attack, run).
     */
     animateImages() {
         if (!world.gamePaused) {
-            if (this.isDead()) {
-                this.speed = 0;
-                this.width = 31.5;
-                return this.animateDeath();
-            } else if (this.isHurt) {
-                this.width = 31.5;
-                this.playAnimation(this.IMAGES_HIT);
-            } else if (this.attacking == true || this.characterNearby) {
-                this.animateAttack();
-            } else {
-                this.width = 31.5;
-                this.playAnimation(this.IMAGES_RUN);
-            }
+            if (this.isDead()) return this.animateDeath();
+            else if (this.isHurt) this.playAnimation(this.IMAGES_HIT);
+            else if (this.isAttacking || this.characterNearby) this.adjustAttackDirection();
+            else this.playAnimation(this.IMAGES_RUN);
         }
     }
 
     /**
-    * This function animates the attack-animation.
+    * This function plays the attack-animation. The images are adjusted to the frogs direction.
     */
-    animateAttack() {
-        if (this.otherDirection) {
-            this.playAnimation(this.IMAGES_ATTACK);
-        } else {
+    adjustAttackDirection() {
+        if (this.otherDirection) { this.playAnimation(this.IMAGES_ATTACK); }
+        else {
             this.x += this.width;
             this.playAnimation(this.IMAGES_ATTACK);
             this.x -= this.width;
+        }
+    }
+
+    /**
+    * This function animates the frogs attack and the corresponding width.
+    * 
+    * @param {number} i - the modulos residual value for the attack-frame
+    */
+    animateAttack(i) {
+        this.width = this.widths[i];
+        if (i < 7) this.attacking = true;
+        else {
+            this.attacking = false;
+            playAudio("frogAttack");
         }
     }
 }

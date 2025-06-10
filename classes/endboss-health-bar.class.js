@@ -15,7 +15,7 @@ class EndbossHealthBar extends StatusBar {
 
     constructor() {
         super();
-        this.loadImages(this.IMAGES);
+        this.loadImages();
         this.setPercentageEndboss(100);
     }
 
@@ -28,24 +28,17 @@ class EndbossHealthBar extends StatusBar {
         this.percentage = percentage;
         let path = this.IMAGES[this.resolveImageCacheEndboss()]
         this.img = this.imageCache[path];
-    } 
+    }
 
     /**
      * This function returns the index of that image from statusbars images-array, that shows the correct percentage.
      */
     resolveImageCacheEndboss() {
-        if (this.percentage == 100) {
-            return 0;
-        } else if (this.percentage == 80) {
-            return 1;
-        } else if (this.percentage == 60) {
-            return 2;
-        } else if (this.percentage == 40) {
-            return 3;
-        } else if (this.percentage == 20) {
-            return 4;
-        } else if (this.percentage == 0) {
-            return 5;
-        }
+        if (this.percentage == 100) return 0;
+        else if (this.percentage == 80) return 1;
+        else if (this.percentage == 60) return 2;
+        else if (this.percentage == 40) return 3;
+        else if (this.percentage == 20) return 4;
+        else if (this.percentage == 0) return 5;
     }
 }

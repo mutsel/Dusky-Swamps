@@ -19,9 +19,7 @@ class CanonballAttack extends ShootableObject {
     * This function returns the canonballAttacks x-value, depending on the endboss position.
     */
     setX() {
-        if (this.endboss.otherDirection) {
-            return this.endboss.x + this.endboss.width - this.width;
-        }
+        if (this.endboss.otherDirection) return this.endboss.x + this.endboss.width - this.width;
         return this.endboss.x;
     }
 }  

@@ -13,7 +13,7 @@ class GemsBar extends StatusBar {
 
     constructor() {
         super();
-        this.loadImages(this.IMAGES);
+        this.loadImages();
         this.setPercentage(100);
     }
 

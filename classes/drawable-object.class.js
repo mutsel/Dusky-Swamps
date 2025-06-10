@@ -8,13 +8,13 @@ class DrawableObject {
     currentImage = 0;
     currentWidth = 0;
 
-    constructor() {}
+    constructor() { }
 
     /**
      * This function creates an image from a given image-path
      * 
      * @param {string} path - the path of a single image
-     */ 
+     */
     loadImage(path) {
         this.img = new Image();
         this.img.src = path;
@@ -22,15 +22,15 @@ class DrawableObject {
 
     /**
      * This function adds each image in the imageCache (from the image-paths in the given array)
-     * 
-     * @param {Array} arr - the array with all the available images
      */
-    loadImages(arr) {
-        arr.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        })
+    loadImages(imageTypes = ["IMAGES"]) {
+        imageTypes.forEach(key => {
+            this[key].forEach(path => {
+                let img = new Image();
+                img.src = path;
+                this.imageCache[path] = img;
+            });
+        });
     }
 
     /**
@@ -39,8 +39,8 @@ class DrawableObject {
      * @param {string} ctx - the context, where the image should be drawn 
      */
     draw(ctx) {
-        try {ctx.drawImage(this.img, this.x, this.y, this.width, this.height)}
-        catch (error) {return}
+        try { ctx.drawImage(this.img, this.x, this.y, this.width, this.height) }
+        catch (error) { return }
     }
 
     /**
@@ -50,26 +50,17 @@ class DrawableObject {
      * @param {string} ctx - the context, where the frame should be drawn 
      */
     drawFrame(ctx) {
-        // if (this instanceof Frog) {
-        //     ctx.beginPath();
-        //     ctx.rect(this.x, this.y, 31.5, this.height);
-        //     ctx.lineWidth = '2';
-        //     ctx.strokeStyle = 'blue';
-        //     ctx.stroke();
-        // }
-        
         // if (this instanceof Character || this instanceof Cactus || this instanceof Frog || this instanceof Endboss) {
-        //     // ctx.beginPath();
-        //     // ctx.rect(this.x, this.y, this.width, this.height);
-        //     // ctx.lineWidth = '3';
-        //     // ctx.strokeStyle = 'darkblue';
-        //     // ctx.stroke();
-
         //     ctx.beginPath();
-        //     ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.right, this.height - this.offset.bottom);
-        //     ctx.lineWidth = '2';
-        //     ctx.strokeStyle = 'red';
+        //     ctx.rect(this.x, this.y, this.width, this.height);
+        //     ctx.lineWidth = '3';
+        //     ctx.strokeStyle = 'darkblue';
         //     ctx.stroke();
+        //     // ctx.beginPath();
+        //     // ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.right, this.height - this.offset.bottom);
+        //     // ctx.lineWidth = '2';
+        //     // ctx.strokeStyle = 'red';
+        //     // ctx.stroke();
         // }
     }
 }

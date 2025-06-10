@@ -4,6 +4,5 @@ class Keyboard {
     UP = false;
     ATTACK = false;
 
-    constructor() {
-    }
+    constructor() {}
 }

@@ -87,33 +87,24 @@ class Character extends MovableObject {
         'img/character/run/run_06.png',
         'img/character/run/run_07.png',
         'img/character/run/run_08.png',
-        'img/character/run/run_09.png',
+        'img/character/run/run_09.png', 
         'img/character/run/run_10.png',
         'img/character/run/run_11.png',
         'img/character/run/run_12.png',
     ];
 
+    imageTypes = ["IMAGES_ATTACK", "IMAGES_DEAD", "IMAGES_FALL", "IMAGES_HIT", "IMAGES_IDLE", "IMAGES_JUMP", "IMAGES_LONG_IDLE", "IMAGES_RUN"];
+
     constructor() {
         super().loadImage("img/character/fall.png");
-        this.loadImages(this.IMAGES_ATTACK);
-        this.loadImages(this.IMAGES_DEAD);
-        this.loadImages(this.IMAGES_FALL);
-        this.loadImages(this.IMAGES_HIT);
-        this.loadImages(this.IMAGES_IDLE);
-        this.loadImages(this.IMAGES_JUMP);
-        this.loadImages(this.IMAGES_LONG_IDLE);
-        this.loadImages(this.IMAGES_RUN);
+        super.loadImages(this.imageTypes);
         this.deathAnimationCounter = this.IMAGES_DEAD.length;
     }
 
     /**
     * This function adjusts the camera to the charactes current position.
     */
-    adjustCamera() {
-        if (!this.world.firstBossContact) {
-            this.world.cameraX = -this.x + 100;
-        }
-    }
+    adjustCamera() { if (!this.world.firstBossContact) this.world.cameraX = -this.x + 100; }
 
     /**
     * This function animates the characters movement.
@@ -138,26 +129,20 @@ class Character extends MovableObject {
     * This function returns true, if the character is able to move right.
     * This is the case, when the right-key/button is pressed and the character did not already reached the level-end-x-coordinate.
     */
-    canMoveRight() {
-        return this.world.keyboard.RIGHT && this.x + this.width < this.world.level.levelEndX;
-    }
+    canMoveRight() { return this.world.keyboard.RIGHT && this.x + this.width < this.world.level.levelEndX; }
 
     /**
     * This function returns true, if the character is able to move left.
     * This is the case, when the left-key/button is pressed.
     * Furthermore the character did not already reached the level-start-x-coordinate (or in case of the bossfight, it did not reached the boss-area-start-coordinate).
     */
-    canMoveLeft() {
-        return this.world.keyboard.LEFT && ((!this.world.firstBossContact && this.x > 0) || (this.world.firstBossContact && this.x > 1540));
-    }
+    canMoveLeft() { return this.world.keyboard.LEFT && ((!this.world.firstBossContact && this.x > 0) || (this.world.firstBossContact && this.x > 1540)); }
 
     /**
     * This function returns true, if the character is able to jump.
     * This is the case, when the up-key/button is pressed and the character is not above the ground and the character is not jumping.
     */
-    canJump() {
-        return this.world.keyboard.UP && !this.isAboveGround() && !this.isJumping;
-    }
+    canJump() { return this.world.keyboard.UP && !this.isAboveGround() && !this.isJumping; }
 
     /**
     * This function stops the characters movement, while the endboss-intro takes place.
@@ -177,22 +162,14 @@ class Character extends MovableObject {
         if (this.isAlive && !world.gamePaused) {
             if (this.isDead()) {
                 removeEventListeners();
-                this.timeIdling = 0;
                 return this.animateDeath();
-            } else if (this.isHurt) {
-                this.timeIdling = 0;
-                this.playAnimation(this.IMAGES_HIT);
-            } else if (this.isAboveGround()) {
-                this.airTimeAnimations();
-            } else if (this.world.keyboard.LEFT || this.world.keyboard.RIGHT) {
-                this.playAnimation(this.IMAGES_RUN);
-            } else if (this.world.keyboard.ATTACK) {
-                this.playAnimation(this.IMAGES_ATTACK);
-            } else if (this.isIdling() && this.timeIdling < 300) {
-                this.playAnimation(this.IMAGES_IDLE);
-            } else if (this.timeIdling == 300) {
-                this.playAnimation(this.IMAGES_LONG_IDLE)
             }
+            else if (this.isHurt) this.playAnimation(this.IMAGES_HIT);
+            else if (this.isAboveGround()) this.airTimeAnimations();
+            else if (this.world.keyboard.LEFT || this.world.keyboard.RIGHT) this.playAnimation(this.IMAGES_RUN);
+            else if (this.world.keyboard.ATTACK) this.playAnimation(this.IMAGES_ATTACK);
+            else if (this.isIdling() && this.timeIdling < 300) this.playAnimation(this.IMAGES_IDLE);
+            else if (this.timeIdling == 300) this.playAnimation(this.IMAGES_LONG_IDLE)
         }
     }
 
@@ -201,20 +178,15 @@ class Character extends MovableObject {
     * When the character has a positive speedY, the jumping-animation is shown. Otherwise, the falling-animation is shown.
     */
     airTimeAnimations() {
-        if (this.speedY > 0) {
-            this.playAnimation(this.IMAGES_JUMP);
-        } else {
-            this.playAnimation(this.IMAGES_FALL);
-        }
+        if (this.speedY > 0) this.playAnimation(this.IMAGES_JUMP);
+        else this.playAnimation(this.IMAGES_FALL);
     }
 
     /**
     * This function returns true or false, whether the player presses a key or not.
     */
     isIdling() {
-        if (this.noKeyIsPressed()) {
-            return true;
-        }
+        if (this.noKeyIsPressed()) return true;
         return false;
     }
 
@@ -233,18 +205,14 @@ class Character extends MovableObject {
     * If 10seconds passed, the character is set to sleeping, the long-idle-animation is played and the according audio is played.
     */
     countIdlingTime() {
-        if (this.timeIdling < 300 && !this.world.gamePaused) {
-            this.timeIdling++;
-        } else if (this.longIdlingPossible()) {
-            playAudio("longIdle");
-        }
+        if (this.timeIdling < 300 && !this.world.gamePaused) this.timeIdling++;
+        else if (this.longIdlingPossible()) playAudio("longIdle");
+        if (this.isHurt || this.isDead()) this.timeIdling = 0;
     }
 
     /**
     * This function returns true, if the conditions for the long-idling-animation are fullfilled.
     * This means, the player is alive and the game has not ended jet.
     */
-    longIdlingPossible() {
-        return this.isAlive && !this.world.gameEndCalled && !this.world.gamePaused;
-    }
+    longIdlingPossible() { return this.isAlive && !this.world.gameEndCalled && !this.world.gamePaused; }
 }

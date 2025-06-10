@@ -6,7 +6,6 @@ class World {
     gemsBar = new GemsBar();
     endbossHealthbar = new EndbossHealthBar();
     availableMagicAttacks = [];
-    magicAttackAvailable = true;
     canonballAttacks = [];
     passiveEntities = [
         new PassiveEntity(250),
@@ -23,8 +22,8 @@ class World {
         new PassiveEntity(2800)
     ];
     level = level1;
-    canvas;
     ctx;
+    canvas;
     keyboard;
     cameraX = 0;
     firstBossContact = false;
@@ -33,6 +32,7 @@ class World {
     victory = false;
     gameEndCalled = false;
     gamePaused = false;
+    magicAttackAvailable = true;
 
     constructor(canvas, keyboard) {
         let createWorld = new Promise(() => {
@@ -41,10 +41,9 @@ class World {
             this.keyboard = keyboard;
             this.setWorld();
             this.draw();
+            this.magicAttackAvailable = true;
         })
-        createWorld.then(
-            this.run()
-        )
+        createWorld.then(this.run())
     }
 
     /**
@@ -65,13 +64,8 @@ class World {
     stopGame() {
         this.intervals.forEach(clearInterval);
         removeEventListeners();
+        stopAllAudios();
         this.magicAttackAvailable = false;
-        for (let key in audios) {
-            if (audios[key] instanceof Audio) {
-                audios[key].pause();
-                audios[key].volume = 0;
-            }
-        }
     }
 
     /**
@@ -119,17 +113,14 @@ class World {
     }
 
     /**
-     * This function adds all fixed/static objects to the canvas.
-     * Therefore, the context needs to be adjusted beforehand and afterwards.
+     * This function adds all fixed/static objects to the canvas. Therefore, the context needs to be adjusted beforehand and afterwards.
      */
     drawFixedObjects() {
         this.ctx.translate(-this.cameraX, 0);
         this.addToMap(this.healthBar);
         this.addToMap(this.attackBar);
         this.addToMap(this.gemsBar);
-        if (this.bossFightStarted) {
-            this.addToMap(this.endbossHealthbar);
-        }
+        if (this.bossFightStarted) this.addToMap(this.endbossHealthbar);
         this.ctx.translate(this.cameraX, 0);
     }
 
@@ -138,9 +129,7 @@ class World {
      */
     repeatDrawing() {
         let self = this;
-        requestAnimationFrame(function () {
-            self.draw();
-        });
+        requestAnimationFrame(function () { self.draw() });
     }
 
     /**
@@ -148,11 +137,7 @@ class World {
      * 
      * @param {Object} objects - a list of objects from the same type
      */
-    addObjectsToMap(objects) {
-        objects.forEach(o => {
-            this.addToMap(o);
-        });
-    }
+    addObjectsToMap(objects) {objects.forEach(o => this.addToMap(o));}
 
     /**
      * This function is part of the draw()-function and adds every object to the map(canvas).
@@ -161,19 +146,14 @@ class World {
      * @param {Object} mo - a movable object
      */
     addToMap(mo) {
-        if (mo.otherDirection) {
-            this.flipImage(mo);
-        }
+        if (mo.otherDirection) this.flipImage(mo);
         mo.draw(this.ctx);
         mo.drawFrame(this.ctx);
-        if (mo.otherDirection) {
-            this.flipImageBack(mo);
-        }
+        if (mo.otherDirection) this.flipImageBack(mo);
     }
 
     /**
-     * This function is part of the addToMap()-function and it flips the image of an object facing the other direction.
-     * This way the left and right side are swapped.
+     * This function is part of the addToMap()-function and it flips the image of an object facing the other direction. This way the left and right side are swapped.
      * 
      * @param {Object} mo - a movable object 
      */
@@ -185,8 +165,7 @@ class World {
     }
 
     /**
-     * This function is part of the addToMap()-function and it flips the image of an object facing the other direction back.
-     * This way the left and right side are the same as before.
+     * This function is part of the addToMap()-function and it flips the image of an object facing the other direction back. This way the left and right side are the same as before.
      * 
      * @param {Object} mo - a movable object 
      */
@@ -250,8 +229,8 @@ class World {
      */
     setStoppableIntervalsScenery() {
         this.level.sky.forEach(s => this.setStoppableInterval(s.animate, 1000 / 60, s));
-        this.level.foregroundObjects.forEach(o => this.setStoppableInterval(o.animate, 1000 / 60, o));
-        this.level.backgroundObjects.forEach(o => this.setStoppableInterval(o.animate, 1000 / 60, o));
+        this.level.foregroundObjects.forEach(o => this.setStoppableInterval(o.animateScenery, 1000 / 60, o));
+        this.level.backgroundObjects.forEach(o => this.setStoppableInterval(o.animateScenery, 1000 / 60, o));
         this.passiveEntities.forEach(e => {
             this.setStoppableInterval(e.animateMovement, 1000 / 30, e);
             this.setStoppableInterval(e.animateImages, 1000 / 8, e);
@@ -259,8 +238,7 @@ class World {
     }
 
     /**
-     * This function checks if the game did not already ended and if victory or gameOver are set to true.
-     * If so, it executes the according function.
+     * This function checks if the game did not already ended and if victory or gameOver are set to true. If so, it executes the according function.
      */
     checkGameEnd() {
         if (!this.gamePaused && !this.gameEndCalled && (this.gameOver || this.victory)) {
@@ -287,8 +265,7 @@ class World {
     /**
      * This function is used, when the character jumps on top of an enemy.
      * The enemy suffers damage and the character bounces back.
-     * If the enemy is a cactus, the character also suffers damage.
-     * If the enemy is the endboss, the endboss healthbar is adjusted.
+     * If the enemy is a cactus, the character also suffers damage. If the enemy is the endboss, the endboss healthbar is adjusted.
      * 
      * @param {Object} e - an enemy
      */
@@ -314,25 +291,17 @@ class World {
     }
 
     /**
-     * This function checks for each of the magic attacks in the availableMagicAttacks-array, if it is colliding with an enemy.
-     * If so, the according function is executed.
+     * This function checks for each of the magic attacks in the availableMagicAttacks-array, if it is colliding with an enemy. If so, the according function is executed.
      */
     checkCollisionShootableObjects() {
         if (!this.gamePaused) {
-            this.availableMagicAttacks.forEach((a) => {
-                this.level.enemies.forEach((e) => {
-                    if (a.isColliding(e) && e.energy > 0) this.magicAttackHitEnemy(a, e);
-                });
-            });
-            this.canonballAttacks.forEach((c) => {
-                if (c.isColliding(this.character)) this.canonballAttackHitCharacter(c);
-            });
+            this.availableMagicAttacks.forEach((a) => { this.level.enemies.forEach((e) => { if (a.isColliding(e) && e.energy > 0) this.magicAttackHitEnemy(a, e); }) });
+            this.canonballAttacks.forEach((c) => { if (c.isColliding(this.character)) this.canonballAttackHitCharacter(c); });
         }
     }
 
     /**
-     * This function is used, when a magic attack hits an enemy.
-     * The enemy suffers damage and the magic attack is removed.
+     * This function is used, when a magic attack hits an enemy. The enemy suffers damage and the magic attack is removed.
      * 
      * @param {Object} a - a magic attack
      * @param {Object} e - en enemy
@@ -345,8 +314,7 @@ class World {
     }
 
     /**
-     * This function is used, when a canonball attack hits the character.
-     * The character suffers damage and the canonball attack is removed.
+     * This function is used, when a canonball attack hits the character. The character suffers damage and the canonball attack is removed.
      * 
      * @param {Object} c - a canonball attack
      */
@@ -357,8 +325,7 @@ class World {
     }
 
     /**
-     * This function checks for each of the collectables (gems, magicStones), if the character is colliding with one of them.
-     * If so, the according function is executed.
+     * This function checks for each of the collectables (gems, magicStones), if the character is colliding with one of them. If so, the according function is executed.
      */
     checkCollisionsCollectables() {
         if (!this.gamePaused) {
@@ -373,8 +340,7 @@ class World {
     }
 
     /**
-    * This function sets characterNearby to true, if the character is nearby an enemy.
-    * After that, this value is set back to false.
+    * This function sets characterNearby to true, if the character is nearby an enemy. After that, this value is set back to false.
     */
     checkCharacterNearbyEnemy() {
         if (!this.gamePaused) {
@@ -388,8 +354,7 @@ class World {
     }
 
     /**
-     * This function returns true, if the character is within the attack-area of a frog and if one of the following two conditions is fullfilled:
-     * The character is above the frog or the character is jumping.
+     * This function returns true, if the character is within the attack-area of a frog and if the character is above the frog or the character is jumping.
      * 
      * @param {Object} e - an enemy of the type Frog
      */
@@ -397,7 +362,7 @@ class World {
         return (this.character.x >= e.x - e.attackArea
             && this.character.x + this.character.width <= e.x + e.width + e.attackArea)
             && (this.character.y <= e.y + e.height || this.character.isJumping);
-    }
+    } 
 
     /**
      * This function returns true, if the character is within the attack-area of a cactus.
@@ -410,8 +375,7 @@ class World {
     }
 
     /**
-    * This function spawns a new swarm of passive entities every 20 seconds.
-    * They only serve decoration purposes.
+    * This function spawns a new swarm of passive entities every 20 seconds. They only serve decoration purposes.
     */
     respawnPassiveEntities() {
         if (!this.gamePaused) {
@@ -425,8 +389,7 @@ class World {
     }
 
     /**
-    * This function checks, if the previous sky-img has exceeded the x-value of 2900.
-    * If so, a new sky-img is created.
+    * This function checks, if the previous sky-img has exceeded the x-value of 2900. If so, a new sky-img is created.
     */
     checkRespawnSky() {
         if (!this.gamePaused) {
@@ -442,7 +405,5 @@ class World {
     /**
      * This function removes dead enemies (enemies with an energylevel of zero) from the map.
      */
-    removeDeadEnemy() {
-        this.level.enemies = this.level.enemies.filter(enemy => enemy.isAlive);
-    }
+    removeDeadEnemy() {this.level.enemies = this.level.enemies.filter(enemy => enemy.isAlive);}
 }

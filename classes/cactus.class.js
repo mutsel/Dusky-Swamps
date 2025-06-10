@@ -31,7 +31,7 @@ class Cactus extends MovableObject {
         'img/enemies/cactus/hit/hit_04.png',
         'img/enemies/cactus/hit/hit_05.png',
     ];
-
+ 
     IMAGES_IDLE = [
         'img/enemies/cactus/idle/idle_01.png',
         'img/enemies/cactus/idle/idle_02.png',
@@ -62,19 +62,18 @@ class Cactus extends MovableObject {
         'img/enemies/cactus/run/run_12.png',
     ];
 
+    imageTypes = ["IMAGES_DEAD", "IMAGES_HIT", "IMAGES_IDLE", "IMAGES_RUN"];
+
     constructor(x, y, leftBorder, rightBorder) {
         super().loadImage("img/enemies/cactus/run/run_01.png");
-        this.loadImages(this.IMAGES_DEAD);
-        this.loadImages(this.IMAGES_HIT);
-        this.loadImages(this.IMAGES_IDLE);
-        this.loadImages(this.IMAGES_RUN);
+        super.loadImages(this.imageTypes);
         this.deathAnimationCounter = this.IMAGES_DEAD.length;
         this.x = x + Math.random() * 100;
         this.y = y;
-        this.speed = 4;
+        this.speed = 3.5;
         this.leftBorder = leftBorder;
         this.rightBorder = rightBorder;
-    }
+    } 
 
     /**
     * This function animates the cactus movement.
@@ -82,48 +81,30 @@ class Cactus extends MovableObject {
     * The cactus changes direction and runs in the opposite direction, if the character is behind him.
     */
     async animateMovement() {
-        if (!world.gamePaused && this.characterNearby && !this.isDead()) {
-            if (!this.characterNoticed) {
-                await this.animateNoticeCharacter();
-                return;
-            }
+        if (this.canMove()) {
+            if (!this.characterNoticed) return await this.animateNoticeCharacter();
             setTimeout(() => {
-                if (this.characterIsOnTheLeftHandSide()) {
-                    this.animateMovementLeft();
-                } else if (this.characterIsOnThRightHandSide) {
-                    this.animateMovementRight();
-                } else {
-                    this.playAnimation(this.IMAGES_IDLE);
-                }
+                if (this.characterIsOnTheLeftHandSide()) this.animateMovementLeft();
+                else if (this.characterIsOnThRightHandSide()) this.animateMovementRight();
+                else this.playAnimation(this.IMAGES_IDLE);
             }, 400);
         }
     }
 
     /**
-    * This function returns true, if the character is on the left-hand side of the cactus.
+    * This function returns true, if the cactus is able to move (the game is not paused, the cactus is not dead and the charcter is nearby).
     */
-    characterIsOnTheLeftHandSide() {
-        return world.character.x + world.character.width < this.x;
-    }
-
-    /**
-    * This function returns true, if the character is on the right-hand side of the cactus.
-    */
-    characterIsOnThRightHandSide() {
-        return world.character.x > this.x + this.width;
-    }
+    canMove() { return !world.gamePaused && this.characterNearby && !this.isDead(); }
 
     /**
     * This function checkes if the cactus already noticed the character.
     * If not, the according audio is played.
-    */
+    */ 
     async animateNoticeCharacter() {
         if (!this.characterNoticed) {
             playAudio("cactusNoticedCharacter");
             this.speedY = 1;
-            setTimeout(() => {
-                return this.characterNoticed = true;
-            }, 400);
+            setTimeout(() => { return this.characterNoticed = true; }, 400);
         }
     }
 
@@ -158,16 +139,10 @@ class Cactus extends MovableObject {
     */
     animateImages() {
         if (!world.gamePaused) {
-            if (this.isDead()) {
-                this.speed = 0;
-                return this.animateDeath();
-            } else if (this.isHurt) {
-                this.playAnimation(this.IMAGES_HIT);
-            } else if (this.characterNearby) {
-                this.playAnimation(this.IMAGES_RUN);
-            } else {
-                this.playAnimation(this.IMAGES_IDLE);
-            }
+            if (this.isDead()) return this.animateDeath();
+            else if (this.isHurt) this.playAnimation(this.IMAGES_HIT);
+            else if (this.characterNearby) this.playAnimation(this.IMAGES_RUN);
+            else this.playAnimation(this.IMAGES_IDLE);
         }
     }
 }

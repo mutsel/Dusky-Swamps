@@ -21,7 +21,7 @@ class MagicAttack extends ShootableObject {
 
     constructor() {
         super().loadImage(this.IMAGES[0])
-        this.loadImages(this.IMAGES);
+        this.loadImages();
         this.x = this.character.x;
         this.y = this.character.y + 10;
         this.speed = this.setSpeed(this.character, 8);
@@ -32,9 +32,5 @@ class MagicAttack extends ShootableObject {
     /**
     * This function is used to animate the magic attack.
     */
-    animateImages() {
-        if (!world.gamePaused) {
-            this.playAnimation(this.IMAGES);
-        }
-    }
+    animateImages() { if (!world.gamePaused) this.playAnimation(this.IMAGES); }
 } 

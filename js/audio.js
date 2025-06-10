@@ -40,6 +40,15 @@ function playAudio(audio) {
     audios[audio].volume = audioVolume;
 }
 
+function stopAllAudios() {
+    for (let key in audios) {
+        if (audios[key] instanceof Audio) {
+            audios[key].pause();
+            audios[key].volume = 0;
+        }
+    }
+}
+
 /**
 * This function adds sound to each button. Round and rectangle buttons have different audios.
 */

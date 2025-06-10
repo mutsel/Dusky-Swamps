@@ -15,9 +15,7 @@ class ShootableObject extends MovableObject {
     * @param {number} speed - the speed of the shootable object
     */
     setSpeed(mo, speed) {
-        if (mo.otherDirection) {
-            return speed;
-        }
+        if (mo.otherDirection) return speed;
         return -speed;
     }
 
@@ -25,9 +23,5 @@ class ShootableObject extends MovableObject {
      * This function is used for a shootable object to move left by substracting its speed from its x-position.
      * The result is its new x-position.
      */
-    animateMovement() {
-        if (!world.gamePaused) {
-            this.x -= this.speed;
-        }
-    }
+    animateMovement() { if (!world.gamePaused) this.x -= this.speed; }
 }

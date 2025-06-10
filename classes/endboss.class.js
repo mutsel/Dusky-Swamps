@@ -9,16 +9,6 @@ class Endboss extends MovableObject {
     b;
     attackFired = false;
 
-    IMAGES_INTRO_ATTACK = [
-        'img/enemies/endboss/intro_attack/intro_attack_01.png',
-        'img/enemies/endboss/intro_attack/intro_attack_02.png',
-        'img/enemies/endboss/intro_attack/intro_attack_03.png',
-        'img/enemies/endboss/intro_attack/intro_attack_04.png',
-        'img/enemies/endboss/intro_attack/intro_attack_05.png',
-        'img/enemies/endboss/intro_attack/intro_attack_06.png',
-        'img/enemies/endboss/intro_attack/intro_attack_07.png',
-    ];
-
     IMAGES_ATTACK = [
         'img/enemies/endboss/attack/attack_01.png',
         'img/enemies/endboss/attack/attack_02.png',
@@ -65,6 +55,16 @@ class Endboss extends MovableObject {
         'img/enemies/endboss/idle/idle_11.png',
     ];
 
+    IMAGES_INTRO_ATTACK = [
+        'img/enemies/endboss/intro_attack/intro_attack_01.png',
+        'img/enemies/endboss/intro_attack/intro_attack_02.png',
+        'img/enemies/endboss/intro_attack/intro_attack_03.png',
+        'img/enemies/endboss/intro_attack/intro_attack_04.png',
+        'img/enemies/endboss/intro_attack/intro_attack_05.png',
+        'img/enemies/endboss/intro_attack/intro_attack_06.png',
+        'img/enemies/endboss/intro_attack/intro_attack_07.png',
+    ];
+
     IMAGES_RUN = [
         'img/enemies/endboss/run/walk_01.png',
         'img/enemies/endboss/run/walk_02.png',
@@ -80,14 +80,11 @@ class Endboss extends MovableObject {
         'img/enemies/endboss/run/walk_12.png',
     ];
 
+    imageTypes = ["IMAGES_ATTACK", "IMAGES_DEAD", "IMAGES_HIT", "IMAGES_IDLE", "IMAGES_INTRO_ATTACK", "IMAGES_RUN"];
+
     constructor() {
         super().loadImage(this.IMAGES_IDLE[0]);
-        this.loadImages(this.IMAGES_INTRO_ATTACK);
-        this.loadImages(this.IMAGES_ATTACK);
-        this.loadImages(this.IMAGES_DEAD);
-        this.loadImages(this.IMAGES_HIT);
-        this.loadImages(this.IMAGES_IDLE);
-        this.loadImages(this.IMAGES_RUN);
+        super.loadImages(this.imageTypes);
         this.deathAnimationCounter = this.IMAGES_DEAD.length;
         this.attackFired = false;
     }
@@ -108,9 +105,7 @@ class Endboss extends MovableObject {
     /**
     * This function returns true, if the character crosses the border to the boss area and the bossfight did not already started.
     */
-    bossfightStarted() {
-        return world.character.x > 1620 && !world.firstBossContact;
-    }
+    bossfightStarted() { return world.character.x > 1620 && !world.firstBossContact; }
 
     /**
     * This function sets the game, endboss and character in the bossfight-mode by adjusting variables and executing functions.
@@ -133,9 +128,7 @@ class Endboss extends MovableObject {
             this.playAnimation(this.IMAGES_RUN);
         } else {
             this.playAnimation(this.IMAGES_INTRO_ATTACK);
-            if (this.a == 39) {
-                this.createCanonballAttack();
-            }
+            if (this.a == 39) this.createCanonballAttack();
         }
     }
 
@@ -174,12 +167,12 @@ class Endboss extends MovableObject {
     * The endboss changes direction, if the character is behind him.
     */
     animateMovement() {
-        if (world.character.x + world.character.width < this.x) {
+        if (this.characterIsOnTheLeftHandSide()) {
             playAudio("creakingSteps");
             this.moveLeft();
             this.otherDirection = false;
             this.playAnimation(this.IMAGES_RUN);
-        } else if (world.character.x > this.x + this.width) {
+        } else if (this.characterIsOnThRightHandSide()) {
             playAudio("creakingSteps");
             this.moveRight();
             this.otherDirection = true;
@@ -198,7 +191,7 @@ class Endboss extends MovableObject {
         if (i == 5 && !this.attackFired) {
             this.createCanonballAttack();
             this.attackFired = true;
-        } else { this.attackFired = false }
+        } else this.attackFired = false
     }
 
     /**
