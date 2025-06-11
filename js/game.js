@@ -16,9 +16,7 @@ const collectedGemsImgs = [
 */
 function init() {
     inGame = false;
-    audios.scenery.pause();
-    audios.bossfight.pause();
-    closeAllStartscreenMenu();
+    stopAllAudios();
     closeAll();
     document.getElementById("startscreen").classList.remove("d-none");
     document.getElementById("startscreenOverview").classList.remove("d-none");
@@ -28,6 +26,8 @@ function init() {
     adjustControlsVisibility();
     checkScreenDimensionsSettings();
     addButtonSounds();
+    adjustMobile();
+    disableContextMenu();
 }
 
 /**
@@ -39,13 +39,13 @@ function startGame() {
     initLevel();
     createWorld();
     addEventListeners();
-    closeAllStartscreenMenu();
     closeAll();
     resetCssGameStart();
     checkAudioSettings();
     adjustControlsVisibility();
     checkScreenDimensionsSettings();
     adjustDimensionsContent();
+    adjustMobile();
 }
 
 /**
@@ -77,24 +77,25 @@ function createWorld() {
 }
 
 /**
+* This function closes all menu of the game and the canvas (incl. gameOverlay) itself.
+* The victory buttons are set to default (disabled).
+*/
+function closeAll() {
+    closeGameMenu();
+    closeAllStartscreenMenu();
+    document.getElementById("canvas").classList.add("d-none");
+    document.getElementById("gameOverlay").classList.add("d-none");
+    document.getElementById("victoryRetryBtn").classList.add("disabled-btn");
+    document.getElementById("victoryMainMenuBtn").classList.add("disabled-btn");
+}
+
+/**
 * This function closes all sections of the startscreen and the startscreen itself.
 */
 function closeAllStartscreenMenu() {
     document.getElementById("startscreen").classList.add("d-none");
     let startscreenMenu = document.querySelectorAll(".startscreen-menu");
     for (let i = 0; i < startscreenMenu.length; i++) startscreenMenu[i].classList.add("d-none");
-}
-
-/**
-* This function closes all menu of the game and the canvas (incl. gameOverlay) itself.
-* The victory buttons are set to default (disabled).
-*/
-function closeAll() {
-    closeGameMenu();
-    document.getElementById("canvas").classList.add("d-none");
-    document.getElementById("gameOverlay").classList.add("d-none");
-    document.getElementById("victoryRetryBtn").classList.add("disabled-btn");
-    document.getElementById("victoryMainMenuBtn").classList.add("disabled-btn");
 }
 
 /**
@@ -262,8 +263,8 @@ function toggleControlsVisibility() {
 * The state is saved in the local storage.
 */
 function adjustControlsVisibility() {
-    try { controlsVisibility = JSON.parse(localStorage.getItem('controlsVisibility'));}
-    catch (error) {controlsVisibility = true;}
+    try { controlsVisibility = JSON.parse(localStorage.getItem('controlsVisibility')); }
+    catch (error) { controlsVisibility = true; }
     if (controlsVisibility || controlsVisibility == null) {
         controlsVisibility = true;
         document.getElementById("showControlsBtnStartscreen").classList.remove("low-opacity");

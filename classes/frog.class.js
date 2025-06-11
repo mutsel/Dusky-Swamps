@@ -78,7 +78,7 @@ class Frog extends MovableObject {
     constructor(x, y, leftBorder, rightBorder) {
         super().loadImage("img/enemies/frog/run/run_01.png");
         super.loadImages(this.imageTypes);
-        this.x = x + Math.random() * 252;
+        this.x = x + Math.random() * 100;
         this.y = y;
         this.leftBorder = leftBorder;
         this.rightBorder = rightBorder;

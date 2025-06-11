@@ -31,6 +31,7 @@ class MovableObject extends DrawableObject {
             } else if (!this.isAboveGround()) {
                 this.speedY = 0;
                 this.isJumping = false;
+                this.touchedGroundBeforeBounce = true;
                 this.y = this.getGroundY();
             }
         }
@@ -121,13 +122,6 @@ class MovableObject extends DrawableObject {
      * This function is used for an object to move right by adding its speed to its x-position. The result is its new x-position.
      */
     moveRight() { this.x += this.speed; }
-
-    // isColliding(mo) {
-    //     return ((this.x + this.offset.left) + (this.width - this.offset.right) > (mo.x + mo.offset.left))
-    //         && ((this.y + this.offset.top) + (this.height - this.offset.bottom) > (mo.y + mo.offset.top))
-    //         && ((this.x + this.offset.left) < (mo.x + mo.offset.left) + (mo.width - mo.offset.right))
-    //         && ((this.y + this.offset.top) < (mo.y + mo.offset.top) + (mo.height - mo.offset.bottom))
-    // }
 
     /**
      * This function checks, whether the object is colliding with another movable object.

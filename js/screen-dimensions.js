@@ -7,8 +7,8 @@ let screenHeight;
 * This way, the previous fullscreen-setting is saved, so the player does not need to adjust it everytime playing.
 */
 function checkScreenDimensionsSettings() {
-    try {fullscreen = JSON.parse(localStorage.getItem('fullscreen'));}
-    catch (error) {fullscreen = false;}
+    try { fullscreen = JSON.parse(localStorage.getItem('fullscreen')); }
+    catch (error) { fullscreen = false; }
     if (fullscreen == null) fullscreen = false;
     localStorage.setItem('fullscreen', JSON.stringify(fullscreen));
     adjustScreenDimensions();
@@ -33,10 +33,11 @@ async function adjustScreenDimensions() {
     adjustDimensionsElements();
     adjustInGameControls();
     adjustFullscreenBtns();
+    adjustMobile();
     document.getElementById("startscreen").scrollIntoView();
     document.getElementById("canvas").scrollIntoView();
 }
- 
+
 /**
 * This function sets the global screenWidth and screenHeight variables.
 * If fullscreen is turned on, the screenwidth is the windows innerWidth and the screenHeight is 2/3 of the screenWidth.
@@ -130,5 +131,21 @@ function adjustFullscreenBtns() {
     } else {
         document.getElementById("fullscreenBtnStartscreen").classList.add("low-opacity");
         document.getElementById("fullscreenBtnGame").classList.add("low-opacity");
+    }
+}
+
+/** 
+* This function toggles the visibility of the title inGame for mobile devices.
+*/
+function adjustMobile() {
+    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+    if (isTouchDevice) {
+        if (inGame) {
+            document.querySelector("body").style.overflow = "hidden";
+            document.querySelector("h1").classList.add("d-none");
+        } else {
+            document.querySelector("body").style.overflow = "auto";
+            document.querySelector("h1").classList.remove("d-none");
+        }
     }
 }

@@ -5,6 +5,7 @@ class World {
     attackBar = new AttackBar();
     gemsBar = new GemsBar();
     endbossHealthbar = new EndbossHealthBar();
+    endboss;
     availableMagicAttacks = [];
     canonballAttacks = [];
     passiveEntities = [
@@ -78,6 +79,7 @@ class World {
         this.healthBar.world = this;
         this.attackBar.world = this;
         this.gemsBar.world = this;
+        this.endboss = this.level.enemies.find(e => e instanceof Endboss);
     }
 
     /**
@@ -148,7 +150,6 @@ class World {
     addToMap(mo) {
         if (mo.otherDirection) this.flipImage(mo);
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
         if (mo.otherDirection) this.flipImageBack(mo);
     }
 
@@ -213,9 +214,8 @@ class World {
      * This function sets stoppable Intervals for all enemies.
      */
     setStoppableIntervalsEnemies() {
-        let endboss = this.level.enemies.find(e => e instanceof Endboss);
-        this.setStoppableInterval(endboss.animateEndboss, 1000 / 12, endboss);
-        this.setStoppableInterval(endboss.applyGravity, 1000 / 60, endboss);
+        this.setStoppableInterval(this.endboss.animateEndboss, 1000 / 12, this.endboss);
+        this.setStoppableInterval(this.endboss.applyGravity, 1000 / 60, this.endboss);
         let otherEnemies = this.level.enemies.filter(e => e instanceof Cactus || e instanceof Frog);
         otherEnemies.forEach(e => {
             this.setStoppableInterval(e.animateMovement, 1000 / 60, e);
@@ -271,13 +271,11 @@ class World {
      */
     characterJumpsOnEnemy(e) {
         e.hit(50);
-        this.character.speedY = 12;
-        playAudio("enemyHurtJump");
+        this.character.bounce(e instanceof Endboss);
         if (e instanceof Cactus) {
             this.character.hit(25);
             this.healthBar.setPercentage(this.character.energy);
         }
-        if (e instanceof Endboss) this.endbossHealthbar.setPercentageEndboss(e.energy / 2.5);
     }
 
     /**

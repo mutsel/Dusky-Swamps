@@ -524,7 +524,6 @@ canvas {
             height: clamp(1rem, min(5vw, 7.5vh), 5rem);
             background-color: transparent;
             background-size: cover;
-            background-repeat: no-repeat;
         }
 
         .up-btn {
@@ -567,7 +566,7 @@ canvas {
 
         img {
             width: auto;
-            height: clamp(3.875rem, min(19.375vw, 23.5625vh), 15.5rem);
+            height: clamp(7.75rem, min(38.75vw, 47.125vh), 31rem);
         }
     }
 }
@@ -613,6 +612,10 @@ canvas {
 }
 
 @media screen and (orientation: portrait) and (pointer: coarse) and (max-width: 950px) {
+    body {
+        overflow: hidden;
+    }
+
     .mobile-alert {
         display: flex !important;
     }
@@ -624,6 +627,11 @@ canvas {
     }
 
     .controls {
-        margin-top: 0 !important;
+        display: none;
+    }
+
+    .show-controls-btn {
+        filter: opacity(0.5);
+        pointer-events: none;
     }
 }

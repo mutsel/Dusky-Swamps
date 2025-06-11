@@ -42,25 +42,4 @@ class DrawableObject {
         try { ctx.drawImage(this.img, this.x, this.y, this.width, this.height) }
         catch (error) { return }
     }
-
-    /**
-     * For test purposes only!
-     * This function draws a frame around each movable Object with collision.
-     * 
-     * @param {string} ctx - the context, where the frame should be drawn 
-     */
-    drawFrame(ctx) {
-        // if (this instanceof Character || this instanceof Cactus || this instanceof Frog || this instanceof Endboss) {
-        //     ctx.beginPath();
-        //     ctx.rect(this.x, this.y, this.width, this.height);
-        //     ctx.lineWidth = '3';
-        //     ctx.strokeStyle = 'darkblue';
-        //     ctx.stroke();
-        //     // ctx.beginPath();
-        //     // ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.right, this.height - this.offset.bottom);
-        //     // ctx.lineWidth = '2';
-        //     // ctx.strokeStyle = 'red';
-        //     // ctx.stroke();
-        // }
-    }
 }

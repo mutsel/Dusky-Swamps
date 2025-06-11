@@ -6,6 +6,7 @@ class Character extends MovableObject {
     speed = 4;
     world;
     timeIdling = 0;
+    touchedGroundBeforeBounce = true;
 
     IMAGES_ATTACK = [
         'img/character/hit/hit_03.png',
@@ -87,7 +88,7 @@ class Character extends MovableObject {
         'img/character/run/run_06.png',
         'img/character/run/run_07.png',
         'img/character/run/run_08.png',
-        'img/character/run/run_09.png', 
+        'img/character/run/run_09.png',
         'img/character/run/run_10.png',
         'img/character/run/run_11.png',
         'img/character/run/run_12.png',
@@ -215,4 +216,32 @@ class Character extends MovableObject {
     * This means, the player is alive and the game has not ended jet.
     */
     longIdlingPossible() { return this.isAlive && !this.world.gameEndCalled && !this.world.gamePaused; }
+
+    /**
+     * This function lets the character bounces in the air, when jumping on top of an enemy.
+     * 
+     * @param {boolean} jumpOnEndboss - whether the jumped on enemy is the endboss or not (true/false)
+     */
+    bounce(jumpOnEndboss) {
+        playAudio("enemyHurtJump");
+        if (this.touchedGroundBeforeBounce) {
+            this.speedY = 12;
+            this.touchedGroundBeforeBounce = false;
+        }
+        if (jumpOnEndboss) this.endbossBounce();
+    }
+
+    /**
+    * This function expands the bounce-effect when jumping on the endboss. 
+    * The character also moves to the left or right, depending on the characters direction.
+    */
+    endbossBounce() {
+        this.world.endbossHealthbar.setPercentageEndboss(this.world.endboss.energy / 2.5);
+        if (this.otherDirection) this.world.keyboard.RIGHT = true;
+        else this.world.keyboard.LEFT = true;
+        setTimeout(() => {
+            this.world.keyboard.RIGHT = false;
+            this.world.keyboard.LEFT = false;
+        }, 500);
+    }
 }

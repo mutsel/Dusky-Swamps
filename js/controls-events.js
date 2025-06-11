@@ -5,6 +5,15 @@
 window.addEventListener('keydown', (e) => { if (document.activeElement.tagName == 'BUTTON') e.preventDefault() });
 
 /**
+* This function prevents the default behavior (a context menu), when longer clicking an object.
+*/
+function disableContextMenu() {
+    document.querySelectorAll('*').forEach(element => {
+        element.addEventListener('contextmenu', (e) => {e.preventDefault();});
+    });
+}
+
+/**
 * This function adds the keydown- and keyup-eventListeners for the game.
 */
 function addEventListeners() {
@@ -48,13 +57,9 @@ function keyDownEvents() {
     switch (event.keyCode) {
         case 38: case 87: keyboard.UP = true;
             break;
-        case 37: case 65: keyboard.LEFT = true;
-            keyboard.RIGHT = false;
-            if (!world.character.isAboveGround()) playAudio("steps");
+        case 37: case 65: keyboardLeftTriggered();
             break;
-        case 39: case 68: keyboard.RIGHT = true;
-            keyboard.LEFT = false;
-            if (!world.character.isAboveGround()) playAudio("steps");
+        case 39: case 68: keyboardRightTriggered();
             break;
         case 40: case 32: keyboard.ATTACK = true;
             break;
@@ -71,14 +76,11 @@ function keyUpEvents() {
     switch (event.keyCode) {
         case 38: case 87: keyboard.UP = false;
             break;
-        case 37: case 65: keyboard.LEFT = false;
-            audios.steps.pause();
+        case 37: case 65: keyboardLeftCancelled();
             break;
-        case 39: case 68: keyboard.RIGHT = false;
-            audios.steps.pause();
+        case 39: case 68: keyboardRightCancelled();
             break;
-        case 40: case 32: keyboard.ATTACK = false;
-            world.attackBar.shootMagicAttack();
+        case 40: case 32: keyboardAttackCancelled();
             break;
     }
 }
@@ -91,11 +93,9 @@ function mobileControlsMousedown(key) {
     switch (key) {
         case 'up': keyboard.UP = true;
             break;
-        case 'left': keyboard.LEFT = true;
-            if (!world.character.isAboveGround()) playAudio("steps");
+        case 'left': keyboardLeftTriggered();
             break;
-        case 'right': keyboard.RIGHT = true;
-            if (!world.character.isAboveGround()) playAudio("steps");
+        case 'right': keyboardRightTriggered();
             break;
         case 'attack': keyboard.ATTACK = true;
             break;
@@ -111,16 +111,55 @@ function mobileControlsMouseup(key) {
     switch (key) {
         case 'up': keyboard.UP = false;
             break;
-        case 'left': keyboard.LEFT = false;
-            audios.steps.pause();
+        case 'left': keyboardLeftCancelled();
             break;
-        case 'right': keyboard.RIGHT = false;
-            audios.steps.pause();
+        case 'right': keyboardRightCancelled();
             break;
-        case 'attack': keyboard.ATTACK = false;
-            world.attackBar.shootMagicAttack();
+        case 'attack': keyboardAttackCancelled();
             break;
     }
+}
+
+/**
+* This function is executed, when the player presses/clicks the key/button to move left.
+*/
+function keyboardLeftTriggered() {
+    keyboard.LEFT = true;
+    keyboard.RIGHT = false;
+    if (!world.character.isAboveGround()) playAudio("steps");
+}
+
+/**
+* This function is executed, when the player presses/clicks the key/button to move right.
+*/
+function keyboardRightTriggered() {
+    keyboard.RIGHT = true;
+    keyboard.LEFT = false;
+    if (!world.character.isAboveGround()) playAudio("steps");
+}
+
+/**
+* This function is executed, when the player leaves the key/button to stop moving left.
+*/
+function keyboardLeftCancelled() {
+    keyboard.LEFT = false;
+    audios.steps.pause();
+}
+
+/**
+* This function is executed, when the player leaves the key/button to stop moving right.
+*/
+function keyboardRightCancelled() {
+    keyboard.RIGHT = false;
+    audios.steps.pause();
+}
+
+/**
+* This function is executed, when the player leaves the key/button to attack.
+*/
+function keyboardAttackCancelled() {
+    keyboard.ATTACK = false;
+    world.attackBar.shootMagicAttack();
 }
 
 /**

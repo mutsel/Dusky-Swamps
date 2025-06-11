@@ -40,6 +40,9 @@ function playAudio(audio) {
     audios[audio].volume = audioVolume;
 }
 
+/**
+* This function pauses all audios.
+*/
 function stopAllAudios() {
     for (let key in audios) {
         if (audios[key] instanceof Audio) {
@@ -64,7 +67,7 @@ function addButtonSounds() {
 * This way, previous audio-settings are saved, so the player does not need to adjust it everytime playing.
 */
 function checkAudioSettings() {
-    try {indexAudioVolume = JSON.parse(localStorage.getItem('indexAudioVolume'));}
+    try { indexAudioVolume = JSON.parse(localStorage.getItem('indexAudioVolume')); }
     catch (error) {
         indexAudioVolume = 2;
         audioVolume = 0.5;
@@ -95,24 +98,24 @@ function toggleAudio() {
 * @param {string} method - if the indexAudioVolume should decrease or increse. If it's empty, it should not change.
 */
 function setAudioVolume(method) {
-    let volumeStartscreenContentRef = document.getElementById("volumeRegulatorStartscreen");
-    let volumeGameContentRef = document.getElementById("volumeRegulatorGame");
     switch (method) {
-        case 'decrease': if (indexAudioVolume > 0) indexAudioVolume-- ;
-            volumeStartscreenContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
-            volumeGameContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
+        case 'decrease': if (indexAudioVolume > 0) indexAudioVolume--;
             break;
-        case 'increase': if (indexAudioVolume < 4) indexAudioVolume++ ;
-            volumeStartscreenContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
-            volumeGameContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
+        case 'increase': if (indexAudioVolume < 4) indexAudioVolume++;
             break;
-        default:
-            volumeStartscreenContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
-            volumeGameContentRef.style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
     }
     localStorage.setItem('indexAudioVolume', JSON.stringify(indexAudioVolume));
+    adjustVolumeRegulatorImages()
     toggleAudioSettingsLowOpacity();
     adjustAudioVolume();
+}
+
+/**
+* This function adjusts the volume-regulator images to the indexAudioVolume.
+*/
+function adjustVolumeRegulatorImages() {
+    document.getElementById("volumeRegulatorStartscreen").style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
+    document.getElementById("volumeRegulatorGame").style.backgroundImage = volumeRegulatorImgs[indexAudioVolume];
 }
 
 /**
