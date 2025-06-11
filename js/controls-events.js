@@ -8,7 +8,7 @@ window.addEventListener('keydown', (e) => { if (document.activeElement.tagName =
 * This function prevents the default behavior (a context menu), when longer clicking an object.
 */
 function disableContextMenu() {
-    document.querySelectorAll('*').forEach(element => {
+    document.querySelectorAll('main').forEach(element => {
         element.addEventListener('contextmenu', (e) => {e.preventDefault();});
     });
 }
