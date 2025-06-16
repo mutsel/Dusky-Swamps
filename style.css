@@ -166,6 +166,22 @@ button:disabled {
     background-image: url("./img/gui/buttons/button_about_pressed.png");
 }
 
+.up-btn {
+    background-image: url("./img/gui/controls/button_up.png");
+}
+
+.left-btn {
+    background-image: url("./img/gui/controls/button_left.png");
+}
+
+.right-btn {
+    background-image: url("./img/gui/controls/button_right.png");
+}
+
+.attack-btn {
+    background-image: url("./img/gui/controls/button_attack.png");
+}
+
 .startscreen {
     width: 720px;
     height: 480px;
@@ -511,43 +527,32 @@ canvas {
     display: none;
 
     .mobile-btns {
-        width: clamp(5.625rem, min(18.75vw, 27.5vh), 18.75rem);
-        padding-right: clamp(0.5rem, min(2.8571vw, 3.9286vh), 2.5rem);
+        width: 100%;
+        padding: 0 clamp(0.5rem, min(2.8571vw, 3.9286vh), 2.5rem);
         margin-top: clamp(0.75rem, min(0.3571vw, 0.5357vh), 1rem);
         transform: translateY(-100%);
         display: flex;
-        flex-direction: column;
         align-items: center;
+        justify-content: space-between;
 
         button {
             width: clamp(1rem, min(5vw, 7.5vh), 5rem);
             height: clamp(1rem, min(5vw, 7.5vh), 5rem);
             background-color: transparent;
             background-size: cover;
+            transform: translateY(-50%);
         }
 
-        .up-btn {
-            background-image: url("./img/gui/controls/button_up.png");
-        }
-
-        div {
-            width: 100%;
+        .btns-right {
             display: flex;
-            justify-content: space-between;
-            transform: translateY(-25%);
+            align-items: center;
+            gap: clamp(0.5rem, min(2.8571vw, 3.9286vh), 2.5rem);
 
-            .left-btn {
-                background-image: url("./img/gui/controls/button_left.png");
+            div {
+                display: flex;
+                flex-direction: column;
+                gap: clamp(0.75rem, min(0.3571vw, 0.5357vh), 1rem);
             }
-
-            .right-btn {
-                background-image: url("./img/gui/controls/button_right.png");
-            }
-        }
-
-        .attack-btn {
-            transform: translateY(-75%);
-            background-image: url("./img/gui/controls/button_attack.png");
         }
     }
 }
@@ -613,7 +618,7 @@ canvas {
 
 @media screen and (orientation: portrait) and (pointer: coarse) and (max-width: 950px) {
     body {
-        overflow: hidden;
+        overflow: hidden !important;
     }
 
     .mobile-alert {
@@ -631,6 +636,11 @@ canvas {
     }
 
     .show-controls-btn {
+        filter: opacity(0.5);
+        pointer-events: none;
+    }
+
+    .settings-controls-fullscreen {
         filter: opacity(0.5);
         pointer-events: none;
     }

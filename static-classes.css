@@ -150,13 +150,20 @@
     }
 
     .mobile-btns {
-        width: 145.6px !important;
-        padding-right: 19.429px !important;
+        padding: 0 19.429px !important;
         margin-top: 13.429px !important;
 
         button {
             width: 44px !important;
             height: 44px !important;
+        }
+
+        .btns-right {
+            gap: 19.429px !important;
+
+            div {
+                gap: 13.429px !important;
+            }
         }
     }
 
@@ -182,7 +189,7 @@
         height: 480px !important;
 
         img {
-            height: 139.5px !important;
+            height: 279px !important;
         }
     }
 }

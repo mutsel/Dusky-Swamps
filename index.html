@@ -85,7 +85,7 @@
                     This game is a small 2D plattformer, where you play as a lost alien on it's way back home.
                     Your goal is to find enough gems to be able to repair your spaceship.
                     But watch out! Dangerous creatures are coming for you.
-                    Fortunately you are able to defend yourself with your magic attack! 
+                    Fortunately you are able to defend yourself with your magic attack!
                     You can also jump on top of enemies, but only once before you need to touch the ground again.
                 </p>
 
@@ -281,16 +281,18 @@
 
         <section id="mobileControls" class="mobile-controls">
             <div id="mobileControlsBtns" class="mobile-btns">
-                <button ontouchstart="mobileControlsMousedown('up')" ontouchend="mobileControlsMouseup('up')"
-                    class="up-btn mobile-control-btn"></button>
-                <div>
-                    <button ontouchstart="mobileControlsMousedown('left')" ontouchend="mobileControlsMouseup('left')"
-                        class="left-btn mobile-control-btn"></button>
+                <button ontouchstart="mobileControlsMousedown('left')" ontouchend="mobileControlsMouseup('left')"
+                    class="left-btn mobile-control-btn"></button>
+                <div class="btns-right">
+                    <div>
+                        <button ontouchstart="mobileControlsMousedown('up')" ontouchend="mobileControlsMouseup('up')"
+                            class="up-btn mobile-control-btn"></button>
+                        <button ontouchstart="mobileControlsMousedown('attack')"
+                            ontouchend="mobileControlsMouseup('attack')" class="attack-btn mobile-control-btn"></button>
+                    </div>
                     <button ontouchstart="mobileControlsMousedown('right')" ontouchend="mobileControlsMouseup('right')"
                         class="right-btn mobile-control-btn"></button>
                 </div>
-                <button ontouchstart="mobileControlsMousedown('attack')" ontouchend="mobileControlsMouseup('attack')"
-                    class="attack-btn mobile-control-btn"></button>
             </div>
         </section>
 

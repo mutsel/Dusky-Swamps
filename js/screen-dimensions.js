@@ -44,7 +44,7 @@ async function adjustScreenDimensions() {
 * If fullscreen is turned off, the screenwidth and screenHeight are set to their default values.
 */
 async function getScreenDimensions() {
-    if (fullscreen || window.innerWidth <= 720) {
+    if (fullscreen || window.innerWidth <= 720 || window.matchMedia('(pointer: coarse)').matches) {
         screenWidth = window.innerWidth;
         screenHeight = window.innerWidth * 0.66;
         if (window.innerWidth > 1440) getScreenDimensionsBigWidth();
@@ -103,7 +103,7 @@ function adjustDimensionsElements() {
         document.getElementById("controls")
     ]
     staticElements.forEach(e => {
-        if (fullscreen || screenWidth < 720 || screenHeight < 480) e.classList.remove("static-size");
+        if (fullscreen || screenWidth < 720 || screenHeight < 480 || window.matchMedia('(pointer: coarse)').matches) e.classList.remove("static-size");
         else e.classList.add("static-size");
     });
 }
