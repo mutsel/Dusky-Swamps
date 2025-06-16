@@ -2,6 +2,10 @@ let fullscreen;
 let screenWidth;
 let screenHeight;
 
+window.addEventListener("resize", adjustScreenDimensions);
+window.visualViewport?.addEventListener("resize", adjustScreenDimensions);
+window.addEventListener("orientationchange", adjustScreenDimensions);
+
 /**
 * This function checks if the fullscreen-setting is deposited in the local storage.
 * This way, the previous fullscreen-setting is saved, so the player does not need to adjust it everytime playing.
@@ -27,8 +31,8 @@ function toggleFullscreen() {
 * This function executes the screen-dimensions-functions, so that the screenHeight and -Width are adjusted to the settings and window-size.
 * The viewport is adjusted to the canvas and startscreen, if necessary (i.e. if the viewport is too small to also show the game title).
 */
-async function adjustScreenDimensions() {
-    await getScreenDimensions();
+function adjustScreenDimensions() {
+    getScreenDimensions();
     adjustDimensionsContent();
     adjustDimensionsElements();
     adjustInGameControls();
@@ -77,7 +81,6 @@ function getScreenDimensionsSmallHeight() {
 * The contents elements are also adjusted to the screenWidth and -Height.
 */
 function adjustDimensionsContent() {
-    document.getElementById("content").style.width = screenWidth + "px";
     let contentElements = [
         document.getElementById("canvas"),
         document.getElementById("startscreen"),

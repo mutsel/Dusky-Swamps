@@ -25,8 +25,8 @@ function init() {
     checkAudioSettings();
     adjustControlsVisibility();
     checkScreenDimensionsSettings();
+    adjustScreenDimensions();
     addButtonSounds();
-    adjustMobile();
     disableContextMenu();
 }
 
@@ -44,8 +44,7 @@ function startGame() {
     checkAudioSettings();
     adjustControlsVisibility();
     checkScreenDimensionsSettings();
-    adjustDimensionsContent();
-    adjustMobile();
+    adjustScreenDimensions();
 }
 
 /**
