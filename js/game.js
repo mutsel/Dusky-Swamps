@@ -131,14 +131,13 @@ function openHowToPlay() {
 function openAbout() {
     document.getElementById("startscreenOverview").classList.add("d-none");
     document.getElementById("startscreenAbout").classList.remove("d-none");
-    document.getElementById("startscreenImpress").classList.add("d-none")
 }
 
 /**
 * This function opens the impress-section in the about-section.
 */
 function openImpress() {
-    document.getElementById("startscreenAbout").classList.add("d-none");
+    document.getElementById("startscreenOverview").classList.add("d-none");
     document.getElementById("startscreenImpress").classList.remove("d-none");
 }
 

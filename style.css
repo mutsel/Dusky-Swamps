@@ -166,6 +166,14 @@ button:disabled {
     background-image: url("./img/gui/buttons/button_about_pressed.png");
 }
 
+.external-btn {
+    background-image: url("./img/gui/buttons/button_external.png");
+}
+
+.external-btn:hover {
+    background-image: url("./img/gui/buttons/button_external_pressed.png");
+}
+
 .up-btn {
     background-image: url("./img/gui/controls/button_up.png");
 }
@@ -230,8 +238,9 @@ button:disabled {
         }
 
         p,
-        a {
-            font-size: clamp(0.875rem, min(1.7857vw, 2.6786vh), 2.125rem);
+        a,
+        span {
+            font-size: clamp(0.75rem, min(2.5vw, 3.125vh), 1.625rem);
             text-align: center;
         }
 
@@ -240,34 +249,25 @@ button:disabled {
         }
 
         .startscreen-overview-btns {
-            gap: clamp(0.75rem, min(1.7857vw, 3.2143vh), 2rem);
+            height: 100%;
             display: flex;
-            flex-direction: column;
-            align-items: center;
 
-            h2 {
-                padding: 0;
-            }
-
-            div {
-                width: 50%;
-                gap: clamp(0.25rem, min(0.7143vw, 1.4286vh), 0.75rem);
+            .overview-btns-column {
                 display: flex;
                 flex-direction: column;
-                align-items: center;
-            }
+                justify-content: space-between;
 
-            .overview-btns-first-row {
-                width: 100%;
+                .settings-btn {
+                    margin-top: clamp(0.5rem, min(2.8571vw, 3.9286vh), 2.5rem);
+                    align-self: start;
+                }
 
                 .gif-character {
-                    height: 0;
+                    width: clamp(1.641rem, min(5.1561vw, 6.016vh), 4.375rem);
+                    height: clamp(2.344rem, min(7.366vw, 8.594vh), 6.25rem);
 
                     img {
-                        width: clamp(1.641rem, min(5.1561vw, 6.016vh), 4.375rem);
-                        height: clamp(2.344rem, min(7.366vw, 8.594vh), 6.25rem);
-                        margin-top: clamp(10rem, min(50vw, 76.19vh), 50rem);
-                        margin-right: clamp(17.5rem, min(83.75vw, 116.52vh), 83.75rem);
+                        height: 100%;
                         position: relative;
                         cursor: grab;
                     }
@@ -277,10 +277,20 @@ button:disabled {
                     }
                 }
 
-                .settings-btn {
-                    margin-top: clamp(0.5rem, min(2.8571vw, 3.9286vh), 2.5rem);
-                    align-self: start;
+                .overview-btn {
+                    margin-right: clamp(1.641rem, min(5.1561vw, 6.016vh), 4.375rem);
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    h2 {
+                        padding: 0;
+                    }
                 }
+            }
+
+            .second-column {
+                flex: 1;
             }
         }
 
@@ -296,7 +306,6 @@ button:disabled {
                 justify-content: end;
 
                 span {
-                    font-size: clamp(0.75rem, min(2.5vw, 3.125vh), 1.625rem);
                     padding-top: clamp(0.25rem, min(3.333vw, 4.464vh), 1rem);
                     line-height: 0.9;
                     text-align: center;
@@ -336,21 +345,6 @@ button:disabled {
 
             .artist {
                 text-align: right;
-            }
-        }
-
-        .externals {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: clamp(0.75rem, min(1.7857vw, 2.6786vh), 2rem);
-
-            .external-btn {
-                background-image: url("./img/gui/buttons/button_external.png");
-            }
-
-            .external-btn:hover {
-                background-image: url("./img/gui/buttons/button_external_pressed.png");
             }
         }
     }

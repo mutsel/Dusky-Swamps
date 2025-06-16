@@ -53,24 +53,31 @@
         <section id="startscreen" class="startscreen">
             <div id="startscreenOverview" class="startscreen-overview startscreen-menu">
                 <div class="startscreen-overview-btns">
-                    <div class="overview-btns-first-row">
+                    <div class="overview-btns-column">
+                        <button onclick="openStartscreenSettings()" class="settings-btn round-btn"></button>
                         <div class="gif-character" onclick="playStartscreenAnimation()">
                             <img id="characterAnimation" src="./img/gif/character.gif">
                         </div>
-                        <button onclick="openStartscreenSettings()" class="settings-btn round-btn"></button>
                     </div>
-                    <div>
-                        <button onclick="startGame()" class="start-btn rectangle-btn"></button>
-                        <h2>Start</h2>
+                    <div class="overview-btns-column second-column">
+                        <div class="overview-btn">
+                            <button onclick="startGame()" class="start-btn rectangle-btn"></button>
+                            <h2>Start</h2>
+                        </div>
+                        <div class="overview-btn">
+                            <button onclick="openHowToPlay()" class="how-to-play-btn rectangle-btn"></button>
+                            <h2>How to play</h2>
+                        </div>
+                        <div class="overview-btn">
+                            <button onclick="openAbout()" class="about-btn rectangle-btn"></button>
+                            <h2>About the Game</h2>
+                        </div>
+                        <div class="overview-btn">
+                            <button onclick="openImpress()" class="external-btn rectangle-btn"></button>
+                            <h2>Impress</h2>
+                        </div>
                     </div>
-                    <div>
-                        <button onclick="openHowToPlay()" class="how-to-play-btn rectangle-btn"></button>
-                        <h2>How to play</h2>
-                    </div>
-                    <div>
-                        <button onclick="openAbout()" class="about-btn rectangle-btn"></button>
-                        <h2>About the Game</h2>
-                    </div>
+
                 </div>
             </div>
 
@@ -166,16 +173,11 @@
                         </tr>
                     </table>
                 </div>
-
-                <div class="externals">
-                    <button onclick="openImpress()" class="external-btn rectangle-btn"></button>
-                    <h2>Impress</h2>
-                </div>
             </div>
 
             <div id="startscreenImpress" class="startscreen-impress startscreen-menu d-none">
                 <div class="startscreen-headline">
-                    <button onclick="openAbout()" class="back-btn round-btn"></button>
+                    <button onclick="init()" class="back-btn round-btn"></button>
                     <h2>Impress</h2>
                 </div>
 

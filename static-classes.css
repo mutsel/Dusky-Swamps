@@ -35,23 +35,19 @@
         gap: 26px !important;
 
         .startscreen-overview-btns {
-            gap: 12px !important;
+            .overview-btns-column {
+                .settings-btn {
+                    margin-top: 14.11px !important;
+                }
 
-            .gif-character {
-                img {
+                .gif-character {
                     width: 41.875px !important;
                     height: 59.813px !important;
-                    margin-top: 360px !important;
-                    margin-right: 603px !important;
                 }
-            }
 
-            .settings-btn {
-                margin-top: 14.11px !important;
-            }
-
-            div {
-                gap: 8px !important;
+                .overview-btns-column {
+                    margin-right: 41.875px !important;
+                }
             }
         }
     }
