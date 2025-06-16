@@ -621,6 +621,10 @@ canvas {
 }
 
 @media screen and (pointer: coarse) {
+    body {
+        overflow-x: hidden !important;
+    }
+
     .mobile-controls {
         display: block;
     }

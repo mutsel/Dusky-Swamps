@@ -142,9 +142,12 @@ function adjustMobile() {
     if (isTouchDevice) {
         if (inGame) {
             document.querySelector("body").style.overflow = "hidden";
+            document.querySelector("body").style.display = "flex";
+            document.querySelector("body").style.alignItems = "center";
             document.querySelector("h1").classList.add("d-none");
         } else {
             document.querySelector("body").style.overflow = "auto";
+            document.querySelector("body").style.display = "block";
             document.querySelector("h1").classList.remove("d-none");
         }
     }
