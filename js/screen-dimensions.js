@@ -2,6 +2,10 @@ let fullscreen;
 let screenWidth;
 let screenHeight;
 
+/**
+* These functions add event-listeneres to the window.
+* This way, on every resize or orientation-change, the adjustScreenDimensions()-function is called.
+*/
 window.addEventListener("resize", adjustScreenDimensions);
 window.visualViewport?.addEventListener("resize", adjustScreenDimensions);
 window.addEventListener("orientationchange", adjustScreenDimensions);
@@ -37,7 +41,6 @@ function adjustScreenDimensions() {
     adjustDimensionsElements();
     adjustInGameControls();
     adjustFullscreenBtns();
-    adjustMobile();
     document.getElementById("startscreen").scrollIntoView();
     document.getElementById("canvas").scrollIntoView();
 }
@@ -134,24 +137,5 @@ function adjustFullscreenBtns() {
     } else {
         document.getElementById("fullscreenBtnStartscreen").classList.add("low-opacity");
         document.getElementById("fullscreenBtnGame").classList.add("low-opacity");
-    }
-}
-
-/** 
-* This function toggles the visibility of the title inGame for mobile devices.
-*/
-function adjustMobile() {
-    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-    if (isTouchDevice) {
-        if (inGame) {
-            document.querySelector("body").style.overflow = "hidden";
-            document.querySelector("body").style.display = "flex";
-            document.querySelector("body").style.alignItems = "center";
-            document.querySelector("h1").classList.add("d-none");
-        } else {
-            document.querySelector("body").style.overflow = "auto";
-            document.querySelector("body").style.display = "block";
-            document.querySelector("h1").classList.remove("d-none");
-        }
     }
 }

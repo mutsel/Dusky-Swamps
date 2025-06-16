@@ -530,8 +530,8 @@ canvas {
         justify-content: space-between;
 
         button {
-            width: clamp(1rem, min(5vw, 7.5vh), 5rem);
-            height: clamp(1rem, min(5vw, 7.5vh), 5rem);
+            width: clamp(1.25rem, min(6.25vw, 9.375vh), 6.25rem);
+            height: clamp(1.25rem, min(6.25vw, 9.375vh), 6.25rem);
             background-color: transparent;
             background-size: cover;
             transform: translateY(-50%);
@@ -611,10 +611,6 @@ canvas {
 }
 
 @media screen and (orientation: portrait) and (pointer: coarse) and (max-width: 950px) {
-    body {
-        overflow: hidden !important;
-    }
-
     .mobile-alert {
         display: flex !important;
     }
@@ -622,7 +618,13 @@ canvas {
 
 @media screen and (pointer: coarse) {
     body {
-        overflow-x: hidden !important;
+        overflow: hidden !important;
+        display: flex;
+        align-items: center;
+    }
+
+    h1 {
+        display: none;
     }
 
     .mobile-controls {
